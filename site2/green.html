@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags Preserved -->
+    <title>ChowdhuryX | Future of IT Consulting</title>
+    <meta name="description" content="ChowdhuryX Organization LLC offers premium US-based IT consulting, recruitment (C2C/C2H), software development, and BPO services starting at $10/hr.">
+    <meta name="keywords" content="IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX">
+    <meta name="robots" content="index, follow">
+    <!-- UPDATED: Theme Color to Green -->
+    <meta name="theme-color" content="#10b981">
+    
+    <!-- Fonts: Outfit & Space Grotesk for Modern Tech Feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (Modern Replacement for FontAwesome) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',   // Very light green
+                            100: '#d1fae5',
+                            400: '#34d399',  // Bright green (accents)
+                            500: '#10b981',  // PRIMARY GREEN (Emerald)
+                            600: '#059669',  // Darker green (hover)
+                            700: '#047857',
+                            900: '#064e3b',  // Deep forest green
+                        },
+                        dark: {
+                            950: '#020617', // Deep space blue/black
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'blob': 'blob 10s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            // UPDATED: Green Glow
+                            '0%': { boxShadow: '0 0 20px -5px rgba(16, 185, 129, 0.3)' },
+                            '100%': { boxShadow: '0 0 30px 5px rgba(16, 185, 129, 0.6)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-nav {
+            background: rgba(2, 6, 23, 0.6);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.3);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(30, 41, 59, 0.5);
+            /* UPDATED: Green Border & Shadow on Hover */
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            /* UPDATED: Green to Teal Gradient */
+            background: linear-gradient(135deg, #34d399 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Page Transitions */
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        /* UPDATED: Green Scrollbar Hover */
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+    </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+    <!-- Ambient Background FX -->
+    <div class="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-600/10 rounded-full blur-[120px] animate-blob"></div>
+        <!-- UPDATED: Changed to Teal for cool ambient light -->
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-teal-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo with Image Replacement -->
+                <a href="#" onclick="route('home')" class="flex items-center gap-3 group relative z-50">
+                    <div class="relative w-12 h-12 flex items-center justify-center">
+                        <!-- THE LOGO IMAGE -->
+                        <img src="images/ChowdhuryX-logo.jsp" 
+                             alt="ChowdhuryX Logo" 
+                             class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        
+                        <!-- Fallback Logo (If image missing) -->
+                        <!-- UPDATED: Gradient to Teal -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-brand-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/20" style="display:none;">
+                            <span class="text-white font-display font-bold text-xl">C</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-display font-bold text-white leading-none tracking-tight group-hover:text-brand-400 transition-colors">Chowdhury<span class="text-brand-500">X</span></span>
+                        <span class="text-[9px] uppercase tracking-[0.2em] text-gray-500 font-bold mt-1">Organization LLC</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <button onclick="route('home')" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors relative group" id="nav-home">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
+                    </button>
+                    <button onclick="route('about')" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors relative group" id="nav-about">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
+                    </button>
+                    
+                    <!-- Modern Dropdown -->
+                    <div class="relative group">
+                        <button onclick="route('services')" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors flex items-center gap-1" id="nav-services">
+                            Services <i data-lucide="chevron-down" class="w-3 h-3 mt-0.5 opacity-70 group-hover:rotate-180 transition-transform"></i>
+                        </button>
+                        <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 w-72">
+                            <div class="glass-card bg-dark-900/90 rounded-2xl p-2 shadow-2xl overflow-hidden">
+                                <a onclick="route('services', 'srv-bpo')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group/item">
+                                    <div class="p-2 bg-orange-500/10 rounded-lg text-orange-400 group-hover/item:bg-orange-500/20"><i data-lucide="headset" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium text-gray-300 group-hover/item:text-white">BPO Services</span>
+                                </a>
+                                <a onclick="route('services', 'srv-consultant')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group/item">
+                                    <div class="p-2 bg-green-500/10 rounded-lg text-green-400 group-hover/item:bg-green-500/20"><i data-lucide="laptop" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium text-gray-300 group-hover/item:text-white">Remote Consultants</span>
+                                </a>
+                                <a onclick="route('services', 'srv-marketing')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group/item">
+                                    <div class="p-2 bg-pink-500/10 rounded-lg text-pink-400 group-hover/item:bg-pink-500/20"><i data-lucide="megaphone" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium text-gray-300 group-hover/item:text-white">Digital Marketing</span>
+                                </a>
+                                <a onclick="route('services', 'srv-software')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group/item">
+                                    <div class="p-2 bg-blue-500/10 rounded-lg text-blue-400 group-hover/item:bg-blue-500/20"><i data-lucide="code-2" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium text-gray-300 group-hover/item:text-white">Software Dev</span>
+                                </a>
+                                <a onclick="route('services', 'srv-recruitment')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group/item">
+                                    <div class="p-2 bg-indigo-500/10 rounded-lg text-indigo-400 group-hover/item:bg-indigo-500/20"><i data-lucide="users" class="w-4 h-4"></i></div>
+                                    <span class="text-sm font-medium text-gray-300 group-hover/item:text-white">Recruitment</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="route('faq')" class="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors relative group" id="nav-faq">
+                        FAQs
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
+                    </button>
+                    
+                    <button onclick="route('contact')" class="ml-4 px-6 py-2.5 bg-white text-dark-950 text-sm font-bold rounded-full hover:bg-brand-50 transition-all transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center gap-2">
+                        Get Started <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-24 px-6 space-y-4">
+             <button onclick="route('home')" class="text-2xl font-display font-bold text-white">Home</button>
+             <button onclick="route('about')" class="text-2xl font-display font-bold text-gray-400 hover:text-white">About</button>
+             <button onclick="route('services')" class="text-2xl font-display font-bold text-gray-400 hover:text-white">Services</button>
+             <button onclick="route('contact')" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl">Let's Talk</button>
+             <button id="close-mobile-menu" class="absolute top-6 right-6 text-white p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
+        </div>
+    </nav>
+
+    <main class="min-h-screen pt-20">
+
+        <!-- ================= PAGE: HOME ================= -->
+        <div id="home" class="page-section active">
+            <!-- Hero Section -->
+            <section class="relative pt-20 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-6 relative z-10">
+                    <div class="flex flex-col lg:flex-row items-center gap-16">
+                        <div class="lg:w-1/2 space-y-8">
+                            <!-- Animated Badge -->
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium">
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                                </span>
+                                Premier IT Solutions
+                            </div>
+
+                            <h1 class="text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                                Breaking the <br/>
+                                <span class="text-gradient">Barrier.</span>
+                            </h1>
+                            
+                            <p class="text-xl text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-brand-500/30 pl-6">
+                                Empower your business with project-specific remote consultants. 
+                                <span class="text-white font-medium">Starting at $10/hour.</span> 
+                                US-managed quality from a dedicated offshore hub.
+                            </p>
+                            
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <!-- UPDATED: Shadow color to green -->
+                                <button onclick="route('contact')" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+                                    Start Consulting <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
+                                </button>
+                                <button onclick="route('services')" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm">
+                                    Explore Services <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+
+                            <!-- Stats Row -->
+                            <div class="pt-8 flex gap-8 border-t border-white/5">
+                                <div>
+                                    <p class="text-3xl font-display font-bold text-white">24/7</p>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Support</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-display font-bold text-white">$10<span class="text-lg text-brand-500">+</span></p>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Hourly Rate</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-display font-bold text-white">100%</p>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">US Managed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hero Graphic / Dashboard Abstraction -->
+                        <div class="lg:w-1/2 relative animate-float">
+                            <div class="absolute inset-0 bg-brand-500 blur-[100px] opacity-20 pointer-events-none"></div>
+                            <div class="glass-card rounded-3xl p-2 shadow-2xl relative">
+                                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-dark-900 group">
+                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                                         alt="Office" 
+                                         class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
+                                    
+                                    <!-- Floating Cards UI Overlay -->
+                                    <div class="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-xl border-l-4 border-brand-500 flex items-center gap-4">
+                                        <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
+                                            <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-white font-bold text-sm">US-Based Quality Control</p>
+                                            <p class="text-gray-400 text-xs">Sheridan, Wyoming Headquarters</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- RESTORED: "Why Choose Us" / The Consulting Edge Section -->
+            <section class="py-20 bg-dark-900/50 border-y border-white/5 relative">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/2">
+                            <span class="text-brand-400 font-bold tracking-widest uppercase text-sm">The Consulting Edge</span>
+                            <h2 class="text-3xl font-display font-bold text-white mt-2 mb-6">Strategic Solutions, <span class="text-gradient">Scalable Costs</span></h2>
+                            <p class="text-gray-400 text-lg leading-relaxed mb-8">
+                                At ChowdhuryX, we don't just outsource tasks; we provide strategic consulting partners. From BPO to specialized software engineering, our resources integrate seamlessly into your workflow.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
+                                        <i data-lucide="wallet" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-bold text-white">Elite Talent, Accessible Rates.</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
+                                        <i data-lucide="sliders" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-bold text-white">Tailored Consulting Frameworks.</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
+                                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-bold text-white">Rapid Scalability on Demand.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                             <div class="relative">
+                                <!-- UPDATED: Changed gradient to Green/Teal -->
+                                <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500 to-teal-500 opacity-20 blur-xl rounded-2xl"></div>
+                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                    alt="Team collaborating" 
+                                    class="rounded-2xl shadow-2xl w-full border border-white/10 relative z-10 grayscale hover:grayscale-0 transition-all duration-700">
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PAGE: SERVICES ================= -->
+        <div id="services" class="page-section">
+            <div class="py-24 max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Our Expertise</h2>
+                    <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Services that Scale</h1>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                        From individual consultants to full-scale BPO teams, we provide the resources you need to grow.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service Card: BPO -->
+                    <div id="srv-bpo" class="glass-card p-8 rounded-3xl group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-10 transition-opacity transform translate-x-4 group-hover:translate-x-0">
+                            <i data-lucide="headset" class="w-24 h-24 text-white"></i>
+                        </div>
+                        <div class="w-12 h-12 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-400 mb-6">
+                            <i data-lucide="headset" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">BPO Services</h3>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-gray-500">Starting at</span>
+                            <span class="text-xl font-bold text-brand-400">$12<span class="text-sm text-gray-500">/hr</span></span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Experienced customer support executives (Voice/Chat) operating 24/7. Weekly reporting, flexible scalability, and dedicated specialists.
+                        </p>
+                        <button onclick="route('contact')" class="w-full py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white text-sm font-medium transition-colors">
+                            Hire Team
+                        </button>
+                    </div>
+
+                    <!-- Service Card: Remote Consultant -->
+                    <div id="srv-consultant" class="glass-card p-8 rounded-3xl group relative overflow-hidden border-brand-500/30">
+                        <div class="absolute inset-0 bg-brand-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-12 h-12 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 mb-6 relative z-10">
+                            <i data-lucide="laptop" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 relative z-10">Remote IT Consultant</h3>
+                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
+                            <span class="text-sm text-gray-500">Starting at</span>
+                            <span class="text-xl font-bold text-brand-400">$15<span class="text-sm text-gray-500">/hr</span></span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
+                            Dedicated Developers and Engineers aligned with your time zone. Short-term or long-term engagements with US quality assurance.
+                        </p>
+                        <!-- UPDATED: Button shadow to green -->
+                        <button onclick="route('contact')" class="relative z-10 w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-bold transition-colors shadow-lg shadow-brand-500/20">
+                            Find Experts
+                        </button>
+                    </div>
+
+                    <!-- Service Card: Digital Marketing -->
+                    <div id="srv-marketing" class="glass-card p-8 rounded-3xl group relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 mb-6">
+                            <i data-lucide="megaphone" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Digital Marketing</h3>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-gray-500">Starting at</span>
+                            <span class="text-xl font-bold text-brand-400">$10<span class="text-sm text-gray-500">/hr</span></span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            SEO, Social Media Management, Content Strategy, and Google Ads. We manage campaigns during peak engagement hours for maximum ROI.
+                        </p>
+                        <button onclick="route('contact')" class="w-full py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white text-sm font-medium transition-colors">
+                            Boost Traffic
+                        </button>
+                    </div>
+
+                    <!-- Service Card: Software Dev -->
+                    <div id="srv-software" class="glass-card p-8 rounded-3xl group relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-6">
+                            <i data-lucide="code-2" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Software Dev</h3>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-gray-500">Custom</span>
+                            <span class="text-xl font-bold text-brand-400">Quotes</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Full-stack development, Mobile Apps, and SaaS platforms. Tailored engineering from architecture to deployment and maintenance.
+                        </p>
+                        <button onclick="route('contact')" class="w-full py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white text-sm font-medium transition-colors">
+                            Start Project
+                        </button>
+                    </div>
+
+                    <!-- Service Card: RPO -->
+                    <div id="srv-rpo" class="glass-card p-8 rounded-3xl group relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+                            <i data-lucide="network" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">RPO Solutions</h3>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-gray-500">Enterprise</span>
+                            <span class="text-xl font-bold text-brand-400">Scale</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Recruitment Process Outsourcing for high-volume needs. Complex Boolean sourcing, background checks, and pipeline management.
+                        </p>
+                        <button onclick="route('contact')" class="w-full py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white text-sm font-medium transition-colors">
+                            Scale Hiring
+                        </button>
+                    </div>
+
+                    <!-- Service Card: Recruitment -->
+                    <div id="srv-recruitment" class="glass-card p-8 rounded-3xl group relative overflow-hidden">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Recruitment</h3>
+                        <div class="flex items-baseline gap-1 mb-4">
+                            <span class="text-sm text-gray-500">C2C / C2H</span>
+                            <span class="text-xl font-bold text-brand-400">Full-Time</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Hybrid methodology sourcing (Citizens, GC, H1B, TN, OPT). Rigorous screening for US IT requirements and rapid placement.
+                        </p>
+                        <button onclick="route('contact')" class="w-full py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white text-sm font-medium transition-colors">
+                            Find Talent
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE: ABOUT ================= -->
+        <div id="about" class="page-section">
+             <div class="py-24 max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">About Us</h2>
+                        <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">Strategically Headquartered in <span class="text-gradient">Wyoming</span></h1>
+                        
+                        <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                            <p>
+                                ChowdhuryX Organization LLC is a dynamic US-based IT Services and Consulting company. Registered out of <strong>Sheridan, Wyoming</strong>, we operate with a strategic virtual office model built on the core principle of providing unparalleled IT services to US-based clients.
+                            </p>
+                            <p>
+                                Our dedicated offshore hub serves as our backbone, efficiently managing backend processes while ensuring seamless, high-quality support that drives client success across the country.
+                            </p>
+                        </div>
+                        
+                        <!-- RESTORED: "Partnering for Sustainable Growth" Content -->
+                        <div class="mt-8 p-6 glass-card border-l-4 border-brand-500 rounded-r-xl">
+                             <h4 class="font-bold text-white text-lg mb-2">Partnering for Sustainable Growth</h4>
+                             <p class="text-gray-400">We are the strategic backbone that supports your business's journey toward sustained success.</p>
+                        </div>
+
+                        <div class="mt-8 flex gap-4">
+                            <div class="glass-card p-4 rounded-xl flex items-center gap-3">
+                                <i data-lucide="map-pin" class="text-brand-400"></i>
+                                <div>
+                                    <p class="text-white font-bold text-sm">Sheridan, WY</p>
+                                    <p class="text-xs text-gray-500">Registered Office</p>
+                                </div>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl flex items-center gap-3">
+                                <i data-lucide="globe" class="text-brand-400"></i>
+                                <div>
+                                    <p class="text-white font-bold text-sm">Nationwide</p>
+                                    <p class="text-xs text-gray-500">Service Area</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brand-500 blur-[80px] opacity-20"></div>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="rounded-3xl border border-white/10 shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700"
+                             alt="About Us">
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- ================= PAGE: FAQ ================= -->
+        <div id="faq" class="page-section">
+            <div class="py-24 max-w-3xl mx-auto px-6">
+                <h1 class="text-4xl font-display font-bold text-white mb-12 text-center">Common Questions</h1>
+                <div class="space-y-4">
+                    <!-- FAQ Items with updated styling -->
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            What services do you offer?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             We offer recruitment, software development, digital marketing, and BPO services tailored to meet specific business needs efficiently and affordably.
+                        </div>
+                    </div>
+
+                    <!-- RESTORED: Missing FAQ 1 -->
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            How can I start working with you?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             Simply reach out through our contact form or give us a call, and our team will guide you through the process.
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            Are your services really that affordable?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             Yes, we start services at just $10 per hour, delivering high-quality solutions while keeping costs manageable for businesses of all sizes.
+                        </div>
+                    </div>
+
+                    <!-- RESTORED: Missing FAQ 2 -->
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            What is your recruitment process like?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             Our recruitment involves identification, screening, and interviewing of candidates to ensure a perfect match for your organizational needs.
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            Can I hire for short-term projects?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             Absolutely! We offer the flexibility of hiring talent on an hourly basis, making it easy to manage project-specific needs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE: CONTACT ================= -->
+        <div id="contact" class="page-section">
+            <div class="min-h-[80vh] flex items-center justify-center relative">
+                 <div class="max-w-4xl mx-auto px-6 w-full relative z-10">
+                    <div class="glass-card rounded-[2.5rem] p-10 md:p-16 text-center border-brand-500/20">
+                        <!-- UPDATED: Glow animation color -->
+                        <div class="inline-flex h-20 w-20 rounded-full bg-brand-500/20 items-center justify-center text-brand-400 mb-8 animate-glow">
+                            <i data-lucide="send" class="w-8 h-8"></i>
+                        </div>
+                        
+                        <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Ready to Scale?</h1>
+                        <p class="text-gray-400 text-lg mb-12 max-w-xl mx-auto">
+                            Connect directly with our leadership team for a customized proposal. We usually respond within 24 hours.
+                        </p>
+
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                            <a href="mailto:info@chowdhuryx.com" class="w-full md:w-auto px-8 py-4 bg-white text-dark-950 font-bold rounded-xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                                info@chowdhuryx.com
+                            </a>
+                            
+                            <a href="tel:3074295757" class="w-full md:w-auto px-8 py-4 glass-card hover:bg-white/10 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="phone" class="w-5 h-5"></i> 307 429 5757
+                            </a>
+                        </div>
+
+                        <div class="mt-12 pt-8 border-t border-white/10 text-center grid md:grid-cols-2 gap-8 text-left">
+                            <div class="flex items-center gap-4 justify-center md:justify-start">
+                                <div class="p-3 bg-white/5 rounded-lg text-brand-400"><i data-lucide="map-pin"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Registered Office</p>
+                                    <p class="text-white font-medium text-sm">30 N Gould St Ste, R,<br>Sheridan, Wyoming 82801</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 justify-center md:justify-start">
+                                <div class="p-3 bg-white/5 rounded-lg text-brand-400"><i data-lucide="clock"></i></div>
+                                <div>
+                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Response Time</p>
+                                    <p class="text-white font-medium text-sm">Usually within 24 hours</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-dark-950 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="font-display font-bold text-xl text-white">Chowdhury<span class="text-brand-500">X</span></span>
+            </div>
+            <p class="text-gray-500 text-sm">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            </div>
+        </div>
+    </footer>
+
+ 
+    <!-- Hidden Developer Info Panel -->
+    <div id="dev-panel" class="fixed bottom-5 right-5 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
+        <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl border border-slate-700 w-[400px] backdrop-blur-md bg-opacity-95">
+           <div class="flex items-center gap-3 mb-4 border-b border-slate-700 pb-3">
+                <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg leading-none">Developer Info</h4>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">System Status</span>
+                </div>
+                <button onclick="toggleDevPanel()" class="ml-auto text-slate-400 hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <ul class="space-y-3 text-sm">
+                <li class="flex justify-between items-center">
+                    <span class="text-slate-400"><i class="fas fa-building mr-2"></i>Developer</span>
+                    <span class="font-medium text-brand-400 text-right">Manikanta</span>
+                </li>
+                <li class="flex justify-between items-center">
+                    <span class="text-slate-400"><i class="fas fa-code-branch mr-2"></i>Version</span>
+                    <span class="font-mono bg-slate-800 px-2 py-0.5 rounded text-xs">v1.1.0</span>
+                </li>
+                <li class="flex justify-between items-center">
+                    <span class="text-slate-400"><i class="far fa-calendar-alt mr-2"></i>Release</span>
+                    <span>Dec 2025</span>
+                </li>
+                <li class="flex justify-between items-center">
+                    <span class="text-slate-400"><i class="fas fa-layer-group mr-2"></i>Stack</span>
+                    <span class="text-right">HTML, CSS , JS</span>
+                </li>
+                 <li class="flex justify-between items-center pt-2 border-t border-slate-700 mt-2">
+                    <span class="text-slate-400"><i class="fas fa-envelope mr-2"></i>Contact</span>
+                    <a href="mailto:info@chowdhuryx.com" class="text-brand-400 hover:underline">chelamalla.manikanta28@gmail.com</a>
+                </li>
+            </ul>
+            <div class="mt-4 text-center">
+                <p class="text-[10px] text-slate-500">Press <span class="bg-slate-800 px-1 rounded text-slate-300">Esc</span> to close</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Router Logic
+        function route(pageId, sectionId = null) {
+            // Update Pages
+            document.querySelectorAll('.page-section').forEach(p => {
+                p.classList.remove('active');
+                if(p.id === pageId) setTimeout(() => p.classList.add('active'), 50);
+            });
+
+            // Update Nav State
+            document.querySelectorAll('nav button').forEach(b => {
+                const span = b.querySelector('span');
+                if(span) span.style.width = '0';
+            });
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if(activeBtn) {
+                const span = activeBtn.querySelector('span');
+                if(span) span.style.width = '100%';
+            }
+
+            // Close Mobile Menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('mobile-menu').classList.remove('flex');
+
+            // Scroll Handling
+            if(sectionId) {
+                setTimeout(() => {
+                    const el = document.getElementById(sectionId);
+                    if(el) {
+                        const offset = 100;
+                        const bodyRect = document.body.getBoundingClientRect().top;
+                        const elementRect = el.getBoundingClientRect().top;
+                        const elementPosition = elementRect - bodyRect;
+                        const offsetPosition = elementPosition - offset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }, 100);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+        });
+
+        document.getElementById('close-mobile-menu').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+        });
+
+        // FAQ Toggle Logic
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(45deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Developer Panel Logic
+        function toggleDevPanel() {
+            const panel = document.getElementById('dev-panel');
+            if (panel.classList.contains('opacity-0')) {
+                // Show
+                panel.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            } else {
+                // Hide
+                panel.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + Shift + D
+            if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+                e.preventDefault();
+                toggleDevPanel();
+            }
+            // Esc to close
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('dev-panel');
+                if (!panel.classList.contains('opacity-0')) {
+                    toggleDevPanel();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
