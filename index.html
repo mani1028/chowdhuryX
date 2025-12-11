@@ -12,17 +12,19 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#10b981">
     
-    <!-- Fonts: Outfit & Space Grotesk for Modern Tech Feel -->
+    <!-- Fonts: Outfit & Space Grotesk for Modern Tech Feel (Optimized with display=swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Lucide Icons (Deferred to prevent render blocking) -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <!-- Font Awesome (Non-blocking load) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 
     <script>
         tailwind.config = {
@@ -164,9 +166,11 @@
         <div class="glass-nav rounded-b-[2.5rem] px-8 py-3 w-full max-w-7xl flex justify-between items-center transition-all duration-300">
             
             <!-- Logo Image Replacement (Matches White Background) -->
-            <a href="javascript:void(0)" onclick="route('home')" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
+            <!-- SEO FIX: Added href and width/height -->
+            <a href="#home" onclick="route('home', event)" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
                 <img src="/images/chowduryx-removebg-preview.png" 
-                     alt="ChowdhuryX" 
+                     alt="ChowdhuryX Logo" 
+                     width="180" height="48"
                      class="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                 
@@ -178,50 +182,52 @@
             </a>
             
             <!-- Desktop Menu (Updated for White Nav) -->
+            <!-- SEO FIX: Changed buttons to anchor tags -->
             <div class="hidden md:flex items-center space-x-1">
-                <button onclick="route('home')" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
+                <a href="#home" onclick="route('home', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
                     Home
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </button>
-                <button onclick="route('about')" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-about">
+                </a>
+                <a href="#about" onclick="route('about', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-about">
                     About
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </button>
+                </a>
                 
                 <!-- Modern Dropdown -->
                 <div class="relative group">
-                    <button onclick="route('services')" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors flex items-center gap-1" id="nav-services">
+                    <a href="#services" onclick="route('services', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors flex items-center gap-1 cursor-pointer" id="nav-services">
                         Services <i data-lucide="chevron-down" class="w-3 h-3 mt-0.5 opacity-70 group-hover:rotate-180 transition-transform"></i>
-                    </button>
+                    </a>
                     <!-- Dropdown Menu -->
                     <div class="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 w-72">
                         <!-- Changed to high transparency dark glass for visibility over dark background -->
                         <div class="bg-slate-900/60 backdrop-blur-md rounded-2xl p-2 shadow-2xl border border-white/10 overflow-hidden ring-1 ring-black/5">
-                            <a onclick="route('services', 'srv-bpo')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <!-- SEO FIX: Links inside dropdown are now crawlable -->
+                            <a href="#services-bpo" onclick="route('services', 'srv-bpo', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400"><i data-lucide="headset" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-orange-400">BPO Services</span>
                             </a>
-                            <a onclick="route('services', 'srv-webdev')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-webdev" onclick="route('services', 'srv-webdev', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-cyan-500/20 rounded-lg text-cyan-400"><i data-lucide="layout" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-cyan-400">Web Development</span>
                             </a>
-                            <a onclick="route('services', 'srv-consultant')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-consultant" onclick="route('services', 'srv-consultant', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-green-500/20 rounded-lg text-green-400"><i data-lucide="laptop" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-green-400">Remote Consultants</span>
                             </a>
-                            <a onclick="route('services', 'srv-marketing')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-marketing" onclick="route('services', 'srv-marketing', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-pink-500/20 rounded-lg text-pink-400"><i data-lucide="megaphone" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-pink-400">Digital Marketing</span>
                             </a>
-                            <a onclick="route('services', 'srv-software')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-software" onclick="route('services', 'srv-software', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-blue-500/20 rounded-lg text-blue-400"><i data-lucide="code-2" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-blue-400">Software Dev</span>
                             </a>
-                            <a onclick="route('services', 'srv-rpo')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-rpo" onclick="route('services', 'srv-rpo', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400"><i data-lucide="network" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-indigo-400">RPO Solutions</span>
                             </a>
-                            <a onclick="route('services', 'srv-recruitment')" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                            <a href="#services-recruitment" onclick="route('services', 'srv-recruitment', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-purple-500/20 rounded-lg text-purple-400"><i data-lucide="briefcase" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-purple-400">Recruitment</span>
                             </a>
@@ -229,30 +235,31 @@
                     </div>
                 </div>
 
-                <button onclick="route('faq')" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-faq">
+                <a href="#faq" onclick="route('faq', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-faq">
                     FAQs
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </button>
+                </a>
                 
-                <button onclick="route('contact')" class="ml-4 px-6 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-full hover:bg-brand-700 transition-all transform hover:scale-105 hover:shadow-lg flex items-center gap-2 shadow-brand-500/30">
+                <a href="#contact" onclick="route('contact', event)" class="ml-4 px-6 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-full hover:bg-brand-700 transition-all transform hover:scale-105 hover:shadow-lg flex items-center gap-2 shadow-brand-500/30">
                     Get Started <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </button>
+                </a>
             </div>
 
             <!-- Mobile Menu Button (Dark Icon for White BG) -->
-            <button id="mobile-menu-btn" class="md:hidden text-slate-700 hover:text-brand-600 p-2">
+            <!-- Accessibility FIX: Added aria-label -->
+            <button id="mobile-menu-btn" aria-label="Open mobile menu" class="md:hidden text-slate-700 hover:text-brand-600 p-2">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
         
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-32 px-6 space-y-4">
-             <button onclick="route('home')" class="text-2xl font-display font-bold text-white text-left">Home</button>
-             <button onclick="route('about')" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left">About</button>
-             <button onclick="route('services')" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left">Services</button>
-             <button onclick="route('faq')" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left">FAQs</button>
-             <button onclick="route('contact')" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl">Let's Talk</button>
-             <button id="close-mobile-menu" class="absolute top-6 right-6 text-white p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
+             <a href="#home" onclick="route('home', event)" class="text-2xl font-display font-bold text-white text-left block">Home</a>
+             <a href="#about" onclick="route('about', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">About</a>
+             <a href="#services" onclick="route('services', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Services</a>
+             <a href="#faq" onclick="route('faq', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">FAQs</a>
+             <a href="#contact" onclick="route('contact', event)" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl block text-center">Let's Talk</a>
+             <button id="close-mobile-menu" aria-label="Close menu" class="absolute top-6 right-6 text-white p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
         </div>
     </nav>
 
@@ -286,12 +293,12 @@
                             </p>
                             
                             <div class="flex flex-wrap gap-4 pt-4">
-                                <button onclick="route('contact')" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+                                <a href="#contact" onclick="route('contact', event)" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2 cursor-pointer">
                                     Start Consulting <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
-                                </button>
-                                <button onclick="route('services')" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm">
+                                </a>
+                                <a href="#services" onclick="route('services', event)" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm cursor-pointer">
                                     Explore Services <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </button>
+                                </a>
                             </div>
 
                             <!-- Stats Row -->
@@ -316,8 +323,11 @@
                             <div class="absolute inset-0 bg-brand-500 blur-[100px] opacity-20 pointer-events-none"></div>
                             <div class="glass-card rounded-3xl p-2 shadow-2xl relative">
                                 <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-dark-900 group">
-                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                                         alt="Office" 
+                                    <!-- Performance FIX: Added width/height/loading, Reduced fetch size from w=1000 to w=800 -->
+                                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                         alt="Modern office space" 
+                                         width="1000" height="750"
+                                         loading="lazy"
                                          class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
                                     
                                     <!-- Floating Cards UI Overlay -->
@@ -371,8 +381,10 @@
                         <div class="md:w-1/2">
                              <div class="relative">
                                 <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500 to-teal-500 opacity-20 blur-xl rounded-2xl"></div>
-                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                <!-- Optimized Image: Reduced fetch size from w=800 to w=600 -->
+                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
                                     alt="Team collaborating" 
+                                    width="800" height="533"
                                     class="rounded-2xl shadow-2xl w-full border border-white/10 relative z-10 grayscale hover:grayscale-0 transition-all duration-700">
                              </div>
                         </div>
@@ -411,9 +423,10 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Experienced customer support executives (Voice/Chat) operating 24/7. Weekly reporting, flexible scalability, and dedicated specialists.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-orange-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <!-- SEO FIX: Added href -->
+                        <a href="#services-bpo" onclick="openModal('srv-bpo'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-orange-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: Web Dev -->
@@ -434,9 +447,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Full-stack development, static web, and dynamic web. Tailored engineering from architecture to deployment and maintenance.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-cyan-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <a href="#services-webdev" onclick="openModal('srv-webdev'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-cyan-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: Remote Consultant -->
@@ -458,9 +471,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Dedicated Developers and Engineers aligned with your time zone. Short-term or long-term engagements with US quality assurance.
                         </p>
-                        <button class="relative z-10 w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-bold transition-colors shadow-lg shadow-brand-500/20 flex justify-between px-6 items-center">
+                        <a href="#services-consultant" onclick="openModal('srv-consultant'); return false;" class="relative z-10 w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-bold transition-colors shadow-lg shadow-brand-500/20 flex justify-between px-6 items-center">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: Digital Marketing -->
@@ -481,9 +494,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             SEO, Social Media Management, Content Strategy, and Google Ads. We manage campaigns during peak engagement hours for maximum ROI.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-pink-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <a href="#services-marketing" onclick="openModal('srv-marketing'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-pink-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: Software Dev -->
@@ -504,9 +517,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Full-stack development, Mobile Apps, and SaaS platforms. Tailored engineering from architecture to deployment and maintenance.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-blue-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <a href="#services-software" onclick="openModal('srv-software'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-blue-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: RPO -->
@@ -527,9 +540,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Recruitment Process Outsourcing for high-volume needs. Complex Boolean sourcing, background checks, and pipeline management.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-indigo-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <a href="#services-rpo" onclick="openModal('srv-rpo'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-indigo-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Service Card: Recruitment -->
@@ -550,9 +563,9 @@
                         <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
                             Hybrid methodology sourcing (Citizens, GC, H1B, TN, OPT). Rigorous screening for US IT requirements and rapid placement.
                         </p>
-                        <button class="w-full py-3 rounded-xl border border-white/10 hover:bg-purple-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                        <a href="#services-recruitment" onclick="openModal('srv-recruitment'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-purple-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
                             View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -600,6 +613,7 @@
                     <div class="relative">
                         <div class="absolute inset-0 bg-brand-500 blur-[80px] opacity-20"></div>
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             width="800" height="600"
                              class="rounded-3xl border border-white/10 shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700"
                              alt="About Us">
                     </div>
@@ -715,12 +729,12 @@
         <!-- ================= MODALS ================= -->
         
         <!-- Modal: BPO -->
-        <div id="modal-srv-bpo" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-bpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-bpo')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-orange-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-orange-400"><i data-lucide="headset"></i> BPO Services</h3>
-                    <button onclick="closeModal('srv-bpo')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-bpo')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -736,7 +750,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> Flexible Scalability</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> Dedicated Specialists</li>
                             </ul>
-                            <button onclick="closeModal('srv-bpo'); route('contact')" class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-lg shadow-orange-500/30 transition">Request BPO Proposal</button>
+                            <button onclick="closeModal('srv-bpo'); route('contact', event)" class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-lg shadow-orange-500/30 transition">Request BPO Proposal</button>
                          </div>
                          <div class="lg:w-1/3 bg-orange-500/10 rounded-xl p-6 h-fit border border-orange-500/20">
                              <div class="mb-4">
@@ -751,13 +765,13 @@
             </div>
         </div>
  
-        <!-- Modal: Web Development (Corrected ID and Content) -->
-        <div id="modal-srv-webdev" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <!-- Modal: Web Development -->
+        <div id="modal-srv-webdev" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-webdev')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-cyan-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-cyan-400"><i data-lucide="layout"></i> WEB DEVELOPMENT</h3>
-                    <button onclick="closeModal('srv-webdev')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-webdev')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -773,7 +787,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Responsive (Mobile First)</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Full Stack Development</li>
                             </ul>
-                            <button onclick="closeModal('srv-webdev'); route('contact')" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg shadow-lg shadow-cyan-500/30 transition">Get a Web Quote</button>
+                            <button onclick="closeModal('srv-webdev'); route('contact', event)" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg shadow-lg shadow-cyan-500/30 transition">Get a Web Quote</button>
                          </div>
                          <div class="lg:w-1/3 bg-cyan-500/10 rounded-xl p-6 h-fit border border-cyan-500/20">
                              <div class="mb-4">
@@ -789,12 +803,12 @@
         </div>
 
         <!-- Modal: Consultant -->
-        <div id="modal-srv-consultant" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-consultant" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-consultant')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-green-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-green-400"><i data-lucide="laptop"></i> Hire IT Consultant</h3>
-                    <button onclick="closeModal('srv-consultant')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-consultant')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -810,7 +824,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Short-term & Long-term</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> US Quality Assurance</li>
                             </ul>
-                            <button onclick="closeModal('srv-consultant'); route('contact')" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg shadow-green-500/30 transition">Hire a Consultant</button>
+                            <button onclick="closeModal('srv-consultant'); route('contact', event)" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg shadow-green-500/30 transition">Hire a Consultant</button>
                          </div>
                          <div class="lg:w-1/3 bg-green-500/10 rounded-xl p-6 h-fit border border-green-500/20">
                              <div class="mb-4">
@@ -826,12 +840,12 @@
         </div>
 
         <!-- Modal: Marketing -->
-        <div id="modal-srv-marketing" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-marketing" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-marketing')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-pink-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-pink-400"><i data-lucide="megaphone"></i> Digital Marketing</h3>
-                    <button onclick="closeModal('srv-marketing')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-marketing')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -847,7 +861,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> Google Ads & PPC</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> Content Strategy</li>
                             </ul>
-                            <button onclick="closeModal('srv-marketing'); route('contact')" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg shadow-lg shadow-pink-500/30 transition">Boost Your Brand</button>
+                            <button onclick="closeModal('srv-marketing'); route('contact', event)" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg shadow-lg shadow-pink-500/30 transition">Boost Your Brand</button>
                          </div>
                          <div class="lg:w-1/3 bg-pink-500/10 rounded-xl p-6 h-fit border border-pink-500/20">
                              <div class="mb-4">
@@ -863,12 +877,12 @@
         </div>
 
         <!-- Modal: Software -->
-        <div id="modal-srv-software" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-software" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-software')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-blue-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-blue-400"><i data-lucide="code-2"></i> Software Development</h3>
-                    <button onclick="closeModal('srv-software')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-software')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -884,7 +898,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> UI/UX Design</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Ongoing Maintenance</li>
                             </ul>
-                            <button onclick="closeModal('srv-software'); route('contact')" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition">Discuss Your Project</button>
+                            <button onclick="closeModal('srv-software'); route('contact', event)" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition">Discuss Your Project</button>
                          </div>
                          <div class="lg:w-1/3 bg-blue-500/10 rounded-xl p-6 h-fit border border-blue-500/20">
                              <div class="mb-4">
@@ -900,12 +914,12 @@
         </div>
 
         <!-- Modal: RPO -->
-        <div id="modal-srv-rpo" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-rpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-rpo')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-indigo-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-indigo-400"><i data-lucide="network"></i> RPO Solutions</h3>
-                    <button onclick="closeModal('srv-rpo')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-rpo')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -921,7 +935,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Background Checks</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Cultural Fit Assessment</li>
                             </ul>
-                            <button onclick="closeModal('srv-rpo'); route('contact')" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg shadow-indigo-500/30 transition">Start RPO</button>
+                            <button onclick="closeModal('srv-rpo'); route('contact', event)" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg shadow-indigo-500/30 transition">Start RPO</button>
                          </div>
                          <div class="lg:w-1/3 bg-indigo-500/10 rounded-xl p-6 h-fit border border-indigo-500/20">
                              <div class="mb-4">
@@ -937,12 +951,12 @@
         </div>
 
         <!-- Modal: Recruitment -->
-        <div id="modal-srv-recruitment" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+        <div id="modal-srv-recruitment" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-recruitment')"></div>
             <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-purple-500/10">
                     <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-purple-400"><i data-lucide="briefcase"></i> Recruitment</h3>
-                    <button onclick="closeModal('srv-recruitment')" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    <button onclick="closeModal('srv-recruitment')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
                 <div class="p-8 md:p-12 overflow-y-auto">
                      <div class="flex flex-col lg:flex-row gap-8">
@@ -958,7 +972,7 @@
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Rapid Placement</li>
                                 <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Rigorous Screening</li>
                             </ul>
-                            <button onclick="closeModal('srv-recruitment'); route('contact')" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg shadow-purple-500/30 transition">Find Talent</button>
+                            <button onclick="closeModal('srv-recruitment'); route('contact', event)" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg shadow-purple-500/30 transition">Find Talent</button>
                          </div>
                          <div class="lg:w-1/3 bg-purple-500/10 rounded-xl p-6 h-fit border border-purple-500/20">
                              <div class="mb-4">
@@ -979,18 +993,14 @@
     <footer class="border-t border-white/5 bg-dark-950 py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center justify-center gap-0.5">
-              <!-- <span class="font-display font-bold text-xl text-white tracking-tight">Chowdhury</span>
-                   <img src="images/bg-remove.png" 
-                    alt="X Logo" 
-                    class="h-6 w-auto object-contain mt-1"> -->
             </div>
-            <!-- Reduced font size to text-[10px] (approx 50% decrease from standard) -->
             <p class="text-slate-500 text-[10px]">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
+            <!-- Accessibility FIX: Added aria-labels to social links -->
             <div class="flex gap-4">
-                <a href="https://www.linkedin.com/company/chowdhuryx " class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                <a href="https://x.com/chowdhuryx1896" class="text-gray-500 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                <a href="https://www.facebook.com/people/ChowdhuryX-Organization-LLC/61581679276881/" class="text-gray-500 hover:text-white transition"><i data-lucide="Facebook" class="w-5 h-5"></i></a>
-                <a href="https://pin.it/7eqd5Pr8Z" class="text-gray-500 hover:text-white transition"><i class="fab fa-pinterest w-5 h-6"></i></a>
+                <a href="https://www.linkedin.com/company/chowdhuryx" aria-label="LinkedIn" class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                <a href="https://x.com/chowdhuryx1896" aria-label="Twitter / X" class="text-gray-500 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="https://www.facebook.com/people/ChowdhuryX-Organization-LLC/61581679276881/" aria-label="Facebook" class="text-gray-500 hover:text-white transition"><i data-lucide="Facebook" class="w-5 h-5"></i></a>
+                <a href="https://pin.it/7eqd5Pr8Z" aria-label="Pinterest" class="text-gray-500 hover:text-white transition"><i class="fab fa-pinterest w-5 h-6"></i></a>
             </div>
         </div>
     </footer>
@@ -1000,7 +1010,6 @@
      class="fixed bottom-5 right-5 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
     <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl border border-slate-700 w-[400px] backdrop-blur-md bg-opacity-95 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-shadow">
        
-       <!-- Header -->
        <div class="flex items-center gap-3 mb-4 border-b border-slate-700 pb-3">
             <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
                 <i class="fas fa-code" aria-hidden="true"></i>
@@ -1009,13 +1018,12 @@
                 <h4 class="font-bold text-lg leading-none">Developer Info</h4>
                 <span class="text-xs text-slate-400 uppercase tracking-wider">System Status</span>
             </div>
-            <button onclick="toggleDevPanel()" 
-                    class="ml-auto text-slate-400 hover:text-white transition" aria-label="Close Developer Panel">
+            <button onclick="toggleDevPanel()" aria-label="Close Developer Panel"
+                    class="ml-auto text-slate-400 hover:text-white transition">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
-        <!-- Info List -->
         <ul class="space-y-3 text-sm">
             <li class="flex justify-between items-center">
                 <span class="text-slate-400"><i class="fas fa-user mr-2"></i>Developer</span>
@@ -1029,14 +1037,6 @@
                 <span class="text-slate-400"><i class="far fa-calendar-alt mr-2"></i>Release</span>
                 <span>Dec 2025</span>
             </li>
-            <li class="flex justify-between items-center">
-                <span class="text-slate-400"><i class="fas fa-layer-group mr-2"></i>Stack</span>
-                <span class="flex gap-2 text-xs">
-                    <span class="bg-slate-800 px-2 py-0.5 rounded">HTML</span>
-                    <span class="bg-slate-800 px-2 py-0.5 rounded">CSS</span>
-                    <span class="bg-slate-800 px-2 py-0.5 rounded">JS</span>
-                </span>
-            </li>
             <li class="flex justify-between items-center pt-2 border-t border-slate-700 mt-2">
                 <span class="text-slate-400"><i class="fas fa-envelope mr-2"></i>Contact</span>
                 <a href="mailto:chelamalla.manikanta28@gmail.com" 
@@ -1044,7 +1044,6 @@
             </li>
         </ul>
         
-        <!-- Footer -->
         <div class="mt-4 text-center">
             <p class="text-[10px] text-slate-500">
                 Press <span class="bg-slate-800 px-1 rounded text-slate-300">Esc</span> to close
@@ -1057,16 +1056,40 @@
         // Initialize Icons
         lucide.createIcons();
 
-        // Router Logic with Modal Handling
-        function route(pageId, sectionId = null) {
-            // Update Pages
+        // SEO Optimized Router Logic
+        function route(pageId, ...args) {
+            let sectionId = null;
+            let event = null;
+
+            // Handle optional arguments for robustness
+            if (args.length === 1) {
+                if (args[0] instanceof Event) {
+                    event = args[0];
+                } else {
+                    sectionId = args[0];
+                }
+            } else if (args.length === 2) {
+                sectionId = args[0];
+                event = args[1];
+            }
+
+            // Prevent default anchor jump (keeps the Smooth Transition effect)
+            if (event) {
+                event.preventDefault();
+            }
+
+            // Update URL hash manually for crawler/user history
+            const hashId = sectionId ? sectionId.replace('srv-', 'services-') : pageId;
+            history.pushState(null, null, `#${hashId}`);
+
+            // Update Page Visibility
             document.querySelectorAll('.page-section').forEach(p => {
                 p.classList.remove('active');
                 if(p.id === pageId) setTimeout(() => p.classList.add('active'), 50);
             });
 
             // Update Nav State
-            document.querySelectorAll('nav button').forEach(b => {
+            document.querySelectorAll('nav a').forEach(b => {
                 const span = b.querySelector('span');
                 if(span) span.style.width = '0';
             });
@@ -1077,40 +1100,30 @@
             }
 
             // Close Mobile Menu
-            document.getElementById('mobile-menu').classList.add('hidden');
-            document.getElementById('mobile-menu').classList.remove('flex');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
 
-            // Handle Deep Linking / Specific Sections / Modals
+            // Handle Specific Sections / Modals
             if(sectionId) {
                 if(sectionId.startsWith('srv-')) {
-                    // Open modal after a slight delay to allow page transition
                     setTimeout(() => {
                         openModal(sectionId);
                     }, 300);
                 } else {
-                    // Scroll to Element
-                    setTimeout(() => {
-                        const el = document.getElementById(sectionId);
-                        if(el) {
-                            const offset = 100;
-                            const bodyRect = document.body.getBoundingClientRect().top;
-                            const elementRect = el.getBoundingClientRect().top;
-                            const elementPosition = elementRect - bodyRect;
-                            const offsetPosition = elementPosition - offset;
-
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: "smooth"
-                            });
-                        }
-                    }, 100);
+                    // Scroll to Element logic if needed (Currently pages are toggled via display:none)
+                    // If you change to scrolling layout later:
+                    // const el = document.getElementById(sectionId);
+                    // if(el) el.scrollIntoView({ behavior: 'smooth' });
                 }
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // --- Modal Logic (Integrated from X.html) ---
+        // --- Modal Logic ---
         function openModal(id) {
             const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
             const modal = document.getElementById(modalId);
@@ -1128,8 +1141,6 @@
                    backdrop.classList.remove('opacity-0');
                 });
                 document.body.style.overflow = 'hidden';
-                
-                // Refresh Icons inside modal
                 lucide.createIcons();
             }
         }
@@ -1185,29 +1196,41 @@
         function toggleDevPanel() {
             const panel = document.getElementById('dev-panel');
             if (panel.classList.contains('opacity-0')) {
-                // Show
                 panel.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
             } else {
-                // Hide
                 panel.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
             }
         }
 
+        // Handle Initial Load from URL Hash
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.substring(1); // remove '#'
+            if (hash) {
+                // Check if it's a specific service modal deep link
+                if(hash.startsWith('services-')) {
+                    const srvId = hash.replace('services-', 'srv-');
+                    route('services', srvId);
+                } else if(hash === 'home' || hash === 'about' || hash === 'services' || hash === 'faq' || hash === 'contact') {
+                    route(hash);
+                } else {
+                    route('home');
+                }
+            } else {
+                route('home');
+            }
+        });
+
+        // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
-            // Ctrl + Shift + D
             if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
                 e.preventDefault();
                 toggleDevPanel();
             }
-            // Esc to close
             if (e.key === 'Escape') {
-                // Close dev panel
                 const panel = document.getElementById('dev-panel');
                 if (!panel.classList.contains('opacity-0')) {
                     toggleDevPanel();
                 }
-                
-                // Close any open modals
                 const openModals = document.querySelectorAll('.fixed.z-\\[100\\]:not(.hidden)');
                 openModals.forEach(m => {
                     closeModal(m.id);
