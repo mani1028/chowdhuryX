@@ -55,40 +55,42 @@ The design focuses on a **"Future of IT"** aesthetic, utilizing:
 ├── index.html       # Main application file (structure, styles, logic)
 ├── images/          # Logo and asset files
 │   └── chowduryx-removebg-preview.png
-└── README.md        # Project documentation  '''
+└── README.md        # Project documentation 
+```
 
 
-##🚀 How to Run Locally
-Since this project uses CDN links for Tailwind and Icons, no build step (npm install) is required.
+## 🚀 How to Run Locally
 
-Clone the repository
+Since this project uses CDN links for Tailwind and Icons, no build step (`npm install`) is required.
 
-'''git clone https://github.com/YOUR_USERNAME/REPO_NAME.git'''
-
-2.Navigate to the folder
-
-bash
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/REPO_NAME.git](https://github.com/YOUR_USERNAME/REPO_NAME.git)       ```
+## 2. Navigate to the folder
+```bash
 cd REPO_NAME
-Launch
+```
+## 3. Launch
 
-Simply open index.html in your Chrome or Edge browser.
+Simply open `index.html` in your Chrome or Edge browser.  
 
-Recommendation: Use the Live Server extension in VS Code for the best experience.
+💡 Recommendation: Use the **Live Server** extension in VS Code for the best experience.
 
-📍 Organization Details
-Company: ChowdhuryX Organization LLC
+## 📍 Organization Details
 
-Location: 30 N Gould St Ste R, Sheridan, Wyoming 82801
+- **Company:** ChowdhuryX Organization LLC  
+- **Location:** 30 N Gould St Ste R, Sheridan, Wyoming 82801  
+- **Contact:** [info@chowdhuryx.com](mailto:info@chowdhuryx.com) | +1 307-429-5757  
 
-Contact: info@chowdhuryx.com | 307-429-5757
+## 👤 Author
 
-👤 Author
-Manikanta – Full Stack Developer & UI/UX Designer
+**Manikanta** – Full Stack Developer & UI/UX Designer  
 
-LinkedIn: [LINK TO YOUR LINKEDIN]
+- **LinkedIn:** [LINK TO YOUR LINKEDIN]  
+- **GitHub:** [LINK TO YOUR GITHUB]  
+- **Email:** [chelamalla.manikanta28@gmail.com](mailto:chelamalla.manikanta28@gmail.com)  
 
-GitHub: [LINK TO YOUR GITHUB]
-
-Email: chelamalla.manikanta28@gmail.com
+---
 
 © 2025 ChowdhuryX Organization LLC. All rights reserved.
+
