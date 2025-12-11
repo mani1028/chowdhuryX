@@ -8,8 +8,8 @@ A high-performance, responsive corporate website developed for **ChowdhuryX Orga
 
 This project demonstrates modern UI/UX principles, featuring a "Deep Space" dark mode aesthetic, glassmorphism effects, and seamless single-page navigation without page reloads.
 
-🔗 **Live Demo:** [INSERT YOUR GITHUB PAGES LINK HERE]
-
+🔗 **Live Demo1:** [https://chowdhuryx.com/]
+🔗 **Live Demo2:** [https://karthikdemo.vercel.app/]
 ---
 
 ## 🎨 Design Philosophy
@@ -65,7 +65,8 @@ Since this project uses CDN links for Tailwind and Icons, no build step (`npm in
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/YOUR_USERNAME/REPO_NAME.git](https://github.com/YOUR_USERNAME/REPO_NAME.git)       ```
+   git clone [https://github.com/mani1028/REPO_NAME.git](https://github.com/mani1028/REPO_NAME.git)
+   
 ## 2. Navigate to the folder
 ```bash
 cd REPO_NAME
@@ -86,8 +87,8 @@ Simply open `index.html` in your Chrome or Edge browser.
 
 **Manikanta** – Full Stack Developer & UI/UX Designer  
 
-- **LinkedIn:** [LINK TO YOUR LINKEDIN]  
-- **GitHub:** [LINK TO YOUR GITHUB]  
+- **LinkedIn:** [https://in.linkedin.com/in/mani1028]  
+- **GitHub:** [https://github.com/mani1028/]  
 - **Email:** [chelamalla.manikanta28@gmail.com](mailto:chelamalla.manikanta28@gmail.com)  
 
 ---
