@@ -67,7 +67,7 @@ Since this project uses CDN links for Tailwind and Icons, no build step (`npm in
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/mani1028/chowdhuryX](https://github.com/mani1028/chowdhuryX)
+   git clone https://github.com/mani1028/chowdhuryX
    
 ## 2. Navigate to the folder
 ```bash
