@@ -167,7 +167,7 @@
             
             <!-- Logo Image Replacement (Matches White Background) -->
             <!-- SEO FIX: Added href and width/height -->
-            <a href="#home" onclick="route('home', event)" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
+            <a href="#" onclick="route('home', event); return false;" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
                 <img src="/images/chowduryx-removebg-preview.png" 
                      alt="ChowdhuryX Logo" 
                      width="180" height="48"
@@ -184,7 +184,7 @@
             <!-- Desktop Menu (Updated for White Nav) -->
             <!-- SEO FIX: Changed buttons to anchor tags -->
             <div class="hidden md:flex items-center space-x-1">
-                <a href="#home" onclick="route('home', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
+                <a href="#" onclick="route('home', event); return false;" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
                     Home
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
                 </a>
@@ -254,7 +254,7 @@
         
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-32 px-6 space-y-4">
-             <a href="#home" onclick="route('home', event)" class="text-2xl font-display font-bold text-white text-left block">Home</a>
+             <a href="#" onclick="route('home', event); return false;" class="text-2xl font-display font-bold text-white text-left block">Home</a>
              <a href="#about" onclick="route('about', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">About</a>
              <a href="#services" onclick="route('services', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Services</a>
              <a href="#faq" onclick="route('faq', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">FAQs</a>
@@ -1075,9 +1075,15 @@
                 event.preventDefault();
             }
 
-            // Update URL hash manually for crawler/user history
-            const hashId = sectionId ? sectionId.replace('srv-', 'services-') : pageId;
-            history.pushState(null, null, `#${hashId}`);
+            // Handle URL updates:
+            // 1. If it's 'home' (the default page), remove the hash to keep the URL clean (e.g. domain.com/)
+            // 2. Otherwise, update the hash (e.g. domain.com/#about)
+            if (pageId === 'home' && !sectionId) {
+                history.replaceState(null, null, window.location.pathname);
+            } else {
+                const hashId = sectionId ? sectionId.replace('srv-', 'services-') : pageId;
+                history.pushState(null, null, `#${hashId}`);
+            }
 
             // Update Page Visibility
             document.querySelectorAll('.page-section').forEach(p => {
@@ -1231,7 +1237,12 @@
                     route('home');
                 }
             } else {
+                // Default to home page, BUT ensure URL is clean (no #home)
                 route('home');
+                // Ensure the URL bar stays clean on initial load
+                if(window.location.hash === '#home') {
+                     history.replaceState(null, null, window.location.pathname);
+                }
             }
         });
 
