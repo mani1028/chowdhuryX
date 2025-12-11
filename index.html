@@ -1053,9 +1053,6 @@
 </div>
 
     <script>
-        // Initialize Icons
-        lucide.createIcons();
-
         // SEO Optimized Router Logic
         function route(pageId, ...args) {
             let sectionId = null;
@@ -1141,7 +1138,11 @@
                    backdrop.classList.remove('opacity-0');
                 });
                 document.body.style.overflow = 'hidden';
-                lucide.createIcons();
+                
+                // Re-initialize icons when modal opens
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
             }
         }
 
@@ -1201,6 +1202,20 @@
                 panel.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
             }
         }
+
+        // Initialize Icons on DOM Content Loaded (Waits for defer script)
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                // Fallback if Lucide takes longer to load
+                window.onload = function() {
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                }
+            }
+        });
 
         // Handle Initial Load from URL Hash
         window.addEventListener('DOMContentLoaded', () => {
