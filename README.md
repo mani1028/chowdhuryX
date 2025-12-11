@@ -9,7 +9,9 @@ A high-performance, responsive corporate website developed for **ChowdhuryX Orga
 This project demonstrates modern UI/UX principles, featuring a "Deep Space" dark mode aesthetic, glassmorphism effects, and seamless single-page navigation without page reloads.
 
 🔗 **Live Demo1:** [https://chowdhuryx.com/]
+
 🔗 **Live Demo2:** [https://karthikdemo.vercel.app/]
+
 ---
 
 ## 🎨 Design Philosophy
