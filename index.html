@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags Preserved -->
-    <title>ChowdhuryX | Future of IT Consulting</title>
+    <title>ChowdhuryX</title>
     <meta name="description" content="ChowdhuryX Organization LLC offers premium US-based IT consulting, recruitment (C2C/C2H), software development, and BPO services starting at $10/hr.">
-    <meta name="keywords" content="IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX">
+    <meta name="keywords" content="IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX, chowdhuryx, web development, chat process">
     <meta name="robots" content="index, follow">
     <!-- Theme Color -->
     <meta name="theme-color" content="#10b981">
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (CDN) -->
+    <!-- Tailwind CSS (CDN) - Note: Used for Canvas Preview. For production, consider npm install tailwindcss -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons (Deferred to prevent render blocking) -->
@@ -165,7 +165,6 @@
         <!-- Added rounded-b-[2.5rem] for the "curve at the end" effect -->
         <div class="glass-nav rounded-b-[2.5rem] px-8 py-3 w-full max-w-7xl flex justify-between items-center transition-all duration-300">
             
-            <!-- Logo Image Replacement (Matches White Background) -->
             <!-- SEO FIX: Added href and width/height -->
             <a href="#" onclick="route('home', event); return false;" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
                 <img src="/images/chowduryx-removebg-preview.png" 
@@ -182,7 +181,6 @@
             </a>
             
             <!-- Desktop Menu (Updated for White Nav) -->
-            <!-- SEO FIX: Changed buttons to anchor tags -->
             <div class="hidden md:flex items-center space-x-1">
                 <a href="#" onclick="route('home', event); return false;" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
                     Home
@@ -268,7 +266,8 @@
         <!-- ================= PAGE: HOME ================= -->
         <div id="home" class="page-section active">
             <!-- Hero Section -->
-            <section class="relative pt-20 pb-32 lg:pt-32 lg:pb-40 overflow-hidden">
+            
+            <section class="relative pt-5 pb-10 lg:pt-22 lg:pb-32 overflow-hidden">
                 <div class="max-w-7xl mx-auto px-6 relative z-10">
                     <div class="flex flex-col lg:flex-row items-center gap-16">
                         <div class="lg:w-1/2 space-y-8">
@@ -287,9 +286,8 @@
                             </h1>
                             
                             <p class="text-xl text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-brand-500/30 pl-6">
-                                Empower your business with project-specific remote consultants. 
-                                <span class="text-white font-medium">Starting at $10/hour.</span> 
-                                US-managed quality from a dedicated offshore hub.
+                                ChowdhuryX Organization LLC is a U.S.-registered company delivering secure IT, BPO, and staffing solutions to global clients. 
+                                We operate with a strong focus on compliance, data security, operational reliability, and scalable service delivery for startups, enterprises, and international organizations.
                             </p>
                             
                             <div class="flex flex-wrap gap-4 pt-4">
@@ -346,9 +344,81 @@
                     </div>
                 </div>
             </section>
-            
+             <!-- Verified & Certified Section (Updated Layout) -->
+             <section class="py-12 border-y border-white/5 bg-dark-900/50">
+                <div class="max-w-4xl mx-auto px-6 mb-12 text-center">
+                  <p class="font-medium text-xl text-brand-400 leading-relaxed animate-pulse">
+                    As a federally verified U.S. vendor with enterprise-grade compliance, ChowdhuryX provides secure IT, BPO, and staffing solutions
+                    trusted by government agencies and Fortune 500 enterprises worldwide.
+                  </p>
+                </div>
+                    
+                <div class="max-w-[1400px] mx-auto px-4">
+                    <!-- Adjusted Grid for 4 Items -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                        <!-- Item 1: D-U-N-S (Gold Shield + Check) -->
+                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
+                            <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <polyline points="9 12 11 14 15 10"></polyline>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-white leading-tight mb-2">D-U-N-S Verified Company</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Globally recognized business identifier used by Fortune 500 and government agencies</p>
+                        </div>
+
+                        <!-- Item 2: Wyoming LLC (Buffalo Icon) -->
+                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
+                            <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <!-- Stylized Buffalo/Bison Approximation -->
+                                    <path d="M7 14h2v3h2v-3h2v3h2v-3h2M7 10h10a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2z" fill="#ca8a04" fill-opacity="0.2" stroke="none"/>
+                                    <path d="M12 8l-2 2h4l-2-2z" fill="#ca8a04"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-white leading-tight mb-2">Wyoming LLC in Good Standing</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">Certified by Wyoming Secretary of State confirming active compliance</p>
+                        </div>
+
+                        <!-- Item 3: SSL (Gold Lock) -->
+                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
+                             <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110 relative flex items-center justify-center">
+                                 <!-- Lock Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <span class="absolute top-[60%] text-[#ca8a04] font-bold text-[10px] bg-dark-900 px-1 border border-brand-500/30 rounded">SSL</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white leading-tight mb-2">SSL Secured Website</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">256-bit encrypted connection ensuring secure data transmission</p>
+                        </div>
+
+                        <!-- Item 4: ADA (Red Accessibility) -->
+                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
+                             <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <path d="m9 20 3-6 3 6"></path>
+                                    <path d="m6 8 6 2 6-2"></path>
+                                    <path d="M12 10v4"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-lg font-bold text-white leading-tight mb-2">ADA & Accessibility Checked</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">WCAG-aligned website accessibility for global users</p>
+                        </div>
+
+                    </div>
+                </div>
+                </br></br></br>
+            </section>
+        
             <!-- The Consulting Edge Section -->
-            <section class="py-20 bg-dark-900/50 border-y border-white/5 relative">
+            <section class="py-10 bg-dark-900/50 border-y border-white/5 relative">
                 <div class="max-w-7xl mx-auto px-6">
                     <div class="flex flex-col md:flex-row items-center gap-12">
                         <div class="md:w-1/2">
@@ -395,7 +465,7 @@
 
         <!-- ================= PAGE: SERVICES ================= -->
         <div id="services" class="page-section">
-            <div class="py-24 max-w-7xl mx-auto px-6">
+            <div class="py-10 max-w-7xl mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Our Expertise</h2>
                     <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Services that Scale</h1>
@@ -573,7 +643,7 @@
 
         <!-- ================= PAGE: ABOUT ================= -->
         <div id="about" class="page-section">
-             <div class="py-24 max-w-7xl mx-auto px-6">
+             <div class="py-10 max-w-7xl mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <div>
                         <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">About Us</h2>
@@ -581,12 +651,9 @@
                         
                         <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
                             <p>
-                                ChowdhuryX Organization LLC is a dynamic US-based IT Services and Consulting company. Registered out of <strong>Sheridan, Wyoming</strong>, we operate with a strategic virtual office model built on the core principle of providing unparalleled IT services to US-based clients.
-                            </p>
-                            <p>
-                                Our dedicated offshore hub serves as our backbone, efficiently managing backend processes while ensuring seamless, high-quality support that drives client success across the country.
-                            </p>
-                        </div>
+                             ChowdhuryX Organization LLC is a U.S.-registered company operating with enterprise-grade compliance and security standards. We provide secure IT services, high-performance BPO solutions, and scalable staffing services designed to support complex, high-demand business operations. 
+                             Our structured compliance practices, strong governance framework, and commitment to operational excellence enable us to deliver reliable, transparent, and dependable services for mission-critical business functions across global markets.</p>
+                            </div>
                         
                         <div class="mt-8 p-6 glass-card border-l-4 border-brand-500 rounded-r-xl">
                              <h4 class="font-bold text-white text-lg mb-2">Partnering for Sustainable Growth</h4>
@@ -604,7 +671,7 @@
                             <div class="glass-card p-4 rounded-xl flex items-center gap-3">
                                 <i data-lucide="globe" class="text-brand-400"></i>
                                 <div>
-                                    <p class="text-white font-bold text-sm">Nationwide</p>
+                                    <p class="text-white font-bold text-sm">Worldwide</p>
                                     <p class="text-xs text-gray-500">Service Area</p>
                                 </div>
                             </div>
@@ -618,12 +685,84 @@
                              alt="About Us">
                     </div>
                 </div>
+
+                <!-- Certifications Section -->
+                <div class="mt-24 border-t border-white/5 pt-20">
+                    <div class="text-center mb-16">
+                        <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Trust & Compliance</h2>
+                        <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Verified & Certified</h3>
+                        <p class="text-gray-400 mt-4">Ensuring the highest standards of security, accessibility, and federal compliance.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Item 1: D-U-N-S -->
+                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
+                            <!-- SVG REPLACEMENT -->
+                            <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/90 rounded-xl p-2 shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    <polyline points="9 12 11 14 15 10"></polyline>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">D-U-N-S® Verified</h4>
+                            <p class="text-gray-400 text-sm">Globally recognized business identifier used by Fortune 500 and government agencies.</p>
+                        </div>
+
+                        <!-- Item 3: Wyoming LLC (State Seal) -->
+                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
+                            <!-- SVG REPLACEMENT -->
+                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/10 rounded-full p-1 shadow-lg border border-white/10">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 8l-2 2h4l-2-2z" fill="#ca8a04"/>
+                                    <path d="M7 14h2v3h2v-3h2v3h2v-3h2M7 10h10a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2z" fill="#ca8a04" fill-opacity="0.2" stroke="none"/>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">Wyoming LLC</h4>
+                             <p class="text-xs font-mono text-brand-400 mb-2">Good Standing</p>
+                            <p class="text-gray-400 text-sm">Certified by Wyoming Secretary of State confirming active compliance.</p>
+                        </div>
+
+                        <!-- Item 5: SSL (Gold Lock Badge) -->
+                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
+                             <!-- SVG REPLACEMENT -->
+                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/10 rounded-xl p-2 shadow-lg border border-white/10 relative">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <span class="absolute top-[60%] text-[#ca8a04] font-bold text-[8px] bg-dark-900 px-1">SSL</span>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">SSL Secured</h4>
+                             <p class="text-xs font-mono text-brand-400 mb-2">256-bit Encryption</p>
+                            <p class="text-gray-400 text-sm">256-bit encrypted connection ensuring secure data transmission.</p>
+                        </div>
+
+                        <!-- Item 6: ADA (Access Symbol) -->
+                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
+                             <!-- SVG REPLACEMENT -->
+                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/90 rounded-xl p-2 shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <circle cx="12" cy="5" r="1"></circle>
+                                    <path d="m9 20 3-6 3 6"></path>
+                                    <path d="m6 8 6 2 6-2"></path>
+                                    <path d="M12 10v4"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-2">ADA Compliant</h4>
+                             <p class="text-xs font-mono text-brand-400 mb-2">Accessibility Checked</p>
+                            <p class="text-gray-400 text-sm">WCAG-aligned website accessibility for global users.</p>
+                        </div>
+                    </div>
+                </div>
+
              </div>
         </div>
 
         <!-- ================= PAGE: FAQ ================= -->
         <div id="faq" class="page-section">
-            <div class="py-24 max-w-3xl mx-auto px-6">
+            <div class="py-10 max-w-3xl mx-auto px-6">
                 <h1 class="text-4xl font-display font-bold text-white mb-12 text-center">Common Questions</h1>
                 <div class="space-y-4">
                     <div class="glass-card rounded-2xl overflow-hidden">
@@ -986,15 +1125,14 @@
                 </div>
             </div>
         </div>
-
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-white/5 bg-dark-950 py-12">
+    <footer class="border-t border-white/5 bg-dark-950 py-6">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center justify-center gap-0.5">
             </div>
-            <p class="text-slate-500 text-[10px]">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
+            <p class="text-slate-500 text-[12px]">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
             <!-- Accessibility FIX: Added aria-labels to social links -->
             <div class="flex gap-4">
                 <a href="https://www.linkedin.com/company/chowdhuryx" aria-label="LinkedIn" class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
