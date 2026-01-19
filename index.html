@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags Preserved -->
-    <title>ChowdhuryX</title>
-    <meta name="description" content="ChowdhuryX Organization LLC offers premium US-based IT consulting, recruitment (C2C/C2H), software development, and BPO services starting at $10/hr.">
-    <meta name="keywords" content="IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX, chowdhuryx, web development, chat process">
+    <title>ChowdhuryX | AI Products, Custom Software & IT Solutions</title>
+    <meta name="description" content="ChowdhuryX Organization LLC builds AI products, Custom SaaS Software, and offers premium US-based IT consulting, recruitment (C2C/C2H), and BPO services.">
+    <meta name="keywords" content="AI products, custom software, SaaS development, IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX">
     <meta name="robots" content="index, follow">
     <!-- Theme Color -->
     <meta name="theme-color" content="#10b981">
@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (CDN) - Note: Used for Canvas Preview. For production, consider npm install tailwindcss -->
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide Icons (Deferred to prevent render blocking) -->
@@ -145,6 +145,21 @@
             transform: translateY(0);
         }
 
+        /* Custom Scrollbar for Modals */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
         /* Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #020617; }
@@ -186,8 +201,15 @@
                     Home
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
                 </a>
+                
                 <a href="#about" onclick="route('about', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-about">
                     About
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
+                </a>
+
+                <!-- Products Link (Swapped with About) -->
+                <a href="#products" onclick="route('products', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-products">
+                    Products
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
                 </a>
                 
@@ -201,6 +223,10 @@
                         <!-- Changed to high transparency dark glass for visibility over dark background -->
                         <div class="bg-slate-900/60 backdrop-blur-md rounded-2xl p-2 shadow-2xl border border-white/10 overflow-hidden ring-1 ring-black/5">
                             <!-- SEO FIX: Links inside dropdown are now crawlable -->
+                            <a href="#services-ai" onclick="route('services', 'srv-ai', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
+                                <div class="p-2 bg-rose-500/20 rounded-lg text-rose-400"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-rose-400">AI Solutions</span>
+                            </a>
                             <a href="#services-bpo" onclick="route('services', 'srv-bpo', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
                                 <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400"><i data-lucide="headset" class="w-4 h-4"></i></div>
                                 <span class="text-sm font-medium text-slate-200 group-hover/item:text-orange-400">BPO Services</span>
@@ -254,6 +280,7 @@
         <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-32 px-6 space-y-4">
              <a href="#" onclick="route('home', event); return false;" class="text-2xl font-display font-bold text-white text-left block">Home</a>
              <a href="#about" onclick="route('about', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">About</a>
+             <a href="#products" onclick="route('products', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Products</a>
              <a href="#services" onclick="route('services', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Services</a>
              <a href="#faq" onclick="route('faq', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">FAQs</a>
              <a href="#contact" onclick="route('contact', event)" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl block text-center">Let's Talk</a>
@@ -277,7 +304,7 @@
                                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
                                   <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
                                 </span>
-                                Premier IT Solutions
+                                Premier IT & AI Solutions
                             </div>
 
                             <h1 class="text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
@@ -285,17 +312,18 @@
                                 <span class="text-gradient">Barrier.</span>
                             </h1>
                             
+                            <!-- Updated Hero Text to include Products -->
                             <p class="text-xl text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-brand-500/30 pl-6">
-                                ChowdhuryX Organization LLC is a U.S.-registered company delivering secure IT, BPO, and staffing solutions to global clients. 
-                                We operate with a strong focus on compliance, data security, operational reliability, and scalable service delivery for startups, enterprises, and international organizations.
+                                ChowdhuryX Organization LLC is a U.S.-registered company delivering secure IT, BPO, and staffing solutions. 
+                                We specialize in <strong class="text-white">building AI products</strong>, custom software, and scalable services for global enterprises with a strong focus on compliance and operational excellence.
                             </p>
                             
                             <div class="flex flex-wrap gap-4 pt-4">
                                 <a href="#contact" onclick="route('contact', event)" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2 cursor-pointer">
                                     Start Consulting <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
                                 </a>
-                                <a href="#services" onclick="route('services', event)" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm cursor-pointer">
-                                    Explore Services <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                <a href="#products" onclick="route('products', event)" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm cursor-pointer">
+                                    View Products <i data-lucide="layers" class="w-4 h-4"></i>
                                 </a>
                             </div>
 
@@ -306,8 +334,8 @@
                                     <p class="text-sm text-gray-500 uppercase tracking-wider">Support</p>
                                 </div>
                                 <div>
-                                    <p class="text-3xl font-display font-bold text-white">$10<span class="text-lg text-brand-500">+</span></p>
-                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Hourly Rate</p>
+                                    <p class="text-3xl font-display font-bold text-white">AI</p>
+                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Powered</p>
                                 </div>
                                 <div>
                                     <p class="text-3xl font-display font-bold text-white">100%</p>
@@ -466,6 +494,107 @@
             </section>
         </div>
 
+        <!-- ================= PAGE: PRODUCTS (UPDATED) ================= -->
+        <div id="products" class="page-section">
+            <div class="py-10 max-w-7xl mx-auto px-6">
+                <!-- Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Our Innovation Lab</h2>
+                    <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Our Software Products</h1>
+                    <p class="text-gray-400 max-w-3xl mx-auto text-lg">
+                        We don't just build for others; we build for the future. Explore our suite of proprietary AI and automation products.
+                    </p>
+                </div>
+
+                <!-- Product Grid (Structured) -->
+                <div class="space-y-16">
+                    
+                    <!-- Flagship Product -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="h-px bg-white/10 flex-grow"></span>
+                            <span class="text-rose-400 font-bold tracking-widest uppercase text-sm">Flagship Product</span>
+                            <span class="h-px bg-white/10 flex-grow"></span>
+                        </div>
+
+                        <!-- Product 1: SmartWrite AI (Main Product) -->
+                        <div class="glass-card p-1 rounded-[2.5rem] border border-rose-500/30 relative overflow-hidden group cursor-pointer hover:shadow-[0_0_50px_rgba(244,63,94,0.15)] transition-all" onclick="openModal('prod-smartwrite')">
+                            <div class="absolute top-[-50%] left-[-50%] w-[200%] h-[200%] bg-gradient-to-br from-rose-500/10 via-transparent to-transparent animate-spin-slow pointer-events-none"></div>
+                            <div class="bg-dark-900/90 rounded-[2.4rem] p-8 md:p-12 relative z-10 flex flex-col md:flex-row gap-8 items-center">
+                                <div class="w-full md:w-2/3">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <div class="p-3 bg-rose-500/20 rounded-xl text-rose-400"><i data-lucide="pen-tool" class="w-8 h-8"></i></div>
+                                        <span class="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-bold uppercase tracking-wider">Live & Active</span>
+                                    </div>
+                                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">SmartWrite AI Suite</h2>
+                                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                                        The ultimate AI writing assistant for everyone. From smart drafting emails and rewriting content to specialized business proposals, student essays, and creative storytelling. One tool, infinite possibilities.
+                                    </p>
+                                    <div class="flex flex-wrap gap-3">
+                                        <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Smart Drafting</span>
+                                        <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Tone Control</span>
+                                        <span class="px-3 py-1 bg-white/5 rounded-full text-xs text-gray-300 border border-white/10">Business Suite</span>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 flex justify-center md:justify-end">
+                                    <button class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-full shadow-lg shadow-rose-500/30 transition flex items-center gap-2 group-hover:scale-105">
+                                        View Features <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Section -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-8">
+                            <span class="h-px bg-white/10 flex-grow"></span>
+                            <span class="text-purple-400 font-bold tracking-widest uppercase text-sm">Upcoming Innovations (In Development)</span>
+                            <span class="h-px bg-white/10 flex-grow"></span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Product 2: AI Image Generator (Standardized Card Size) -->
+                            <div class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer hover:bg-white/5 transition-all flex flex-col h-full border border-purple-500/20" onclick="openModal('prod-image')">
+                                <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6 shrink-0">
+                                    <i data-lucide="wand-2" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-display font-bold text-white mb-2">AI Image Generator</h3>
+                                <p class="text-gray-400 text-sm mb-6 flex-grow">Generate stunning visuals from text prompts. Perfect for marketers and creators needing instant assets.</p>
+                                <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-bold uppercase tracking-wider w-fit mb-4">Coming Soon</span>
+                                <span class="text-purple-400 font-bold text-sm flex items-center gap-2 mt-auto">View Roadmap <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            </div>
+
+                            <!-- Product 3: Chat Support Manager (Standardized Card Size) -->
+                            <div class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer hover:bg-white/5 transition-all flex flex-col h-full border border-amber-500/20" onclick="openModal('prod-chat')">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-6 shrink-0">
+                                    <i data-lucide="messages-square" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-display font-bold text-white mb-2">Chat Support Manager</h3>
+                                <p class="text-gray-400 text-sm mb-6 flex-grow">Advanced software for BPO teams. Manage tickets, live chats, and agent performance in one dashboard.</p>
+                                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider w-fit mb-4">In Beta</span>
+                                <span class="text-amber-400 font-bold text-sm flex items-center gap-2 mt-auto">View Roadmap <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            </div>
+
+                            <!-- Product 4: Video Creation Tools (Standardized Card Size) -->
+                            <div class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer hover:bg-white/5 transition-all flex flex-col h-full border border-cyan-500/20" onclick="openModal('prod-video')">
+                                <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 shrink-0">
+                                    <i data-lucide="video" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="text-xl font-display font-bold text-white mb-2">AI Video Creation</h3>
+                                <p class="text-gray-400 text-sm mb-6 flex-grow">Transform text scripts into engaging videos with AI avatars and automated editing workflows.</p>
+                                <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-wider w-fit mb-4">Coming Soon</span>
+                                <span class="text-cyan-400 font-bold text-sm flex items-center gap-2 mt-auto">View Roadmap <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <!-- ================= PAGE: SERVICES ================= -->
         <div id="services" class="page-section">
             <div class="py-10 max-w-7xl mx-auto px-6">
@@ -478,6 +607,29 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Service Card: AI Solutions -->
+                    <div onclick="openModal('srv-ai')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer border-rose-500/30">
+                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
+                            <i data-lucide="bot" class="w-24 h-24 text-white/10"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                        <div class="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center text-rose-400 mb-6 transition-transform duration-300 group-hover:scale-110">
+                            <i data-lucide="bot" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-rose-400 transition-colors relative z-10">AI Solutions</h3>
+                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
+                            <span class="text-sm text-gray-500">Custom</span>
+                            <span class="text-xl font-bold text-brand-400">Products</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
+                            We build custom AI products and automation agents. Transform your business logic into intelligent software.
+                        </p>
+                        <a href="#services-ai" onclick="openModal('srv-ai'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-rose-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
+                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+
                     <!-- Service Card: BPO -->
                     <div onclick="openModal('srv-bpo')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
                         <!-- Animation Image/Icon (Bg Hover) -->
@@ -654,13 +806,13 @@
                         
                         <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
                             <p>
-                             ChowdhuryX Organization LLC is a U.S.-registered company operating with enterprise-grade compliance and security standards. We provide secure IT services, high-performance BPO solutions, and scalable staffing services designed to support complex, high-demand business operations. 
+                             ChowdhuryX Organization LLC is a U.S.-registered company operating with enterprise-grade compliance and security standards. We provide secure IT services, AI product development, high-performance BPO solutions, and scalable staffing services designed to support complex, high-demand business operations. 
                              Our structured compliance practices, strong governance framework, and commitment to operational excellence enable us to deliver reliable, transparent, and dependable services for mission-critical business functions across global markets.</p>
                             </div>
                         
                         <div class="mt-8 p-6 glass-card border-l-4 border-brand-500 rounded-r-xl">
-                             <h4 class="font-bold text-white text-lg mb-2">Partnering for Sustainable Growth</h4>
-                             <p class="text-gray-400">We are the strategic backbone that supports your business's journey toward sustained success.</p>
+                             <h4 class="font-bold text-white text-lg mb-2">Innovation Meets Reliability</h4>
+                             <p class="text-gray-400">We are the strategic backbone that supports your business's journey toward digital transformation.</p>
                         </div>
 
                         <div class="mt-8 flex gap-4">
@@ -770,11 +922,21 @@
                 <div class="space-y-4">
                     <div class="glass-card rounded-2xl overflow-hidden">
                         <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
+                            What AI and Software services do you build?
+                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                             We build custom SaaS platforms, mobile applications, and AI-driven automation tools. From chatbots to complex CRM systems, we handle the full development lifecycle.
+                        </div>
+                    </div>
+                    <!-- Existing FAQs maintained... -->
+                    <div class="glass-card rounded-2xl overflow-hidden">
+                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
                             What services do you offer?
                             <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
                         </button>
                         <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-                             We offer recruitment, software development, digital marketing, and BPO services tailored to meet specific business needs efficiently and affordably.
+                             We offer recruitment, custom software development, AI product creation, digital marketing, and BPO services tailored to meet specific business needs efficiently.
                         </div>
                     </div>
 
@@ -784,44 +946,13 @@
                             <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
                         </button>
                         <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-                             Simply reach out through   <a href="mailto:info@chowdhuryx.com" 
-     class="text-green-600 font-semibold hover:text-green-800 transition">E-mail</a> or give us a call, and our team will guide you through the process.
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
-                            Are your services really that affordable?
-                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
-                        </button>
-                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-                             Yes, we start services at just $10 per hour, delivering high-quality solutions while keeping costs manageable for businesses of all sizes.
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
-                            What is your recruitment process like?
-                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
-                        </button>
-                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-                             Our recruitment involves identification, screening, and interviewing of candidates to ensure a perfect match for your organizational needs.
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-2xl overflow-hidden">
-                        <button class="w-full p-6 text-left flex justify-between items-center text-white font-medium hover:text-brand-400 transition" onclick="toggleFaq(this)">
-                            Can I hire for short-term projects?
-                            <i data-lucide="plus" class="w-5 h-5 opacity-50"></i>
-                        </button>
-                        <div class="hidden px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-                             Absolutely! We offer the flexibility of hiring talent on an hourly basis, making it easy to manage project-specific needs.
+                             Simply reach out through <a href="mailto:info@chowdhuryx.com" class="text-green-600 font-semibold hover:text-green-800 transition">E-mail</a> or give us a call.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </br>        
+        
         <!-- ================= PAGE: CONTACT ================= -->
         <div id="contact" class="page-section">
             <div class="min-h-[80vh] flex items-center justify-center relative">
@@ -833,7 +964,7 @@
                         
                         <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Ready to Scale?</h1>
                         <p class="text-gray-400 text-lg mb-12 max-w-xl mx-auto">
-                            Connect directly with our leadership team for a customized proposal. We usually respond within 24 hours.
+                            Whether you need a custom AI solution, a BPO team, or IT staffing, connect with us today.
                         </p>
 
                         <div class="flex flex-col md:flex-row items-center justify-center gap-6">
@@ -867,8 +998,233 @@
                  </div>
             </div>
         </div>
-    </br>
+
         <!-- ================= MODALS ================= -->
+        
+        <!-- NEW: Product Modal - SmartWrite AI Suite -->
+        <div id="modal-prod-smartwrite" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-smartwrite')"></div>
+            <div class="relative w-full max-w-5xl mx-auto mt-10 md:mt-16 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[85vh]">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-rose-600/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-rose-400"><i data-lucide="pen-tool"></i> SmartWrite AI Suite</h3>
+                    <button onclick="closeModal('prod-smartwrite')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8 overflow-y-auto custom-scrollbar">
+                    <div class="mb-8 text-center">
+                        <p class="text-lg text-gray-300 max-w-3xl mx-auto">A comprehensive AI writing & document suite designed to revolutionize how you draft, edit, and perfect content across business, education, and creative fields.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Feature Group: Core & Drafting -->
+                        <div class="space-y-6">
+                            <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="edit-3" class="w-5 h-5"></i> Smart Drafting</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> Draft emails, letters, and proposals in seconds.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Tones:</strong> Formal, Casual, Emotional, Luxury.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Rewrite:</strong> Make shorter, longer, polite, or persuasive.</li>
+                                </ul>
+                            </div>
+                            <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="briefcase" class="w-5 h-5"></i> Business Suite</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Proposals:</strong> Startup pitch, Service, & Marketing plans.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>HR:</strong> Offer letters, Warning letters, Policies.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Industry Specific:</strong> IT, BPO, Real Estate, Healthcare.</li>
+                                </ul>
+                            </div>
+                             <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="globe" class="w-5 h-5"></i> Global & Secure</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> Multi-language support & Localization.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Enterprise Trust:</strong> Data privacy, No content reuse.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> Collaboration: User roles, Draft history, Export (PDF/Word).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Feature Group: Specialized -->
+                        <div class="space-y-6">
+                            <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="sliders" class="w-5 h-5"></i> Tone & Intent Control</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Modes:</strong> Confident, Friendly, Legal, Apology, Romantic.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Audience Selector:</strong> Boss, Client, HR, Professor, Investor.</li>
+                                </ul>
+                            </div>
+                            <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="graduation-cap" class="w-5 h-5"></i> Student & Education</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> Essays, Assignments, Statement of Purpose (SOP).</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> Internship emails, Scholarship letters.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> "One AI tool for all student writing needs."</li>
+                                </ul>
+                            </div>
+                            <div class="p-5 rounded-xl bg-white/5 border border-white/5">
+                                <h4 class="text-rose-400 font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="heart" class="w-5 h-5"></i> Sales & Creative</h4>
+                                <ul class="space-y-2 text-sm text-gray-400">
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Marketing:</strong> Ad copy (Google/Meta), Social captions.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Sales:</strong> Pitches, Cold emails, Objection handling.</li>
+                                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-rose-500 shrink-0"></i> <strong>Personal:</strong> Love letters, Birthday wishes, Thank-you notes.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 text-center pt-6 border-t border-white/10">
+                        <button onclick="closeModal('prod-smartwrite'); route('contact', event)" class="px-8 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-full shadow-lg shadow-rose-500/30 transition">Contact for Early Access</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Product Modal - AI Image Generator -->
+        <div id="modal-prod-image" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-image')"></div>
+            <div class="relative w-full max-w-2xl mx-auto mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-purple-600/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-purple-400"><i data-lucide="image"></i> AI Image Generator</h3>
+                    <button onclick="closeModal('prod-image')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8">
+                    <p class="text-gray-300 text-lg mb-6">
+                        Unlock creative potential with our advanced AI Image Generation tool. Whether for marketing assets, concept art, or social media content, generate high-fidelity visuals from simple text prompts.
+                    </p>
+                    <h4 class="font-bold text-white mb-3">Key Features in Development:</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Text-to-Image Synthesis</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Style Transfer & customization</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> High-resolution upscaling</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Commercial usage rights</li>
+                    </ul>
+                    <button onclick="closeModal('prod-image'); route('contact', event)" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition">Join the Waitlist</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Product Modal - Chat Support Manager -->
+        <div id="modal-prod-chat" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-chat')"></div>
+            <div class="relative w-full max-w-2xl mx-auto mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-amber-600/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-amber-400"><i data-lucide="message-square"></i> Chat Support Manager</h3>
+                    <button onclick="closeModal('prod-chat')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8">
+                    <p class="text-gray-300 text-lg mb-6">
+                        Designed for BPO and Customer Service teams, this software unifies live chat, ticketing, and agent performance monitoring into one dashboard.
+                    </p>
+                    <h4 class="font-bold text-white mb-3">Core Capabilities:</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i> Unified Inbox (Email, Chat, Social)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i> AI-powered response suggestions</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i> Real-time Agent Analytics</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-amber-500"></i> Automated Ticket Routing</li>
+                    </ul>
+                    <button onclick="closeModal('prod-chat'); route('contact', event)" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition">Request Demo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW: Product Modal - Video Tools -->
+        <div id="modal-prod-video" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-video')"></div>
+            <div class="relative w-full max-w-2xl mx-auto mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-cyan-600/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-cyan-400"><i data-lucide="video"></i> AI Video Creation</h3>
+                    <button onclick="closeModal('prod-video')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8">
+                    <p class="text-gray-300 text-lg mb-6">
+                        Streamline content creation with our AI Video Suite. Convert blog posts to videos, create AI avatars for presentations, and automate video editing workflows.
+                    </p>
+                    <h4 class="font-bold text-white mb-3">Planned Features:</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Script-to-Video generation</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> AI Avatars & Voiceovers</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Auto-captioning & Translation</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Social Media Format Resizing</li>
+                    </ul>
+                    <button onclick="closeModal('prod-video'); route('contact', event)" class="w-full py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg transition">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW Modal: AI Solutions -->
+        <div id="modal-srv-ai" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-ai')"></div>
+            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-rose-500/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-rose-400"><i data-lucide="bot"></i> AI & Product Solutions</h3>
+                    <button onclick="closeModal('srv-ai')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8 md:p-12 overflow-y-auto">
+                     <div class="flex flex-col lg:flex-row gap-8">
+                         <div class="lg:w-2/3">
+                            <h4 class="text-xl font-bold text-white mb-4">Intelligent Products for Modern Business</h4>
+                            <p class="text-gray-400 leading-relaxed mb-6">
+                                We develop custom AI agents and software products that automate your unique business processes. Whether you need an internal automation tool, a customer-facing AI chatbot, or a full SaaS product, our innovation lab builds it from the ground up.
+                            </p>
+                            <h5 class="font-bold text-white mb-3">Capabilities:</h5>
+                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Custom AI Agents</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> SaaS Product Development</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Process Automation</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Predictive Analytics</li>
+                            </ul>
+                            <button onclick="closeModal('srv-ai'); route('contact', event)" class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-lg shadow-rose-500/30 transition">Build Your Product</button>
+                         </div>
+                         <div class="lg:w-1/3 bg-rose-500/10 rounded-xl p-6 h-fit border border-rose-500/20">
+                             <div class="mb-4">
+                                 <span class="block text-xs text-rose-400 uppercase font-bold mb-1">Service Type</span>
+                                 <span class="text-xl font-bold text-white">Product<span class="text-lg text-gray-500 font-normal"> Engineering</span></span>
+                             </div>
+                             <hr class="border-rose-500/20 mb-4">
+                             <p class="text-sm text-gray-400 italic">"Turning your ideas into scalable AI assets."</p>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Software (Updated) -->
+        <div id="modal-srv-software" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
+            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-software')"></div>
+            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-blue-500/10">
+                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-blue-400"><i data-lucide="code-2"></i> Custom Software & SaaS</h3>
+                    <button onclick="closeModal('srv-software')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+                <div class="p-8 md:p-12 overflow-y-auto">
+                     <div class="flex flex-col lg:flex-row gap-8">
+                         <div class="lg:w-2/3">
+                            <h4 class="text-xl font-bold text-white mb-4">Building the Future of Your Business</h4>
+                            <p class="text-gray-400 leading-relaxed mb-6">
+                                Off-the-shelf solutions rarely fit. We specialize in tailored software development and Custom SaaS products. Our team includes full-stack developers, DBAs, UI/UX designers, and QA engineers. From mobile apps to complex SaaS platforms, we transform vision into reality.
+                            </p>
+                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
+                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Custom SaaS Platforms</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Web & Mobile Apps</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Full-Stack Development</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Cloud Infrastructure</li>
+                            </ul>
+                            <button onclick="closeModal('srv-software'); route('contact', event)" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition">Discuss Your Project</button>
+                         </div>
+                         <div class="lg:w-1/3 bg-blue-500/10 rounded-xl p-6 h-fit border border-blue-500/20">
+                             <div class="mb-4">
+                                 <span class="block text-xs text-blue-400 uppercase font-bold mb-1">Approach</span>
+                                 <span class="text-xl font-bold text-blue-600">Full Lifecycle</span>
+                             </div>
+                             <hr class="border-blue-500/20 mb-4">
+                             <p class="text-sm text-gray-400 italic">From ideation to deployment and support.</p>
+                         </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Existing Modals (BPO, WebDev, Consultant, Marketing, RPO, Recruitment) maintained below... -->
         
         <!-- Modal: BPO -->
         <div id="modal-srv-bpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
@@ -883,7 +1239,7 @@
                          <div class="lg:w-2/3">
                             <h4 class="text-xl font-bold text-white mb-4">Seamless Customer Experience Management</h4>
                             <p class="text-gray-400 leading-relaxed mb-6">
-                                Unlock efficiency with our specialized BPO services. We provide highly experienced customer support executives with over five years of experience serving US-based clients. Whether it's voice or text support, our dedicated team operates 24/7 from our advanced offshore hub.
+                                Unlock efficiency with our specialized BPO services. We provide highly experienced customer support executives with over five years of experience serving US-based clients. Whether it's voice or text support, our dedicated team operates 24/7.
                             </p>
                             <h5 class="font-bold text-white mb-3">Key Features:</h5>
                             <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
@@ -906,7 +1262,7 @@
                 </div>
             </div>
         </div>
- 
+
         <!-- Modal: Web Development -->
         <div id="modal-srv-webdev" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-webdev')"></div>
@@ -1018,80 +1374,6 @@
             </div>
         </div>
 
-        <!-- Modal: Software -->
-        <div id="modal-srv-software" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-software')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-blue-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-blue-400"><i data-lucide="code-2"></i> Software Development</h3>
-                    <button onclick="closeModal('srv-software')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Building the Future of Your Business</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Off-the-shelf solutions rarely fit. We specialize in tailored software development. Our team includes full-stack developers, DBAs, UI/UX designers, and QA engineers. From mobile apps to complex SaaS platforms, we transform vision into reality.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Web & Mobile Apps</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Full-Stack Development</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> UI/UX Design</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Ongoing Maintenance</li>
-                            </ul>
-                            <button onclick="closeModal('srv-software'); route('contact', event)" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition">Discuss Your Project</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-blue-500/10 rounded-xl p-6 h-fit border border-blue-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-blue-400 uppercase font-bold mb-1">Approach</span>
-                                 <span class="text-xl font-bold text-blue-600">Full Lifecycle</span>
-                             </div>
-                             <hr class="border-blue-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">From ideation to deployment and support.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: RPO -->
-        <div id="modal-srv-rpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-rpo')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-indigo-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-indigo-400"><i data-lucide="network"></i> RPO Solutions</h3>
-                    <button onclick="closeModal('srv-rpo')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Optimizing Talent Acquisition</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Leverage our dedicated RPO model to deploy experienced teams across sectors like IT, Healthcare, Pharma, and Manufacturing. Our offshore specialists use complex Boolean sourcing and digital marketing to build comprehensive candidate pipelines.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> High-Volume Sourcing</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Multi-Layer Vetting</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Background Checks</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Cultural Fit Assessment</li>
-                            </ul>
-                            <button onclick="closeModal('srv-rpo'); route('contact', event)" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg shadow-indigo-500/30 transition">Start RPO</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-indigo-500/10 rounded-xl p-6 h-fit border border-indigo-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-indigo-400 uppercase font-bold mb-1">Model</span>
-                                 <span class="text-xl font-bold text-indigo-600">Enterprise Ready</span>
-                             </div>
-                             <hr class="border-indigo-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">Scale your hiring without scaling your HR overhead.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal: Recruitment -->
         <div id="modal-srv-recruitment" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
             <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-recruitment')"></div>
@@ -1105,7 +1387,7 @@
                          <div class="lg:w-2/3">
                             <h4 class="text-xl font-bold text-white mb-4">Staffing the Right Way</h4>
                             <p class="text-gray-400 leading-relaxed mb-6">
-                                We provide comprehensive US IT recruitment services, guaranteeing the right talent efficiently. Our hybrid methodology combines strategic offshore sourcing with rigorous US-based screening. We support C2C, C2H, and full-time models with a bench of skilled professionals (Citizens, GC, H1B, TN, OPT).
+                                We provide comprehensive US IT recruitment services, guaranteeing the right talent efficiently. Our hybrid methodology combines strategic offshore sourcing with rigorous US-based screening. We support C2C, C2H, and full-time models.
                             </p>
                             <h5 class="font-bold text-white mb-3">Key Features:</h5>
                             <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
@@ -1136,7 +1418,6 @@
             <div class="flex items-center justify-center gap-0.5">
             </div>
             <p class="text-slate-500 text-[12px]">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
-            <!-- Accessibility FIX: Added aria-labels to social links -->
             <div class="flex gap-4">
                 <a href="https://www.linkedin.com/company/chowdhuryx" aria-label="LinkedIn" class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
                 <a href="https://x.com/chowdhuryx1896" aria-label="Twitter / X" class="text-gray-500 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
@@ -1146,79 +1427,43 @@
         </div>
     </footer>
 
-  <!-- Hidden Developer Info Panel -->
-<div id="dev-panel" 
-     class="fixed bottom-5 right-5 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
-    <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl border border-slate-700 w-[400px] backdrop-blur-md bg-opacity-95 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-shadow">
-       
-       <div class="flex items-center gap-3 mb-4 border-b border-slate-700 pb-3">
-            <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                <i class="fas fa-code" aria-hidden="true"></i>
+    <!-- Developer Info Panel -->
+    <div id="dev-panel" 
+         class="fixed bottom-5 right-5 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
+        <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl border border-slate-700 w-[400px] backdrop-blur-md bg-opacity-95">
+           <div class="flex items-center gap-3 mb-4 border-b border-slate-700 pb-3">
+                <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg leading-none">Developer Info</h4>
+                    <span class="text-xs text-slate-400 uppercase tracking-wider">System Status</span>
+                </div>
+                <button onclick="toggleDevPanel()" aria-label="Close" class="ml-auto text-slate-400 hover:text-white transition"><i class="fas fa-times"></i></button>
             </div>
-            <div>
-                <h4 class="font-bold text-lg leading-none">Developer Info</h4>
-                <span class="text-xs text-slate-400 uppercase tracking-wider">System Status</span>
-            </div>
-            <button onclick="toggleDevPanel()" aria-label="Close Developer Panel"
-                    class="ml-auto text-slate-400 hover:text-white transition">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <ul class="space-y-3 text-sm">
-            <li class="flex justify-between items-center">
-                <span class="text-slate-400"><i class="fas fa-user mr-2"></i>Developer</span>
-                <span class="font-medium text-brand-400 text-right">Manikanta</span>
-            </li>
-            <li class="flex justify-between items-center">
-                <span class="text-slate-400"><i class="fas fa-code-branch mr-2"></i>Version</span>
-                <span class="font-mono bg-slate-800 px-2 py-0.5 rounded text-xs">v1.1.0</span>
-            </li>
-            <li class="flex justify-between items-center">
-                <span class="text-slate-400"><i class="far fa-calendar-alt mr-2"></i>Release</span>
-                <span>Dec 2025</span>
-            </li>
-            <li class="flex justify-between items-center pt-2 border-t border-slate-700 mt-2">
-                <span class="text-slate-400"><i class="fas fa-envelope mr-2"></i>Contact</span>
-                <a href="mailto:chelamalla.manikanta28@gmail.com" 
-                   class="text-brand-400 hover:underline">chelamalla.manikanta28@gmail.com</a>
-            </li>
-        </ul>
-        
-        <div class="mt-4 text-center">
-            <p class="text-[10px] text-slate-500">
-                Press <span class="bg-slate-800 px-1 rounded text-slate-300">Esc</span> to close
-            </p>
+            <ul class="space-y-3 text-sm">
+                <li class="flex justify-between items-center"><span class="text-slate-400"><i class="fas fa-user mr-2"></i>Developer</span><span class="font-medium text-brand-400 text-right">Manikanta</span></li>
+                <li class="flex justify-between items-center"><span class="text-slate-400"><i class="fas fa-code-branch mr-2"></i>Version</span><span class="font-mono bg-slate-800 px-2 py-0.5 rounded text-xs">v1.2.0 (AI Update)</span></li>
+                <li class="flex justify-between items-center pt-2 border-t border-slate-700 mt-2">
+                    <span class="text-slate-400"><i class="fas fa-envelope mr-2"></i>Contact</span>
+                    <a href="mailto:chelamalla.manikanta28@gmail.com" class="text-brand-400 hover:underline">chelamalla.manikanta28@gmail.com</a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
 
     <script>
-        // SEO Optimized Router Logic
         function route(pageId, ...args) {
             let sectionId = null;
             let event = null;
-
-            // Handle optional arguments for robustness
             if (args.length === 1) {
-                if (args[0] instanceof Event) {
-                    event = args[0];
-                } else {
-                    sectionId = args[0];
-                }
+                args[0] instanceof Event ? event = args[0] : sectionId = args[0];
             } else if (args.length === 2) {
                 sectionId = args[0];
                 event = args[1];
             }
+            if (event) event.preventDefault();
 
-            // Prevent default anchor jump (keeps the Smooth Transition effect)
-            if (event) {
-                event.preventDefault();
-            }
-
-            // Handle URL updates:
-            // 1. If it's 'home' (the default page), remove the hash to keep the URL clean (e.g. domain.com/)
-            // 2. Otherwise, update the hash (e.g. domain.com/#about)
             if (pageId === 'home' && !sectionId) {
                 history.replaceState(null, null, window.location.pathname);
             } else {
@@ -1226,13 +1471,11 @@
                 history.pushState(null, null, `#${hashId}`);
             }
 
-            // Update Page Visibility
             document.querySelectorAll('.page-section').forEach(p => {
                 p.classList.remove('active');
                 if(p.id === pageId) setTimeout(() => p.classList.add('active'), 50);
             });
 
-            // Update Nav State
             document.querySelectorAll('nav a').forEach(b => {
                 const span = b.querySelector('span');
                 if(span) span.style.width = '0';
@@ -1243,69 +1486,45 @@
                 if(span) span.style.width = '100%';
             }
 
-            // Close Mobile Menu
             const mobileMenu = document.getElementById('mobile-menu');
             if (!mobileMenu.classList.contains('hidden')) {
                 mobileMenu.classList.add('hidden');
                 mobileMenu.classList.remove('flex');
             }
 
-            // Handle Specific Sections / Modals
             if(sectionId) {
-                if(sectionId.startsWith('srv-')) {
-                    setTimeout(() => {
-                        openModal(sectionId);
-                    }, 300);
-                } else {
-                    // Scroll to Element logic if needed (Currently pages are toggled via display:none)
-                    // If you change to scrolling layout later:
-                    // const el = document.getElementById(sectionId);
-                    // if(el) el.scrollIntoView({ behavior: 'smooth' });
+                if(sectionId.startsWith('srv-') || sectionId.startsWith('prod-')) {
+                    setTimeout(() => openModal(sectionId), 300);
                 }
             } else {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // --- Modal Logic ---
         function openModal(id) {
             const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
             const modal = document.getElementById(modalId);
-            
             if(modal) {
                 modal.classList.remove('hidden');
-                
                 requestAnimationFrame(() => {
                    const content = modal.querySelector('.modal-content');
-                   const backdrop = modal.querySelector('div:first-child');
-                   
                    content.classList.remove('scale-95', 'opacity-0');
                    content.classList.add('scale-100', 'opacity-100');
-                   
-                   backdrop.classList.remove('opacity-0');
+                   modal.querySelector('div:first-child').classList.remove('opacity-0');
                 });
                 document.body.style.overflow = 'hidden';
-                
-                // Re-initialize icons when modal opens
-                if (typeof lucide !== 'undefined') {
-                    lucide.createIcons();
-                }
+                if (typeof lucide !== 'undefined') lucide.createIcons();
             }
         }
 
         function closeModal(id) {
             const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
             const modal = document.getElementById(modalId);
-            
             if(modal) {
                  const content = modal.querySelector('.modal-content');
-                 const backdrop = modal.querySelector('div:first-child');
-
                  content.classList.remove('scale-100', 'opacity-100');
                  content.classList.add('scale-95', 'opacity-0');
-                 
-                 backdrop.classList.add('opacity-0');
-                 
+                 modal.querySelector('div:first-child').classList.add('opacity-0');
                  setTimeout(() => {
                      modal.classList.add('hidden');
                      document.body.style.overflow = '';
@@ -1313,7 +1532,6 @@
             }
         }
 
-        // Mobile Menu Toggle
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             const menu = document.getElementById('mobile-menu');
             menu.classList.remove('hidden');
@@ -1326,11 +1544,9 @@
             menu.classList.remove('flex');
         });
 
-        // FAQ Toggle Logic
         function toggleFaq(button) {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
-            
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
                 icon.style.transform = 'rotate(45deg)';
@@ -1340,68 +1556,44 @@
             }
         }
 
-        // Developer Panel Logic
         function toggleDevPanel() {
             const panel = document.getElementById('dev-panel');
-            if (panel.classList.contains('opacity-0')) {
-                panel.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-            } else {
-                panel.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-            }
+            panel.classList.toggle('opacity-0');
+            panel.classList.toggle('translate-y-4');
+            panel.classList.toggle('pointer-events-none');
         }
 
-        // Initialize Icons on DOM Content Loaded (Waits for defer script)
         document.addEventListener("DOMContentLoaded", function() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            } else {
-                // Fallback if Lucide takes longer to load
-                window.onload = function() {
-                    if (typeof lucide !== 'undefined') {
-                        lucide.createIcons();
-                    }
-                }
-            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            else window.onload = function() { if (typeof lucide !== 'undefined') lucide.createIcons(); }
         });
 
-        // Handle Initial Load from URL Hash
         window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.substring(1); // remove '#'
+            const hash = window.location.hash.substring(1);
             if (hash) {
-                // Check if it's a specific service modal deep link
                 if(hash.startsWith('services-')) {
-                    const srvId = hash.replace('services-', 'srv-');
-                    route('services', srvId);
-                } else if(hash === 'home' || hash === 'about' || hash === 'services' || hash === 'faq' || hash === 'contact') {
+                    route('services', hash.replace('services-', 'srv-'));
+                } else if(hash.startsWith('prod-')) {
+                    route('products', hash);
+                } else if(['home', 'products', 'about', 'services', 'faq', 'contact'].includes(hash)) {
                     route(hash);
                 } else {
                     route('home');
                 }
             } else {
-                // Default to home page, BUT ensure URL is clean (no #home)
                 route('home');
-                // Ensure the URL bar stays clean on initial load
-                if(window.location.hash === '#home') {
-                     history.replaceState(null, null, window.location.pathname);
-                }
+                if(window.location.hash === '#home') history.replaceState(null, null, window.location.pathname);
             }
         });
 
-        // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
                 e.preventDefault();
                 toggleDevPanel();
             }
             if (e.key === 'Escape') {
-                const panel = document.getElementById('dev-panel');
-                if (!panel.classList.contains('opacity-0')) {
-                    toggleDevPanel();
-                }
-                const openModals = document.querySelectorAll('.fixed.z-\\[100\\]:not(.hidden)');
-                openModals.forEach(m => {
-                    closeModal(m.id);
-                });
+                if (!document.getElementById('dev-panel').classList.contains('opacity-0')) toggleDevPanel();
+                document.querySelectorAll('.fixed.z-\\[100\\]:not(.hidden)').forEach(m => closeModal(m.id));
             }
         });
     </script>
