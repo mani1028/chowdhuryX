@@ -1,99 +1,122 @@
-# ChowdhuryX Organization - Official Website 🚀
+ChowdhuryX Organization - Official Website 🚀
 
-![Status](https://img.shields.io/badge/Status-Live-success)
-![Tech](https://img.shields.io/badge/Stack-HTML%20%7C%20Tailwind%20%7C%20JS-blue)
-![Design](https://img.shields.io/badge/Design-Glassmorphism-purple)
-
-A high-performance, responsive corporate website developed for **ChowdhuryX Organization LLC**, a US-based IT Consulting and Recruitment firm. 
+A high-performance, responsive corporate website developed for ChowdhuryX Organization LLC, a US-based IT Consulting and Recruitment firm.
 
 This project demonstrates modern UI/UX principles, featuring a "Deep Space" dark mode aesthetic, glassmorphism effects, and seamless single-page navigation without page reloads.
 
-🔗 **Live Demo1:** [https://chowdhuryx.com/]
+🔗 Live Demo: https://chowdhuryx.com/
 
-🔗 **Live Demo2:** [https://karthikdemo.vercel.app/]
+🎨 Design Philosophy
 
----
+The design focuses on a "Future of IT" aesthetic, utilizing:
 
-## 🎨 Design Philosophy
+Deep Space Backgrounds: Using Tailwind's slate-950 and ambient background blobs.
 
-The design focuses on a **"Future of IT"** aesthetic, utilizing:
-* **Deep Space Backgrounds:** Using Tailwind's `slate-950` and ambient background blobs.
-* **Glassmorphism:** Translucent cards and navigation bars with backdrop filters (`backdrop-blur-md`).
-* **Brand Colors:** Emerald Green (`#10b981`) and Teal accents.
-* **Smooth Animations:** Custom floating, glowing, and pulsing effects defined in the Tailwind config.
+Glassmorphism: Translucent cards and navigation bars with backdrop filters (backdrop-blur-md).
 
-## ✨ Key Features
+Brand Colors: Emerald Green (#10b981) and Teal accents.
 
-### 1. Single Page Application (SPA) Feel
-* Built with Vanilla JavaScript routing (`route()` function).
-* Sections (Home, About, Services, FAQ, Contact) transition smoothly without refreshing the browser.
-* Active states are updated dynamically in the navigation bar.
+Smooth Animations: Custom floating, glowing, and pulsing effects defined in the Tailwind config.
 
-### 2. Interactive Service Modals
-* Clicking on service cards (e.g., BPO, Web Dev, Recruitment) opens detailed modals.
-* Modals feature custom enter/exit animations (scaling and opacity transitions).
-* Backdrop clicking closes the modal for better UX.
+✨ Key Features
 
-### 3. Advanced Tailwind Configuration
-* **Custom Animations:** `animate-float`, `animate-glow`, and `animate-blob` configured directly in the script.
-* **Responsive Typography:** Uses **'Outfit'** (Sans) and **'Space Grotesk'** (Display) fonts.
+1. Single Page Application (SPA) Feel
 
-### 4. Developer Easter Egg 👨‍💻
-* Includes a hidden **Developer Panel** showing version info and stack details.
-* **Try it:** Press `Ctrl + Shift + D` on the keyboard to toggle the panel.
+Built with Vanilla JavaScript routing (route() function).
 
-## 🛠️ Technologies Used
+Sections (Home, About, Services, FAQ, Contact) transition smoothly without refreshing the browser.
 
-* **Core:** HTML5, Semantic Web Markup
-* **Styling:** Tailwind CSS (via CDN for rapid prototyping)
-* **Scripting:** Vanilla JavaScript (ES6+)
-* **Icons:** Lucide Icons & FontAwesome
-* **Fonts:** Google Fonts (Outfit & Space Grotesk)
+Active states are updated dynamically in the navigation bar.
 
-## 📂 Project Structure
+2. Interactive Service & Product Modals
 
-```
+Clicking on service cards (e.g., BPO, Web Dev) or Product cards (SmartWrite AI) opens detailed modals.
+
+Modals feature custom enter/exit animations (scaling and opacity transitions).
+
+Backdrop clicking closes the modal for better UX.
+
+3. Advanced Tailwind Configuration
+
+Custom Animations: animate-float, animate-glow, and animate-blob configured directly in the script.
+
+Responsive Typography: Uses 'Outfit' (Sans) and 'Space Grotesk' (Display) fonts.
+
+4. Developer Easter Egg 👨‍💻
+
+Includes a hidden Developer Panel showing version info and stack details.
+
+Try it: Press Ctrl + Shift + D on the keyboard to toggle the panel.
+
+🛠️ Technologies Used
+
+Core: HTML5, Semantic Web Markup
+
+Styling: Tailwind CSS (via CDN for rapid prototyping)
+
+Scripting: Vanilla JavaScript (ES6+)
+
+Icons: Lucide Icons & FontAwesome
+
+Fonts: Google Fonts (Outfit & Space Grotesk)
+
+📂 Project Structure
+
 /
 ├── index.html       # Main application file (structure, styles, logic)
 ├── images/          # Logo and asset files
 │   └── chowduryx-removebg-preview.png
-└── README.md        # Project documentation 
-```
+├── .htaccess        # Apache configuration
+├── robots.txt       # SEO directives
+├── sitemap.xml      # Site map
+└── README.md        # Project documentation
 
 
-## 🚀 How to Run Locally
+🚀 How to Run Locally
 
-Since this project uses CDN links for Tailwind and Icons, no build step (`npm install`) is required.
+Since this project uses CDN links for Tailwind and Icons, no build step (npm install) is required.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/mani1028/chowdhuryX
-   
-## 2. Navigate to the folder
-```bash
-cd REPO_NAME
-```
-## 3. Launch
+Clone the repository:
 
-Simply open `index.html` in your Chrome or Edge browser.  
+git clone [https://github.com/mani1028/chowdhuryx.git](https://github.com/mani1028/chowdhuryx.git)
 
-💡 Recommendation: Use the **Live Server** extension in VS Code for the best experience.
 
-## 📍 Organization Details
+Navigate to the folder:
 
-- **Company:** ChowdhuryX Organization LLC  
-- **Location:** 30 N Gould St Ste R, Sheridan, Wyoming 82801  
-- **Contact:** [info@chowdhuryx.com](mailto:info@chowdhuryx.com) | +1 307-429-5757  
+cd chowdhuryx
 
-## 👤 Author
 
-**Manikanta** – Full Stack Developer & UI/UX Designer  
+Launch:
+Simply open index.html in your Chrome or Edge browser.
 
-- **LinkedIn:** [https://in.linkedin.com/in/mani1028]  
-- **GitHub:** [https://github.com/mani1028/]  
-- **Email:** [chelamalla.manikanta28@gmail.com](mailto:chelamalla.manikanta28@gmail.com)  
+💡 Recommendation: Use the Live Server extension in VS Code for the best experience.
 
----
+# Python 3 alternative
+python -m http.server 8000
+
+
+📍 Organization Details
+
+Company: ChowdhuryX Organization LLC
+
+Location: 30 N Gould St Ste R, Sheridan, Wyoming 82801
+
+Contact: info@chowdhuryx.com | +1 307-429-5757
+
+Products & Services
+
+AI Products: SmartWrite AI Suite, Image Generators, Chat Support Managers.
+
+Services: BPO, IT Staffing (RPO), Custom Software Development.
+
+👤 Author
+
+Manikanta – Full Stack Developer & UI/UX Designer
+
+LinkedIn: https://in.linkedin.com/in/mani1028
+
+GitHub: https://github.com/mani1028/
+
+Email: chelamalla.manikanta28@gmail.com
 
 © 2025 ChowdhuryX Organization LLC. All rights reserved.
-
