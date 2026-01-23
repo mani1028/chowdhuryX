@@ -1,4 +1,14 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.google.com/search?q=https://chowdhuryx.com/sitemap.xml
+# Block admin and action routes
+Disallow: /login
+Disallow: /logout
+Disallow: /create_post
+Disallow: /edit_post/
+Disallow: /delete_post/
+Disallow: /like/
+Disallow: /like_comment/
+Disallow: /comment/
+
+Sitemap: https://chowdhuryx.com/sitemap.xml
