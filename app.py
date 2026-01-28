@@ -7,7 +7,7 @@ from werkzeug.datastructures import FileStorage
 from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_change_this' 
+app.secret_key = 'd8f9#KJf9@2!sL0pQw8xZ@2026' 
 
 # --- CONFIGURATION ---
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))

@@ -1,0 +1,22 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Database (Don't overwrite your live data with local data!)
+database.db
+*.sqlite3
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE settings (VS Code, PyCharm)
+.vscode/
+.idea/
