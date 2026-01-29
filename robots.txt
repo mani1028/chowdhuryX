@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block admin areas from Google Search
+Disallow: /login
+Disallow: /logout
+Disallow: /create_post
+Disallow: /edit_post/
+Disallow: /delete_post/
+
+# Block API and Action endpoints
+Disallow: /like/
+Disallow: /like_comment/
+Disallow: /comment/
+Disallow: /api/
+
+Sitemap: https://chowdhuryx.com/sitemap.xml

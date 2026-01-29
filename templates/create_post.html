@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post | ChowdhuryX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; }
+        .glass-nav { background: #ffffff !important; box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center">
+        <div class="glass-nav rounded-b-[2.5rem] px-8 py-3 w-full max-w-7xl flex justify-between items-center transition-all duration-300">
+            <a href="/" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
+                <img src="/static/images/chowduryx-removebg-preview.png" alt="ChowdhuryX Logo" width="180" height="48" class="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            </a>
+            <div class="flex items-center space-x-4">
+                <a href="/blog" class="text-sm font-bold text-slate-600 hover:text-emerald-600">Cancel</a>
+                <a href="/logout" class="px-4 py-2 border border-red-500 text-red-500 text-sm font-bold rounded-full hover:bg-red-500 hover:text-white transition-all">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="min-h-screen flex items-center justify-center p-6 pt-32">
+        <div class="max-w-2xl w-full bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+            <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
+                <i data-lucide="pen-tool" class="text-emerald-500"></i> Create New Post
+            </h2>
+            
+            <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label class="block text-emerald-400 text-sm font-bold mb-2">Headline</label>
+                    <input type="text" name="title" class="w-full bg-slate-950 border border-white/10 rounded-xl p-4 text-white focus:border-emerald-500 outline-none transition" required placeholder="Enter an engaging title...">
+                </div>
+                
+                <div>
+                    <label class="block text-emerald-400 text-sm font-bold mb-2">Cover Image</label>
+                    <input type="file" name="image" class="w-full bg-slate-950 border border-white/10 rounded-xl p-4 text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 transition">
+                </div>
+
+                <div>
+                    <label class="block text-emerald-400 text-sm font-bold mb-2">Content</label>
+                    <textarea name="content" rows="8" class="w-full bg-slate-950 border border-white/10 rounded-xl p-4 text-white focus:border-emerald-500 outline-none transition leading-relaxed" required placeholder="Write your update here..."></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-1">
+                    Publish Post
+                </button>
+            </form>
+        </div>
+    </main>
+    <script>
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    </script>
+</body>
+</html>

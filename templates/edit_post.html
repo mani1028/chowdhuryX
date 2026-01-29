@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post | ChowdhuryX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; }
+        .glass-card { background: rgba(30, 41, 59, 0.3); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+    
+    <div class="max-w-2xl w-full">
+        <a href="/blog" class="inline-flex items-center gap-2 text-gray-400 hover:text-emerald-400 mb-6 transition-colors">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Blog
+        </a>
+
+        <div class="glass-card p-8 rounded-3xl">
+            <h1 class="text-3xl font-bold text-white mb-8">Edit Post</h1>
+            
+            <form action="/edit_post/{{ post.id }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Title</label>
+                    <input type="text" name="title" value="{{ post.title }}" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Content</label>
+                    <textarea name="content" rows="10" class="w-full bg-slate-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition" required>{{ post.content }}</textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Update Image (Optional)</label>
+                    
+                    {% if post.image %}
+                    <div class="mb-3">
+                        <p class="text-xs text-gray-500 mb-1">Current Image:</p>
+                        <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Current image" class="h-20 w-auto rounded-lg border border-white/10">
+                    </div>
+                    {% endif %}
+
+                    <div class="relative group cursor-pointer">
+                        <input type="file" name="image" class="w-full text-sm text-gray-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 cursor-pointer">
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-4 rounded-xl hover:bg-emerald-700 transition shadow-lg shadow-emerald-500/20">
+                    Update Post
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    </script>
+</body>
+</html>
