@@ -1,0 +1,77 @@
+{% extends "admin/base-admin.html" %}
+
+{% block title %}Blog Management - Admin{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1>Blog Posts</h1>
+    <a href="{{ url_for('admin.create_blog') }}" class="btn btn-primary">+ Create Post</a>
+</div>
+
+<div class="filter-buttons">
+    <a href="{{ url_for('admin.blog', status='all') }}" class="btn {% if current_status == 'all' %}active{% endif %}">All</a>
+    <a href="{{ url_for('admin.blog', status='published') }}" class="btn {% if current_status == 'published' %}active{% endif %}">Published</a>
+    <a href="{{ url_for('admin.blog', status='draft') }}" class="btn {% if current_status == 'draft' %}active{% endif %}">Draft</a>
+    <a href="{{ url_for('admin.blog', status='archived') }}" class="btn {% if current_status == 'archived' %}active{% endif %}">Archived</a>
+</div>
+
+{% if blogs.items %}
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Status</th>
+                <th>Views</th>
+                <th>Created</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs.items %}
+            <tr>
+                <td><strong>{{ blog.title }}</strong></td>
+                <td>{{ blog.category }}</td>
+                <td>{{ blog.author }}</td>
+                <td><span class="badge badge-{{ blog.status }}">{{ blog.status }}</span></td>
+                <td>{{ blog.views }}</td>
+                <td>{{ blog.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('admin.view_blog', blog_id=blog.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+{% if blogs.pages > 1 %}
+<div class="pagination">
+    {% if blogs.has_prev %}
+    <a href="{{ url_for('admin.blog', page=blogs.prev_num, status=current_status) }}" class="btn">← Previous</a>
+    {% endif %}
+
+    {% for page_num in blogs.iter_pages() %}
+        {% if page_num %}
+            {% if page_num == blogs.page %}
+            <span class="current">{{ page_num }}</span>
+            {% else %}
+            <a href="{{ url_for('admin.blog', page=page_num, status=current_status) }}" class="btn">{{ page_num }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if blogs.has_next %}
+    <a href="{{ url_for('admin.blog', page=blogs.next_num, status=current_status) }}" class="btn">Next →</a>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div class="empty-state">
+    <p>No blog posts found. <a href="{{ url_for('admin.create_blog') }}">Create one now</a></p>
+</div>
+{% endif %}
+{% endblock %}

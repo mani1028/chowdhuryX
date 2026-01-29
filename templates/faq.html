@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ - ChowdhuryX{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p>Find answers to common questions about our services</p>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section section-white">
+    <div class="container">
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What services do you offer?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer a comprehensive range of corporate solutions including digital transformation, cloud migration, custom software development, AI & analytics, cybersecurity, and enterprise consulting services.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How long have you been in business?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We have over 15 years of experience in the technology and consulting industry, serving Fortune 500 companies and innovative startups worldwide.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What is your pricing model?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Our pricing is flexible and tailored to your specific needs. We offer fixed-price projects, time-and-materials engagement, and retainer options. Contact us for a custom quote.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Do you provide ongoing support?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we provide comprehensive support packages including maintenance, monitoring, updates, and dedicated support teams to ensure your systems run smoothly.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do you ensure project security?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Security is our top priority. We implement industry-standard practices including data encryption, secure development processes, compliance with GDPR/HIPAA, and regular security audits.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What is your typical project timeline?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Project timelines vary based on complexity and scope. Simple projects typically take 2-4 weeks, while enterprise solutions may take 3-6 months or longer. We provide detailed timelines during initial consultation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section section-dark">
+    <div class="container">
+        <h2>Still Have Questions?</h2>
+        <p>Our team is here to help. Reach out to us anytime.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn btn-light">Contact Us</a>
+            <a href="{{ url_for('blog') }}" class="btn btn-outline">Read Our Blog</a>
+        </div>
+    </div>
+</section>
+
+<style>
+.page-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 { color: white; font-size: 2.5rem; margin-bottom: 0.5rem; }
+.page-header p { font-size: 1.1rem; }
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    color: var(--primary-color);
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.faq-toggle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    display: none;
+    padding-bottom: 1.5rem;
+    color: var(--gray);
+    line-height: 1.8;
+}
+
+.faq-answer.active {
+    display: block;
+}
+</style>
+
+<!-- Call to Action -->
+<section class="cta-section section-dark">
+    <div class="container">
+        <h2>Still Have Questions?</h2>
+        <p>Our team is here to help. Reach out to us anytime.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn btn-light">Contact Us</a>
+            <a href="{{ url_for('blog') }}" class="btn btn-outline">Read Our Blog</a>
+        </div>
+    </div>
+</section>
+
+<script>
+function toggleFAQ(element) {
+    const question = element;
+    const answer = question.nextElementSibling;
+    
+    // Close other FAQs
+    document.querySelectorAll('.faq-answer.active').forEach(item => {
+        if (item !== answer) {
+            item.classList.remove('active');
+            item.previousElementSibling.classList.remove('active');
+        }
+    });
+    
+    // Toggle current FAQ
+    question.classList.toggle('active');
+    answer.classList.toggle('active');
+}
+</script>
+{% endblock %}

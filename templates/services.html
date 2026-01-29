@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Services - ChowdhuryX{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Services</h1>
+        <p>Comprehensive solutions tailored to your business needs</p>
+    </div>
+</section>
+
+<!-- Services List -->
+<section class="services-section section-white">
+    <div class="container">
+        <div class="services-list">
+            {% for service in services %}
+            <div class="service-item">
+                <div class="service-image">
+                    <img src="https://via.placeholder.com/600x400" alt="{{ service.name }}">
+                </div>
+                <div class="service-details">
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.description }}</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Custom solutions tailored to your needs</li>
+                        <li><i class="fas fa-check"></i> Expert team with proven track record</li>
+                        <li><i class="fas fa-check"></i> Measurable results and ROI</li>
+                        <li><i class="fas fa-check"></i> Ongoing support and optimization</li>
+                    </ul>
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary">Request Consultation</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Service Process -->
+<section class="service-process section-light">
+    <div class="container">
+        <h2>Our Process</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Discovery</h3>
+                <p>We analyze your business, challenges, and goals to develop a clear understanding of your needs.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Strategy</h3>
+                <p>Our experts develop a customized strategy that aligns with your business objectives.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Implementation</h3>
+                <p>We execute the plan with precision, ensuring quality and timely delivery.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Optimization</h3>
+                <p>Continuous monitoring and optimization to maximize results and ROI.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Support</h3>
+                <p>Ongoing support and maintenance to ensure sustained success and growth.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="services-cta section-dark">
+    <div class="container">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>Let's discuss which services are right for your organization</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-light">Schedule a Consultation</a>
+    </div>
+</section>
+{% endblock %}

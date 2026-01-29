@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}Careers - ChowdhuryX{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/careers.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Join Our Team</h1>
+        <p>Be part of a team that's transforming businesses worldwide</p>
+    </div>
+</section>
+
+<!-- Open Positions -->
+<section class="open-positions section-white">
+    <div class="container">
+        <h2>Open Positions</h2>
+        <div class="jobs-list">
+            <div class="job-card">
+                <div class="job-header">
+                    <h3>Senior Software Engineer</h3>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> New York, NY</span>
+                </div>
+                <p class="job-description">We're looking for an experienced software engineer to join our core development team.</p>
+                <div class="job-details">
+                    <span class="experience"><i class="fas fa-briefcase"></i> 5+ years</span>
+                    <span class="type"><i class="fas fa-clock"></i> Full-time</span>
+                </div>
+                <button class="btn btn-primary apply-btn" data-position="Senior Software Engineer">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <h3>Data Science Manager</h3>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</span>
+                </div>
+                <p class="job-description">Lead our data science team and drive analytics initiatives across the organization.</p>
+                <div class="job-details">
+                    <span class="experience"><i class="fas fa-briefcase"></i> 7+ years</span>
+                    <span class="type"><i class="fas fa-clock"></i> Full-time</span>
+                </div>
+                <button class="btn btn-primary apply-btn" data-position="Data Science Manager">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <h3>UI/UX Designer</h3>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Remote</span>
+                </div>
+                <p class="job-description">Create beautiful and intuitive user experiences for our suite of products.</p>
+                <div class="job-details">
+                    <span class="experience"><i class="fas fa-briefcase"></i> 3+ years</span>
+                    <span class="type"><i class="fas fa-clock"></i> Full-time</span>
+                </div>
+                <button class="btn btn-primary apply-btn" data-position="UI/UX Designer">Apply Now</button>
+            </div>
+
+            <div class="job-card">
+                <div class="job-header">
+                    <h3>Solutions Architect</h3>
+                    <span class="location"><i class="fas fa-map-marker-alt"></i> Chicago, IL</span>
+                </div>
+                <p class="job-description">Design and implement solutions for our enterprise clients.</p>
+                <div class="job-details">
+                    <span class="experience"><i class="fas fa-briefcase"></i> 6+ years</span>
+                    <span class="type"><i class="fas fa-clock"></i> Full-time</span>
+                </div>
+                <button class="btn btn-primary apply-btn" data-position="Solutions Architect">Apply Now</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Join Us -->
+<section class="why-join section-light">
+    <div class="container">
+        <h2>Why Join ChowdhuryX?</h2>
+        <div class="benefits-grid">
+            <div class="benefit">
+                <i class="fas fa-dollar-sign"></i>
+                <h4>Competitive Compensation</h4>
+                <p>Market-leading salaries and comprehensive benefits packages</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-graduation-cap"></i>
+                <h4>Professional Development</h4>
+                <p>Continuous learning opportunities and career growth</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-home"></i>
+                <h4>Work-Life Balance</h4>
+                <p>Flexible work arrangements and generous time off</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-briefcase"></i>
+                <h4>Meaningful Work</h4>
+                <p>Make an impact on real-world problems and industries</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-users"></i>
+                <h4>Diverse Team</h4>
+                <p>Collaborate with talented professionals from around the world</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-rocket"></i>
+                <h4>Innovation</h4>
+                <p>Work with cutting-edge technologies and methodologies</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Application Modal -->
+<div id="applicationModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Apply for Position</h2>
+        <form id="applicationForm">
+            <input type="hidden" id="positionInput" name="position" value="">
+            
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="full_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Years of Experience *</label>
+                <input type="number" id="experience" name="experience_years" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="resume">Upload Resume/CV *</label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="coverLetter">Cover Letter</label>
+                <textarea id="coverLetter" name="cover_letter" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit Application</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/careers.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "admin/base-admin.html" %}
+
+{% block title %}Career Applications - Admin{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1>Career Applications</h1>
+    <div class="filter-buttons">
+        <a href="{{ url_for('admin.careers', status='all') }}" class="btn {% if current_status == 'all' %}active{% endif %}">All</a>
+        <a href="{{ url_for('admin.careers', status='applied') }}" class="btn {% if current_status == 'applied' %}active{% endif %}">Applied</a>
+        <a href="{{ url_for('admin.careers', status='shortlisted') }}" class="btn {% if current_status == 'shortlisted' %}active{% endif %}">Shortlisted</a>
+        <a href="{{ url_for('admin.careers', status='hired') }}" class="btn {% if current_status == 'hired' %}active{% endif %}">Hired</a>
+        <a href="{{ url_for('admin.careers', status='rejected') }}" class="btn {% if current_status == 'rejected' %}active{% endif %}">Rejected</a>
+    </div>
+</div>
+
+{% if careers.items %}
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Email</th>
+                <th>Experience</th>
+                <th>Status</th>
+                <th>Rating</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for career in careers.items %}
+            <tr>
+                <td><strong>{{ career.full_name }}</strong></td>
+                <td>{{ career.position }}</td>
+                <td>{{ career.email }}</td>
+                <td>{{ career.experience_years }} years</td>
+                <td><span class="badge badge-{{ career.status }}">{{ career.status }}</span></td>
+                <td>
+                    {% if career.rating %}
+                    <div class="rating">
+                        {% for i in range(career.rating) %}
+                        <i class="fas fa-star"></i>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <span>-</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('admin.view_career', career_id=career.id) }}" class="btn btn-sm btn-primary">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+{% if careers.pages > 1 %}
+<div class="pagination">
+    {% if careers.has_prev %}
+    <a href="{{ url_for('admin.careers', page=careers.prev_num, status=current_status) }}" class="btn">← Previous</a>
+    {% endif %}
+
+    {% for page_num in careers.iter_pages() %}
+        {% if page_num %}
+            {% if page_num == careers.page %}
+            <span class="current">{{ page_num }}</span>
+            {% else %}
+            <a href="{{ url_for('admin.careers', page=page_num, status=current_status) }}" class="btn">{{ page_num }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if careers.has_next %}
+    <a href="{{ url_for('admin.careers', page=careers.next_num, status=current_status) }}" class="btn">Next →</a>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div class="empty-state">
+    <p>No applications found</p>
+</div>
+{% endif %}
+{% endblock %}

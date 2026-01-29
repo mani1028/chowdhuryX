@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin - ChowdhuryX{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/admin.css') }}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <!-- Admin Navigation -->
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <h2>ChowdhuryX Admin</h2>
+        </div>
+        <ul class="nav-items">
+            <li><a href="{{ url_for('admin.dashboard') }}" class="nav-link"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="{{ url_for('admin.contacts') }}" class="nav-link"><i class="fas fa-envelope"></i> Contacts</a></li>
+            <li><a href="{{ url_for('admin.careers') }}" class="nav-link"><i class="fas fa-briefcase"></i> Applications</a></li>
+            <li><a href="{{ url_for('admin.blog') }}" class="nav-link"><i class="fas fa-pen"></i> Blog</a></li>
+            <li class="separator"></li>
+            <li><a href="{{ url_for('admin.logout') }}" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="admin-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('admin.static', filename='js/admin.js') }}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

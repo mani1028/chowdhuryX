@@ -263,3 +263,61 @@ style	UI/CSS	Only visual changes
 refactor	Refactor	Code improvement, no behavior change
 chore	Maintenance	Config, setup, docs
 docs	Documentation	README, comments
+
+
+
+
+
+
+## 📂 File Ownership Rules
+
+To avoid conflicts and confusion, file ownership is strictly defined.
+
+### Employee 1 – Public UI (Static Pages) -->Meghana
+Owns:
+- templates/index.html
+- templates/about.html
+- templates/services.html
+- templates/industries.html
+- templates/portfolio.html
+- static/css/home.css
+- static/css/about.css
+- static/css/services.css
+- static/js/main.js
+
+Must NOT edit:
+- admin/
+- app.py
+- models.py
+
+---
+
+### Employee 2 – Forms & Dynamic Pages --->Harika
+Owns:
+- templates/contact.html
+- templates/careers.html
+- templates/blog.html
+- templates/blog-post.html
+- templates/faq.html
+- static/js/contact.js
+- static/js/careers.js
+- static/js/blog.js
+
+Limited backend access:
+- app.py (only related routes)
+- models.py (Contact, Career models only)
+
+---
+
+### Employee 3 – Admin & Backend  --->Nandini
+Owns:
+- admin/
+- config.py
+- admin routes, models, templates, static files
+
+---
+
+### 🔒 Ownership Rule
+- One employee = one area
+- Do not edit files outside your ownership
+- If required, discuss with the owner before making changes
