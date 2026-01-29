@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Home - ChowdhuryX{% endblock %}
+{% block title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}
+
+{% block description %}Global technology and business services firm delivering enterprise-class digital solutions, intelligent automation, and scalable talent services to organizations worldwide.{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
@@ -8,133 +10,378 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero">
-    <div class="hero-content">
-        <h1>Transform Your Business With Innovation</h1>
-        <p>Cutting-edge solutions designed for modern enterprises. Trusted by industry leaders.</p>
-        <div class="cta-buttons">
-            <a href="{{ url_for('services') }}" class="btn btn-primary">Explore Services</a>
-            <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get Started</a>
-        </div>
-    </div>
-    <div class="hero-image">
-        <img src="https://via.placeholder.com/600x400" alt="Hero Image">
-    </div>
-</section>
-
-<!-- Featured Services -->
-<section class="featured-services section-light">
+<section class="hero-section">
     <div class="container">
-        <h2>Our Services</h2>
-        <div class="services-grid">
-            {% for service in services %}
-            <div class="service-card">
-                <div class="service-icon">
-                    <i class="fas fa-cogs"></i>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge badge-primary">
+                        <i class="fas fa-certificate"></i> Enterprise Technology Partner
+                    </span>
                 </div>
-                <h3>{{ service.name }}</h3>
-                <p>{{ service.description[:100] }}...</p>
-                <a href="#" class="learn-more">Learn More →</a>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="text-center mt-4">
-            <a href="{{ url_for('services') }}" class="btn btn-primary">View All Services</a>
-        </div>
-    </div>
-</section>
-
-<!-- Featured Blog Posts -->
-<section class="featured-posts section-white">
-    <div class="container">
-        <h2>Latest from Our Blog</h2>
-        <div class="posts-grid">
-            {% for blog in blogs %}
-            <article class="post-card">
-                {% if blog.featured_image %}
-                <img src="{{ url_for('static', filename='uploads/' + blog.featured_image) }}" alt="{{ blog.title }}">
-                {% else %}
-                <img src="https://via.placeholder.com/400x200" alt="{{ blog.title }}">
-                {% endif %}
-                <div class="post-content">
-                    <span class="category">{{ blog.category }}</span>
-                    <h3><a href="{{ url_for('blog_post', slug=blog.slug) }}">{{ blog.title }}</a></h3>
-                    <p>{{ blog.excerpt or blog.content[:150] }}...</p>
-                    <div class="post-meta">
-                        <span class="author">By {{ blog.author }}</span>
-                        <span class="date">{{ blog.published_at | datetime_format }}</span>
-                        <span class="views"><i class="fas fa-eye"></i> {{ blog.views }}</span>
+                <h1 class="hero-title">Enterprise Technology. Intelligent Solutions. Global Delivery.</h1>
+                <p class="hero-description text-lead">
+                    We are a global technology and business services company enabling organizations to build, scale, 
+                    and transform through intelligent software, AI-driven solutions, and high-performance offshore delivery.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Years Experience</div>
                     </div>
-                    <a href="{{ url_for('blog_post', slug=blog.slug) }}" class="read-more">Read Article →</a>
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
                 </div>
-            </article>
-            {% endfor %}
-        </div>
-        <div class="text-center mt-4">
-            <a href="{{ url_for('blog') }}" class="btn btn-primary">View All Articles</a>
+                <div class="hero-cta">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Request Proposal</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+                </div>
+                <div class="hero-trust">
+                    <p class="trust-text"><i class="fas fa-shield-alt"></i> Trusted by Global Enterprises | GDPR & CCPA Compliant</p>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop" 
+                         alt="Enterprise Technology Solutions" 
+                         class="hero-image">
+                    <div class="hero-decoration"></div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Testimonials -->
-<section class="testimonials section-light">
+<!-- Trust Banner -->
+<section class="trust-banner">
     <div class="container">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonials-carousel">
-            {% for testimonial in testimonials %}
-            <div class="testimonial-card">
-                <div class="rating">
-                    {% for i in range(testimonial.rating) %}
-                    <i class="fas fa-star"></i>
-                    {% endfor %}
-                </div>
-                <p class="testimonial-text">"{{ testimonial.content }}"</p>
-                <div class="testimonial-author">
-                    <strong>{{ testimonial.client_name }}</strong>
-                    {% if testimonial.client_position %}
-                    <span class="position">{{ testimonial.client_position }}</span>
-                    {% endif %}
-                    {% if testimonial.client_company %}
-                    <span class="company">@ {{ testimonial.client_company }}</span>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
+        <div class="trust-content">
+            <h3>Trusted Global Technology Partner</h3>
+            <p>
+                In today's digital economy, success depends on speed, intelligence, and reliability. 
+                ChowdhuryX helps organizations stay ahead by delivering future-ready technology and scalable 
+                services designed for long-term growth.
+            </p>
         </div>
     </div>
 </section>
 
-<!-- Call to Action -->
-<section class="cta-section section-dark">
+<!-- Core Capabilities -->
+<section class="section section-white">
     <div class="container">
-        <h2>Ready to Get Started?</h2>
-        <p>Let's discuss how we can help transform your business</p>
-        <div class="cta-buttons">
-            <a href="{{ url_for('contact') }}" class="btn btn-light">Contact Us Today</a>
-            <a href="{{ url_for('careers') }}" class="btn btn-outline">Join Our Team</a>
+        <div class="section-header text-center">
+            <span class="section-subtitle">Our Core Capabilities</span>
+            <h2>Comprehensive Technology & Business Services</h2>
+            <p class="text-lead">
+                Enterprise-grade solutions across the complete technology and operational spectrum
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-3 capabilities-grid">
+            <!-- Software Engineering -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Software Engineering & Development</h3>
+                    <p class="card-text">
+                        Enterprise-grade web, mobile, desktop, and cloud-based applications built using modern 
+                        architectures and industry best practices.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Full-stack development</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile & desktop apps</li>
+                        <li><i class="fas fa-check-circle"></i> API & integrations</li>
+                        <li><i class="fas fa-check-circle"></i> Legacy modernization</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- AI & ML -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Artificial Intelligence & Machine Learning</h3>
+                    <p class="card-text">
+                        Custom AI solutions, intelligent automation, data analytics, and ML-driven platforms that 
+                        turn data into actionable intelligence.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> AI-powered automation</li>
+                        <li><i class="fas fa-check-circle"></i> Predictive analytics</li>
+                        <li><i class="fas fa-check-circle"></i> NLP & computer vision</li>
+                        <li><i class="fas fa-check-circle"></i> ML model development</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- BPO Services -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Business Process Outsourcing</h3>
+                    <p class="card-text">
+                        High-quality voice and non-voice support, CRM-based chat operations, and customer engagement 
+                        services delivered with consistency and control.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Voice & non-voice support</li>
+                        <li><i class="fas fa-check-circle"></i> CRM-based operations</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 support teams</li>
+                        <li><i class="fas fa-check-circle"></i> SLA-driven delivery</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- IT Consulting -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Remote IT & Non-IT Consulting</h3>
+                    <p class="card-text">
+                        Skilled offshore professionals available on flexible engagement models to extend in-house 
+                        capabilities efficiently.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Dedicated resources</li>
+                        <li><i class="fas fa-check-circle"></i> Team extension model</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible engagement</li>
+                        <li><i class="fas fa-check-circle"></i> Rapid scaling</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- RPO & Staffing -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">RPO & Contract Staffing</h3>
+                    <p class="card-text">
+                        End-to-end talent acquisition solutions designed for speed, accuracy, and workforce scalability.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Full-cycle recruitment</li>
+                        <li><i class="fas fa-check-circle"></i> Contract staffing</li>
+                        <li><i class="fas fa-check-circle"></i> Talent sourcing</li>
+                        <li><i class="fas fa-check-circle"></i> Workforce planning</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Digital Products -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Digital Products & Platforms</h3>
+                    <p class="card-text">
+                        Proprietary platforms and AI-driven products built to address real operational challenges and 
+                        support digital transformation.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> SaaS development</li>
+                        <li><i class="fas fa-check-circle"></i> Product engineering</li>
+                        <li><i class="fas fa-check-circle"></i> Platform architecture</li>
+                        <li><i class="fas fa-check-circle"></i> Lifecycle support</li>
+                    </ul>
+                    <a href="#" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">View All Services</a>
         </div>
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="stats section-white">
+<!-- Global Delivery Model -->
+<section class="section section-gray">
     <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h3 class="stat-number">500+</h3>
-                <p>Clients Served</p>
+        <div class="delivery-model-grid">
+            <div class="delivery-content">
+                <span class="section-subtitle">Global Delivery Model</span>
+                <h2>Integrated Excellence Across Continents</h2>
+                <p class="text-lead">
+                    Our delivery framework is designed for reliability, scalability, and governance—combining strategic 
+                    leadership from the United States with high-performance execution from India.
+                </p>
+                
+                <div class="location-cards">
+                    <div class="location-card">
+                        <div class="location-flag">🇺🇸</div>
+                        <h4>United States</h4>
+                        <p class="location-subtitle">Corporate & Strategic Operations</p>
+                        <ul class="location-features">
+                            <li><i class="fas fa-check"></i> Client engagement & consulting</li>
+                            <li><i class="fas fa-check"></i> Program governance & quality</li>
+                            <li><i class="fas fa-check"></i> Compliance & security alignment</li>
+                        </ul>
+                        <p class="location-address"><i class="fas fa-map-marker-alt"></i> Sheridan, Wyoming</p>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-flag">🇮🇳</div>
+                        <h4>India</h4>
+                        <p class="location-subtitle">Technology & Operations Excellence</p>
+                        <ul class="location-features">
+                            <li><i class="fas fa-check"></i> Engineering & AI development</li>
+                            <li><i class="fas fa-check"></i> BPO & support operations</li>
+                            <li><i class="fas fa-check"></i> 24/7 delivery & rapid scaling</li>
+                        </ul>
+                        <p class="location-address"><i class="fas fa-map-marker-alt"></i> Hyderabad</p>
+                    </div>
+                </div>
             </div>
-            <div class="stat-item">
-                <h3 class="stat-number">50+</h3>
-                <p>Team Members</p>
+            
+            <div class="delivery-visual">
+                <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=600&h=800&fit=crop" 
+                     alt="Global Delivery Model" 
+                     class="delivery-image">
             </div>
-            <div class="stat-item">
-                <h3 class="stat-number">15+</h3>
-                <p>Years Experience</p>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section section-white">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-subtitle">Why Organizations Choose ChowdhuryX</span>
+            <h2>Enterprise-Grade Reliability & Execution</h2>
+        </div>
+        
+        <div class="grid grid-cols-3 why-grid">
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Enterprise-Focused Mindset</h4>
+                <p>Structured processes, documentation, governance, and accountability in every engagement.</p>
             </div>
-            <div class="stat-item">
-                <h3 class="stat-number">98%</h3>
-                <p>Client Satisfaction</p>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Business-First Technology</h4>
+                <p>Solutions architected to deliver measurable business outcomes, not just technical output.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-globe"></i></div>
+                <h4>Proven Offshore Strength</h4>
+                <p>High-performance delivery with global efficiency and enterprise-level quality standards.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-lock"></i></div>
+                <h4>Security & Compliance</h4>
+                <p>GDPR & CCPA aligned practices with strict data protection and confidentiality controls.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                <h4>Scalable Teams & Systems</h4>
+                <p>Flexible engagement models that scale up or down without disruption to operations.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Long-Term Partnership</h4>
+                <p>We invest in relationships and grow alongside your organization's success.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="#" class="btn btn-outline btn-lg">Why Choose Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- Industries Served -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-subtitle">Industries We Serve</span>
+            <h2>Domain Expertise Across Key Sectors</h2>
+        </div>
+        
+        <div class="industries-grid grid grid-cols-4">
+            <div class="industry-card">
+                <i class="fas fa-laptop-code"></i>
+                <h5>Technology & SaaS</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h5>E-commerce & Digital</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-heartbeat"></i>
+                <h5>Healthcare & Services</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-university"></i>
+                <h5>Finance & Professional</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-truck"></i>
+                <h5>Logistics & Operations</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-lightbulb"></i>
+                <h5>Startups & Growth</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-building"></i>
+                <h5>Enterprise Systems</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-cogs"></i>
+                <h5>Manufacturing & IoT</h5>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url_for('industries') }}" class="btn btn-primary btn-lg">View All Industries</a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section section-dark cta-section">
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2>Let's Build the Future Together</h2>
+            <p class="text-lead">
+                Whether you are launching a new product, optimizing operations, scaling customer support, or building 
+                intelligent systems—ChowdhuryX Organization LLC is ready to partner with you.
+            </p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('contact') }}" class="btn btn-white btn-lg">Request Proposal</a>
+                <a href="#" class="btn btn-outline btn-lg" style="border-color: white; color: white;">Schedule Consultation</a>
+            </div>
+            <div class="cta-contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:info@chowdhuryx.com">info@chowdhuryx.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+13074295757">+1 307-429-5757</a>
+                </div>
             </div>
         </div>
     </div>

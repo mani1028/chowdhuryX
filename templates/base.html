@@ -3,116 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ChowdhuryX - Leading Corporate Solutions Provider">
-    <meta name="keywords" content="corporate, solutions, technology, consulting">
-    <title>{% block title %}ChowdhuryX | Corporate Solutions{% endblock %}</title>
+    <meta name="description" content="{% block description %}ChowdhuryX Organization LLC - Global enterprise technology and business services firm delivering software engineering, AI solutions, BPO, and scalable talent services.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}enterprise technology, software development, AI solutions, BPO services, offshore development, IT consulting, recruitment services{% endblock %}">
+    <meta name="author" content="ChowdhuryX Organization LLC">
+    <meta name="robots" content="index, follow">
     
-    <!-- Global CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Global technology and business services firm delivering enterprise-class digital solutions, AI, and scalable talent services.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    
+    <title>{% block title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo/favicon.png') }}">
+    
+    <!-- Global CSS - Modern Enterprise Design System -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enterprise.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
     
     <!-- Page-specific CSS -->
     {% block css %}{% endblock %}
     
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    <!-- Skip to main content (Accessibility) -->
+    <a href="#main-content" class="sr-only focus-visible">Skip to main content</a>
+
     <!-- Header Navigation -->
-    <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="logo">
-                    <a href="{{ url_for('index') }}">
-                        <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" height="40">
-                        <span class="company-name">ChowdhuryX</span>
-                    </a>
+    <header class="site-header" role="banner">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="container">
+                <div class="navbar-content">
+                    <!-- Logo -->
+                    <div class="navbar-brand">
+                        <a href="{{ url_for('index') }}" class="logo-link" aria-label="ChowdhuryX Home">
+                            <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" class="logo-image">
+                            <span class="logo-text">ChowdhuryX</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                    
+                    <!-- Navigation Menu -->
+                    <div class="navbar-menu" id="navbarMenu">
+                        <ul class="nav-links">
+                            <li class="nav-item">
+                                <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item nav-item-dropdown">
+                                <a href="{{ url_for('services') }}" class="nav-link">
+                                    Services <i class="fas fa-chevron-down dropdown-icon"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item">Software Development</a>
+                                    <a href="#" class="dropdown-item">AI & Machine Learning</a>
+                                    <a href="#" class="dropdown-item">BPO Services</a>
+                                    <a href="#" class="dropdown-item">IT Consulting</a>
+                                    <a href="#" class="dropdown-item">RPO & Staffing</a>
+                                    <a href="#" class="dropdown-item">Digital Products</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('industries') }}" class="nav-link">Industries</a>
+                            </li>
+                            <li class="nav-item nav-item-dropdown">
+                                <a href="#" class="nav-link">
+                                    Company <i class="fas fa-chevron-down dropdown-icon"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item">Why Choose Us</a>
+                                    <a href="#" class="dropdown-item">Engagement Models</a>
+                                    <a href="#" class="dropdown-item">Trust Center</a>
+                                    <a href="{{ url_for('careers') }}" class="dropdown-item">Careers</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('blog') }}" class="nav-link">Insights</a>
+                            </li>
+                            <li class="nav-item nav-item-cta">
+                                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <button class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('services') }}">Services</a></li>
-                    <li><a href="{{ url_for('industries') }}">Industries</a></li>
-                    <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
-                    <li><a href="{{ url_for('careers') }}">Careers</a></li>
-                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
-                    <li><a href="{{ url_for('contact') }}" class="cta-button">Contact</a></li>
-                </ul>
             </div>
         </nav>
     </header>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content" role="main">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <!-- About Section -->
-                <div class="footer-section">
-                    <h4>ChowdhuryX</h4>
-                    <p>Leading provider of innovative corporate solutions. Trusted by Fortune 500 companies worldwide.</p>
-                    <div class="social-links">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Company Info -->
+                    <div class="footer-column footer-about">
+                        <div class="footer-logo">
+                            <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" class="footer-logo-image">
+                            <span class="footer-logo-text">ChowdhuryX</span>
+                        </div>
+                        <p class="footer-description">
+                            Global technology and business services firm delivering enterprise-class digital solutions, 
+                            intelligent automation, and scalable talent services to organizations worldwide.
+                        </p>
+                        <div class="footer-locations">
+                            <div class="location-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span><strong>USA:</strong> Sheridan, Wyoming</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span><strong>India:</strong> Hyderabad</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="#">Software Development</a></li>
+                            <li><a href="#">AI & Machine Learning</a></li>
+                            <li><a href="#">BPO Services</a></li>
+                            <li><a href="#">IT Consulting</a></li>
+                            <li><a href="#">RPO & Staffing</a></li>
+                            <li><a href="#">Digital Products</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Company -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('about') }}">About Us</a></li>
+                            <li><a href="#">Why Choose Us</a></li>
+                            <li><a href="{{ url_for('industries') }}">Industries</a></li>
+                            <li><a href="#">Engagement Models</a></li>
+                            <li><a href="#">Trust Center</a></li>
+                            <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact & Legal -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Get in Touch</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:info@chowdhuryx.com">info@chowdhuryx.com</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:+13074295757">+1 307-429-5757</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-globe"></i>
+                                <a href="https://www.chowdhuryx.com">www.chowdhuryx.com</a>
+                            </li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Twitter" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Quick Links -->
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="{{ url_for('about') }}">About Us</a></li>
-                        <li><a href="{{ url_for('services') }}">Services</a></li>
-                        <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
-                        <li><a href="{{ url_for('blog') }}">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Resources -->
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="{{ url_for('faq') }}">FAQ</a></li>
-                        <li><a href="{{ url_for('careers') }}">Careers</a></li>
-                        <li><a href="#">Download Brochure</a></li>
-                        <li><a href="#">Case Studies</a></li>
-                    </ul>
-                </div>
-                
-                <!-- Contact -->
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <p><strong>Email:</strong> {{ company_email }}</p>
-                    <p><strong>Phone:</strong> {{ company_phone }}</p>
-                    <p><strong>Address:</strong><br>123 Corporate Ave<br>New York, NY 10001</p>
-                </div>
             </div>
-            
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <p>&copy; {{ current_year }} {{ company_name }}. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a> |
-                    <a href="{{ url_for('terms') }}">Terms of Service</a> |
-                    <a href="{{ url_for('cookies') }}">Cookie Policy</a>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2026 ChowdhuryX Organization LLC. All rights reserved.</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
+                        <span class="separator">|</span>
+                        <a href="{{ url_for('terms') }}">Terms of Use</a>
+                        <span class="separator">|</span>
+                        <a href="{{ url_for('cookies') }}">Cookie Policy</a>
+                        <span class="separator">|</span>
+                        <a href="#" id="cookieSettings">Cookie Settings</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- Main JavaScript -->
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
     <!-- Page-specific JavaScript -->
