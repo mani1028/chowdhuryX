@@ -1,17 +1,12 @@
 name: Bug Report
-description: Report a problem or broken feature
+description: Report an issue found during testing
 title: "[Bug]: "
 labels: ["bug"]
 body:
   - type: input
     attributes:
-      label: Page / Module
-    validations:
-      required: true
-
-  - type: textarea
-    attributes:
-      label: Bug Description
+      label: Page / Feature
+      placeholder: Home / Contact / Admin
     validations:
       required: true
 
@@ -20,5 +15,31 @@ body:
       label: Steps to Reproduce
       placeholder: |
         1. Go to page
-        2. Perform action
-        3. Observe issue
+        2. Enter data
+        3. Click submit
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Expected Result
+      placeholder: What should happen
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Actual Result
+      placeholder: What actually happens
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Browser / Device
+      placeholder: Chrome / Mobile / Desktop
+
+  - type: textarea
+    attributes:
+      label: Screenshot / Video
+      placeholder: Paste image or link
