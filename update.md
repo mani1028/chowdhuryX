@@ -247,3 +247,19 @@ Use this checklist when **joining the project** 👇
 - [ ] Avoid changing shared files
 
 ---
+
+
+
+1️⃣ feat → Type of change
+
+This tells what kind of work this commit contains.
+
+Common types you should use:
+
+Type	Meaning	When to use
+feat	Feature	New functionality
+fix	Bug fix	Fixing a bug
+style	UI/CSS	Only visual changes
+refactor	Refactor	Code improvement, no behavior change
+chore	Maintenance	Config, setup, docs
+docs	Documentation	README, comments
