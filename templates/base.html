@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChowdhuryX - Leading Corporate Solutions Provider">
+    <meta name="keywords" content="corporate, solutions, technology, consulting">
+    <title>{% block title %}ChowdhuryX | Corporate Solutions{% endblock %}</title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    
+    <!-- Page-specific CSS -->
+    {% block css %}{% endblock %}
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" height="40">
+                        <span class="company-name">ChowdhuryX</span>
+                    </a>
+                </div>
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('industries') }}">Industries</a></li>
+                    <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+                    <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                    <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="cta-button">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <!-- About Section -->
+                <div class="footer-section">
+                    <h4>ChowdhuryX</h4>
+                    <p>Leading provider of innovative corporate solutions. Trusted by Fortune 500 companies worldwide.</p>
+                    <div class="social-links">
+                        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li><a href="{{ url_for('services') }}">Services</a></li>
+                        <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+                        <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Resources -->
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                        <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                        <li><a href="#">Download Brochure</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><strong>Email:</strong> {{ company_email }}</p>
+                    <p><strong>Phone:</strong> {{ company_phone }}</p>
+                    <p><strong>Address:</strong><br>123 Corporate Ave<br>New York, NY 10001</p>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; {{ current_year }} {{ company_name }}. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a> |
+                    <a href="{{ url_for('terms') }}">Terms of Service</a> |
+                    <a href="{{ url_for('cookies') }}">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Page-specific JavaScript -->
+    {% block js %}{% endblock %}
+</body>
+</html>

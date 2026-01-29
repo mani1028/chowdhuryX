@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - ChowdhuryX{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>About ChowdhuryX</h1>
+        <p>Building the future through innovation and excellence</p>
+    </div>
+</section>
+
+<!-- Company Overview -->
+<section class="company-overview section-white">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-text">
+                <h2>Our Story</h2>
+                <p>Founded in 2008, ChowdhuryX has been at the forefront of corporate innovation, delivering cutting-edge solutions to enterprises worldwide. What started as a small consulting firm has grown into a global leader in digital transformation and business optimization.</p>
+                <p>Our commitment to excellence, combined with our deep industry expertise, makes us the trusted partner for companies looking to navigate the complexities of the modern business landscape.</p>
+                <div class="about-cta">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary">Partner With Us</a>
+                </div>
+            </div>
+            <div class="overview-image">
+                <img src="https://via.placeholder.com/500x400" alt="About ChowdhuryX">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission, Vision, Values -->
+<section class="mission-vision section-light">
+    <div class="container">
+        <div class="mvv-grid">
+            <div class="mvv-card">
+                <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                <p>To empower organizations through innovative solutions that drive sustainable growth and create lasting value for all stakeholders.</p>
+            </div>
+            <div class="mvv-card">
+                <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                <p>To be the global leader in corporate transformation, recognized for our commitment to excellence and positive impact.</p>
+            </div>
+            <div class="mvv-card">
+                <h3><i class="fas fa-heart"></i> Our Values</h3>
+                <p>Integrity, Innovation, Excellence, Collaboration, and Sustainability guide every decision we make.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Leadership Team -->
+<section class="team-section section-white">
+    <div class="container">
+        <h2>Leadership Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://via.placeholder.com/300x300" alt="CEO">
+                <h3>Rizwan Chowdhury</h3>
+                <p class="position">Chief Executive Officer</p>
+                <p class="bio">20+ years of experience in digital transformation and enterprise solutions.</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/300x300" alt="CTO">
+                <h3>Dr. Sarah Johnson</h3>
+                <p class="position">Chief Technology Officer</p>
+                <p class="bio">Leading our innovation efforts with expertise in AI and cloud technologies.</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/300x300" alt="COO">
+                <h3>Michael Chen</h3>
+                <p class="position">Chief Operations Officer</p>
+                <p class="bio">Ensuring operational excellence and sustainable growth across all divisions.</p>
+            </div>
+            <div class="team-member">
+                <img src="https://via.placeholder.com/300x300" alt="CFO">
+                <h3>Emma Williams</h3>
+                <p class="position">Chief Financial Officer</p>
+                <p class="bio">Driving financial strategy and investment in future growth initiatives.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Company Stats -->
+<section class="company-stats section-dark">
+    <div class="container">
+        <h2>By The Numbers</h2>
+        <div class="stats-grid">
+            <div class="stat">
+                <h4>500+</h4>
+                <p>Global Clients</p>
+            </div>
+            <div class="stat">
+                <h4>2000+</h4>
+                <p>Projects Completed</p>
+            </div>
+            <div class="stat">
+                <h4>50+</h4>
+                <p>Team Members</p>
+            </div>
+            <div class="stat">
+                <h4>20+</h4>
+                <p>Countries Served</p>
+            </div>
+            <div class="stat">
+                <h4>98%</h4>
+                <p>Client Retention</p>
+            </div>
+            <div class="stat">
+                <h4>$500M+</h4>
+                <p>Total Value Delivered</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-choose-us section-white">
+    <div class="container">
+        <h2>Why Choose ChowdhuryX?</h2>
+        <div class="reasons-grid">
+            <div class="reason-card">
+                <i class="fas fa-star"></i>
+                <h3>Proven Track Record</h3>
+                <p>15+ years of successful implementations and satisfied clients across industries.</p>
+            </div>
+            <div class="reason-card">
+                <i class="fas fa-users"></i>
+                <h3>Expert Team</h3>
+                <p>Talented professionals with deep industry expertise and certifications.</p>
+            </div>
+            <div class="reason-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Innovation First</h3>
+                <p>Cutting-edge technologies and forward-thinking approaches to solve complex challenges.</p>
+            </div>
+            <div class="reason-card">
+                <i class="fas fa-handshake"></i>
+                <h3>Partnership Approach</h3>
+                <p>We work closely with our clients as true partners in their success journey.</p>
+            </div>
+            <div class="reason-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Security & Compliance</h3>
+                <p>Industry-leading security standards and full compliance with global regulations.</p>
+            </div>
+            <div class="reason-card">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Dedicated support team available round-the-clock for your peace of mind.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
