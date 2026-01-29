@@ -1,0 +1,11 @@
+name: Task
+description: Small development or maintenance task
+title: "[Task]: "
+labels: ["task"]
+body:
+  - type: textarea
+    attributes:
+      label: Task Details
+      placeholder: Explain the task clearly
+    validations:
+      required: true

@@ -7,19 +7,19 @@ This is a **real company project**, not a demo.
 
 ---
 
+```text
 chowdhuryX/
-│
 ├── app.py                     # Flask entry point
 ├── requirements.txt            # Python dependencies
 ├── config.py                  # App configuration (env-based)
 ├── models.py                  # Shared DB models (Contact, Career, Blog)
-├── README.md                  # Basic project intro (public)
-├── UPDATE_README.md           # 🔥 Developer guide (internal)
+├── README.md                  # Public project overview
+├── UPDATE_README.md           # 🔥 Internal developer guide
 │
 ├── admin/                     # 🔐 Admin module (isolated)
 │   ├── __init__.py            # Admin blueprint init
 │   ├── routes.py              # Admin routes (/admin/*)
-│   ├── models.py              # Admin-only models (optional)
+│   ├── models.py              # Admin-only models
 │   │
 │   ├── templates/
 │   │   ├── admin-login.html
@@ -35,25 +35,25 @@ chowdhuryX/
 │           └── admin.js
 │
 ├── templates/                 # 🌐 Public website pages
-│   ├── base.html              # Common layout (header/footer)
-│   ├── index.html             # Home
-│   ├── about.html             # About Us
-│   ├── services.html          # Services
-│   ├── industries.html        # Industries / Solutions
-│   ├── portfolio.html         # Portfolio / Case Studies
-│   ├── careers.html           # Careers
-│   ├── contact.html           # Contact Us
-│   ├── blog.html              # Blog listing
-│   ├── blog-post.html         # Blog detail
-│   ├── faq.html               # FAQ
-│   ├── testimonials.html      # Testimonials
-│   ├── privacy-policy.html    # Legal
-│   ├── terms.html             # Legal
-│   └── cookies.html           # Legal
+│   ├── base.html
+│   ├── index.html
+│   ├── about.html
+│   ├── services.html
+│   ├── industries.html
+│   ├── portfolio.html
+│   ├── careers.html
+│   ├── contact.html
+│   ├── blog.html
+│   ├── blog-post.html
+│   ├── faq.html
+│   ├── testimonials.html
+│   ├── privacy-policy.html
+│   ├── terms.html
+│   └── cookies.html
 │
 ├── static/                    # 🎨 Public assets
 │   ├── css/
-│   │   ├── global.css         # Global styles (DO NOT EDIT lightly)
+│   │   ├── global.css
 │   │   ├── home.css
 │   │   ├── about.css
 │   │   ├── services.css
@@ -61,9 +61,9 @@ chowdhuryX/
 │   │   └── responsive.css
 │   │
 │   ├── js/
-│   │   ├── main.js            # Global JS (navbar, scroll, etc.)
-│   │   ├── contact.js         # Contact form logic
-│   │   ├── careers.js         # Careers form logic
+│   │   ├── main.js
+│   │   ├── contact.js
+│   │   ├── careers.js
 │   │   └── blog.js
 │   │
 │   └── images/
@@ -72,16 +72,17 @@ chowdhuryX/
 │       ├── services/
 │       └── team/
 │
-├── .github/                   # 🧠 GitHub workflow
+├── .github/                   # 🧠 GitHub workflows & templates
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── feature_request.yml
 │   │   ├── bug_report.yml
 │   │   └── task.yml
 │   ├── pull_request_template.md
-│   └── CODEOWNERS              # (optional / later)
+│   └── CODEOWNERS
 │
 ├── .gitignore
-└── venv/ (local only, ignored)
+└── venv/                      # ❌ Local only (ignored)
+```
 
 
 

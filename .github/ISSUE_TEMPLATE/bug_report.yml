@@ -1,0 +1,24 @@
+name: Bug Report
+description: Report a problem or broken feature
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    attributes:
+      label: Page / Module
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Bug Description
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Go to page
+        2. Perform action
+        3. Observe issue

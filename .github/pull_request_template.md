@@ -1,57 +1,45 @@
-## 📌 PR Title
-(Short and clear summary of changes)
+## 📌 PR Summary
+(Short explanation of what this PR does)
 
 ---
 
-## 🔍 What does this PR do?
-- [ ] New feature
+## 🔍 Type of Change
+- [ ] Feature
 - [ ] Bug fix
 - [ ] UI/UX update
 - [ ] Refactor
-- [ ] Content update
+- [ ] Documentation
 
-### Page / Module affected
-(Home / About / Services / Blog / Contact / etc.)
-
----
-
-## 🧩 Description
-Explain **what you changed** and **why**.
+### Page / Module
+(Home / About / Services / Admin / etc.)
 
 ---
 
 ## ✅ Checklist
 
 ### Code & Structure
-- [ ] Changes are limited to assigned page/module
-- [ ] Code follows project structure
-- [ ] No unnecessary files or changes
-- [ ] Proper commit messages used
+- [ ] Changes limited to assigned module/page
+- [ ] Folder structure followed
+- [ ] No unnecessary files changed
+- [ ] Commit messages are clear
 
 ### Functionality
 - [ ] Page loads correctly
-- [ ] Mobile responsive
-- [ ] Navigation works
+- [ ] Responsive on mobile
 - [ ] Forms / APIs tested (if applicable)
 
 ### Quality & Safety
-- [ ] No console logs / debug code
-- [ ] No secrets or credentials added
-- [ ] `.env` not committed
+- [ ] No console logs
+- [ ] No secrets committed
+- [ ] `.env` not included
 
 ---
 
-## 🧪 How was this tested?
-- [ ] Tested locally
-- [ ] Tested on dev branch
+## 🧪 Testing Done
+- [ ] Local testing
 - [ ] Manual UI testing
 
 ---
 
-## 📸 Screenshots (if UI change)
-(Add before/after screenshots if applicable)
-
----
-
-## 📝 Additional Notes for Reviewer
-(Optional)
+## 📝 Notes for Reviewer
+(Anything important to know)
