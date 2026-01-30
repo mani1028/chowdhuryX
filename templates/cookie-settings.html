@@ -1,0 +1,769 @@
+{% extends 'base.html' %}
+
+{% block title %}Cookie Settings - ChowdhuryX{% endblock %}
+
+{% block content %}
+<div class="page-content">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li class="active">Cookie Settings</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section gradient-bg" style="background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);">
+        <div class="container text-white">
+            <h1>Cookie Settings</h1>
+            <p class="lead">Manage your privacy preferences and cookie settings</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-5">
+        <div class="container">
+            <!-- Introduction -->
+            <div class="intro-section mb-5">
+                <h2>Manage Your Cookie Preferences</h2>
+                <p>At ChowdhuryX, we respect your privacy and give you control over how we use cookies and tracking technologies on our website. This page allows you to customize your preferences.</p>
+            </div>
+
+            <!-- Cookie Categories -->
+            <div class="cookie-categories">
+                <!-- Category 1: Essential -->
+                <div class="cookie-category">
+                    <div class="category-header">
+                        <h3>
+                            <i class="fas fa-shield-alt"></i>
+                            Essential Cookies
+                        </h3>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="essential-cookies" checked disabled />
+                            <label for="essential-cookies" class="disabled">Always Active</label>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <p><strong>These cookies are necessary for the website to function properly and cannot be disabled.</strong></p>
+                        <h4>What they do:</h4>
+                        <ul>
+                            <li>Maintain your session and security</li>
+                            <li>Remember your login information</li>
+                            <li>Protect against fraud and abuse</li>
+                            <li>Enable core website functionality</li>
+                            <li>Save your preferences temporarily</li>
+                        </ul>
+                        <h4>Cookie Duration:</h4>
+                        <ul>
+                            <li><strong>Session Cookies:</strong> Deleted when you close your browser</li>
+                            <li><strong>Persistent Cookies:</strong> Remain for up to 1 year</li>
+                        </ul>
+                        <h4>Examples:</h4>
+                        <ul>
+                            <li>Session ID (_session_id)</li>
+                            <li>CSRF Protection (csrf_token)</li>
+                            <li>Authentication (auth_token)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 2: Analytics -->
+                <div class="cookie-category">
+                    <div class="category-header">
+                        <h3>
+                            <i class="fas fa-chart-line"></i>
+                            Analytics Cookies
+                        </h3>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="analytics-cookies" />
+                            <label for="analytics-cookies">Enable</label>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <p><strong>These cookies help us understand how you use our website so we can improve it.</strong></p>
+                        <h4>What they do:</h4>
+                        <ul>
+                            <li>Track page views and user interactions</li>
+                            <li>Measure website performance</li>
+                            <li>Identify technical issues</li>
+                            <li>Understand user journey</li>
+                            <li>Generate usage statistics</li>
+                        </ul>
+                        <h4>Data Collected:</h4>
+                        <ul>
+                            <li>Pages visited and time spent</li>
+                            <li>Click patterns and interactions</li>
+                            <li>Browser and device information</li>
+                            <li>Geographic location (general)</li>
+                            <li>Referral source</li>
+                        </ul>
+                        <h4>Tools Used:</h4>
+                        <ul>
+                            <li>Google Analytics</li>
+                            <li>Hotjar</li>
+                            <li>Custom analytics tracking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 3: Marketing -->
+                <div class="cookie-category">
+                    <div class="category-header">
+                        <h3>
+                            <i class="fas fa-bullhorn"></i>
+                            Marketing Cookies
+                        </h3>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="marketing-cookies" />
+                            <label for="marketing-cookies">Enable</label>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <p><strong>These cookies track your interests to show you relevant advertising and promotional content.</strong></p>
+                        <h4>What they do:</h4>
+                        <ul>
+                            <li>Remember your interests and preferences</li>
+                            <li>Personalize marketing messages</li>
+                            <li>Track conversion metrics</li>
+                            <li>Enable retargeting ads</li>
+                            <li>Build audience segments</li>
+                        </ul>
+                        <h4>Information Tracked:</h4>
+                        <ul>
+                            <li>Products or services viewed</li>
+                            <li>Pages visited and time spent</li>
+                            <li>Content interactions</li>
+                            <li>Download and form submissions</li>
+                            <li>Email engagement (opens, clicks)</li>
+                        </ul>
+                        <h4>Tools Used:</h4>
+                        <ul>
+                            <li>Facebook Pixel</li>
+                            <li>LinkedIn Insight Tag</li>
+                            <li>Google Ads</li>
+                            <li>Email marketing platforms</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 4: Preferences -->
+                <div class="cookie-category">
+                    <div class="category-header">
+                        <h3>
+                            <i class="fas fa-sliders-h"></i>
+                            Preference Cookies
+                        </h3>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="preference-cookies" />
+                            <label for="preference-cookies">Enable</label>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <p><strong>These cookies remember your choices and settings to enhance your experience.</strong></p>
+                        <h4>What they do:</h4>
+                        <ul>
+                            <li>Remember language preferences</li>
+                            <li>Store theme preferences (light/dark mode)</li>
+                            <li>Save layout preferences</li>
+                            <li>Remember contact preferences</li>
+                            <li>Store accessibility settings</li>
+                        </ul>
+                        <h4>Information Saved:</h4>
+                        <ul>
+                            <li>Selected language</li>
+                            <li>Display preferences</li>
+                            <li>Account settings</li>
+                            <li>Content preferences</li>
+                            <li>Newsletter subscription status</li>
+                        </ul>
+                        <h4>Duration:</h4>
+                        <ul>
+                            <li>Typically stored for 1 year</li>
+                            <li>Can be manually cleared anytime</li>
+                            <li>Do not contain personal data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 5: Third-Party -->
+                <div class="cookie-category">
+                    <div class="category-header">
+                        <h3>
+                            <i class="fas fa-external-link-alt"></i>
+                            Third-Party Cookies
+                        </h3>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="thirdparty-cookies" />
+                            <label for="thirdparty-cookies">Enable</label>
+                        </div>
+                    </div>
+                    <div class="category-content">
+                        <p><strong>Third-party services we use may set their own cookies on your device.</strong></p>
+                        <h4>Third-Party Services:</h4>
+                        <ul>
+                            <li><strong>Analytics:</strong> Google Analytics, Hotjar, Mixpanel</li>
+                            <li><strong>Social Media:</strong> Facebook, LinkedIn, Twitter</li>
+                            <li><strong>Marketing:</strong> Mailchimp, HubSpot, Marketo</li>
+                            <li><strong>Customer Support:</strong> Zendesk, Intercom, Drift</li>
+                            <li><strong>Payment Processing:</strong> Stripe, PayPal</li>
+                            <li><strong>CDN Services:</strong> CloudFlare, AWS CloudFront</li>
+                        </ul>
+                        <h4>What they collect:</h4>
+                        <ul>
+                            <li>Website usage patterns</li>
+                            <li>Interaction with their services</li>
+                            <li>Cross-site browsing data</li>
+                            <li>Information for service improvement</li>
+                        </ul>
+                        <h4>Privacy Protection:</h4>
+                        <ul>
+                            <li>We only use compliant vendors</li>
+                            <li>All services have privacy policies</li>
+                            <li>Data processing agreements in place</li>
+                            <li>Opt-out options available</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions mt-5">
+                <h2 class="mb-4">Quick Actions</h2>
+                <div class="actions-grid">
+                    <button class="action-button" id="accept-all-btn">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Accept All Cookies</span>
+                    </button>
+                    <button class="action-button secondary" id="reject-all-btn">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Reject All (Non-Essential)</span>
+                    </button>
+                    <button class="action-button secondary" id="save-preferences-btn">
+                        <i class="fas fa-save"></i>
+                        <span>Save My Preferences</span>
+                    </button>
+                    <button class="action-button secondary" id="clear-cookies-btn">
+                        <i class="fas fa-trash-alt"></i>
+                        <span>Clear All Cookies</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- How to Clear Cookies -->
+            <div class="instructions-section mt-5 bg-light p-5 rounded">
+                <h2 class="mb-4">How to Clear Cookies from Your Browser</h2>
+                <div class="browser-instructions">
+                    <div class="browser-tab">
+                        <h4><i class="fab fa-chrome"></i> Google Chrome</h4>
+                        <ol>
+                            <li>Click Settings (three dots) → Settings</li>
+                            <li>Go to Privacy and security → Clear browsing data</li>
+                            <li>Select "Cookies and other site data"</li>
+                            <li>Choose time range and click Clear data</li>
+                        </ol>
+                    </div>
+                    <div class="browser-tab">
+                        <h4><i class="fab fa-firefox-browser"></i> Mozilla Firefox</h4>
+                        <ol>
+                            <li>Click Menu (three lines) → Settings</li>
+                            <li>Go to Privacy & Security → Cookies and Site Data</li>
+                            <li>Click "Clear Data"</li>
+                            <li>Check "Cookies and Site Data" and click Clear</li>
+                        </ol>
+                    </div>
+                    <div class="browser-tab">
+                        <h4><i class="fab fa-safari"></i> Apple Safari</h4>
+                        <ol>
+                            <li>Click Safari in menu bar → Preferences</li>
+                            <li>Go to Privacy tab</li>
+                            <li>Click "Manage Website Data"</li>
+                            <li>Select sites and click Remove or Remove All</li>
+                        </ol>
+                    </div>
+                    <div class="browser-tab">
+                        <h4><i class="fab fa-edge"></i> Microsoft Edge</h4>
+                        <ol>
+                            <li>Click Settings (three dots) → Settings</li>
+                            <li>Go to Privacy → Clear browsing data</li>
+                            <li>Select "Cookies and other site data"</li>
+                            <li>Choose time range and click Clear now</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cookie Policy Link -->
+            <div class="policy-info mt-5 bg-gradient p-5 rounded text-white">
+                <h3>Want More Details?</h3>
+                <p>For comprehensive information about how we collect, use, and protect your data, please review our <a href="{{ url_for('cookies') }}" class="text-white" style="text-decoration: underline;">Cookie Policy</a> and <a href="{{ url_for('privacy_policy') }}" class="text-white" style="text-decoration: underline;">Privacy Policy</a>.</p>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section gradient-bg text-white mt-5">
+                <div class="cta-content">
+                    <h2>Have Questions About Our Cookie Policy?</h2>
+                    <p>Contact our privacy team for more information</p>
+                    <div class="cta-buttons">
+                        <a href="mailto:privacy@chowdhuryx.com" class="btn btn-light btn-lg">Email Privacy Team</a>
+                        <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.breadcrumb-section {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.breadcrumb {
+    margin: 0;
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumb li {
+    margin-right: 15px;
+}
+
+.breadcrumb a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb li.active {
+    color: #666;
+}
+
+.hero-section {
+    padding: 80px 0;
+    text-align: center;
+    color: white;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-section .lead {
+    font-size: 1.25rem;
+    margin: 0;
+    opacity: 0.95;
+}
+
+.intro-section h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.intro-section p {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.cookie-categories {
+    margin: 50px 0;
+}
+
+.cookie-category {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cookie-category:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.category-header h3 {
+    color: #333;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.2rem;
+}
+
+.category-header i {
+    color: #0066cc;
+    font-size: 1.5rem;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle-switch input[type="checkbox"] {
+    width: 50px;
+    height: 26px;
+    appearance: none;
+    background: #ccc;
+    border-radius: 13px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.toggle-switch input[type="checkbox"]:checked {
+    background: #0066cc;
+}
+
+.toggle-switch input[type="checkbox"]:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
+.toggle-switch label {
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-switch label.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.category-content {
+    padding: 25px;
+}
+
+.category-content p {
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.category-content h4 {
+    color: #333;
+    font-size: 1rem;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.category-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.category-content ul li {
+    padding: 8px 0;
+    padding-left: 25px;
+    position: relative;
+    color: #555;
+}
+
+.category-content ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #0066cc;
+    font-weight: bold;
+}
+
+.quick-actions {
+    text-align: center;
+}
+
+.quick-actions h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.action-button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    background: #0066cc;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-button:hover {
+    background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+}
+
+.action-button.secondary {
+    background: white;
+    color: #0066cc;
+    border: 2px solid #0066cc;
+}
+
+.action-button.secondary:hover {
+    background: #f0f4ff;
+}
+
+.instructions-section h2 {
+    color: #333;
+    font-size: 1.8rem;
+}
+
+.browser-instructions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.browser-tab {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+}
+
+.browser-tab h4 {
+    color: #333;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.browser-tab i {
+    font-size: 1.5rem;
+    color: #0066cc;
+}
+
+.browser-tab ol {
+    color: #555;
+    padding-left: 20px;
+}
+
+.browser-tab li {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.policy-info {
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+}
+
+.policy-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.policy-info p {
+    margin: 0;
+    opacity: 0.95;
+}
+
+.cta-section {
+    padding: 80px 0;
+    text-align: center;
+    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+}
+
+.cta-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-light {
+    background: white;
+    color: #0066cc;
+}
+
+.btn-light:hover {
+    background: #f0f4ff;
+    color: #0052a3;
+}
+
+.btn-outline-light {
+    border: 2px solid white;
+    color: white;
+    background: transparent;
+}
+
+.btn-outline-light:hover {
+    background: white;
+    color: #0066cc;
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .category-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .category-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .browser-instructions {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .btn-lg {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Accept All button
+    document.getElementById('accept-all-btn').addEventListener('click', function() {
+        document.getElementById('analytics-cookies').checked = true;
+        document.getElementById('marketing-cookies').checked = true;
+        document.getElementById('preference-cookies').checked = true;
+        document.getElementById('thirdparty-cookies').checked = true;
+        saveCookiePreferences();
+        showNotification('All cookies accepted!');
+    });
+
+    // Reject All button
+    document.getElementById('reject-all-btn').addEventListener('click', function() {
+        document.getElementById('analytics-cookies').checked = false;
+        document.getElementById('marketing-cookies').checked = false;
+        document.getElementById('preference-cookies').checked = false;
+        document.getElementById('thirdparty-cookies').checked = false;
+        saveCookiePreferences();
+        showNotification('Non-essential cookies rejected!');
+    });
+
+    // Save Preferences button
+    document.getElementById('save-preferences-btn').addEventListener('click', function() {
+        saveCookiePreferences();
+        showNotification('Your preferences have been saved!');
+    });
+
+    // Clear Cookies button
+    document.getElementById('clear-cookies-btn').addEventListener('click', function() {
+        if (confirm('Are you sure? This will clear all cookies for this website.')) {
+            clearWebsiteCookies();
+            showNotification('Cookies cleared successfully!');
+        }
+    });
+
+    function saveCookiePreferences() {
+        const preferences = {
+            analytics: document.getElementById('analytics-cookies').checked,
+            marketing: document.getElementById('marketing-cookies').checked,
+            preferences: document.getElementById('preference-cookies').checked,
+            thirdparty: document.getElementById('thirdparty-cookies').checked,
+            timestamp: new Date().getTime()
+        };
+        localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+    }
+
+    function clearWebsiteCookies() {
+        document.cookie.split(";").forEach(function(c) {
+            const cname = c.split("=")[0].trim();
+            document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        });
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0066cc;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => notification.remove(), 3000);
+    }
+});
+
+// Add animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}{{ industry.name }} Solutions - ChowdhuryX{% endblock %}
+
+{% block description %}ChowdhuryX delivers specialized technology solutions for the {{ industry.name }} industry. Learn about our expertise and how we can help your organization.{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
+<style>
+.industry-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.industry-hero h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.industry-hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    background: var(--gray-light);
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb-content {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: var(--gray);
+    margin: 0 0.25rem;
+}
+
+.industry-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin: 3rem 0;
+    align-items: start;
+}
+
+.industry-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.industry-details p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.solutions-list {
+    background: var(--gray-light);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.solutions-list h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.solutions-list ul {
+    list-style: none;
+}
+
+.solutions-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.solutions-list li:last-child {
+    border-bottom: none;
+}
+
+.solutions-list li i {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.solutions-list li span {
+    color: var(--gray-dark);
+}
+
+@media (max-width: 768px) {
+    .industry-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .industry-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .industry-hero p {
+        font-size: 1rem;
+    }
+}
+
+.cta-section {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--gray-dark) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 12px;
+    margin: 4rem 0;
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+    min-width: 180px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <a href="{{ url_for('index') }}">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="{{ url_for('industries') }}">Industries</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>{{ industry.name }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="industry-hero">
+    <h1><i class="fas {{ industry.icon }}"></i> {{ industry.name }}</h1>
+    <p>{{ industry.description }}</p>
+</section>
+
+<!-- Main Content -->
+<div class="container">
+    <section class="industry-content">
+        <div class="industry-details">
+            <h2>Expertise in {{ industry.name }}</h2>
+            <p>{{ industry.content }}</p>
+            
+            <h3>Why Partner With Us?</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem;"></i>
+                    <div>
+                        <strong>Industry-Specific Expertise</strong>
+                        <p style="margin: 0.25rem 0 0; color: var(--gray); font-size: 0.95rem;">Deep understanding of {{ industry.name|lower }} challenges and regulations</p>
+                    </div>
+                </li>
+                <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem;"></i>
+                    <div>
+                        <strong>Proven Track Record</strong>
+                        <p style="margin: 0.25rem 0 0; color: var(--gray); font-size: 0.95rem;">Successfully delivered 100+ solutions in this sector</p>
+                    </div>
+                </li>
+                <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem;"></i>
+                    <div>
+                        <strong>Compliance & Security</strong>
+                        <p style="margin: 0.25rem 0 0; color: var(--gray); font-size: 0.95rem;">GDPR, HIPAA, SOC 2, and industry-specific compliance</p>
+                    </div>
+                </li>
+                <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem;"></i>
+                    <div>
+                        <strong>Global Delivery Model</strong>
+                        <p style="margin: 0.25rem 0 0; color: var(--gray); font-size: 0.95rem;">24/7 support with US leadership and India execution</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <aside class="solutions-list">
+            <h3>Our Solutions</h3>
+            <ul>
+                {% for solution in industry.solutions %}
+                <li>
+                    <i class="fas fa-arrow-right"></i>
+                    <span>{{ solution }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Transform Your {{ industry.name }} Operations?</h2>
+        <p>Let's discuss how ChowdhuryX can help your organization achieve its goals</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Schedule Consultation</a>
+            <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">View Services</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

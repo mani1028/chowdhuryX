@@ -14,6 +14,45 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
     
+    <!-- JSON-LD Schema Markup for Corporate Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ChowdhuryX Organization LLC",
+        "description": "Global enterprise technology and business services firm",
+        "url": "https://chowdhuryX.com",
+        "logo": "https://chowdhuryX.com/static/images/logo/logo.png",
+        "sameAs": [
+            "https://www.linkedin.com/company/chowdhuryX",
+            "https://twitter.com/chowdhuryX"
+        ],
+        "contact": {
+            "@type": "ContactPoint",
+            "telephone": "+1-555-123-4567",
+            "contactType": "Business Development"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Enterprise Ave",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10001",
+            "addressCountry": "US"
+        },
+        "foundingDate": "2015",
+        "areaServed": "Worldwide",
+        "knowsAbout": [
+            "Software Development",
+            "Artificial Intelligence",
+            "Machine Learning",
+            "BPO Services",
+            "IT Consulting",
+            "Recruitment Process Outsourcing"
+        ]
+    }
+    </script>
+    
     <title>{% block title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}</title>
     
     <!-- Favicon -->
@@ -30,6 +69,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    <!-- SPA Page Loading Indicator -->
+    <div id="pageLoadingIndicator" class="page-loading-indicator">
+        <div class="loading-bar"></div>
+    </div>
+
     <!-- Skip to main content (Accessibility) -->
     <a href="#main-content" class="sr-only focus-visible">Skip to main content</a>
 
@@ -42,7 +86,6 @@
                     <div class="navbar-brand">
                         <a href="{{ url_for('index') }}" class="logo-link" aria-label="ChowdhuryX Home">
                             <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" class="logo-image">
-                            <span class="logo-text">ChowdhuryX</span>
                         </a>
                     </div>
                     
@@ -67,12 +110,12 @@
                                     Services <i class="fas fa-chevron-down dropdown-icon"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Software Development</a>
-                                    <a href="#" class="dropdown-item">AI & Machine Learning</a>
-                                    <a href="#" class="dropdown-item">BPO Services</a>
-                                    <a href="#" class="dropdown-item">IT Consulting</a>
-                                    <a href="#" class="dropdown-item">RPO & Staffing</a>
-                                    <a href="#" class="dropdown-item">Digital Products</a>
+                                    <a href="{{ url_for('service_detail', slug='software-development') }}" class="dropdown-item">Software Development</a>
+                                    <a href="{{ url_for('service_detail', slug='ai-machine-learning') }}" class="dropdown-item">AI & Machine Learning</a>
+                                    <a href="{{ url_for('service_detail', slug='bpo-services') }}" class="dropdown-item">BPO Services</a>
+                                    <a href="{{ url_for('service_detail', slug='it-consulting') }}" class="dropdown-item">IT Consulting</a>
+                                    <a href="{{ url_for('service_detail', slug='rpo-staffing') }}" class="dropdown-item">RPO & Staffing</a>
+                                    <a href="{{ url_for('service_detail', slug='digital-products') }}" class="dropdown-item">Digital Products</a>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -83,9 +126,9 @@
                                     Company <i class="fas fa-chevron-down dropdown-icon"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Why Choose Us</a>
-                                    <a href="#" class="dropdown-item">Engagement Models</a>
-                                    <a href="#" class="dropdown-item">Trust Center</a>
+                                    <a href="{{ url_for('why_choose_us') }}" class="dropdown-item">Why Choose Us</a>
+                                    <a href="{{ url_for('engagement_models') }}" class="dropdown-item">Engagement Models</a>
+                                    <a href="{{ url_for('trust_center') }}" class="dropdown-item">Trust Center</a>
                                     <a href="{{ url_for('careers') }}" class="dropdown-item">Careers</a>
                                 </div>
                             </li>
@@ -115,8 +158,7 @@
                     <!-- Company Info -->
                     <div class="footer-column footer-about">
                         <div class="footer-logo">
-                            <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" class="footer-logo-image">
-                            <span class="footer-logo-text">ChowdhuryX</span>
+                            <img src="{{ url_for('static', filename='images/ChowdhuryX-logo.svg') }}" alt="ChowdhuryX Logo" class="footer-logo-image">
                         </div>
                         <p class="footer-description">
                             Global technology and business services firm delivering enterprise-class digital solutions, 
@@ -138,12 +180,12 @@
                     <div class="footer-column">
                         <h4 class="footer-title">Services</h4>
                         <ul class="footer-links">
-                            <li><a href="#">Software Development</a></li>
-                            <li><a href="#">AI & Machine Learning</a></li>
-                            <li><a href="#">BPO Services</a></li>
-                            <li><a href="#">IT Consulting</a></li>
-                            <li><a href="#">RPO & Staffing</a></li>
-                            <li><a href="#">Digital Products</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='software-development') }}">Software Development</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='ai-machine-learning') }}">AI & Machine Learning</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='bpo-services') }}">BPO Services</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='it-consulting') }}">IT Consulting</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='rpo-staffing') }}">RPO & Staffing</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='digital-products') }}">Digital Products</a></li>
                         </ul>
                     </div>
                     
@@ -152,10 +194,10 @@
                         <h4 class="footer-title">Company</h4>
                         <ul class="footer-links">
                             <li><a href="{{ url_for('about') }}">About Us</a></li>
-                            <li><a href="#">Why Choose Us</a></li>
+                            <li><a href="{{ url_for('why_choose_us') }}">Why Choose Us</a></li>
                             <li><a href="{{ url_for('industries') }}">Industries</a></li>
-                            <li><a href="#">Engagement Models</a></li>
-                            <li><a href="#">Trust Center</a></li>
+                            <li><a href="{{ url_for('engagement_models') }}">Engagement Models</a></li>
+                            <li><a href="{{ url_for('trust_center') }}">Trust Center</a></li>
                             <li><a href="{{ url_for('careers') }}">Careers</a></li>
                         </ul>
                     </div>
@@ -193,7 +235,7 @@
             <div class="container">
                 <div class="footer-bottom-content">
                     <div class="footer-copyright">
-                        <p>&copy; 2026 ChowdhuryX Organization LLC. All rights reserved.</p>
+                        <p>&copy; 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
                     </div>
                     <div class="footer-legal">
                         <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
@@ -202,7 +244,7 @@
                         <span class="separator">|</span>
                         <a href="{{ url_for('cookies') }}">Cookie Policy</a>
                         <span class="separator">|</span>
-                        <a href="#" id="cookieSettings">Cookie Settings</a>
+                        <a href="{{ url_for('cookie_settings') }}">Cookie Settings</a>
                     </div>
                 </div>
             </div>
@@ -210,10 +252,38 @@
     </footer>
 
     <!-- Main JavaScript -->
+    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
     <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
-    <!-- Page-specific JavaScript -->
+    <!-- Page Loading Indicator Script -->
+    <script>
+    // Show loading indicator on page transition
+    document.addEventListener('click', function(event) {
+        const link = event.target.closest('a[href]');
+        if (link && !link.getAttribute('href').startsWith('#') && !link.hasAttribute('download')) {
+            const href = link.getAttribute('href');
+            if (href && (href.startsWith('/') || href.startsWith('{{ request.host }}'))) {
+                document.getElementById('pageLoadingIndicator').classList.add('active');
+            }
+        }
+    });
+
+    // Hide loading indicator when page loads
+    window.addEventListener('load', function() {
+        document.getElementById('pageLoadingIndicator').classList.remove('active');
+    });
+
+    // Hide loading indicator if navigation is cancelled
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            document.getElementById('pageLoadingIndicator').classList.remove('active');
+        }
+    });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>    <!-- Page-specific JavaScript -->
     {% block js %}{% endblock %}
 </body>
 </html>
