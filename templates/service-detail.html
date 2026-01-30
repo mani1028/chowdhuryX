@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+
+{% block title %}{{ service.name }} | ChowdhuryX{% endblock %}
+
+{% block description %}{{ seo_description if seo_description else (details.full_description if details else service.description) }} Learn more about how ChowdhuryX delivers {{ service.name|lower }} solutions.{% endblock %}
+
+{% block keywords %}{{ seo_keywords if seo_keywords else 'services' }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
+<style>
+.service-hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 6rem 2rem;
+    text-align: center;
+}
+
+.service-hero h1 {
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.service-hero p {
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    background: var(--gray-light);
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.breadcrumb-content {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: var(--gray);
+    margin: 0 0.25rem;
+}
+
+.service-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 3rem 0;
+    align-items: start;
+}
+
+.service-description h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.service-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.benefits-list {
+    background: var(--gray-light);
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--primary-color);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.benefits-list h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.benefits-list ul {
+    list-style: none;
+}
+
+.benefits-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+
+.benefits-list li i {
+    color: var(--primary-color);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.benefits-list li span {
+    color: var(--gray-dark);
+}
+
+@media (max-width: 768px) {
+    .service-main {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefits-list {
+        position: static;
+    }
+    
+    .service-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .service-hero p {
+        font-size: 1rem;
+    }
+}
+
+.technologies-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.technologies-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--dark);
+}
+
+.tech-tags {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.process-section {
+    margin: 3rem 0;
+}
+
+.process-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--dark);
+    text-align: center;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.process-step {
+    text-align: center;
+    padding: 2rem;
+    background: var(--gray-light);
+    border-radius: 12px;
+    position: relative;
+}
+
+.process-step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
+
+.process-step h4 {
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+.process-step p {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 12px;
+    margin: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cta-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+    min-width: 200px;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all var(--transition-slow);
+}
+
+.btn-primary-cta {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-color-dark) 100%);
+    color: white;
+    border: none;
+}
+
+.btn-primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    transition: all var(--transition-slow);
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <a href="{{ url_for('index') }}">Home</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="{{ url_for('services') }}">Services</a>
+            <span class="breadcrumb-separator">/</span>
+            <span>{{ service.name }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="service-hero">
+    <h1>{{ service.name }}</h1>
+    <p>{{ service.description }}</p>
+</section>
+
+<!-- Main Content -->
+<div class="container">
+    <section class="service-main">
+        <div class="service-description">
+            {% if details %}
+            <h2>About This Service</h2>
+            <p>{{ details.full_description }}</p>
+            
+            <h3>Why Choose Our {{ service.name }} Services?</h3>
+            <ul style="list-style: none; padding: 0;">
+                {% for benefit in details.benefits %}
+                <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
+                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem; flex-shrink: 0;"></i>
+                    <span>{{ benefit }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <h2>{{ service.name }}</h2>
+            <p>{{ service.description }}</p>
+            {% endif %}
+        </div>
+        
+        <aside class="benefits-list">
+            <h3>Key Benefits</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> <span>Expert Team</span></li>
+                <li><i class="fas fa-check"></i> <span>Proven Delivery</span></li>
+                <li><i class="fas fa-check"></i> <span>Quality Assured</span></li>
+                <li><i class="fas fa-check"></i> <span>Cost Effective</span></li>
+                <li><i class="fas fa-check"></i> <span>24/7 Support</span></li>
+                <li><i class="fas fa-check"></i> <span>Scalable Solutions</span></li>
+            </ul>
+        </aside>
+    </section>
+
+    <!-- Technologies Section -->
+    {% if details and details.technologies %}
+    <section class="technologies-section">
+        <h3>Technologies We Use</h3>
+        <div class="tech-tags">
+            {% for tech in details.technologies %}
+            <span class="tech-tag">{{ tech }}</span>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <h3>Our Delivery Process</h3>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="process-step-number">1</div>
+                <h4>Discovery</h4>
+                <p>We understand your needs, goals, and challenges</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">2</div>
+                <h4>Strategy</h4>
+                <p>We develop a tailored solution strategy</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">3</div>
+                <h4>Design</h4>
+                <p>We create comprehensive technical design</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">4</div>
+                <h4>Development</h4>
+                <p>We execute with agile, quality-focused approach</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">5</div>
+                <h4>Deployment</h4>
+                <p>We ensure smooth launch and transition</p>
+            </div>
+            <div class="process-step">
+                <div class="process-step-number">6</div>
+                <h4>Support</h4>
+                <p>We provide ongoing support and optimization</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Consult an Expert</h2>
+        <p>Get started with {{ service.name }} today. Our specialists are ready to discuss your unique requirements.</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact', service=service.slug) }}" class="btn btn-primary-cta">Get Started Today</a>
+            <a href="tel:+15551234567" class="btn btn-outline btn-light">Call Us Now</a>
+        </div>
+        <p style="font-size: 0.9rem; margin-top: 1.5rem; opacity: 0.85;">✓ Free consultation • ✓ No obligation • ✓ Response within 24 hours</p>
+    </section>
+</div>
+{% endblock %}

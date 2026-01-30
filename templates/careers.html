@@ -119,6 +119,8 @@
         <span class="close">&times;</span>
         <h2>Apply for Position</h2>
         <form id="applicationForm">
+            {{ csrf_token() }}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <input type="hidden" id="positionInput" name="position" value="">
             
             <div class="form-group">

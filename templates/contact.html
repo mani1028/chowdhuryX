@@ -111,6 +111,9 @@
             <div class="contact-form-wrapper">
                 <h2>Send us a Message</h2>
                 <form id="contactForm" class="contact-form">
+                    {{ csrf_token() }}
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    
                     <div class="form-group">
                         <label for="name">Name *</label>
                         <input type="text" id="name" name="name" required>
@@ -128,7 +131,7 @@
 
                     <div class="form-group">
                         <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" value="{% if service_name %}Inquiry About {{ service_name }}{% endif %}" required>
                     </div>
 
                     <div class="form-group">
@@ -207,30 +210,35 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
+    const submitBtn = this.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
     
     fetch('{{ url_for("contact") }}', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'X-CSRFToken': formData.get('csrf_token')
+        }
     })
     .then(response => response.json())
     .then(data => {
-        const msgDiv = document.getElementById('formMessage');
         if (data.success) {
-            msgDiv.className = 'form-message success';
-            msgDiv.textContent = data.message;
+            showSuccessToast('Success', data.message || 'Thank you for contacting us!');
             document.getElementById('contactForm').reset();
         } else {
-            msgDiv.className = 'form-message error';
-            msgDiv.textContent = data.message;
+            showErrorToast('Error', data.message || 'An error occurred. Please try again.');
         }
-        msgDiv.style.display = 'block';
     })
     .catch(error => {
         console.error('Error:', error);
-        const msgDiv = document.getElementById('formMessage');
-        msgDiv.className = 'form-message error';
-        msgDiv.textContent = 'An error occurred. Please try again.';
-        msgDiv.style.display = 'block';
+        showErrorToast('Error', 'Failed to submit form. Please try again.');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     });
 });
 </script>

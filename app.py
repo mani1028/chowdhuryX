@@ -6,14 +6,23 @@ import os
 import logging
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask_wtf.csrf import CSRFProtect
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 from functools import wraps
 from config import get_config
 from models import db, Contact, Career, Blog, Testimonial, Service
+try:
+    from content_data_enhanced import get_service_details, get_all_services_details, get_industry_details, get_all_industries
+except ImportError:
+    from content_data import get_service_details, get_all_services_details, get_industry_details, get_all_industries
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Initialize CSRF Protection
+csrf = CSRFProtect()
 
 def create_app(config_name=None):
     """Application Factory"""
@@ -25,6 +34,7 @@ def create_app(config_name=None):
     
     # Initialize extensions
     db.init_app(app)
+    csrf.init_app(app)
     
     # Register blueprints
     from admin import admin_bp
@@ -51,14 +61,80 @@ def create_app(config_name=None):
     
     @app.route('/services')
     def services():
-        """Services Page"""
-        all_services = Service.query.order_by(Service.order).all()
-        return render_template('services.html', services=all_services)
+        """Services Page - Modern grid with detail pages"""
+        service_details = get_all_services_details()
+        
+        # Convert service details to list format for template
+        services_list = []
+        for slug, details in service_details.items():
+            service_data = {
+                'slug': slug,
+                'name': details.get('name', ''),
+                'tagline': details.get('tagline', ''),
+                'icon': details.get('icon', 'fas fa-cog'),
+                'color': details.get('color', '#10b981'),
+                'description': details.get('description', ''),
+                'short_description': details.get('short_description', details.get('description', '')),
+                'full_description': details.get('full_description', ''),
+                'features': details.get('features', []),
+                'technologies': details.get('technologies', []),
+                'benefits': details.get('benefits', []),
+                'pricing': details.get('pricing', 'Custom pricing'),
+            }
+            services_list.append(service_data)
+        
+        return render_template('services.html', services=services_list, service_details=service_details)
+    
+    @app.route('/services/<slug>')
+    def service_detail(slug):
+        """Individual Service Detail Page"""
+        # First try to get from content_data
+        details = get_service_details(slug)
+        
+        if not details:
+            # Fallback to database
+            service = Service.query.filter_by(slug=slug).first_or_404()
+            details = {
+                'name': service.name,
+                'description': service.description,
+                'full_description': service.description,
+                'benefits': [],
+                'technologies': [],
+                'keywords': '',
+                'slug': service.slug
+            }
+        
+        # Create service object from details
+        class ServiceDetail:
+            def __init__(self, details):
+                self.name = details.get('name', '')
+                self.description = details.get('description', '')
+                self.slug = details.get('slug', '')
+                self.icon = details.get('icon', 'fas fa-cog')
+                self.color = details.get('color', '#10b981')
+        
+        service = ServiceDetail(details)
+        
+        # Pass SEO metadata
+        description = details.get('seo_description', details.get('description', ''))
+        keywords = details.get('seo_keywords', details.get('keywords', ''))
+        
+        return render_template('service-detail.html', service=service, details=details, 
+                             seo_description=description, seo_keywords=keywords)
     
     @app.route('/industries')
     def industries():
         """Industries Page"""
         return render_template('industries.html')
+    
+    @app.route('/industries/<slug>')
+    def industry_detail(slug):
+        """Individual Industry Detail Page"""
+        industry = get_industry_details(slug)
+        if not industry:
+            return render_template('404.html'), 404
+        
+        return render_template('industry-detail.html', industry=industry, slug=slug)
     
     @app.route('/portfolio')
     def portfolio():
@@ -72,7 +148,14 @@ def create_app(config_name=None):
     
     @app.route('/contact', methods=['GET', 'POST'])
     def contact():
-        """Contact Us Page"""
+        """Contact Us Page - with optional service pre-population"""
+        service_slug = request.args.get('service', None)
+        service_name = ''
+        
+        if service_slug:
+            service_details = get_service_details(service_slug)
+            service_name = service_details.get('name', '') if service_details else ''
+        
         if request.method == 'POST':
             try:
                 contact = Contact(
@@ -91,7 +174,7 @@ def create_app(config_name=None):
                 logger.error(f"Contact form error: {str(e)}")
                 return jsonify({'success': False, 'message': 'Error submitting form'}), 400
         
-        return render_template('contact.html')
+        return render_template('contact.html', service_name=service_name, service_slug=service_slug)
     
     @app.route('/blog')
     def blog():
@@ -135,6 +218,26 @@ def create_app(config_name=None):
         """Cookie Policy Page"""
         return render_template('cookies.html')
     
+    @app.route('/engagement-models')
+    def engagement_models():
+        """Engagement Models Page"""
+        return render_template('engagement-models.html')
+    
+    @app.route('/why-choose-us')
+    def why_choose_us():
+        """Why Choose Us Page"""
+        return render_template('why-choose-us.html')
+    
+    @app.route('/trust-center')
+    def trust_center():
+        """Trust Center Page"""
+        return render_template('trust-center.html')
+    
+    @app.route('/cookie-settings')
+    def cookie_settings():
+        """Cookie Settings Page"""
+        return render_template('cookie-settings.html')
+    
     @app.route('/apply-job', methods=['POST'])
     def apply_job():
         """Career Application Submission"""
@@ -150,11 +253,13 @@ def create_app(config_name=None):
                 status='applied'
             )
             
-            # Handle file upload
+            # Handle file upload with secure_filename
             if 'resume' in request.files:
                 file = request.files['resume']
                 if file and file.filename:
-                    filename = f"{datetime.now().timestamp()}_{file.filename}"
+                    # Sanitize filename using secure_filename
+                    original_filename = secure_filename(file.filename)
+                    filename = f"{datetime.now().timestamp()}_{original_filename}"
                     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     career.resume_filename = filename
@@ -185,12 +290,71 @@ def create_app(config_name=None):
     @app.context_processor
     def inject_config():
         """Inject config variables into templates"""
+        from flask_wtf.csrf import generate_csrf
         return {
             'current_year': datetime.now().year,
             'company_name': 'ChowdhuryX',
             'company_email': 'info@chowdhuryX.com',
-            'company_phone': '+1 (555) 123-4567'
+            'company_phone': '+1 (555) 123-4567',
+            'csrf_token': generate_csrf
         }
+    
+    # ==================== CLI COMMANDS ====================
+    
+    @app.cli.command()
+    def init_services():
+        """Initialize database with sample services"""
+        services_data = [
+            Service(
+                name='Software Development',
+                slug='software-development',
+                description='Custom software engineering solutions for web, mobile, desktop, and enterprise applications using modern, scalable architectures.',
+                order=1
+            ),
+            Service(
+                name='AI & Machine Learning',
+                slug='ai-machine-learning',
+                description='Custom AI systems, automation platforms, data-driven intelligence, and advanced analytics for smarter decision-making.',
+                order=2
+            ),
+            Service(
+                name='BPO Services',
+                slug='bpo-services',
+                description='High-quality voice and non-voice support, CRM-driven chat operations, and customer engagement services.',
+                order=3
+            ),
+            Service(
+                name='IT Consulting',
+                slug='it-consulting',
+                description='Strategic IT consulting and technical architecture services for organizational transformation and digital strategy.',
+                order=4
+            ),
+            Service(
+                name='RPO & Staffing',
+                slug='rpo-staffing',
+                description='Recruitment Process Outsourcing and staffing solutions for building and scaling your team with qualified professionals.',
+                order=5
+            ),
+            Service(
+                name='Digital Products',
+                slug='digital-products',
+                description='Building scalable digital products from concept to market, with focus on user experience and business impact.',
+                order=6
+            ),
+        ]
+        
+        # Check if services already exist
+        existing = Service.query.first()
+        if existing:
+            logger.info("Services already initialized")
+            return
+        
+        for service in services_data:
+            db.session.add(service)
+        
+        db.session.commit()
+        logger.info(f"Initialized {len(services_data)} services")
+        print(f"✓ Successfully initialized {len(services_data)} services")
     
     # ==================== TEMPLATE FILTERS ====================
     
