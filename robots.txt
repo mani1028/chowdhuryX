@@ -1,34 +1,59 @@
+# ChowdhuryX robots.txt
+# Generated: February 1, 2026
+# For search engine crawlers
+
 User-agent: *
 Allow: /
 
-# Block admin panel from indexing
+# ==================== DISALLOW ADMIN & INTERNAL ====================
 Disallow: /admin/
-
-# Block authentication pages
 Disallow: /login
 Disallow: /logout
 
-# Block post management from search
-Disallow: /create_post
-Disallow: /edit_post/
-Disallow: /delete_post/
-
-# Block API and action endpoints
+# ==================== DISALLOW API & ACTIONS ====================
+Disallow: /apply-job
 Disallow: /api/
 Disallow: /like/
 Disallow: /like_comment/
-Disallow: /comment/
+Disallow: /share/
 
-# Block internal/temporary files
+# ==================== DISALLOW SYSTEM FILES ====================
 Disallow: /*.sqlite3
 Disallow: /*.db
 Disallow: /instance/
 Disallow: /__pycache__/
+Disallow: /.env
+Disallow: /venv/
 
-# Allow static files
+# ==================== ALLOW STATIC ASSETS ====================
 Allow: /static/
+Allow: /static/css/
+Allow: /static/js/
+Allow: /static/images/
 
-# Crawl delay (respectful crawling)
+# ==================== CRAWL SETTINGS ====================
+Crawl-delay: 1
+Request-rate: 30/60
+
+# ==================== SITEMAP ====================
+Sitemap: https://chowdhuryx.com/sitemap.xml
+
+# ==================== SPECIFIC CRAWLER RULES ====================
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
 Crawl-delay: 1
 
-Sitemap: https://chowdhuryx.com/sitemap.xml
+# Other search engines
+User-agent: *
+Allow: /
+Disallow: /admin/
+Crawl-delay: 1
