@@ -1,0 +1,421 @@
+{% extends "base-admin.html" %}
+
+{% block title %}{{ blog.title }} - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div class="header-top">
+        <a href="{{ url_for('admin.blog') }}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+    </div>
+    <h1>{{ blog.title }}</h1>
+    <p class="meta">By {{ blog.author }} • {{ blog.created_at.strftime('%B %d, %Y') }}</p>
+</div>
+
+<div class="blog-detail-container">
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Featured Image -->
+        {% if blog.featured_image %}
+        <div class="featured-image">
+            <img src="{{ url_for('static', filename='uploads/blog/' + blog.featured_image) }}" alt="{{ blog.title }}">
+        </div>
+        {% endif %}
+
+        <!-- Post Meta -->
+        <div class="post-meta">
+            <span class="badge badge-{{ blog.status }}">{{ blog.status }}</span>
+            <span class="views"><i class="fas fa-eye"></i> {{ blog.views }} views</span>
+            <span class="category"><i class="fas fa-folder"></i> {{ blog.category }}</span>
+        </div>
+
+        <!-- Content -->
+        <div class="post-content">
+            {{ blog.content }}
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h2>Comments ({{ comments|length }})</h2>
+            {% if comments %}
+            <div class="comments-list">
+                {% for comment in comments %}
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <strong>{{ comment.author_name }}</strong>
+                        <span class="comment-date">{{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                        <span class="badge badge-{{ comment.status }}">{{ comment.status }}</span>
+                    </div>
+                    <div class="comment-content">
+                        {{ comment.content }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p class="no-comments">No comments yet</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Edit Actions -->
+        <div class="action-box">
+            <h3>Actions</h3>
+            <a href="{{ url_for('admin.create_blog', edit_id=blog.id) }}" class="btn btn-primary btn-block">
+                <i class="fas fa-edit"></i> Edit Post
+            </a>
+            <a href="{{ url_for('blog_post', slug=blog.slug) }}" class="btn btn-outline btn-block" target="_blank">
+                <i class="fas fa-eye"></i> View Post
+            </a>
+            
+            <!-- Publish/Unpublish Button -->
+            {% if blog.status == 'draft' %}
+            <form method="POST" action="{{ url_for('admin.publish_blog', blog_id=blog.id) }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-success btn-block">
+                    <i class="fas fa-upload"></i> Publish Post
+                </button>
+            </form>
+            {% elif blog.status == 'published' %}
+            <form method="POST" action="{{ url_for('admin.unpublish_blog', blog_id=blog.id) }}" style="display: inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-warning btn-block">
+                    <i class="fas fa-download"></i> Unpublish Post
+                </button>
+            </form>
+            {% endif %}
+            
+            <!-- Delete Button -->
+            <button class="btn btn-danger btn-block" onclick="deletePost({{ blog.id }})">
+                <i class="fas fa-trash"></i> Delete Post
+            </button>
+        </div>
+
+        <!-- Post Info -->
+        <div class="info-box">
+            <h3>Post Information</h3>
+            <div class="info-item">
+                <label>Status</label>
+                <span class="badge badge-{{ blog.status }}">{{ blog.status }}</span>
+            </div>
+            <div class="info-item">
+                <label>Category</label>
+                <span>{{ blog.category }}</span>
+            </div>
+            <div class="info-item">
+                <label>Author</label>
+                <span>{{ blog.author }}</span>
+            </div>
+            <div class="info-item">
+                <label>Created</label>
+                <span>{{ blog.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+            <div class="info-item">
+                <label>Updated</label>
+                <span>{{ blog.updated_at.strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+            <div class="info-item">
+                <label>Views</label>
+                <span>{{ blog.views }}</span>
+            </div>
+            <div class="info-item">
+                <label>Slug</label>
+                <span class="slug">{{ blog.slug }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function deletePost(postId) {
+    if (confirm('Are you sure you want to delete this blog post? This action cannot be undone.')) {
+        fetch(`/admin/blog/${postId}/delete`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/admin/blog';
+            } else {
+                alert('Error deleting post');
+            }
+        });
+    }
+}
+</script>
+
+<style>
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.header-top {
+    margin-bottom: 1rem;
+}
+
+.back-link {
+    color: #0066cc;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    gap: 0.75rem;
+}
+
+.meta {
+    margin: 0.5rem 0 0 0;
+    color: #999;
+    font-size: 0.95rem;
+}
+
+.blog-detail-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+}
+
+.main-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.featured-image {
+    margin: -2rem -2rem 2rem -2rem;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+}
+
+.featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.post-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 3rem;
+}
+
+.post-content p {
+    margin-bottom: 1rem;
+}
+
+.post-content h2,
+.post-content h3 {
+    margin: 1.5rem 0 0.75rem 0;
+    color: #333;
+}
+
+.post-content strong {
+    color: #0066cc;
+}
+
+.comments-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.comments-section h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.3rem;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comment-item {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.comment-header strong {
+    color: #333;
+}
+
+.comment-date {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.comment-header .badge {
+    margin-left: auto;
+}
+
+.comment-content {
+    color: #666;
+    line-height: 1.6;
+}
+
+.no-comments {
+    text-align: center;
+    padding: 2rem;
+    color: #999;
+    font-style: italic;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.action-box,
+.info-box {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.action-box h3,
+.info-box h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.action-box .btn,
+.info-box .btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.action-box .btn:last-child,
+.info-box .btn:last-child {
+    margin-bottom: 0;
+}
+
+.btn {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: #0066cc;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0052a3;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #0066cc;
+    color: #0066cc;
+}
+
+.btn-outline:hover {
+    background: #0066cc;
+    color: white;
+}
+
+.btn-danger {
+    background: #ff6b6b;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #ff5252;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.info-item {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.info-item label {
+    display: block;
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.info-item span {
+    color: #333;
+    word-break: break-word;
+}
+
+.info-item .slug {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+@media (max-width: 1024px) {
+    .blog-detail-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

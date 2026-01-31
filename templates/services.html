@@ -5,52 +5,51 @@
 {% block description %}Explore our comprehensive suite of services including AI solutions, BPO, web development, IT consulting, digital marketing, software development, RPO, and recruitment.{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 <style>
-/* Services Page Styling - Consistent with Global Design System */
+/* Services Page Styling - Consistent with Enterprise Design System */
 .page-header {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
-    color: white;
-    padding: 6rem 2rem;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--space-24) var(--space-8);
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: var(--space-16);
 }
 
 .page-header h1 {
-    color: white;
-    font-size: 2.75rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
+    color: var(--color-white);
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-3);
     letter-spacing: -0.5px;
 }
 
 .page-header p {
-    font-size: 1.15rem;
-    opacity: 0.95;
-    max-width: 700px;
+    font-size: var(--font-size-lg);
+    opacity: 0.9;
+    max-width: 720px;
     margin: 0 auto;
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
 }
 
 /* Services Grid with Responsive Layout */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: var(--space-8);
+    margin-bottom: var(--space-12);
 }
 
 .service-card {
-    background: var(--color-light);
-    border-radius: var(--border-radius-lg);
-    padding: 2rem;
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
     display: flex;
     flex-direction: column;
     cursor: pointer;
     text-decoration: none;
-    color: var(--color-dark);
+    color: var(--color-gray-800);
     position: relative;
     overflow: hidden;
     border-left: 4px solid;
@@ -59,9 +58,9 @@
 
 .service-card:hover {
     box-shadow: var(--shadow-xl);
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     text-decoration: none;
-    color: var(--color-dark);
+    color: var(--color-gray-900);
 }
 
 .service-card a {
@@ -80,33 +79,33 @@
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: var(--color-dark);
-    font-weight: 700;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-3);
+    color: var(--color-gray-900);
+    font-weight: var(--font-weight-bold);
 }
 
 .service-tagline {
-    font-size: 0.875rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--brand-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--brand-secondary);
 }
 
 .service-card p {
     color: var(--color-gray-700);
-    line-height: 1.7;
+    line-height: var(--line-height-relaxed);
     flex-grow: 1;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-sm);
 }
 
 .service-card-cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     color: var(--brand-primary);
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     transition: gap var(--transition-base);
     align-self: flex-start;
 }
@@ -141,35 +140,36 @@
 
 /* Call to Action Section */
 .services-cta {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
-    color: white;
-    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--space-16) var(--space-8);
     text-align: center;
-    margin-top: 4rem;
-    border-radius: var(--border-radius-lg);
+    margin-top: var(--space-16);
+    border-radius: var(--radius-xl);
 }
 
 .services-cta h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-4);
+    font-weight: var(--font-weight-bold);
 }
 
 .services-cta p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-8);
+    max-width: 640px;
     margin-left: auto;
     margin-right: auto;
+    opacity: 0.9;
 }
 
 .services-cta a {
     display: inline-block;
-    background: var(--color-light);
+    background: var(--color-white);
     color: var(--brand-primary);
-    padding: 1rem 2.5rem;
-    border-radius: var(--border-radius);
-    font-weight: 700;
+    padding: var(--space-4) var(--space-10);
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-bold);
     text-decoration: none;
     transition: all var(--transition-base);
 }
@@ -182,32 +182,32 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .page-header {
-        padding: 3rem 1.5rem;
+        padding: var(--space-16) var(--space-6);
     }
 
     .page-header h1 {
-        font-size: 2rem;
+        font-size: var(--font-size-4xl);
     }
 
     .page-header p {
-        font-size: 1rem;
+        font-size: var(--font-size-base);
     }
 
     .services-grid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: var(--space-6);
     }
 
     .service-card {
-        padding: 2rem;
+        padding: var(--space-6);
     }
 
     .services-cta {
-        padding: 2.5rem 1.5rem;
+        padding: var(--space-12) var(--space-6);
     }
 
     .services-cta h2 {
-        font-size: 1.5rem;
+        font-size: var(--font-size-2xl);
     }
 }
 </style>

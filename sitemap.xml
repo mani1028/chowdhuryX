@@ -1,18 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Homepage - Highest Priority -->
     <url>
         <loc>https://chowdhuryx.com/</loc>
+        <lastmod>2026-02-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
+
+    <!-- Core Pages - High Priority -->
     <url>
-        <loc>https://chowdhuryx.com/products</loc>
+        <loc>https://chowdhuryx.com/about</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services</loc>
+        <lastmod>2026-02-01</lastmod>
         <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
+        <priority>0.95</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/industries</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/portfolio</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/careers</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
     </url>
     <url>
         <loc>https://chowdhuryx.com/blog</loc>
+        <lastmod>2026-02-01</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/contact</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Service Pages (6 services matching app.py init_services) -->
+    <url>
+        <loc>https://chowdhuryx.com/services/software-development</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services/ai-machine-learning</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services/bpo-services</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services/it-consulting</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services/rpo-staffing</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/services/digital-products</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Company Pages -->
+    <url>
+        <loc>https://chowdhuryx.com/why-choose-us</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/engagement-models</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/trust-center</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+    </url>
+
+    <!-- Information Pages -->
+    <url>
+        <loc>https://chowdhuryx.com/faq</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/testimonials</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Legal Pages -->
+    <url>
+        <loc>https://chowdhuryx.com/privacy-policy</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/terms</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/cookies</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/cookie-settings</loc>
+        <lastmod>2026-02-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+</urlset>
+    <url>
+        <loc>https://chowdhuryx.com/industries/finance</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/industries/retail</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/industries/manufacturing</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/industries/education</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/industries/government</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Legal Pages -->
+    <url>
+        <loc>https://chowdhuryx.com/privacy-policy</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/terms</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/cookies</loc>
+        <changefreq>yearly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/faq</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://chowdhuryx.com/trust-center</loc>
+        <changefreq>quarterly</changefreq>
+        <priority>0.6</priority>
     </url>
 </urlset>

@@ -36,6 +36,35 @@ def create_app(config_name=None):
     db.init_app(app)
     csrf.init_app(app)
     
+    # Helper function for file validation
+    def allowed_file(filename, file_type='file'):
+        """Check if file has allowed extension"""
+        if '.' not in filename:
+            return False
+        ext = filename.rsplit('.', 1)[1].lower()
+        if file_type == 'resume':
+            return ext in app.config['ALLOWED_EXTENSIONS']
+        elif file_type == 'image':
+            return ext in app.config['ALLOWED_IMAGE_EXTENSIONS']
+        else:
+            return ext in app.config['ALLOWED_EXTENSIONS']
+    
+    # Helper function to track service views for analytics
+    def track_service_view(slug):
+        """Track service page view in analytics"""
+        try:
+            from models import Analytics
+            analytics = Analytics(
+                event_type='service_view',
+                event_data=slug,
+                ip_address=request.remote_addr,
+                user_agent=request.headers.get('User-Agent', '')
+            )
+            db.session.add(analytics)
+            db.session.commit()
+        except Exception as e:
+            logger.debug(f"Analytics tracking error: {e}")
+    
     # Register blueprints
     from admin import admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
@@ -88,6 +117,9 @@ def create_app(config_name=None):
     @app.route('/services/<slug>')
     def service_detail(slug):
         """Individual Service Detail Page"""
+        # Track service view for analytics
+        track_service_view(slug)
+        
         # First try to get from content_data
         details = get_service_details(slug)
         
@@ -186,11 +218,45 @@ def create_app(config_name=None):
     @app.route('/blog/<slug>')
     def blog_post(slug):
         """Blog Post Detail Page"""
-        blog = Blog.query.filter_by(slug=slug).first_or_404()
+        blog = Blog.query.filter_by(slug=slug, status='published').first_or_404()
         blog.views += 1
         db.session.commit()
         related_blogs = Blog.query.filter_by(status='published', category=blog.category).filter(Blog.id != blog.id).limit(3).all()
         return render_template('blog-post.html', blog=blog, related_blogs=related_blogs)
+    
+    @app.route('/blog/<int:blog_id>/comment', methods=['POST'])
+    def add_blog_comment(blog_id):
+        """Add comment to blog post (No login required)"""
+        try:
+            blog = Blog.query.get_or_404(blog_id)
+            author_name = request.form.get('author_name', '').strip()
+            author_email = request.form.get('author_email', '').strip()
+            content = request.form.get('content', '').strip()
+            
+            if not all([author_name, author_email, content]):
+                return jsonify({'success': False, 'message': 'All fields are required'}), 400
+            
+            if len(content) > 1000:
+                return jsonify({'success': False, 'message': 'Comment is too long (max 1000 characters)'}), 400
+            
+            # Import Comment model
+            from models import Comment
+            
+            comment = Comment(
+                blog_id=blog_id,
+                author_name=author_name,
+                author_email=author_email,
+                content=content,
+                status='pending',  # Requires admin approval
+                ip_address=request.remote_addr
+            )
+            db.session.add(comment)
+            db.session.commit()
+            
+            return jsonify({'success': True, 'message': 'Comment submitted for approval'})
+        except Exception as e:
+            logger.error(f"Blog comment error: {str(e)}")
+            return jsonify({'success': False, 'message': 'Error submitting comment'}), 400
     
     @app.route('/faq')
     def faq():
@@ -253,16 +319,19 @@ def create_app(config_name=None):
                 status='applied'
             )
             
-            # Handle file upload with secure_filename
+            # Handle file upload with validation
             if 'resume' in request.files:
                 file = request.files['resume']
-                if file and file.filename:
+                if file and file.filename and allowed_file(file.filename, 'resume'):
                     # Sanitize filename using secure_filename
                     original_filename = secure_filename(file.filename)
                     filename = f"{datetime.now().timestamp()}_{original_filename}"
-                    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    os.makedirs(app.config['RESUME_FOLDER'], exist_ok=True)
+                    file.save(os.path.join(app.config['RESUME_FOLDER'], filename))
                     career.resume_filename = filename
+                elif file and file.filename:
+                    # Invalid file extension
+                    return jsonify({'success': False, 'message': f'Invalid file format. Allowed: {", ".join(app.config["ALLOWED_EXTENSIONS"])}'}), 400
             
             db.session.add(career)
             db.session.commit()

@@ -1,0 +1,310 @@
+{% extends "base-admin.html" %}
+
+{% block title %}{% if blog %}Edit Blog Post - Admin{% else %}Create Blog Post - Admin{% endif %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>{% if blog %}Edit Blog Post{% else %}Create New Blog Post{% endif %}</h1>
+    <p>{% if blog %}Update your blog post details and content{% else %}Write and publish a new blog post{% endif %}</p>
+</div>
+
+<div class="blog-form-container">
+    <form method="POST" enctype="multipart/form-data" class="blog-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        
+        <!-- Form Grid -->
+        <div class="form-grid">
+            <!-- Left Column -->
+            <div class="form-column">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title"><i class="fas fa-heading"></i> Title *</label>
+                    <input type="text" id="title" name="title" value="{{ blog.title if blog else '' }}" required autofocus class="form-input" placeholder="Enter blog post title">
+                </div>
+
+                <!-- Excerpt -->
+                <div class="form-group">
+                    <label for="excerpt"><i class="fas fa-quote-left"></i> Excerpt</label>
+                    <textarea id="excerpt" name="excerpt" rows="3" class="form-input" placeholder="Brief summary of your post...">{{ blog.excerpt if blog else '' }}</textarea>
+                </div>
+
+                <!-- Content -->
+                <div class="form-group">
+                    <label for="content"><i class="fas fa-pen"></i> Content *</label>
+                    <textarea id="content" name="content" rows="12" required class="form-input" placeholder="Write your blog post content here...">{{ blog.content if blog else '' }}</textarea>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="form-column sidebar">
+                <!-- Featured Image -->
+                <div class="form-group">
+                    <label for="featured_image"><i class="fas fa-image"></i> Featured Image</label>
+                    {% if blog and blog.featured_image %}
+                    <div class="current-image">
+                        <img src="{{ url_for('static', filename='uploads/blog/' + blog.featured_image) }}" alt="Featured Image">
+                        <p>{{ blog.featured_image }}</p>
+                    </div>
+                    {% endif %}
+                    <input type="file" id="featured_image" name="featured_image" accept="image/*" class="form-input">
+                    <small>Recommended: 1200x630px, Max 5MB</small>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category"><i class="fas fa-folder"></i> Category *</label>
+                    <select id="category" name="category" class="form-input" required>
+                        <option value="news" {% if blog and blog.category == 'news' %}selected{% endif %}>News</option>
+                        <option value="tutorial" {% if blog and blog.category == 'tutorial' %}selected{% endif %}>Tutorial</option>
+                        <option value="case-study" {% if blog and blog.category == 'case-study' %}selected{% endif %}>Case Study</option>
+                        <option value="tips" {% if blog and blog.category == 'tips' %}selected{% endif %}>Tips & Tricks</option>
+                        <option value="announcement" {% if blog and blog.category == 'announcement' %}selected{% endif %}>Announcement</option>
+                    </select>
+                </div>
+
+                <!-- Author -->
+                <div class="form-group">
+                    <label for="author"><i class="fas fa-user"></i> Author</label>
+                    <input type="text" id="author" name="author" value="{{ blog.author if blog else session.get('admin_username', 'Admin') }}" class="form-input" placeholder="Author name">
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label><i class="fas fa-toggle-on"></i> Status</label>
+                    <div class="status-options">
+                        <label class="radio-label">
+                            <input type="radio" name="status" value="draft" {% if not blog or blog.status == 'draft' %}checked{% endif %}>
+                            <span>Draft</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="status" value="published" {% if blog and blog.status == 'published' %}checked{% endif %}>
+                            <span>Published</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Meta Info -->
+                <div class="form-group meta-info">
+                    {% if blog %}
+                    <p><strong>Created:</strong> {{ blog.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p><strong>Updated:</strong> {{ blog.updated_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                    <p><strong>Views:</strong> {{ blog.views or 0 }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-save"></i> {% if blog %}Update Post{% else %}Create Post{% endif %}
+                    </button>
+                    <a href="{{ url_for('admin.blog') }}" class="btn btn-secondary btn-block">
+                        <i class="fas fa-arrow-left"></i> Back to Blog
+                    </a>
+                    {% if blog %}
+                    <a href="{{ url_for('blog_post', slug=blog.slug) }}" class="btn btn-outline btn-block" target="_blank">
+                        <i class="fas fa-eye"></i> View Post
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<style>
+.blog-form-container {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.blog-form {
+    display: block;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+textarea.form-input {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+select.form-input {
+    cursor: pointer;
+    background-color: white;
+}
+
+.status-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+    background-color: #f5f5f5;
+}
+
+.radio-label input[type="radio"] {
+    cursor: pointer;
+}
+
+.current-image {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.current-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.current-image p {
+    margin: 0;
+    padding: 0.5rem;
+    background: #f5f5f5;
+    font-size: 0.8rem;
+    color: #999;
+    word-break: break-all;
+}
+
+.meta-info {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #0066cc;
+}
+
+.meta-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.meta-info strong {
+    color: #333;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: #0066cc;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0052a3;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #0066cc;
+    color: #0066cc;
+}
+
+.btn-outline:hover {
+    background: #0066cc;
+    color: white;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+small {
+    color: #999;
+    font-size: 0.85rem;
+}
+
+@media (max-width: 1024px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-column.sidebar {
+        background: #f9f9f9;
+        padding: 1.5rem;
+        border-radius: 8px;
+    }
+}
+</style>
+{% endblock %}

@@ -294,6 +294,41 @@
 .btn-outline:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 2rem;
+}
+
+.feature-list li {
+    padding: 0.65rem 0;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    color: var(--color-gray-700);
+}
+
+.feature-list i {
+    color: var(--color-success);
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.pricing-card {
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+    border-left: 4px solid var(--brand-primary);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    margin-top: 2rem;
+}
+
+.pricing-card h4 {
+    margin-bottom: 0.75rem;
+    color: var(--brand-primary);
+    font-size: var(--font-size-lg);
+}
 </style>
 {% endblock %}
 
@@ -329,11 +364,30 @@
             <ul style="list-style: none; padding: 0;">
                 {% for benefit in details.benefits %}
                 <li style="padding: 0.75rem 0; display: flex; gap: 1rem; align-items: flex-start;">
-                    <i class="fas fa-check-circle" style="color: var(--success-color); margin-top: 0.25rem; flex-shrink: 0;"></i>
+                    <i class="fas fa-check-circle" style="color: var(--color-success); margin-top: 0.25rem; flex-shrink: 0;"></i>
                     <span>{{ benefit }}</span>
                 </li>
                 {% endfor %}
             </ul>
+
+            {% if details.features %}
+            <h3>Key Features</h3>
+            <ul class="feature-list">
+                {% for feature in details.features %}
+                <li>
+                    <i class="fas fa-check"></i>
+                    <span>{{ feature }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if details.pricing %}
+            <div class="pricing-card">
+                <h4>Pricing</h4>
+                <p>{{ details.pricing }}</p>
+            </div>
+            {% endif %}
             {% else %}
             <h2>{{ service.name }}</h2>
             <p>{{ service.description }}</p>

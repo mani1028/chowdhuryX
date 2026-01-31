@@ -25,7 +25,10 @@ class Config:
     # Upload Settings
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads')
+    BLOG_IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/blog')
+    RESUME_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/resumes')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'doc', 'docx'}
+    ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
     
     # Email Configuration
     MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
@@ -35,12 +38,13 @@ class Config:
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', '')
     MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@chowdhuryX.com')
     
+    # Admin Notification Emails
+    ADMIN_EMAILS = os.getenv('ADMIN_EMAILS', 'admin@chowdhuryX.com').split(',')
+    NOTIFY_ON_CONTACT = os.getenv('NOTIFY_ON_CONTACT', 'true').lower() == 'true'
+    NOTIFY_ON_APPLICATION = os.getenv('NOTIFY_ON_APPLICATION', 'true').lower() == 'true'
+    
     # Pagination
     ITEMS_PER_PAGE = 10
-    
-    # Admin Settings
-    ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
-    ADMIN_PASSWORD_HASH = os.getenv('ADMIN_PASSWORD_HASH', 'pbkdf2:sha256:260000$...')
 
 
 class DevelopmentConfig(Config):

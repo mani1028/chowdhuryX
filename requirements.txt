@@ -1,6 +1,7 @@
 Flask
 Flask-SQLAlchemy
 Flask-WTF
+Flask-Mail
 flask-restx
 werkzeug
 gunicorn

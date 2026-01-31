@@ -1,22 +1,70 @@
-# Python cache files
+# Python and Cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
 
 # Virtual Environments
 venv/
 env/
+.venv
+ENV/
+env.bak/
+venv.bak/
+
+# Environment Variables
 .env
+.env.local
+.env.*.local
 
-# Database (Don't overwrite your live data with local data!)
-database.db
+# Database Files
+*.sqlite
 *.sqlite3
+*.db
+instance/
+chowdhuryX.db
 
-# OS generated files
+# Uploads
+static/uploads/*
+!static/uploads/.gitkeep
+
+# OS Generated Files
 .DS_Store
 Thumbs.db
+.directory
 
-# IDE settings (VS Code, PyCharm)
+# IDE and Editor Settings
 .vscode/
 .idea/
+*.swp
+*.swo
+*.swn
+.sublime-project
+.sublime-workspace
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+logs/
+
+# Build and Dist
+*.egg-info/
+dist/
+build/
+
+
+# Flask
+instance/
+.webassets-cache
+
+# Backup files
+*.backup
+*.bak
+*~
