@@ -1,0 +1,183 @@
+/* ========================================
+   CAREERS PAGE STYLES
+   ======================================== */
+
+.open-positions {
+    padding: 4rem 0;
+}
+
+.open-positions h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.jobs-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.job-card {
+    background: var(--light);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    border-left: 5px solid var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.job-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateX(10px);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.job-header h3 {
+    margin-bottom: 0;
+}
+
+.location {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.job-description {
+    color: var(--gray);
+    margin-bottom: 1rem;
+}
+
+.job-details {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.job-details span {
+    font-size: 0.9rem;
+    color: var(--gray);
+}
+
+.job-details i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+.apply-btn {
+    cursor: pointer;
+}
+
+/* Why Join Section */
+.why-join {
+    padding: 4rem 0;
+}
+
+.why-join h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.benefit {
+    background: var(--light);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.benefit i {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.benefit h4 {
+    margin-bottom: 0.75rem;
+}
+
+.benefit p {
+    color: var(--gray);
+    margin-bottom: 0;
+}
+
+/* Application Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--light);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    width: 90%;
+    max-width: 600px;
+    box-shadow: var(--shadow-lg);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close {
+    color: var(--gray);
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--dark);
+}
+
+.modal-content h2 {
+    margin-bottom: 2rem;
+}
+
+.modal-content .form-group {
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .job-header {
+        flex-direction: column;
+    }
+
+    .job-details {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}

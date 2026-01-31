@@ -1,17 +1,59 @@
+# ChowdhuryX robots.txt
+# Generated: February 1, 2026
+# For search engine crawlers
+
 User-agent: *
 Allow: /
 
-# Block admin areas from Google Search
+# ==================== DISALLOW ADMIN & INTERNAL ====================
+Disallow: /admin/
 Disallow: /login
 Disallow: /logout
-Disallow: /create_post
-Disallow: /edit_post/
-Disallow: /delete_post/
 
-# Block API and Action endpoints
+# ==================== DISALLOW API & ACTIONS ====================
+Disallow: /apply-job
+Disallow: /api/
 Disallow: /like/
 Disallow: /like_comment/
-Disallow: /comment/
-Disallow: /api/
+Disallow: /share/
 
+# ==================== DISALLOW SYSTEM FILES ====================
+Disallow: /*.sqlite3
+Disallow: /*.db
+Disallow: /instance/
+Disallow: /__pycache__/
+Disallow: /.env
+Disallow: /venv/
+
+# ==================== ALLOW STATIC ASSETS ====================
+Allow: /static/
+Allow: /static/css/
+Allow: /static/js/
+Allow: /static/images/
+
+# ==================== CRAWL SETTINGS ====================
+Crawl-delay: 1
+Request-rate: 30/60
+
+# ==================== SITEMAP ====================
 Sitemap: https://chowdhuryx.com/sitemap.xml
+
+# ==================== SPECIFIC CRAWLER RULES ====================
+
+# Google
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Crawl-delay: 1
+
+# Other search engines
+User-agent: *
+Allow: /
+Disallow: /admin/
+Crawl-delay: 1

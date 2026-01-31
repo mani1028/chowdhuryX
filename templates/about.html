@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - ChowdhuryX Organization LLC{% endblock %}
+
+{% block description %}ChowdhuryX Organization LLC is a global technology and business services firm delivering enterprise-class digital solutions. Learn about our mission, vision, and global delivery model.{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header-enterprise">
+    <div class="container">
+        <div class="header-content">
+            <span class="section-subtitle">About ChowdhuryX</span>
+            <h1>Global Technology & Business Services Firm</h1>
+            <p class="text-lead">
+                Delivering enterprise-class digital solutions, intelligent automation, and scalable talent services 
+                to organizations worldwide.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Company Overview -->
+<section class="section section-white">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-content">
+                <h2>About Us</h2>
+                <p class="text-lead">
+                    ChowdhuryX Organization LLC is a global technology and business services firm delivering enterprise-class 
+                    digital solutions, intelligent automation, and scalable talent services to organizations worldwide.
+                </p>
+                <p>
+                    Headquartered in Sheridan, Wyoming, USA, with a robust offshore delivery center in Hyderabad, India, 
+                    we operate with a clear mandate: to help businesses transform, scale, and compete in a rapidly evolving 
+                    digital economy.
+                </p>
+                <p>
+                    Our operating model combines strategic leadership from the United States with high-performance execution 
+                    from India, enabling us to deliver exceptional quality, speed, and cost efficiency—without compromise.
+                </p>
+            </div>
+            <div class="overview-visual">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=800&fit=crop" 
+                     alt="ChowdhuryX Team" 
+                     class="overview-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Identity -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="identity-content text-center">
+            <h2>Our Identity</h2>
+            <p class="text-lead" style="max-width: 900px; margin: 0 auto;">
+                We are built for enterprises that value precision, accountability, and long-term partnerships.
+            </p>
+            <div class="identity-description">
+                <p>
+                    ChowdhuryX was established to bridge the gap between vision and execution—where technology decisions 
+                    directly impact revenue, efficiency, and competitive advantage. Every solution we deliver is guided by 
+                    a deep understanding of business operations, industry dynamics, and future-ready technology architecture.
+                </p>
+                <p class="highlight-text">
+                    We do not offer generic services.<br>
+                    We engineer purpose-driven solutions aligned to measurable business outcomes.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What We Do -->
+<section class="section section-white">
+    <div class="container">
+        <h2 class="text-center">What We Do</h2>
+        <p class="text-lead text-center" style="max-width: 800px; margin: 0 auto var(--space-12);">
+            We provide a comprehensive portfolio of services designed to support organizations across their entire growth lifecycle.
+        </p>
+        
+        <div class="services-grid grid grid-cols-2">
+            <div class="service-block">
+                <h4><i class="fas fa-code"></i> Software Engineering & Application Development</h4>
+                <p>Full-stack web, mobile, desktop, and enterprise application development using modern, scalable architectures.</p>
+            </div>
+            <div class="service-block">
+                <h4><i class="fas fa-brain"></i> Artificial Intelligence & Machine Learning Solutions</h4>
+                <p>Custom AI systems, automation platforms, data-driven intelligence, and advanced analytics for smarter decision-making.</p>
+            </div>
+            <div class="service-block">
+                <h4><i class="fas fa-headset"></i> Business Process Outsourcing (BPO)</h4>
+                <p>High-quality voice and non-voice support, CRM-driven chat operations, and customer engagement services.</p>
+            </div>
+            <div class="service-block">
+                <h4><i class="fas fa-users-cog"></i> Remote IT & Non-IT Consulting</h4>
+                <p>Skilled offshore professionals available on flexible engagement models to extend in-house capabilities.</p>
+            </div>
+            <div class="service-block">
+                <h4><i class="fas fa-user-tie"></i> Recruitment Process Outsourcing (RPO) & Contract Staffing</h4>
+                <p>End-to-end talent acquisition solutions designed for speed, accuracy, and workforce scalability.</p>
+            </div>
+            <div class="service-block">
+                <h4><i class="fas fa-rocket"></i> Digital Platforms & Proprietary Products</h4>
+                <p>Internally developed platforms and AI-driven products built to address real operational challenges.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Global Delivery Model -->
+<section class="section section-gray">
+    <div class="container">
+        <h2 class="text-center">Our Global Delivery Model</h2>
+        <p class="text-lead text-center" style="max-width: 800px; margin: 0 auto var(--space-12);">
+            Our delivery framework is designed for reliability, scalability, and governance.
+        </p>
+        
+        <div class="delivery-locations grid grid-cols-2">
+            <div class="location-detail-card">
+                <div class="location-header">
+                    <div class="location-flag">🇺🇸</div>
+                    <div>
+                        <h3>United States</h3>
+                        <p class="location-subtitle">Corporate & Strategic Operations</p>
+                    </div>
+                </div>
+                <ul class="location-features">
+                    <li><i class="fas fa-check-circle"></i> Client engagement and consulting</li>
+                    <li><i class="fas fa-check-circle"></i> Program governance and quality oversight</li>
+                    <li><i class="fas fa-check-circle"></i> Compliance, security, and enterprise alignment</li>
+                </ul>
+                <p class="location-address"><i class="fas fa-map-marker-alt"></i> Sheridan, Wyoming, USA</p>
+            </div>
+            
+            <div class="location-detail-card">
+                <div class="location-header">
+                    <div class="location-flag">🇮🇳</div>
+                    <div>
+                        <h3>India</h3>
+                        <p class="location-subtitle">Technology & Operations Excellence</p>
+                    </div>
+                </div>
+                <ul class="location-features">
+                    <li><i class="fas fa-check-circle"></i> Engineering, AI, and product development</li>
+                    <li><i class="fas fa-check-circle"></i> BPO, CRM, and support operations</li>
+                    <li><i class="fas fa-check-circle"></i> 24/7 delivery capability and rapid scaling</li>
+                </ul>
+                <p class="location-address"><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
+            </div>
+        </div>
+        
+        <div class="delivery-benefit text-center mt-8">
+            <p class="highlight-text">
+                This integrated model allows our clients to achieve enterprise outcomes at optimized global costs, 
+                while maintaining strict quality and confidentiality standards.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Our Approach -->
+<section class="section section-white">
+    <div class="container">
+        <h2 class="text-center">Our Approach</h2>
+        <p class="text-lead text-center" style="max-width: 800px; margin: 0 auto var(--space-12);">
+            Our work is guided by five core principles:
+        </p>
+        
+        <div class="approach-grid grid grid-cols-3">
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Business-First Thinking</h4>
+                <p>Technology is a means to an outcome—not the outcome itself.</p>
+            </div>
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-clipboard-check"></i></div>
+                <h4>Enterprise Discipline</h4>
+                <p>Structured processes, documentation, governance, and accountability in every engagement.</p>
+            </div>
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                <h4>Scalability by Design</h4>
+                <p>Solutions architected to grow with your business.</p>
+            </div>
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Security & Confidentiality</h4>
+                <p>Data protection, access control, and ethical operations are non-negotiable.</p>
+            </div>
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Long-Term Partnership</h4>
+                <p>We invest in relationships, not transactions.</p>
+            </div>
+            <div class="approach-card">
+                <div class="approach-icon"><i class="fas fa-globe"></i></div>
+                <h4>Global Standards</h4>
+                <p>Quality and compliance maintained across all operations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="mission-vision-grid grid grid-cols-2">
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                <h3>Mission</h3>
+                <p>
+                    To empower organizations with reliable technology, intelligent automation, and world-class services 
+                    that drive sustainable growth and operational excellence.
+                </p>
+            </div>
+            <div class="mv-card">
+                <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                <h3>Vision</h3>
+                <p>
+                    To be recognized globally as a trusted enterprise technology partner, delivering future-ready solutions 
+                    that redefine efficiency, intelligence, and scale.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Commitment -->
+<section class="section section-white">
+    <div class="container">
+        <div class="commitment-content">
+            <h2 class="text-center">Our Commitment</h2>
+            <p class="text-lead text-center" style="max-width: 800px; margin: 0 auto var(--space-8);">
+                At ChowdhuryX Organization LLC, every engagement is treated as mission-critical.
+            </p>
+            
+            <div class="commitment-grid grid grid-cols-3">
+                <div class="commitment-item">
+                    <i class="fas fa-star"></i>
+                    <h4>Excellence without shortcuts</h4>
+                </div>
+                <div class="commitment-item">
+                    <i class="fas fa-comments"></i>
+                    <h4>Transparent communication</h4>
+                </div>
+                <div class="commitment-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <h4>Measurable business impact</h4>
+                </div>
+                <div class="commitment-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Continuous innovation</h4>
+                </div>
+                <div class="commitment-item">
+                    <i class="fas fa-balance-scale"></i>
+                    <h4>Ethical and compliant operations</h4>
+                </div>
+                <div class="commitment-item">
+                    <i class="fas fa-heart"></i>
+                    <h4>Client success focus</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="about-cta-section text-center">
+            <h2>Ready to Partner with ChowdhuryX?</h2>
+            <p class="text-lead">
+                Let's discuss how we can support your technology goals and business objectives with enterprise-grade solutions.
+            </p>
+            <div class="cta-buttons" style="display: flex; justify-content: center; gap: var(--space-4); margin-top: var(--space-6);">
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Contact Us</a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

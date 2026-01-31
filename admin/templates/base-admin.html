@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin - ChowdhuryX{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/admin.css') }}">
+    {% block css %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <!-- Admin Navigation (Hide on login page) -->
+    {% if session.get('admin_logged_in') %}
+    <nav class="admin-navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-shield-alt"></i>
+            <h2>ChowdhuryX Admin</h2>
+        </div>
+        <ul class="nav-items">
+            <li><a href="{{ url_for('admin.dashboard') }}" class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a></li>
+            <li><a href="{{ url_for('admin.contacts') }}" class="nav-link {% if request.endpoint == 'admin.contacts' %}active{% endif %}">
+                <i class="fas fa-envelope"></i> Contacts
+            </a></li>
+            <li><a href="{{ url_for('admin.careers') }}" class="nav-link {% if request.endpoint == 'admin.careers' %}active{% endif %}">
+                <i class="fas fa-briefcase"></i> Applications
+            </a></li>
+            <li><a href="{{ url_for('admin.blog') }}" class="nav-link {% if request.endpoint == 'admin.blog' %}active{% endif %}">
+                <i class="fas fa-pen"></i> Blog Posts
+            </a></li>
+            <li><a href="{{ url_for('admin.comments') }}" class="nav-link {% if request.endpoint == 'admin.comments' %}active{% endif %}">
+                <i class="fas fa-comments"></i> Comments
+            </a></li>
+            <li><a href="{{ url_for('admin.analytics') }}" class="nav-link {% if request.endpoint == 'admin.analytics' %}active{% endif %}">
+                <i class="fas fa-chart-line"></i> Analytics
+            </a></li>
+        </ul>
+        <div class="nav-footer">
+            <div class="admin-user-info">
+                <i class="fas fa-user-circle"></i>
+                <span>{{ session.get('admin_username', 'Admin') }}</span>
+            </div>
+            <a href="{{ url_for('admin.logout') }}" class="nav-link logout" title="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Main Content -->
+    <div class="admin-container {% if not session.get('admin_logged_in') %}no-navbar{% endif %}">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('admin.static', filename='js/admin.js') }}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

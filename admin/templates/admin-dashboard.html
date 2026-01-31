@@ -1,0 +1,120 @@
+{% extends "base-admin.html" %}
+
+{% block title %}Dashboard - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Dashboard</h1>
+    <p>Welcome back! Here's an overview of your data.</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon contacts">
+            <i class="fas fa-envelope"></i>
+        </div>
+        <div class="stat-info">
+            <h3>{{ stats.total_contacts }}</h3>
+            <p>Total Contacts</p>
+        </div>
+        <div class="stat-label">{{ stats.new_contacts }} new</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon applications">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="stat-info">
+            <h3>{{ stats.total_applications }}</h3>
+            <p>Job Applications</p>
+        </div>
+        <div class="stat-label">{{ stats.pending_applications }} pending</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon blog">
+            <i class="fas fa-pen"></i>
+        </div>
+        <div class="stat-info">
+            <h3>{{ stats.total_blog_posts }}</h3>
+            <p>Blog Posts</p>
+        </div>
+        <div class="stat-label">{{ stats.draft_posts }} drafts</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon testimonials">
+            <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-info">
+            <h3>{{ stats.total_testimonials }}</h3>
+            <p>Testimonials</p>
+        </div>
+        <div class="stat-label">{{ stats.pending_testimonials }} pending</div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="dashboard-grid">
+    <!-- Recent Contacts -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Recent Contacts</h2>
+            <a href="{{ url_for('admin.contacts') }}" class="btn btn-sm">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in recent_contacts %}
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.subject }}</td>
+                        <td><span class="badge badge-{{ contact.status }}">{{ contact.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Recent Applications -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Recent Applications</h2>
+            <a href="{{ url_for('admin.careers') }}" class="btn btn-sm">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in recent_applications %}
+                    <tr>
+                        <td>{{ app.full_name }}</td>
+                        <td>{{ app.position }}</td>
+                        <td><span class="badge badge-{{ app.status }}">{{ app.status }}</span></td>
+                        <td>{{ app.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

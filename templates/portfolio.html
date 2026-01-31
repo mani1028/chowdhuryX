@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio - ChowdhuryX{% endblock %}
+
+{% block css %}
+<style>
+.page-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 { 
+    color: white; 
+    font-size: 2.5rem; 
+    margin-bottom: 0.5rem; 
+}
+
+.page-header p { 
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.portfolio-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.portfolio-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.portfolio-intro p {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.portfolio-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px);
+}
+
+.portfolio-image {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-image img {
+    transform: scale(1.1);
+}
+
+.portfolio-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 102, 204, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.view-project {
+    background: white;
+    color: var(--primary-color);
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.view-project:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.portfolio-info {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+}
+
+.portfolio-info .category {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    width: fit-content;
+}
+
+.portfolio-info p {
+    color: var(--gray);
+    line-height: 1.8;
+    flex-grow: 1;
+}
+
+.portfolio-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding: 3rem 0;
+    background: var(--gray-light);
+    border-radius: 12px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.95rem;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--gray-dark) 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-radius: 12px;
+    margin: 4rem 0;
+}
+
+.cta-section h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn {
+    min-width: 180px;
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .portfolio-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Portfolio</h1>
+        <p>Showcase of successful projects and transformations</p>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Portfolio Intro -->
+    <section class="portfolio-intro">
+        <h2>Success Stories from Global Clients</h2>
+        <p>We've helped organizations across industries achieve digital transformation, improve efficiency, and unlock new growth opportunities.</p>
+    </section>
+
+    <!-- Portfolio Grid -->
+    <section class="portfolio-section">
+        <div class="portfolio-grid">
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop" alt="Digital Transformation">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Digital Transformation Initiative</h3>
+                    <span class="category">Enterprise Solutions</span>
+                    <p>Successful digital transformation for a Fortune 500 company, resulting in 40% efficiency improvement and $5M annual savings.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop" alt="Cloud Migration">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Cloud Migration Platform</h3>
+                    <span class="category">Cloud Solutions</span>
+                    <p>Seamless migration of 500+ applications to cloud infrastructure with zero downtime and 30% cost reduction.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1677442d019cecf8d3ae6e47da77da6145e39c2f6?w=400&h=250&fit=crop" alt="AI Analytics">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>AI-Powered Analytics Platform</h3>
+                    <span class="category">AI & Analytics</span>
+                    <p>Custom AI solution delivering real-time business intelligence and predictive analytics for data-driven decisions.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=250&fit=crop" alt="E-Commerce">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Scalable E-Commerce Platform</h3>
+                    <span class="category">E-Commerce</span>
+                    <p>Built enterprise e-commerce platform handling 1M+ daily transactions with 99.9% uptime and seamless UX.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1512941691920-25bda1dc3006?w=400&h=250&fit=crop" alt="Mobile Apps">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Enterprise Mobile App Suite</h3>
+                    <span class="category">Mobile Development</span>
+                    <p>Comprehensive mobile application suite with 5M+ downloads, 4.8-star rating, and enterprise-grade security.</p>
+                </div>
+            </div>
+
+            <div class="portfolio-card">
+                <div class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1563986768609-322d080dc257?w=400&h=250&fit=crop" alt="Cybersecurity">
+                    <div class="portfolio-overlay">
+                        <a href="#" class="view-project">View Details</a>
+                    </div>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Enterprise Cybersecurity</h3>
+                    <span class="category">Security</span>
+                    <p>Enterprise cybersecurity framework protecting 50,000+ endpoints globally with zero-trust architecture.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Stats -->
+    <section class="portfolio-stats">
+        <div class="stat">
+            <div class="stat-number">150+</div>
+            <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">$500M+</div>
+            <div class="stat-label">Client Value Created</div>
+        </div>
+    </section>
+</div>
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Build Your Success Story?</h2>
+        <p>Let's discuss how we can help you achieve your goals through innovative technology solutions</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Get Started Today</a>
+            <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

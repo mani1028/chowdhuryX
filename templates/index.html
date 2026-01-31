@@ -1,1363 +1,393 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags Preserved -->
-    <title>ChowdhuryX | AI Products, Custom Software & IT Solutions</title>
-    <meta name="description" content="ChowdhuryX Organization LLC builds AI products, Custom SaaS Software, and offers premium US-based IT consulting, recruitment (C2C/C2H), and BPO services.">
-    <meta name="keywords" content="AI products, custom software, SaaS development, IT consulting, remote consultants, BPO services, digital marketing, software development, recruitment agency, ChowdhuryX">
-    <meta name="robots" content="index, follow">
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#10b981">
-    
-    <!-- Fonts: Outfit & Space Grotesk for Modern Tech Feel (Optimized with display=swap) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons (Deferred to prevent render blocking) -->
-    <script src="https://unpkg.com/lucide@latest" defer></script>
-    <!-- Font Awesome (Non-blocking load) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+{% extends "base.html" %}
 
-    <script>
-        // Wait for Tailwind to load or configure immediately if available
-        window.addEventListener('load', function() {
-             if (typeof tailwind !== 'undefined') {
-                tailwind.config = {
-                    theme: {
-                        extend: {
-                            fontFamily: {
-                                sans: ['Outfit', 'sans-serif'],
-                                display: ['Space Grotesk', 'sans-serif'],
-                            },
-                            colors: {
-                                brand: {
-                                    50: '#ecfdf5',   // Very light green
-                                    100: '#d1fae5',
-                                    400: '#34d399',  // Bright green (accents)
-                                    500: '#10b981',  // PRIMARY GREEN (Emerald)
-                                    600: '#059669',  // Darker green (hover)
-                                    700: '#047857',
-                                    900: '#064e3b',  // Deep forest green
-                                },
-                                dark: {
-                                    950: '#020617', // Deep space blue/black
-                                    900: '#0f172a',
-                                    800: '#1e293b',
-                                }
-                            },
-                            animation: {
-                                'float': 'float 6s ease-in-out infinite',
-                                'glow': 'glow 3s ease-in-out infinite alternate',
-                                'blob': 'blob 10s infinite',
-                            },
-                            keyframes: {
-                                float: {
-                                    '0%, 100%': { transform: 'translateY(0)' },
-                                    '50%': { transform: 'translateY(-20px)' },
-                                },
-                                glow: {
-                                    '0%': { boxShadow: '0 0 20px -5px rgba(16, 185, 129, 0.3)' },
-                                    '100%': { boxShadow: '0 0 30px 5px rgba(16, 185, 129, 0.6)' },
-                                },
-                                blob: {
-                                    '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                                    '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                                    '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                                    '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                                }
-                            }
-                        }
-                    }
-                }
-             }
-        });
-        // Fallback for immediate config if script loads fast
-        if (typeof tailwind !== 'undefined') {
-             tailwind.config = { /* same config as above can be placed here if needed, but the load listener usually covers it */
-                theme: { extend: { colors: { brand: { 500: '#10b981', 600: '#059669' } } } } // Minimal fallback
-             };
-        }
-    </script>
+{% block title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}
 
-    <style>
-        body {
-            background-color: #020617;
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
+{% block description %}Global technology and business services firm delivering enterprise-class digital solutions, intelligent automation, and scalable talent services to organizations worldwide.{% endblock %}
 
-        /* Updated Navbar Style for Complete White Background */
-        .glass-nav {
-            background: #ffffff !important; /* Forces complete white opacity */
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-        }
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
 
-        /* Keep dark mode cards */
-        .glass-card {
-            background: rgba(30, 41, 59, 0.3);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card:hover {
-            background: rgba(30, 41, 59, 0.5);
-            border-color: rgba(16, 185, 129, 0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -20px rgba(16, 185, 129, 0.3);
-        }
-
-        /* Modal Specific Styles */
-        .modal-enter {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        .modal-enter-active {
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        }
-        .modal-exit {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .modal-exit-active {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.2s ease-in, transform 0.2s ease-in;
-        }
-
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #34d399 0%, #2dd4bf 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Page Transitions */
-        .page-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .page-section.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom Scrollbar for Modals */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(30, 41, 59, 0.5);
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
-
-        /* Blog Specific Styles */
-        .comment-box { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); }
-    </style>
-</head>
-<body class="selection:bg-brand-500 selection:text-white">
-
-    <!-- Ambient Background FX -->
-    <div class="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-600/10 rounded-full blur-[120px] animate-blob"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-teal-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge badge-primary">
+                        <i class="fas fa-certificate"></i> Enterprise Technology Partner
+                    </span>
+                </div>
+                <h1 class="hero-title">Enterprise Technology. Intelligent Solutions. Global Delivery.</h1>
+                <p class="hero-description text-lead">
+                    We are a global technology and business services company enabling organizations to build, scale, 
+                    and transform through intelligent software, AI-driven solutions, and high-performance offshore delivery.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">15+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value"></div>
+                        <div class="stat-label"></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">Client Satisfaction</div>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Request Proposal</a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+                </div>
+                <div class="hero-trust">
+                    <p class="trust-text"><i class="fas fa-shield-alt"></i> Trusted by Global Enterprises | GDPR & CCPA Compliant</p>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop" 
+                         alt="Enterprise Technology Solutions" 
+                         class="hero-image">
+                    <div class="hero-decoration"></div>
+                </div>
+            </div>
+        </div>
     </div>
+</section>
 
-    <!-- Navigation (Curved Bottom Complete White) -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center">
-        <!-- Added rounded-b-[2.5rem] for the "curve at the end" effect -->
-        <div class="glass-nav rounded-b-[2.5rem] px-8 py-3 w-full max-w-7xl flex justify-between items-center transition-all duration-300">
-            
-            <!-- SEO FIX: Added href and width/height -->
-            <a href="#" onclick="route('home', event); return false;" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
-                <!-- UPDATED PATH: Fixed image source for Flask static folder -->
-                <img src="/static/images/chowduryx-removebg-preview.png" 
-                     alt="ChowdhuryX Logo" 
-                     width="180" height="48"
-                     class="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                
-                <!-- Fallback Logo (If Image Fails) -->
-                <div class="hidden flex-col items-start px-2" style="display:none;">
-                    <span class="text-lg font-display font-bold text-slate-800 leading-none">Chowdhury<span class="text-brand-600">X</span></span>
-                    <span class="text--[8px] uppercase tracking-widest text-slate-500 font-bold">Organization</span>
-                </div>
-            </a>
-            
-            <!-- Desktop Menu (Updated for White Nav) -->
-            <div class="hidden md:flex items-center space-x-1">
-                <a href="#home" onclick="route('home', event); return false;" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-home">
-                    Home
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </a>
-                
-                <a href="#about" onclick="route('about', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-about">
-                    About
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </a>
+<!-- Trust Banner -->
+<section class="trust-banner">
+    <div class="container">
+        <div class="trust-content">
+            <h3>Trusted Global Technology Partner</h3>
+            <p>
+                In today's digital economy, success depends on speed, intelligence, and reliability. 
+                ChowdhuryX helps organizations stay ahead by delivering future-ready technology and scalable 
+                services designed for long-term growth.
+            </p>
+        </div>
+    </div>
+</section>
 
-                <!-- Products Link (External Link to products.html) -->
-                <!-- UPDATED LINK: Now points to /products route -->
-                <a href="/products" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-products">
-                    Products
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </a>
-                
-                <!-- Modern Dropdown -->
-                <div class="relative group">
-                    <a href="#services" onclick="route('services', event)" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors flex items-center gap-1 cursor-pointer" id="nav-services">
-                        Services <i data-lucide="chevron-down" class="w-3 h-3 mt-0.5 opacity-70 group-hover:rotate-180 transition-transform"></i>
-                    </a>
-                    <!-- Dropdown Menu -->
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 pt-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 w-72">
-                        <!-- Changed to high transparency dark glass for visibility over dark background -->
-                        <div class="bg-slate-900/60 backdrop-blur-md rounded-2xl p-2 shadow-2xl border border-white/10 overflow-hidden ring-1 ring-black/5">
-                            <!-- SEO FIX: Links inside dropdown are now crawlable -->
-                            <a href="#services-ai" onclick="route('services', 'srv-ai', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-rose-500/20 rounded-lg text-rose-400"><i data-lucide="bot" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-rose-400">AI Solutions</span>
-                            </a>
-                            <a href="#services-bpo" onclick="route('services', 'srv-bpo', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-orange-500/20 rounded-lg text-orange-400"><i data-lucide="headset" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-orange-400">BPO Services</span>
-                            </a>
-                            <a href="#services-webdev" onclick="route('services', 'srv-webdev', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-cyan-500/20 rounded-lg text-cyan-400"><i data-lucide="layout" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-cyan-400">Web Development</span>
-                            </a>
-                            <a href="#services-consultant" onclick="route('services', 'srv-consultant', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-green-500/20 rounded-lg text-green-400"><i data-lucide="laptop" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-green-400">Remote Consultants</span>
-                            </a>
-                            <a href="#services-marketing" onclick="route('services', 'srv-marketing', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-pink-500/20 rounded-lg text-pink-400"><i data-lucide="megaphone" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-pink-400">Digital Marketing</span>
-                            </a>
-                            <a href="#services-software" onclick="route('services', 'srv-software', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-blue-500/20 rounded-lg text-blue-400"><i data-lucide="code-2" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-blue-400">Software Dev</span>
-                            </a>
-                            <a href="#services-rpo" onclick="route('services', 'srv-rpo', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400"><i data-lucide="network" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-indigo-400">RPO Solutions</span>
-                            </a>
-                            <a href="#services-recruitment" onclick="route('services', 'srv-recruitment', event)" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/10 transition-colors cursor-pointer group/item">
-                                <div class="p-2 bg-purple-500/20 rounded-lg text-purple-400"><i data-lucide="briefcase" class="w-4 h-4"></i></div>
-                                <span class="text-sm font-medium text-slate-200 group-hover/item:text-purple-400">Recruitment</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UPDATED LINK: Blog now redirects to /blog route directly -->
-                <a href="/blog" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group" id="nav-blog">
-                    Blog
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 transition-all group-hover:w-full"></span>
-                </a>
-                
-                <a href="#contact" onclick="route('contact', event)" class="ml-4 px-6 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-full hover:bg-brand-700 transition-all transform hover:scale-105 hover:shadow-lg flex items-center gap-2 shadow-brand-500/30">
-                    Get Started <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-
-            <!-- Mobile Menu Button (Dark Icon for White BG) -->
-            <!-- Accessibility FIX: Added aria-label -->
-            <button id="mobile-menu-btn" aria-label="Open mobile menu" class="md:hidden text-slate-700 hover:text-brand-600 p-2">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
+<!-- Core Capabilities -->
+<section class="section section-white">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-subtitle">Our Core Capabilities</span>
+            <h2>Comprehensive Technology & Business Services</h2>
+            <p class="text-lead">
+                Enterprise-grade solutions across the complete technology and operational spectrum
+            </p>
         </div>
         
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-32 px-6 space-y-4">
-             <a href="#" onclick="route('home', event); return false;" class="text-2xl font-display font-bold text-white text-left block">Home</a>
-             <a href="#about" onclick="route('about', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">About</a>
-             <a href="/products" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Products</a>
-             <a href="#services" onclick="route('services', event)" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Services</a>
-             <!-- Updated Mobile Link -->
-             <a href="/blog" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Blog</a>
-             <a href="#contact" onclick="route('contact', event)" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl block text-center">Let's Talk</a>
-             <button id="close-mobile-menu" aria-label="Close menu" class="absolute top-6 right-6 text-white p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
-        </div>
-    </nav>
-
-    <main class="min-h-screen pt-32">
-
-        <!-- ================= PAGE: HOME ================= -->
-        <div id="home" class="page-section active">
-            <!-- Hero Section -->
-            
-            <section class="relative pt-5 pb-10 lg:pt-22 lg:pb-32 overflow-hidden">
-                <div class="max-w-7xl mx-auto px-6 relative z-10">
-                    <div class="flex flex-col lg:flex-row items-center gap-16">
-                        <div class="lg:w-1/2 space-y-8">
-                            <!-- Animated Badge -->
-                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-sm font-medium">
-                                <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                                </span>
-                                Premier IT & AI Solutions
-                            </div>
-
-                            <h1 class="text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
-                                Breaking the <br/>
-                                <span class="text-gradient">Barrier.</span>
-                            </h1>
-                            
-                            <!-- Updated Hero Text to include Products -->
-                            <p class="text-xl text-gray-400 max-w-xl leading-relaxed font-light border-l-2 border-brand-500/30 pl-6">
-                                ChowdhuryX Organization LLC is a U.S.-registered company delivering secure IT, BPO, and staffing solutions. 
-                                We specialize in <strong class="text-white">building AI products</strong>, custom software, and scalable services for global enterprises with a strong focus on compliance and operational excellence.
-                            </p>
-                            
-                            <div class="flex flex-wrap gap-4 pt-4">
-                                <a href="#contact" onclick="route('contact', event)" class="px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-full shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2 cursor-pointer">
-                                    Start Consulting <i data-lucide="zap" class="w-4 h-4 fill-current"></i>
-                                </a>
-                                <a href="/products" class="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all flex items-center gap-2 backdrop-blur-sm cursor-pointer">
-                                    View Products <i data-lucide="layers" class="w-4 h-4"></i>
-                                </a>
-                            </div>
-
-                            <!-- Stats Row -->
-                            <div class="pt-8 flex gap-8 border-t border-white/5">
-                                <div>
-                                    <p class="text-3xl font-display font-bold text-white">24/7</p>
-                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Support</p>
-                                </div>
-                                <div>
-                                    <p class="text-3xl font-display font-bold text-white">AI</p>
-                                    <p class="text-sm text-gray-500 uppercase tracking-wider">Powered</p>
-                                </div>
-                                <div>
-                                    <p class="text-3xl font-display font-bold text-white">100%</p>
-                                    <p class="text-sm text-gray-500 uppercase tracking-wider">US Managed</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Hero Graphic -->
-                        <div class="lg:w-1/2 relative animate-float">
-                            <div class="absolute inset-0 bg-brand-500 blur-[100px] opacity-20 pointer-events-none"></div>
-                            <div class="glass-card rounded-3xl p-2 shadow-2xl relative">
-                                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-dark-900 group">
-                                    <!-- Performance FIX: Added width/height/loading, Reduced fetch size from w=1000 to w=800 -->
-                                    <img src="/static/images/home.jpeg" 
-                                         alt="Modern office space" 
-                                         width="1000" height="750"
-                                         loading="lazy"
-                                         class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700">
-                                    <!-- Floating Cards UI Overlay -->
-                                    <div class="absolute bottom-6 left-6 right-6 p-4 glass-card rounded-xl border-l-4 border-brand-500 flex items-center gap-4">
-                                        <div class="h-10 w-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
-                                            <i data-lucide="shield-check" class="w-5 h-5"></i>
-                                        </div>
-                                        <div>
-                                            <p class="text-white font-bold text-sm">US-Based Quality Control</p>
-                                            <p class="text-gray-400 text-xs">Sheridan, Wyoming Headquarters</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-             <!-- Verified & Certified Section (Updated Layout) -->
-                    <div class="text-center mb-16">
-                        <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Trust & Compliance</h2>
-                        <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Verified & Certified</h3>
-                    </div>
-                <div class="max-w-4xl mx-auto px-6 mb-12 text-center">
-                  <p class="font-medium text-xl text-brand-400 leading-relaxed animate-pulse">
-                    ChowdhuryX Organization LLC delivers enterprise-grade IT services, high-performance BPO solutions, and scalable staffing models built on strong compliance, security, 
-                    and operational excellence to support complex, mission-critical business operations across global markets.
-                  </p>
-                </div>
-                    
-                <div class="max-w-[1400px] mx-auto px-4">
-                    <!-- Adjusted Grid for 4 Items -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    
-                        <!-- Item 1: D-U-N-S (Gold Shield + Check) -->
-                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
-                            <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    <polyline points="9 12 11 14 15 10"></polyline>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-bold text-white leading-tight mb-2">D-U-N-S Verified Company</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">Globally recognized business identifier used by Fortune 500 and government agencies</p>
-                        </div>
-
-                        <!-- Item 2: Wyoming LLC (Buffalo Icon) -->
-                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
-                            <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <!-- Stylized Buffalo/Bison Approximation -->
-                                    <path d="M7 14h2v3h2v-3h2v3h2v-3h2M7 10h10a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2z" fill="#ca8a04" fill-opacity="0.2" stroke="none"/>
-                                    <path d="M12 8l-2 2h4l-2-2z" fill="#ca8a04"/>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-bold text-white leading-tight mb-2">Wyoming LLC in Good Standing</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">Certified by Wyoming Secretary of State confirming active compliance</p>
-                        </div>
-
-                        <!-- Item 3: SSL (Gold Lock) -->
-                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
-                             <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110 relative flex items-center justify-center">
-                                 <!-- Lock Icon -->
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                                <span class="absolute top-[60%] text-[#ca8a04] font-bold text-[10px] bg-dark-900 px-1 border border-brand-500/30 rounded">SSL</span>
-                            </div>
-                            <h4 class="text-lg font-bold text-white leading-tight mb-2">SSL Secured Website</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">256-bit encrypted connection ensuring secure data transmission</p>
-                        </div>
-
-                        <!-- Item 4: ADA (Red Accessibility) -->
-                        <div class="glass-card flex flex-col items-center text-center p-6 rounded-2xl group hover:bg-white/5 transition-all">
-                             <div class="w-16 h-16 mb-4 transition-transform group-hover:scale-110">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <circle cx="12" cy="5" r="1"></circle>
-                                    <path d="m9 20 3-6 3 6"></path>
-                                    <path d="m6 8 6 2 6-2"></path>
-                                    <path d="M12 10v4"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-bold text-white leading-tight mb-2">ADA & Accessibility Checked</h4>
-                            <p class="text-gray-400 text-sm leading-relaxed">WCAG-aligned website accessibility for global users</p>
-                        </div>
-
-                    </div>
-                </div>
-                </br></br></br>
-            </section>
-        
-            <!-- The Consulting Edge Section -->
-            <section class="py-10 bg-dark-900/50 border-y border-white/5 relative">
-                <div class="max-w-7xl mx-auto px-6">
-                    <div class="flex flex-col md:flex-row items-center gap-12">
-                        <div class="md:w-1/2">
-                            <span class="text-brand-400 font-bold tracking-widest uppercase text-sm">The Consulting Edge</span>
-                            <h2 class="text-3xl font-display font-bold text-white mt-2 mb-6">Strategic Solutions, <span class="text-gradient">Scalable Costs</span></h2>
-                            <p class="text-gray-400 text-lg leading-relaxed mb-8">
-                                At ChowdhuryX, we don't just outsource tasks; we provide strategic consulting partners. From BPO to specialized software engineering, our resources integrate seamlessly into your workflow.
-                            </p>
-                            <div class="space-y-4">
-                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
-                                        <i data-lucide="wallet" class="w-5 h-5"></i>
-                                    </div>
-                                    <span class="font-bold text-white">Elite Talent, Accessible Rates.</span>
-                                </div>
-                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
-                                        <i data-lucide="sliders" class="w-5 h-5"></i>
-                                    </div>
-                                    <span class="font-bold text-white">Tailored Consulting Frameworks.</span>
-                                </div>
-                                <div class="flex items-center gap-4 p-4 glass-card rounded-xl hover:bg-white/5 transition-colors">
-                                    <div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400">
-                                        <i data-lucide="maximize" class="w-5 h-5"></i>
-                                    </div>
-                                    <span class="font-bold text-white">Rapid Scalability on Demand.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="md:w-1/2">
-                             <div class="relative">
-                                <div class="absolute -inset-4 bg-gradient-to-tr from-brand-500 to-teal-500 opacity-20 blur-xl rounded-2xl"></div>
-                                <!-- Optimized Image: Reduced fetch size from w=800 to w=600 -->
-                                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Team collaborating" width="800" height="533" class="rounded-2xl shadow-2xl w-full border border-white/10 relative z-10 grayscale hover:grayscale-0 transition-all duration-700"></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- ================= PAGE: SERVICES ================= -->
-        <div id="services" class="page-section">
-            <div class="py-10 max-w-7xl mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Our Expertise</h2>
-                    <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Services that Scale</h1>
-                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                        From individual consultants to full-scale BPO teams, we provide the resources you need to grow.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Service Card: AI Solutions -->
-                    <div onclick="openModal('srv-ai')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer border-rose-500/30">
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="bot" class="w-24 h-24 text-white/10"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-rose-500/20 flex items-center justify-center text-rose-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="bot" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-rose-400 transition-colors relative z-10">AI Solutions</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Custom</span>
-                            <span class="text-xl font-bold text-brand-400">Products</span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            We build custom AI products and automation agents. Transform your business logic into intelligent software.
-                        </p>
-                        <a href="#services-ai" onclick="openModal('srv-ai'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-rose-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: BPO -->
-                    <div onclick="openModal('srv-bpo')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="headset" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-orange-500/20 flex items-center justify-center text-orange-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="headset" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors relative z-10">BPO Services</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Starting at</span>
-                            <span class="text-xl font-bold text-brand-400">$12<span class="text-sm text-gray-500">/hr</span></span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Experienced customer support executives (Voice/Chat) operating 24/7. Weekly reporting, flexible scalability, and dedicated specialists.
-                        </p>
-                        <!-- SEO FIX: Added href -->
-                        <a href="#services-bpo" onclick="openModal('srv-bpo'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-orange-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: Web Dev -->
-                    <div onclick="openModal('srv-webdev')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                         <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="layout" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="layout" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors relative z-10">Web Development</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Custom</span>
-                            <span class="text-xl font-bold text-brand-400">Quotes</span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Full-stack development, static web, and dynamic web. Tailored engineering from architecture to deployment and maintenance.
-                        </p>
-                        <a href="#services-webdev" onclick="openModal('srv-webdev'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-cyan-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: Remote Consultant -->
-                    <div onclick="openModal('srv-consultant')" class="glass-card p-8 rounded-3xl group relative overflow-hidden border-brand-500/30 cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="laptop" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="absolute inset-0 bg-brand-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-12 h-12 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-400 mb-6 relative z-10 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="laptop" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 relative z-10 group-hover:text-green-400 transition-colors">Hire IT Consultant</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Starting at</span>
-                            <span class="text-xl font-bold text-brand-400">$15<span class="text-sm text-gray-500">/hr</span></span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Dedicated Developers and Engineers aligned with your time zone. Short-term or long-term engagements with US quality assurance.
-                        </p>
-                        <a href="#services-consultant" onclick="openModal('srv-consultant'); return false;" class="relative z-10 w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-sm font-bold transition-colors shadow-lg shadow-brand-500/20 flex justify-between px-6 items-center">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: Digital Marketing -->
-                    <div onclick="openModal('srv-marketing')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="megaphone" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="megaphone" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors relative z-10">Digital Marketing</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Starting at</span>
-                            <span class="text-xl font-bold text-brand-400">$10<span class="text-sm text-gray-500">/hr</span></span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            SEO, Social Media Management, Content Strategy, and Google Ads. We manage campaigns during peak engagement hours for maximum ROI.
-                        </p>
-                        <a href="#services-marketing" onclick="openModal('srv-marketing'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-pink-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: Software Dev -->
-                    <div onclick="openModal('srv-software')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="code-2" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="code-2" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors relative z-10">Software Dev</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Custom</span>
-                            <span class="text-xl font-bold text-brand-400">Quotes</span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Full-stack development, Mobile Apps, and SaaS platforms. Tailored engineering from architecture to deployment and maintenance.
-                        </p>
-                        <a href="#services-software" onclick="openModal('srv-software'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-blue-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: RPO -->
-                    <div onclick="openModal('srv-rpo')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="network" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="network" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-indigo-400 transition-colors relative z-10">RPO Solutions</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">Enterprise</span>
-                            <span class="text-xl font-bold text-brand-400">Scale</span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Recruitment Process Outsourcing for high-volume needs. Complex Boolean sourcing, background checks, and pipeline management.
-                        </p>
-                        <a href="#services-rpo" onclick="openModal('srv-rpo'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-indigo-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-
-                    <!-- Service Card: Recruitment -->
-                    <div onclick="openModal('srv-recruitment')" class="glass-card p-8 rounded-3xl group relative overflow-hidden cursor-pointer">
-                        <!-- Animation Image/Icon (Bg Hover) -->
-                        <div class="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-4 group-hover:translate-x-0 duration-500">
-                            <i data-lucide="briefcase" class="w-24 h-24 text-white/10"></i>
-                        </div>
-
-                        <div class="w-12 h-12 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6 transition-transform duration-300 group-hover:scale-110">
-                            <i data-lucide="briefcase" class="w-6 h-6"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors relative z-10">Recruitment</h3>
-                        <div class="flex items-baseline gap-1 mb-4 relative z-10">
-                            <span class="text-sm text-gray-500">C2C / C2H</span>
-                            <span class="text-xl font-bold text-brand-400">Full-Time</span>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6 relative z-10">
-                            Hybrid methodology sourcing (Citizens, GC, H1B, TN, OPT). Rigorous screening for US IT requirements and rapid placement.
-                        </p>
-                        <a href="#services-recruitment" onclick="openModal('srv-recruitment'); return false;" class="w-full py-3 rounded-xl border border-white/10 hover:bg-purple-500/20 text-white text-sm font-medium transition-colors flex justify-between px-6 items-center relative z-10">
-                            View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= PAGE: ABOUT ================= -->
-        <div id="about" class="page-section">
-             <div class="py-10 max-w-7xl mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">About Us</h2>
-                        <h1 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">Strategically Headquartered in <span class="text-gradient">Wyoming</span></h1>
-                        
-                        <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
-                            <p>
-                             ChowdhuryX Organization LLC is a U.S.-registered company operating with enterprise-grade compliance and security standards. We provide secure IT services, AI product development, high-performance BPO solutions, and scalable staffing services designed to support complex, high-demand business operations. 
-                             Our structured compliance practices, strong governance framework, and commitment to operational excellence enable us to deliver reliable, transparent, and dependable services for mission-critical business functions across global markets.</p>
-                            </div>
-                        
-                        <div class="mt-8 p-6 glass-card border-l-4 border-brand-500 rounded-r-xl">
-                             <h4 class="font-bold text-white text-lg mb-2">Innovation Meets Reliability</h4>
-                             <p class="text-gray-400">We are the strategic backbone that supports your business's journey toward digital transformation.</p>
-                        </div>
-
-                        <div class="mt-8 flex gap-4">
-                            <div class="glass-card p-4 rounded-xl flex items-center gap-3">
-                                <i data-lucide="map-pin" class="text-brand-400"></i>
-                                <div>
-                                    <p class="text-white font-bold text-sm">Sheridan, WY</p>
-                                    <p class="text-xs text-gray-500">Registered Office</p>
-                                </div>
-                            </div>
-                            <div class="glass-card p-4 rounded-xl flex items-center gap-3">
-                                <i data-lucide="globe" class="text-brand-400"></i>
-                                <div>
-                                    <p class="text-white font-bold text-sm">Worldwide</p>
-                                    <p class="text-xs text-gray-500">Service Area</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-brand-500 blur-[80px] opacity-20"></div>
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" width="800" height="600" class="rounded-3xl border border-white/10 shadow-2xl relative z-10 grayscale hover:grayscale-0 transition-all duration-700" alt="About Us">
-                    </div>
-                </div>
-
-                <!-- Certifications Section -->
-                <div class="mt-24 border-t border-white/5 pt-20">
-                    <div class="text-center mb-16">
-                        <h2 class="text-brand-400 font-bold tracking-widest uppercase text-sm mb-3">Trust & Compliance</h2>
-                        <h3 class="text-3xl md:text-4xl font-display font-bold text-white">Verified & Certified</h3>
-                        <p class="text-gray-400 mt-4">Ensuring the highest standards of security, accessibility, and regulatory compliance.</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Item 1: D-U-N-S -->
-                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
-                            <!-- SVG REPLACEMENT -->
-                            <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/90 rounded-xl p-2 shadow-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    <polyline points="9 12 11 14 15 10"></polyline>
-                                </svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-white mb-2">D-U-N-S® Verified</h4>
-                            <p class="text-gray-400 text-sm">Globally recognized business identifier used by Fortune 500 and government agencies.</p>
-                        </div>
-
-                        <!-- Item 3: Wyoming LLC (State Seal) -->
-                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
-                            <!-- SVG REPLACEMENT -->
-                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/10 rounded-full p-1 shadow-lg border border-white/10">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M12 8l-2 2h4l-2-2z" fill="#ca8a04"/>
-                                    <path d="M7 14h2v3h2v-3h2v3h2v-3h2M7 10h10a2 2 0 0 1 2 2v2H5v-2a2 2 0 0 1 2-2z" fill="#ca8a04" fill-opacity="0.2" stroke="none"/>
-                                </svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-white mb-2">Wyoming LLC</h4>
-                             <p class="text-xs font-mono text-brand-400 mb-2">Good Standing</p>
-                            <p class="text-gray-400 text-sm">Certified by Wyoming Secretary of State confirming active compliance.</p>
-                        </div>
-
-                        <!-- Item 5: SSL (Gold Lock Badge) -->
-                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
-                             <!-- SVG REPLACEMENT -->
-                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/10 rounded-xl p-2 shadow-lg border border-white/10 relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ca8a04" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                </svg>
-                                <span class="absolute top-[60%] text-[#ca8a04] font-bold text-[8px] bg-dark-900 px-1">SSL</span>
-                            </div>
-                            <h4 class="text-xl font-bold text-white mb-2">SSL Secured</h4>
-                             <p class="text-xs font-mono text-brand-400 mb-2">256-bit Encryption</p>
-                            <p class="text-gray-400 text-sm">256-bit encrypted connection ensuring secure data transmission.</p>
-                        </div>
-
-                        <!-- Item 6: ADA (Access Symbol) -->
-                        <div class="glass-card p-6 rounded-2xl flex flex-col items-center text-center hover:bg-white/5 transition-colors group">
-                             <!-- SVG REPLACEMENT -->
-                             <div class="w-20 h-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform bg-white/90 rounded-xl p-2 shadow-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <circle cx="12" cy="5" r="1"></circle>
-                                    <path d="m9 20 3-6 3 6"></path>
-                                    <path d="m6 8 6 2 6-2"></path>
-                                    <path d="M12 10v4"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-xl font-bold text-white mb-2">ADA Compliant</h4>
-                             <p class="text-xs font-mono text-brand-400 mb-2">Accessibility Checked</p>
-                            <p class="text-gray-400 text-sm">WCAG-aligned website accessibility for global users.</p>
-                        </div>
-                    </div>
-                </div>
-
-             </div>
-        </div>
-        
-        <!-- ================= PAGE: CONTACT ================= -->
-        <div id="contact" class="page-section">
-            <div class="min-h-[80vh] flex items-center justify-center relative">
-                 <div class="max-w-4xl mx-auto px-6 w-full relative z-10">
-                    <div class="glass-card rounded-[2.5rem] p-10 md:p-16 text-center border-brand-500/20">
-                        <div class="inline-flex h-20 w-20 rounded-full bg-brand-500/20 items-center justify-center text-brand-400 mb-8 animate-glow">
-                            <i data-lucide="send" class="w-8 h-8"></i>
-                        </div>
-                        
-                        <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Ready to Scale?</h1>
-                        <p class="text-gray-400 text-lg mb-12 max-w-xl mx-auto">
-                            Whether you need a custom AI solution, a BPO team, or IT staffing, connect with us today.
-                        </p>
-
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                            <a href="mailto:info@chowdhuryx.com" class="w-full md:w-auto px-8 py-4 bg-white text-dark-950 font-bold rounded-xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3">
-                                <i data-lucide="mail" class="w-5 h-5"></i>
-                                info@chowdhuryx.com
-                            </a>
-                            
-                            <a href="tel:3074295757" class="w-full md:w-auto px-8 py-4 glass-card hover:bg-white/10 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
-                                <i data-lucide="phone" class="w-5 h-5"></i> 307 429 5757
-                            </a>
-                        </div>
-
-                        <div class="mt-12 pt-8 border-t border-white/10 text-center grid md:grid-cols-2 gap-8 text-left">
-                            <div class="flex items-center gap-4 justify-center md:justify-start">
-                                <div class="p-3 bg-white/5 rounded-lg text-brand-400"><i data-lucide="map-pin"></i></div>
-                                <div>
-                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Registered Office</p>
-                                    <p class="text-white font-medium text-sm">30 N Gould St Ste, R,<br>Sheridan, Wyoming 82801</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 justify-center md:justify-start">
-                                <div class="p-3 bg-white/5 rounded-lg text-brand-400"><i data-lucide="clock"></i></div>
-                                <div>
-                                    <p class="text-sm text-gray-500 uppercase tracking-widest mb-1">Response Time</p>
-                                    <p class="text-white font-medium text-sm">Usually within 24 hours</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-        </div>
-
-        <!-- ================= MODALS ================= -->
-        
-        <!-- NEW Modal: AI Solutions -->
-        <div id="modal-srv-ai" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-ai')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-rose-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-rose-400"><i data-lucide="bot"></i> AI & Product Solutions</h3>
-                    <button onclick="closeModal('srv-ai')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Intelligent Products for Modern Business</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                We develop custom AI agents and software products that automate your unique business processes. Whether you need an internal automation tool, a customer-facing AI chatbot, or a full SaaS product, our innovation lab builds it from the ground up.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Capabilities:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Custom AI Agents</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> SaaS Product Development</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Process Automation</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-rose-500"></i> Predictive Analytics</li>
-                            </ul>
-                            <button onclick="closeModal('srv-ai'); route('contact', event)" class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg shadow-lg shadow-rose-500/30 transition">Build Your Product</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-rose-500/10 rounded-xl p-6 h-fit border border-rose-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-rose-400 uppercase font-bold mb-1">Service Type</span>
-                                 <span class="text-xl font-bold text-white">Product<span class="text-lg text-gray-500 font-normal"> Engineering</span></span>
-                             </div>
-                             <hr class="border-rose-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">"Turning your ideas into scalable AI assets."</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: Software (Updated) -->
-        <div id="modal-srv-software" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-software')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-blue-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-blue-400"><i data-lucide="code-2"></i> Custom Software & SaaS</h3>
-                    <button onclick="closeModal('srv-software')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Building the Future of Your Business</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Off-the-shelf solutions rarely fit. We specialize in tailored software development and Custom SaaS products. Our team includes full-stack developers, DBAs, UI/UX designers, and QA engineers. From mobile apps to complex SaaS platforms, we transform vision into reality.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Custom SaaS Platforms</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Web & Mobile Apps</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Full-Stack Development</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i> Cloud Infrastructure</li>
-                            </ul>
-                            <button onclick="closeModal('srv-software'); route('contact', event)" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg shadow-blue-500/30 transition">Discuss Your Project</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-blue-500/10 rounded-xl p-6 h-fit border border-blue-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-blue-400 uppercase font-bold mb-1">Approach</span>
-                                 <span class="text-xl font-bold text-blue-600">Full Lifecycle</span>
-                             </div>
-                             <hr class="border-blue-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">From ideation to deployment and support.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Existing Modals (BPO, WebDev, Consultant, Marketing, RPO, Recruitment) maintained below... -->
-        
-        <!-- Modal: BPO -->
-        <div id="modal-srv-bpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-bpo')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-orange-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-orange-400"><i data-lucide="headset"></i> BPO Services</h3>
-                    <button onclick="closeModal('srv-bpo')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Seamless Customer Experience Management</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Unlock efficiency with our specialized BPO services. We provide highly experienced customer support executives with over five years of experience serving US-based clients. Whether it's voice or text support, our dedicated team operates 24/7.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> 24/7 Voice & Chat Support</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> Weekly Performance Reports</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> Flexible Scalability</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-orange-500"></i> Dedicated Specialists</li>
-                            </ul>
-                            <button onclick="closeModal('srv-bpo'); route('contact', event)" class="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg shadow-lg shadow-orange-500/30 transition">Request BPO Proposal</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-orange-500/10 rounded-xl p-6 h-fit border border-orange-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-orange-400 uppercase font-bold mb-1">Starting Rate</span>
-                                 <span class="text-3xl font-bold text-white">$12<span class="text-lg text-gray-500 font-normal">/hour</span></span>
-                             </div>
-                             <hr class="border-orange-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">"Our BPO teams integrate so well, your customers won't know they are offshore."</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: Web Development -->
-        <div id="modal-srv-webdev" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-webdev')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-cyan-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-cyan-400"><i data-lucide="layout"></i> WEB DEVELOPMENT</h3>
-                    <button onclick="closeModal('srv-webdev')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Responsive, Modern, and Fast</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Create a lasting impression with a website that works as hard as you do. Our web development team builds pixel-perfect, responsive websites tailored to your brand identity. From simple landing pages to complex e-commerce stores, we ensure your site is fast, secure, and SEO-friendly.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Static & Dynamic Websites</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> E-commerce Solutions</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Responsive (Mobile First)</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-cyan-500"></i> Full Stack Development</li>
-                            </ul>
-                            <button onclick="closeModal('srv-webdev'); route('contact', event)" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg shadow-lg shadow-cyan-500/30 transition">Get a Web Quote</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-cyan-500/10 rounded-xl p-6 h-fit border border-cyan-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-cyan-400 uppercase font-bold mb-1">Pricing</span>
-                                 <span class="text-3xl font-bold text-white">Custom<span class="text-lg text-gray-500 font-normal"> Quote</span></span>
-                             </div>
-                             <hr class="border-cyan-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">"High-performance websites that convert visitors into clients."</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: Consultant -->
-        <div id="modal-srv-consultant" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-consultant')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-green-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-green-400"><i data-lucide="laptop"></i> Hire IT Consultant</h3>
-                    <button onclick="closeModal('srv-consultant')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Hire Dedicated Remote Talent</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Unlock unparalleled value with our team of fully remote consultants. We provide skilled IT professionals, including Developers and Engineers, to support your projects. Whether you're an agency or a business, our consultants offer flexible hours aligned with your time zone.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Developers & Engineers</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> US Time Zone Alignment</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> Short-term & Long-term</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i> US Quality Assurance</li>
-                            </ul>
-                            <button onclick="closeModal('srv-consultant'); route('contact', event)" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg shadow-green-500/30 transition">Hire a Consultant</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-green-500/10 rounded-xl p-6 h-fit border border-green-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-green-400 uppercase font-bold mb-1">Starting Rate</span>
-                                 <span class="text-3xl font-bold text-white">$15<span class="text-lg text-gray-500 font-normal">/hour</span></span>
-                             </div>
-                             <hr class="border-green-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">Top tier talent, fraction of the US cost.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: Marketing -->
-        <div id="modal-srv-marketing" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-marketing')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-pink-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-pink-400"><i data-lucide="megaphone"></i> Digital Marketing</h3>
-                    <button onclick="closeModal('srv-marketing')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Dominate Your Market Online</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Establishing an online presence is non-negotiable. Our dedicated digital marketing team operates strategically to maximize your reach in the US market. From SEO to Social Media (Facebook, Instagram, LinkedIn), we manage campaigns during peak engagement hours.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> SEO Optimization</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> Social Media Management</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> Google Ads & PPC</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-pink-500"></i> Content Strategy</li>
-                            </ul>
-                            <button onclick="closeModal('srv-marketing'); route('contact', event)" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg shadow-lg shadow-pink-500/30 transition">Boost Your Brand</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-pink-500/10 rounded-xl p-6 h-fit border border-pink-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-pink-400 uppercase font-bold mb-1">Starting Rate</span>
-                                 <span class="text-3xl font-bold text-white">$10<span class="text-lg text-gray-500 font-normal">/hour</span></span>
-                             </div>
-                             <hr class="border-pink-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">High ROI marketing strategies tailored for you.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: RPO (Missing from previous version, Reconstructed) -->
-        <div id="modal-srv-rpo" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-rpo')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-indigo-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-indigo-400"><i data-lucide="network"></i> RPO Solutions</h3>
-                    <button onclick="closeModal('srv-rpo')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">High-Volume Hiring, Simplified</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                Recruitment Process Outsourcing (RPO) is designed for organizations with high-volume hiring needs. We act as an extension of your HR team, managing the entire recruitment lifecycle from sourcing to onboarding. Our experts use advanced Boolean search techniques and pipeline management tools.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> End-to-End Management</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Complex Boolean Sourcing</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> Background Checks</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-indigo-500"></i> ATS Pipeline Optimization</li>
-                            </ul>
-                            <button onclick="closeModal('srv-rpo'); route('contact', event)" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg shadow-indigo-500/30 transition">Get RPO Proposal</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-indigo-500/10 rounded-xl p-6 h-fit border border-indigo-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-indigo-400 uppercase font-bold mb-1">Scale</span>
-                                 <span class="text-xl font-bold text-indigo-600">Enterprise</span>
-                             </div>
-                             <hr class="border-indigo-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">"Scaling your workforce without the overhead."</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal: Recruitment -->
-        <div id="modal-srv-recruitment" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-            <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('srv-recruitment')"></div>
-            <div class="relative w-full max-w-4xl mx-auto mt-10 md:mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[90vh]">
-                <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-purple-500/10">
-                    <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-purple-400"><i data-lucide="briefcase"></i> Recruitment</h3>
-                    <button onclick="closeModal('srv-recruitment')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-                </div>
-                <div class="p-8 md:p-12 overflow-y-auto">
-                     <div class="flex flex-col lg:flex-row gap-8">
-                         <div class="lg:w-2/3">
-                            <h4 class="text-xl font-bold text-white mb-4">Staffing the Right Way</h4>
-                            <p class="text-gray-400 leading-relaxed mb-6">
-                                We provide comprehensive US IT recruitment services, guaranteeing the right talent efficiently. Our hybrid methodology combines strategic offshore sourcing with rigorous US-based screening. We support C2C, C2H, and full-time models.
-                            </p>
-                            <h5 class="font-bold text-white mb-3">Key Features:</h5>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-400 mb-8">
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> C2C & C2H Specialists</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Diverse Visa Support</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Rapid Placement</li>
-                                <li class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-purple-500"></i> Rigorous Screening</li>
-                            </ul>
-                            <button onclick="closeModal('srv-recruitment'); route('contact', event)" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg shadow-lg shadow-purple-500/30 transition">Find Talent</button>
-                         </div>
-                         <div class="lg:w-1/3 bg-purple-500/10 rounded-xl p-6 h-fit border border-purple-500/20">
-                             <div class="mb-4">
-                                 <span class="block text-xs text-purple-400 uppercase font-bold mb-1">Coverage</span>
-                                 <span class="text-xl font-bold text-purple-600">Nationwide US</span>
-                             </div>
-                             <hr class="border-purple-500/20 mb-4">
-                             <p class="text-sm text-gray-400 italic">Citizens, GC, H1B, TN, OPT - we handle it all.</p>
-                         </div>
-                     </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-white/5 bg-dark-950 py-6">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center justify-center gap-0.5">
-            </div>
-            <p class="text-slate-500 text-[12px]">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
-            <div class="flex gap-4">
-                <a href="https://www.linkedin.com/company/chowdhuryx" aria-label="LinkedIn" class="text-gray-500 hover:text-white transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                <a href="https://x.com/chowdhuryx1896" aria-label="Twitter / X" class="text-gray-500 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-                <a href="https://www.facebook.com/people/ChowdhuryX-Organization-LLC/61581679276881/" aria-label="Facebook" class="text-gray-500 hover:text-white transition"><i data-lucide="Facebook" class="w-5 h-5"></i></a>
-                <a href="https://pin.it/7eqd5Pr8Z" aria-label="Pinterest" class="text-gray-500 hover:text-white transition"><i class="fab fa-pinterest w-5 h-6"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Developer Info Panel -->
-    <div id="dev-panel" 
-         class="fixed bottom-5 right-5 z-[100] transition-all duration-300 transform translate-y-4 opacity-0 pointer-events-none">
-        <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-2xl border border-slate-700 w-[400px] backdrop-blur-md bg-opacity-95">
-           <div class="flex items-center gap-3 mb-4 border-b border-slate-700 pb-3">
-                <div class="w-10 h-10 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+        <div class="grid grid-cols-3 capabilities-grid">
+            <!-- Software Engineering -->
+            <div class="card capability-card">
+                <div class="card-icon">
                     <i class="fas fa-code"></i>
                 </div>
-                <div>
-                    <h4 class="font-bold text-lg leading-none">Developer Info</h4>
-                    <span class="text-xs text-slate-400 uppercase tracking-wider">System Status</span>
+                <div class="card-body">
+                    <h3 class="card-title">Software Engineering & Development</h3>
+                    <p class="card-text">
+                        Enterprise-grade web, mobile, desktop, and cloud-based applications built using modern 
+                        architectures and industry best practices.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Full-stack development</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile & desktop apps</li>
+                        <li><i class="fas fa-check-circle"></i> API & integrations</li>
+                        <li><i class="fas fa-check-circle"></i> Legacy modernization</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='software-development') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <button onclick="toggleDevPanel()" aria-label="Close" class="ml-auto text-slate-400 hover:text-white transition"><i class="fas fa-times"></i></button>
             </div>
-            <ul class="space-y-3 text-sm">
-                <li class="flex justify-between items-center"><span class="text-slate-400"><i class="fas fa-user mr-2"></i>Developer</span><span class="font-medium text-brand-400 text-right">Manikanta</span></li>
-                <li class="flex justify-between items-center"><span class="text-slate-400"><i class="fas fa-code-branch mr-2"></i>Version</span><span class="font-mono bg-slate-800 px-2 py-0.5 rounded text-xs">v1.2.0 (AI Update)</span></li>
-                <li class="flex justify-between items-center pt-2 border-t border-slate-700 mt-2">
-                    <span class="text-slate-400"><i class="fas fa-envelope mr-2"></i>Contact</span>
-                    <a href="mailto:chelamalla.manikanta28@gmail.com" class="text-brand-400 hover:underline">chelamalla.manikanta28@gmail.com</a>
-                </li>
-            </ul>
+            
+            <!-- AI & ML -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Artificial Intelligence & Machine Learning</h3>
+                    <p class="card-text">
+                        Custom AI solutions, intelligent automation, data analytics, and ML-driven platforms that 
+                        turn data into actionable intelligence.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> AI-powered automation</li>
+                        <li><i class="fas fa-check-circle"></i> Predictive analytics</li>
+                        <li><i class="fas fa-check-circle"></i> NLP & computer vision</li>
+                        <li><i class="fas fa-check-circle"></i> ML model development</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='ai-machine-learning') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- BPO Services -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Business Process Outsourcing</h3>
+                    <p class="card-text">
+                        High-quality voice and non-voice support, CRM-based chat operations, and customer engagement 
+                        services delivered with consistency and control.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Voice & non-voice support</li>
+                        <li><i class="fas fa-check-circle"></i> CRM-based operations</li>
+                        <li><i class="fas fa-check-circle"></i> 24/7 support teams</li>
+                        <li><i class="fas fa-check-circle"></i> SLA-driven delivery</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='bpo-services') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- IT Consulting -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Remote IT & Non-IT Consulting</h3>
+                    <p class="card-text">
+                        Skilled offshore professionals available on flexible engagement models to extend in-house 
+                        capabilities efficiently.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Dedicated resources</li>
+                        <li><i class="fas fa-check-circle"></i> Team extension model</li>
+                        <li><i class="fas fa-check-circle"></i> Flexible engagement</li>
+                        <li><i class="fas fa-check-circle"></i> Rapid scaling</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='it-consulting') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- RPO & Staffing -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">RPO & Contract Staffing</h3>
+                    <p class="card-text">
+                        End-to-end talent acquisition solutions designed for speed, accuracy, and workforce scalability.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Full-cycle recruitment</li>
+                        <li><i class="fas fa-check-circle"></i> Contract staffing</li>
+                        <li><i class="fas fa-check-circle"></i> Talent sourcing</li>
+                        <li><i class="fas fa-check-circle"></i> Workforce planning</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='rpo-staffing') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Digital Products -->
+            <div class="card capability-card">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Digital Products & Platforms</h3>
+                    <p class="card-text">
+                        Proprietary platforms and AI-driven products built to address real operational challenges and 
+                        support digital transformation.
+                    </p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> SaaS development</li>
+                        <li><i class="fas fa-check-circle"></i> Product engineering</li>
+                        <li><i class="fas fa-check-circle"></i> Platform architecture</li>
+                        <li><i class="fas fa-check-circle"></i> Lifecycle support</li>
+                    </ul>
+                    <a href="{{ url_for('service_detail', slug='digital-products') }}" class="learn-more-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg">View All Services</a>
         </div>
     </div>
+</section>
 
-    <script>
-        function route(pageId, ...args) {
-            let sectionId = null;
-            let event = null;
-            if (args.length === 1) {
-                args[0] instanceof Event ? event = args[0] : sectionId = args[0];
-            } else if (args.length === 2) {
-                sectionId = args[0];
-                event = args[1];
-            }
-            if (event) event.preventDefault();
-
-            if (pageId === 'home' && !sectionId) {
-                try {
-                    history.replaceState(null, null, window.location.pathname);
-                } catch(e) {
-                    console.log('History replaceState not allowed here.');
-                }
-            } else {
-                const hashId = sectionId ? sectionId.replace('srv-', 'services-') : pageId;
-                try {
-                    history.pushState(null, null, `#${hashId}`);
-                } catch(e) {
-                    console.log('History pushState not allowed here.');
-                }
-            }
-
-            document.querySelectorAll('.page-section').forEach(p => {
-                p.classList.remove('active');
-                if(p.id === pageId) setTimeout(() => p.classList.add('active'), 50);
-            });
-
-            document.querySelectorAll('nav a').forEach(b => {
-                const span = b.querySelector('span');
-                if(span) span.style.width = '0';
-            });
-            const activeBtn = document.getElementById('nav-' + pageId);
-            if(activeBtn) {
-                const span = activeBtn.querySelector('span');
-                if(span) span.style.width = '100%';
-            }
-
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            }
-
-            if(sectionId) {
-                if(sectionId.startsWith('srv-') || sectionId.startsWith('prod-')) {
-                    setTimeout(() => openModal(sectionId), 300);
-                }
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+<!-- Global Delivery Model -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="delivery-model-grid">
+            <div class="delivery-content">
+                <span class="section-subtitle">Global Delivery Model</span>
+                <h2>Integrated Excellence Across Continents</h2>
+                <p class="text-lead">
+                    Our delivery framework is designed for reliability, scalability, and governance—combining strategic 
+                    leadership from the United States with high-performance execution from India.
+                </p>
+                
+                <div class="location-cards">
+                    <div class="location-card">
+                        <div class="location-flag">🇺🇸</div>
+                        <h4>United States</h4>
+                        <p class="location-subtitle">Corporate & Strategic Operations</p>
+                        <ul class="location-features">
+                            <li><i class="fas fa-check"></i> Client engagement & consulting</li>
+                            <li><i class="fas fa-check"></i> Program governance & quality</li>
+                            <li><i class="fas fa-check"></i> Compliance & security alignment</li>
+                        </ul>
+                        <p class="location-address"><i class="fas fa-map-marker-alt"></i> Sheridan, Wyoming</p>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-flag">🇮🇳</div>
+                        <h4>India</h4>
+                        <p class="location-subtitle">Technology & Operations Excellence</p>
+                        <ul class="location-features">
+                            <li><i class="fas fa-check"></i> Engineering & AI development</li>
+                            <li><i class="fas fa-check"></i> BPO & support operations</li>
+                            <li><i class="fas fa-check"></i> 24/7 delivery & rapid scaling</li>
+                        </ul>
+                        <p class="location-address"><i class="fas fa-map-marker-alt"></i> Hyderabad</p>
+                    </div>
+                </div>
+            </div>
             
-            // Re-initialize icons when switching pages
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        }
+            <div class="delivery-visual">
+                <img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?w=600&h=800&fit=crop" 
+                     alt="Global Delivery Model" 
+                     class="delivery-image">
+            </div>
+        </div>
+    </div>
+</section>
 
-        function openModal(id) {
-            const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
-            const modal = document.getElementById(modalId);
-            if(modal) {
-                modal.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                   const content = modal.querySelector('.modal-content');
-                   content.classList.remove('scale-95', 'opacity-0');
-                   content.classList.add('scale-100', 'opacity-100');
-                   modal.querySelector('div:first-child').classList.remove('opacity-0');
-                });
-                document.body.style.overflow = 'hidden';
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-            }
-        }
-
-        function closeModal(id) {
-            const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
-            const modal = document.getElementById(modalId);
-            if(modal) {
-                 const content = modal.querySelector('.modal-content');
-                 content.classList.remove('scale-100', 'opacity-100');
-                 content.classList.add('scale-95', 'opacity-0');
-                 modal.querySelector('div:first-child').classList.add('opacity-0');
-                 setTimeout(() => {
-                     modal.classList.add('hidden');
-                     document.body.style.overflow = '';
-                 }, 300);
-            }
-        }
-
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.remove('hidden');
-            menu.classList.add('flex');
-        });
-
-        document.getElementById('close-mobile-menu').addEventListener('click', () => {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.add('hidden');
-            menu.classList.remove('flex');
-        });
-
-        function toggleDevPanel() {
-            const panel = document.getElementById('dev-panel');
-            panel.classList.toggle('opacity-0');
-            panel.classList.toggle('translate-y-4');
-            panel.classList.toggle('pointer-events-none');
-        }
+<!-- Why Choose Us -->
+<section class="section section-white">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-subtitle">Why Organizations Choose ChowdhuryX</span>
+            <h2>Enterprise-Grade Reliability & Execution</h2>
+        </div>
         
-        document.addEventListener("DOMContentLoaded", function() {
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-            else window.onload = function() { if (typeof lucide !== 'undefined') lucide.createIcons(); }
-        });
+        <div class="grid grid-cols-3 why-grid">
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Enterprise-Focused Mindset</h4>
+                <p>Structured processes, documentation, governance, and accountability in every engagement.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-chart-line"></i></div>
+                <h4>Business-First Technology</h4>
+                <p>Solutions architected to deliver measurable business outcomes, not just technical output.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-globe"></i></div>
+                <h4>Proven Offshore Strength</h4>
+                <p>High-performance delivery with global efficiency and enterprise-level quality standards.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-lock"></i></div>
+                <h4>Security & Compliance</h4>
+                <p>GDPR & CCPA aligned practices with strict data protection and confidentiality controls.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                <h4>Scalable Teams & Systems</h4>
+                <p>Flexible engagement models that scale up or down without disruption to operations.</p>
+            </div>
+            <div class="why-item">
+                <div class="why-icon"><i class="fas fa-handshake"></i></div>
+                <h4>Long-Term Partnership</h4>
+                <p>We invest in relationships and grow alongside your organization's success.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="#" class="btn btn-outline btn-lg">Why Choose Us</a>
+        </div>
+    </div>
+</section>
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                if(hash.startsWith('services-')) {
-                    route('services', hash.replace('services-', 'srv-'));
-                } else if(['home', 'about', 'services', 'contact'].includes(hash)) {
-                    route(hash);
-                } else {
-                    route('home');
-                }
-            } else {
-                route('home');
-                if(window.location.hash === '#home') {
-                    try {
-                        history.replaceState(null, null, window.location.pathname);
-                    } catch(e) {
-                        console.log('History replaceState not allowed here.');
-                    }
-                }
-            }
-        });
+<!-- Industries Served -->
+<section class="section section-gray">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="section-subtitle">Industries We Serve</span>
+            <h2>Domain Expertise Across Key Sectors</h2>
+        </div>
+        
+        <div class="industries-grid grid grid-cols-4">
+            <div class="industry-card">
+                <i class="fas fa-laptop-code"></i>
+                <h5>Technology & SaaS</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h5>E-commerce & Digital</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-heartbeat"></i>
+                <h5>Healthcare & Services</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-university"></i>
+                <h5>Finance & Professional</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-truck"></i>
+                <h5>Logistics & Operations</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-lightbulb"></i>
+                <h5>Startups & Growth</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-building"></i>
+                <h5>Enterprise Systems</h5>
+            </div>
+            <div class="industry-card">
+                <i class="fas fa-cogs"></i>
+                <h5>Manufacturing & IoT</h5>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{{ url_for('industries') }}" class="btn btn-primary btn-lg">View All Industries</a>
+        </div>
+    </div>
+</section>
 
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
-                e.preventDefault();
-                toggleDevPanel();
-            }
-            if (e.key === 'Escape') {
-                if (!document.getElementById('dev-panel').classList.contains('opacity-0')) toggleDevPanel();
-                document.querySelectorAll('.fixed.z-\\[100\\]:not(.hidden)').forEach(m => closeModal(m.id));
-            }
-        });
-    </script>
-</body>
-</html>
+<!-- CTA Section -->
+<section class="section section-dark cta-section">
+    <div class="container">
+        <div class="cta-content text-center">
+            <h2>Let's Build the Future Together</h2>
+            <p class="text-lead">
+                Whether you are launching a new product, optimizing operations, scaling customer support, or building 
+                intelligent systems—ChowdhuryX Organization LLC is ready to partner with you.
+            </p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('contact') }}" class="btn btn-white btn-lg">Request Proposal</a>
+                <a href="#" class="btn btn-outline btn-lg" style="border-color: white; color: white;">Schedule Consultation</a>
+            </div>
+            <div class="cta-contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:info@chowdhuryx.com">info@chowdhuryx.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+13074295757">+1 307-429-5757</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block description %}ChowdhuryX Organization LLC - Global enterprise technology and business services firm delivering software engineering, AI solutions, BPO, and scalable talent services.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}enterprise technology, software development, AI solutions, BPO services, offshore development, IT consulting, recruitment services{% endblock %}">
+    <meta name="author" content="ChowdhuryX Organization LLC">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Global technology and business services firm delivering enterprise-class digital solutions, AI, and scalable talent services.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    
+    <!-- JSON-LD Schema Markup for Corporate Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ChowdhuryX Organization LLC",
+        "description": "Global enterprise technology and business services firm",
+        "url": "https://chowdhuryX.com",
+        "logo": "https://chowdhuryX.com/static/images/logo/logo.png",
+        "sameAs": [
+            "https://www.linkedin.com/company/chowdhuryX",
+            "https://twitter.com/chowdhuryX"
+        ],
+        "contact": {
+            "@type": "ContactPoint",
+            "telephone": "+1-555-123-4567",
+            "contactType": "Business Development"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Enterprise Ave",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10001",
+            "addressCountry": "US"
+        },
+        "foundingDate": "2015",
+        "areaServed": "Worldwide",
+        "knowsAbout": [
+            "Software Development",
+            "Artificial Intelligence",
+            "Machine Learning",
+            "BPO Services",
+            "IT Consulting",
+            "Recruitment Process Outsourcing"
+        ]
+    }
+    </script>
+    
+    <title>{% block title %}ChowdhuryX Organization LLC | Enterprise Technology Partner{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo/favicon.png') }}">
+    
+    <!-- Global CSS - Modern Enterprise Design System -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/enterprise.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
+    
+    <!-- Page-specific CSS -->
+    {% block css %}{% endblock %}
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- SPA Page Loading Indicator -->
+    <div id="pageLoadingIndicator" class="page-loading-indicator">
+        <div class="loading-bar"></div>
+    </div>
+
+    <!-- Skip to main content (Accessibility) -->
+    <a href="#main-content" class="sr-only focus-visible">Skip to main content</a>
+
+    <!-- Header Navigation -->
+    <header class="site-header" role="banner">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="container">
+                <div class="navbar-content">
+                    <!-- Logo -->
+                    <div class="navbar-brand">
+                        <a href="{{ url_for('index') }}" class="logo-link" aria-label="ChowdhuryX Home">
+                            <img src="{{ url_for('static', filename='images/logo/logo.png') }}" alt="ChowdhuryX Logo" class="logo-image">
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                    
+                    <!-- Navigation Menu -->
+                    <div class="navbar-menu" id="navbarMenu">
+                        <ul class="nav-links">
+                            <li class="nav-item">
+                                <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item nav-item-dropdown">
+                                <a href="{{ url_for('services') }}" class="nav-link">
+                                    Services <i class="fas fa-chevron-down dropdown-icon"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{{ url_for('service_detail', slug='ai-machine-learning') }}" class="dropdown-item">AI & Machine Learning</a>
+                                    <a href="{{ url_for('service_detail', slug='bpo-services') }}" class="dropdown-item">BPO Services</a>
+                                    <a href="{{ url_for('service_detail', slug='software-development') }}" class="dropdown-item">Software Development</a>
+                                    <a href="{{ url_for('service_detail', slug='it-consulting') }}" class="dropdown-item">IT Consulting</a>
+                                    <a href="{{ url_for('service_detail', slug='digital-products') }}" class="dropdown-item">Digital Products</a>
+                                    <a href="{{ url_for('service_detail', slug='rpo-staffing') }}" class="dropdown-item">RPO & Staffing</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('industries') }}" class="nav-link">Industries</a>
+                            </li>
+                            <li class="nav-item nav-item-dropdown">
+                                <a href="#" class="nav-link">
+                                    Company <i class="fas fa-chevron-down dropdown-icon"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="{{ url_for('why_choose_us') }}" class="dropdown-item">Why Choose Us</a>
+                                    <a href="{{ url_for('engagement_models') }}" class="dropdown-item">Engagement Models</a>
+                                    <a href="{{ url_for('trust_center') }}" class="dropdown-item">Trust Center</a>
+                                    <a href="{{ url_for('careers') }}" class="dropdown-item">Careers</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url_for('blog') }}" class="nav-link">Insights</a>
+                            </li>
+                            <li class="nav-item nav-item-cta">
+                                <a href="{{ url_for('contact') }}" class="btn btn-primary">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <!-- Company Info -->
+                    <div class="footer-column footer-about">
+                        <div class="footer-logo">
+                            <img src="{{ url_for('static', filename='images/ChowdhuryX-logo.svg') }}" alt="ChowdhuryX Logo" class="footer-logo-image">
+                        </div>
+                        <p class="footer-description">
+                            Global technology and business services firm delivering enterprise-class digital solutions, 
+                            intelligent automation, and scalable talent services to organizations worldwide.
+                        </p>
+                        <div class="footer-locations">
+                            <div class="location-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span><strong>USA:</strong> Sheridan, Wyoming</span>
+                            </div>
+                            <div class="location-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span><strong>India:</strong> Hyderabad</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Services -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Services</h4>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('service_detail', slug='ai-machine-learning') }}">AI & Machine Learning</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='bpo-services') }}">BPO Services</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='software-development') }}">Software Development</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='it-consulting') }}">IT Consulting</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='digital-products') }}">Digital Products</a></li>
+                            <li><a href="{{ url_for('service_detail', slug='rpo-staffing') }}">RPO & Staffing</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Company -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Company</h4>
+                        <ul class="footer-links">
+                            <li><a href="{{ url_for('about') }}">About Us</a></li>
+                            <li><a href="{{ url_for('why_choose_us') }}">Why Choose Us</a></li>
+                            <li><a href="{{ url_for('industries') }}">Industries</a></li>
+                            <li><a href="{{ url_for('engagement_models') }}">Engagement Models</a></li>
+                            <li><a href="{{ url_for('trust_center') }}">Trust Center</a></li>
+                            <li><a href="{{ url_for('careers') }}">Careers</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Contact & Legal -->
+                    <div class="footer-column">
+                        <h4 class="footer-title">Get in Touch</h4>
+                        <ul class="footer-contact">
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <a href="mailto:info@chowdhuryx.com">info@chowdhuryx.com</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <a href="tel:+13074295757">+1 307-429-5757</a>
+                            </li>
+                            <li>
+                                <i class="fas fa-globe"></i>
+                                <a href="https://www.chowdhuryx.com">www.chowdhuryx.com</a>
+                            </li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="LinkedIn" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Twitter" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Facebook" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" aria-label="Instagram" class="social-link"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
+                    </div>
+                    <div class="footer-legal">
+                        <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
+                        <span class="separator">|</span>
+                        <a href="{{ url_for('terms') }}">Terms of Use</a>
+                        <span class="separator">|</span>
+                        <a href="{{ url_for('cookies') }}">Cookie Policy</a>
+                        <span class="separator">|</span>
+                        <a href="{{ url_for('cookie_settings') }}">Cookie Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="{{ url_for('static', filename='js/toast.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Page Loading Indicator Script -->
+    <script>
+    // Show loading indicator on page transition
+    document.addEventListener('click', function(event) {
+        const link = event.target.closest('a[href]');
+        if (link && !link.getAttribute('href').startsWith('#') && !link.hasAttribute('download')) {
+            const href = link.getAttribute('href');
+            if (href && (href.startsWith('/') || href.startsWith('{{ request.host }}'))) {
+                document.getElementById('pageLoadingIndicator').classList.add('active');
+            }
+        }
+    });
+
+    // Hide loading indicator when page loads
+    window.addEventListener('load', function() {
+        document.getElementById('pageLoadingIndicator').classList.remove('active');
+    });
+
+    // Hide loading indicator if navigation is cancelled
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            document.getElementById('pageLoadingIndicator').classList.remove('active');
+        }
+    });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>    <!-- Page-specific JavaScript -->
+    {% block js %}{% endblock %}
+</body>
+</html>

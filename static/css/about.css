@@ -1,0 +1,364 @@
+/* ========================================
+   ABOUT US PAGE - ENTERPRISE STYLES
+   ======================================== */
+
+/* Page Header */
+.page-header-enterprise {
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+    color: var(--color-white);
+    padding: var(--space-20) 0 var(--space-16);
+    text-align: center;
+}
+
+.page-header-enterprise .header-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-header-enterprise h1 {
+    color: var(--color-white);
+    font-size: var(--font-size-5xl);
+    margin-bottom: var(--space-6);
+}
+
+.page-header-enterprise .text-lead {
+    color: var(--color-gray-100);
+    font-size: var(--font-size-xl);
+}
+
+/* Overview Section */
+.overview-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+.overview-content h2 {
+    margin-bottom: var(--space-6);
+}
+
+.overview-visual {
+    position: relative;
+}
+
+.overview-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Identity Section */
+.identity-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.identity-description {
+    margin-top: var(--space-8);
+}
+
+.identity-description p {
+    margin-bottom: var(--space-6);
+}
+
+.highlight-text {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-primary);
+    text-align: center;
+    padding: var(--space-8);
+    background: var(--color-gray-50);
+    border-left: 4px solid var(--brand-secondary);
+    border-radius: var(--radius-lg);
+    margin: var(--space-8) 0;
+}
+
+/* Services Grid */
+.services-grid {
+    gap: var(--space-6);
+}
+
+.service-block {
+    background: var(--color-white);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    border: 2px solid var(--color-gray-100);
+}
+
+.service-block:hover {
+    border-color: var(--brand-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.service-block h4 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--brand-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-3);
+}
+
+.service-block h4 i {
+    color: var(--brand-secondary);
+    font-size: var(--font-size-xl);
+}
+
+.service-block p {
+    color: var(--color-gray-700);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Delivery Locations */
+.delivery-locations {
+    gap: var(--space-8);
+}
+
+.location-detail-card {
+    background: var(--color-white);
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+}
+
+.location-detail-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+}
+
+.location-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.location-header .location-flag {
+    font-size: var(--font-size-5xl);
+}
+
+.location-header h3 {
+    color: var(--brand-primary);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-2);
+}
+
+.location-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-600);
+    font-weight: var(--font-weight-medium);
+}
+
+.location-features {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0;
+}
+
+.location-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) 0;
+    color: var(--color-gray-700);
+}
+
+.location-features i {
+    color: var(--color-success);
+    margin-top: 4px;
+}
+
+.location-address {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.location-address i {
+    color: var(--brand-secondary);
+}
+
+.delivery-benefit {
+    margin-top: var(--space-12);
+}
+
+/* Approach Section */
+.approach-grid {
+    gap: var(--space-8);
+}
+
+.approach-card {
+    text-align: center;
+    padding: var(--space-6);
+}
+
+.approach-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-light));
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-3xl);
+}
+
+.approach-card h4 {
+    color: var(--brand-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-3);
+}
+
+.approach-card p {
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Mission & Vision */
+.mission-vision-grid {
+    gap: var(--space-8);
+}
+
+.mv-card {
+    text-align: center;
+    padding: var(--space-8);
+}
+
+.mv-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-4xl);
+}
+
+.mv-card h3 {
+    color: var(--color-white);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-4);
+}
+
+.mv-card p {
+    color: var(--color-gray-100);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Commitment Section */
+.commitment-grid {
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+}
+
+.commitment-item {
+    text-align: center;
+    padding: var(--space-6);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-base);
+}
+
+.commitment-item:hover {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.commitment-item i {
+    font-size: var(--font-size-3xl);
+    color: var(--brand-secondary);
+    margin-bottom: var(--space-3);
+    display: block;
+}
+
+.commitment-item h4 {
+    color: var(--brand-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+}
+
+/* CTA Section */
+.about-cta-section {
+    padding: var(--space-12) 0;
+}
+
+.about-cta-section h2 {
+    margin-bottom: var(--space-4);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .page-header-enterprise h1 {
+        font-size: var(--font-size-4xl);
+    }
+    
+    .overview-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+    
+    .overview-visual {
+        order: -1;
+    }
+    
+    .delivery-locations {
+        grid-template-columns: 1fr;
+    }
+    
+    .approach-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .page-header-enterprise {
+        padding: var(--space-16) 0 var(--space-12);
+    }
+    
+    .page-header-enterprise h1 {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .page-header-enterprise .text-lead {
+        font-size: var(--font-size-base);
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .approach-grid,
+    .mission-vision-grid,
+    .commitment-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .highlight-text {
+        font-size: var(--font-size-lg);
+        padding: var(--space-6);
+    }
+}

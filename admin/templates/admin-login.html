@@ -1,0 +1,33 @@
+{% extends "base-admin.html" %}
+
+{% block title %}Admin Login - ChowdhuryX{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-box">
+        <h1>ChowdhuryX Admin</h1>
+        <p class="subtitle">Secure Admin Access</p>
+
+        {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" class="login-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+
+        <p class="login-footer">Default credentials: admin / admin123</p>
+    </div>
+</div>
+{% endblock %}

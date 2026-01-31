@@ -1,0 +1,73 @@
+{% extends "base-admin.html" %}
+
+{% block title %}Contacts - Admin{% endblock %}
+
+{% block content %}
+<div class="content-header">
+    <h1>Contact Submissions</h1>
+    <div class="filter-buttons">
+        <a href="{{ url_for('admin.contacts', status='all') }}" class="btn {% if current_status == 'all' %}active{% endif %}">All</a>
+        <a href="{{ url_for('admin.contacts', status='new') }}" class="btn {% if current_status == 'new' %}active{% endif %}">New</a>
+        <a href="{{ url_for('admin.contacts', status='read') }}" class="btn {% if current_status == 'read' %}active{% endif %}">Read</a>
+        <a href="{{ url_for('admin.contacts', status='resolved') }}" class="btn {% if current_status == 'resolved' %}active{% endif %}">Resolved</a>
+    </div>
+</div>
+
+{% if contacts.items %}
+<div class="table-responsive">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts.items %}
+            <tr>
+                <td><strong>{{ contact.name }}</strong></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.subject }}</td>
+                <td>{{ contact.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td><span class="badge badge-{{ contact.status }}">{{ contact.status }}</span></td>
+                <td>
+                    <a href="{{ url_for('admin.view_contact', contact_id=contact.id) }}" class="btn btn-sm btn-primary">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+{% if contacts.pages > 1 %}
+<div class="pagination">
+    {% if contacts.has_prev %}
+    <a href="{{ url_for('admin.contacts', page=contacts.prev_num, status=current_status) }}" class="btn">← Previous</a>
+    {% endif %}
+
+    {% for page_num in contacts.iter_pages() %}
+        {% if page_num %}
+            {% if page_num == contacts.page %}
+            <span class="current">{{ page_num }}</span>
+            {% else %}
+            <a href="{{ url_for('admin.contacts', page=page_num, status=current_status) }}" class="btn">{{ page_num }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% if contacts.has_next %}
+    <a href="{{ url_for('admin.contacts', page=contacts.next_num, status=current_status) }}" class="btn">Next →</a>
+    {% endif %}
+</div>
+{% endif %}
+{% else %}
+<div class="empty-state">
+    <p>No contacts found</p>
+</div>
+{% endif %}
+{% endblock %}
