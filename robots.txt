@@ -1,17 +1,34 @@
 User-agent: *
 Allow: /
 
-# Block admin areas from Google Search
+# Block admin panel from indexing
+Disallow: /admin/
+
+# Block authentication pages
 Disallow: /login
 Disallow: /logout
+
+# Block post management from search
 Disallow: /create_post
 Disallow: /edit_post/
 Disallow: /delete_post/
 
-# Block API and Action endpoints
+# Block API and action endpoints
+Disallow: /api/
 Disallow: /like/
 Disallow: /like_comment/
 Disallow: /comment/
-Disallow: /api/
+
+# Block internal/temporary files
+Disallow: /*.sqlite3
+Disallow: /*.db
+Disallow: /instance/
+Disallow: /__pycache__/
+
+# Allow static files
+Allow: /static/
+
+# Crawl delay (respectful crawling)
+Crawl-delay: 1
 
 Sitemap: https://chowdhuryx.com/sitemap.xml

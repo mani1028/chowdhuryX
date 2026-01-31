@@ -110,8 +110,7 @@
             <!-- Contact Form -->
             <div class="contact-form-wrapper">
                 <h2>Send us a Message</h2>
-                <form id="contactForm" class="contact-form">
-                    {{ csrf_token() }}
+                <form id="contactForm" class="contact-form" method="POST">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     
                     <div class="form-group">
@@ -178,9 +177,8 @@
                     <i class="fas fa-clock"></i>
                     <div>
                         <h4>Business Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                        <p>Saturday: 10:00 AM - 4:00 PM</p>
-                        <p>Sunday: Closed</p>
+                        <p>Monday - Friday: 12:00 PM - 9:00 PM</p>
+                        <p>Saturday & Sunday: Closed</p>
                     </div>
                 </div>
 
