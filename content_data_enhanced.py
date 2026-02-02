@@ -171,7 +171,7 @@ SERVICE_DETAILS = {
         'name': 'Software Dev',
         'tagline': 'Custom Quotes',
         'slug': 'software-dev',
-        'icon': 'fas fa-code-2',
+        'icon': 'fas fa-laptop-code',
         'color': '#60a5fa',
         'description': 'Full-stack development, Mobile Apps, and SaaS platforms. Tailored engineering from architecture to deployment and maintenance.',
         'short_description': 'Full-stack software development including mobile apps, SaaS platforms, and enterprise solutions.',
@@ -393,6 +393,12 @@ INDUSTRIES_DATA = {
         'description': 'Secure, compliant government technology solutions',
         'icon': 'fas fa-landmark',
         'services': ['Enterprise Solutions', 'Cloud Solutions', 'Custom Software']
+    },
+    'enterprise': {
+        'name': 'Enterprise',
+        'description': 'Scalable enterprise solutions for large organizations',
+        'icon': 'fas fa-building',
+        'services': ['Enterprise Solutions', 'AI Solutions', 'Cloud Solutions', 'Custom Software']
     }
 }
 
