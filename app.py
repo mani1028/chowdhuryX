@@ -3,6 +3,11 @@ ChowdhuryX - Corporate Website
 Main Flask Application Entry Point
 """
 import os
+from dotenv import load_dotenv
+
+# Load env vars immediately
+load_dotenv()
+
 import logging
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
