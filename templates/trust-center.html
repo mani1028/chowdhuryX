@@ -3,41 +3,49 @@
 {% block title %}Trust Center - ChowdhuryX Security & Compliance{% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
 <style>
+/* Trust Center - Custom Styles */
+
+/* Page Header */
 .page-header {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     color: white;
     padding: 5rem 2rem;
     text-align: center;
 }
 
 .page-header h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    color: white;
 }
 
 .page-header p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     opacity: 0.95;
     max-width: 700px;
     margin: 0 auto;
+    color: white;
 }
 
+/* Trust Intro */
 .trust-intro {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--color-gray-700);
     max-width: 800px;
     margin: 2rem auto 3rem;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
+/* Trust Pillars */
 .trust-pillars {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .pillar {
@@ -45,54 +53,54 @@
     border-radius: 12px;
     padding: 2.5rem;
     box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow);
-    border-top: 4px solid var(--brand-primary);
+    transition: all var(--transition-base);
+    border-left: 4px solid var(--brand-primary);
 }
 
 .pillar:hover {
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
 }
 
 .pillar-icon {
     font-size: 2.5rem;
     color: var(--brand-primary);
     margin-bottom: 1rem;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: var(--color-gray-50);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .pillar h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--brand-primary);
     margin-bottom: 1.5rem;
     font-weight: 700;
 }
 
 .pillar h4 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--brand-primary);
-    margin-bottom: 1rem;
+    margin: 1.25rem 0 0.5rem;
     font-weight: 600;
 }
 
 .pillar ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 0.75rem 0;
 }
 
 .pillar li {
-    padding: 0.5rem 0;
-    padding-left: 1.75rem;
+    padding: 0.3rem 0;
+    padding-left: 1.5rem;
     position: relative;
-    color: var(--color-gray-700);
-    font-size: 0.95rem;
+    color: var(--color-gray-800);
+    font-size: 0.9rem;
 }
 
 .pillar li:before {
@@ -101,11 +109,12 @@
     left: 0;
     color: var(--color-success);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
 }
 
+/* Compliance Section */
 .compliance-section {
-    margin: 4rem 0;
+    margin: 3rem 0;
 }
 
 .compliance-section h2 {
@@ -131,15 +140,16 @@
 }
 
 .compliance-table th {
-    padding: 1.5rem;
+    padding: 1rem;
     text-align: left;
     font-weight: 700;
 }
 
 .compliance-table td {
-    padding: 1.5rem;
+    padding: 1rem;
     border-bottom: 1px solid var(--color-gray-200);
-    color: var(--color-gray-700);
+    color: var(--color-gray-900);
+    font-size: 0.95rem;
 }
 
 .compliance-table tbody tr:hover {
@@ -151,11 +161,12 @@
     font-weight: bold;
 }
 
+/* Infrastructure Section */
 .infrastructure-section {
     background: var(--color-gray-50);
     padding: 3rem 2rem;
     border-radius: 12px;
-    margin: 4rem 0;
+    margin: 3rem 0;
 }
 
 .infrastructure-section h2 {
@@ -180,7 +191,7 @@
 }
 
 .infra-item h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--brand-primary);
     margin-bottom: 1rem;
     font-weight: 700;
@@ -193,11 +204,11 @@
 }
 
 .infra-item li {
-    padding: 0.5rem 0;
-    padding-left: 1.75rem;
+    padding: 0.3rem 0;
+    padding-left: 1.5rem;
     position: relative;
     color: var(--color-gray-700);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .infra-item li:before {
@@ -208,13 +219,14 @@
     font-weight: bold;
 }
 
+/* CTA Section */
 .cta-section {
     background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     color: white;
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
     text-align: center;
     border-radius: 12px;
-    margin: 4rem 0;
+    margin: 3rem 0;
 }
 
 .cta-section h2 {
@@ -225,27 +237,29 @@
 }
 
 .cta-section p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     opacity: 0.95;
     max-width: 600px;
-    margin: 1rem auto 2rem;
+    margin: 1rem auto 1.5rem;
+    color: white;
 }
 
 .cta-section .btn {
     background: var(--brand-secondary);
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    font-size: 0.95rem;
+    margin: 0 0.5rem;
 }
 
 .cta-section .btn:hover {
-    background: var(--brand-secondary-light);
+    background: var(--brand-secondary-dark);
 }
 
 @media (max-width: 768px) {
     .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .trust-pillars {
@@ -262,7 +276,11 @@
 
     .compliance-table th,
     .compliance-table td {
-        padding: 1rem;
+        padding: 0.75rem;
+    }
+
+    .cta-section {
+        padding: 2rem;
     }
 }
 </style>
@@ -287,719 +305,159 @@
 
         <!-- Trust Pillars -->
         <div class="trust-pillars">
-                        </ul>
-                        <h4>Data Protection</h4>
-                        <ul>
-                            <li>Encrypted data at rest and in transit</li>
-                            <li>Secure data centers with 24/7 monitoring</li>
-                            <li>Regular data backups with off-site redundancy</li>
-                            <li>Disaster recovery and business continuity plans</li>
-                            <li>Access controls and role-based permissions</li>
-                        </ul>
-                    </div>
+            <!-- Pillar 1: Security -->
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-shield-alt"></i>
                 </div>
-
-                <!-- Pillar 2: Compliance -->
-                <div class="pillar">
-                    <div class="pillar-icon">
-                        <i class="fas fa-certificate"></i>
-                    </div>
-                    <h3>Compliance</h3>
-                    <div class="pillar-content">
-                        <h4>Industry Standards</h4>
-                        <ul>
-                            <li><strong>HIPAA Compliant:</strong> Healthcare data protection (PHII)</li>
-                            <li><strong>GDPR Ready:</strong> European data protection regulation</li>
-                            <li><strong>SOC 2 Type II:</strong> Security and availability controls</li>
-                            <li><strong>ISO 27001:</strong> Information security management</li>
-                            <li><strong>PCI DSS Level 1:</strong> Payment card industry standards</li>
-                            <li><strong>NIST Framework:</strong> Cybersecurity standards</li>
-                        </ul>
-                        <h4>Certifications</h4>
-                        <ul>
-                            <li>D-U-N-S Verified Company</li>
-                            <li>Wyoming Secretary of State Certified LLC</li>
-                            <li>ADA & WCAG 2.1 Accessibility Compliant</li>
-                            <li>Regular third-party audits and assessments</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Pillar 3: Privacy -->
-                <div class="pillar">
-                    <div class="pillar-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3>Privacy</h3>
-                    <div class="pillar-content">
-                        <h4>Your Rights</h4>
-                        <ul>
-                            <li>You own and control your data</li>
-                            <li>Transparent data usage policies</li>
-                            <li>Right to access, modify, and delete your data</li>
-                            <li>No data sharing with third parties without consent</li>
-                            <li>Comprehensive privacy policy</li>
-                            <li>Data Processing Agreements (DPA) available</li>
-                        </ul>
-                        <h4>Privacy Practices</h4>
-                        <ul>
-                            <li>Minimal data collection principle</li>
-                            <li>Data retention policies and procedures</li>
-                            <li>Secure data disposal and destruction</li>
-                            <li>Privacy by design in all systems</li>
-                            <li>Regular privacy impact assessments</li>
-                        </ul>
-                    </div>
-                </div>
+                <h3>Security</h3>
+                <h4>Data Protection</h4>
+                <ul>
+                    <li>Encrypted data at rest and in transit</li>
+                    <li>Secure data centers with 24/7 monitoring</li>
+                    <li>Regular data backups with redundancy</li>
+                    <li>Disaster recovery and business continuity</li>
+                    <li>Access controls and role-based permissions</li>
+                </ul>
             </div>
 
-            <!-- Detailed Compliance Matrix -->
-            <div class="compliance-section mt-5">
-                <h2 class="mb-4">Compliance & Certifications</h2>
-                <div class="table-responsive">
-                    <table class="compliance-table">
-                        <thead>
-                            <tr>
-                                <th>Compliance Standard</th>
-                                <th>Coverage</th>
-                                <th>Verification</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>HIPAA</strong></td>
-                                <td>Healthcare Data</td>
-                                <td><span class="badge badge-success">✓ Compliant</span></td>
-                                <td>Protected Health Information (PHI) encryption and access controls</td>
-                            </tr>
-                            <tr>
-                                <td><strong>GDPR</strong></td>
-                                <td>EU Personal Data</td>
-                                <td><span class="badge badge-success">✓ Ready</span></td>
-                                <td>Data rights, consent management, and DPA support</td>
-                            </tr>
-                            <tr>
-                                <td><strong>SOC 2 Type II</strong></td>
-                                <td>Security & Availability</td>
-                                <td><span class="badge badge-success">✓ Certified</span></td>
-                                <td>Annual independent audits by AICPA-licensed auditors</td>
-                            </tr>
-                            <tr>
-                                <td><strong>ISO 27001</strong></td>
-                                <td>Information Security</td>
-                                <td><span class="badge badge-success">✓ Compliant</span></td>
-                                <td>Information security management system compliance</td>
-                            </tr>
-                            <tr>
-                                <td><strong>PCI DSS</strong></td>
-                                <td>Payment Card Data</td>
-                                <td><span class="badge badge-success">✓ Level 1</span></td>
-                                <td>Highest level payment card security compliance</td>
-                            </tr>
-                            <tr>
-                                <td><strong>NIST Cybersecurity</strong></td>
-                                <td>Framework Compliance</td>
-                                <td><span class="badge badge-success">✓ Aligned</span></td>
-                                <td>Aligned with National Institute of Standards standards</td>
-                            </tr>
-                            <tr>
-                                <td><strong>ADA Accessibility</strong></td>
-                                <td>Web Accessibility</td>
-                                <td><span class="badge badge-success">✓ WCAG 2.1 AA</span></td>
-                                <td>Web Content Accessibility Guidelines Level AA</td>
-                            </tr>
-                            <tr>
-                                <td><strong>WCAG 2.1</strong></td>
-                                <td>Digital Accessibility</td>
-                                <td><span class="badge badge-success">✓ AA Level</span></td>
-                                <td>Accessible to users with disabilities</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Pillar 2: Compliance -->
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-certificate"></i>
                 </div>
+                <h3>Compliance</h3>
+                <h4>Industry Standards</h4>
+                <ul>
+                    <li><strong>HIPAA:</strong> Healthcare data protection</li>
+                    <li><strong>GDPR:</strong> European data protection</li>
+                    <li><strong>SOC 2 Type II:</strong> Security controls</li>
+                    <li><strong>ISO 27001:</strong> Information security</li>
+                    <li><strong>PCI DSS Level 1:</strong> Payment security</li>
+                </ul>
             </div>
 
-            <!-- Infrastructure Security -->
-            <div class="infrastructure-section mt-5 bg-light p-5 rounded">
-                <h2 class="mb-4">Infrastructure Security</h2>
-                <div class="infrastructure-grid">
-                    <div class="infra-item">
-                        <div class="infra-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h4>Data Centers</h4>
-                        <ul>
-                            <li>Tier 3/Tier 4 certified data centers</li>
-                            <li>99.99% uptime SLA</li>
-                            <li>Redundant power and cooling systems</li>
-                            <li> 24/7 physical security monitoring</li>
-                            <li>Geographically distributed backups</li>
-                        </ul>
-                    </div>
-                    <div class="infra-item">
-                        <div class="infra-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h4>Network Security</h4>
-                        <ul>
-                            <li>Enterprise-grade firewalls</li>
-                            <li>DDoS protection and mitigation</li>
-                            <li>Intrusion detection/prevention systems</li>
-                            <li>VPN and secure tunneling</li>
-                            <li>Network segmentation and isolation</li>
-                        </ul>
-                    </div>
-                    <div class="infra-item">
-                        <div class="infra-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h4>Database Security</h4>
-                        <ul>
-                            <li>Encrypted database storage</li>
-                            <li>Field-level encryption for sensitive data</li>
-                            <li>Database activity monitoring</li>
-                            <li>Automated backup and recovery</li>
-                            <li>Access logging and audit trails</li>
-                        </ul>
-                    </div>
-                    <div class="infra-item">
-                        <div class="infra-icon">
-                            <i class="fas fa-users-shield"></i>
-                        </div>
-                        <h4>Access Control</h4>
-                        <ul>
-                            <li>Role-based access control (RBAC)</li>
-                            <li>Multi-factor authentication (MFA)</li>
-                            <li>Single sign-on (SSO) integration</li>
-                            <li>Privileged access management</li>
-                            <li>Session management and monitoring</li>
-                        </ul>
-                    </div>
+            <!-- Pillar 3: Privacy -->
+            <div class="pillar">
+                <div class="pillar-icon">
+                    <i class="fas fa-lock"></i>
                 </div>
+                <h3>Privacy</h3>
+                <h4>Your Rights</h4>
+                <ul>
+                    <li>You own and control your data</li>
+                    <li>Transparent data usage policies</li>
+                    <li>Right to access, modify, and delete</li>
+                    <li>No data sharing without consent</li>
+                    <li>Comprehensive privacy policy</li>
+                </ul>
             </div>
+        </div>
 
-            <!-- Security Practices -->
-            <div class="practices-section mt-5">
-                <h2 class="mb-4">Security Practices</h2>
-                <div class="practices-grid">
-                    <div class="practice-card">
-                        <div class="practice-number">1</div>
-                        <h4>Regular Testing</h4>
-                        <p>Quarterly penetration testing and annual security audits ensure continuous improvement of our security posture.</p>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-number">2</div>
-                        <h4>Incident Response</h4>
-                        <p>24/7 security operations center with rapid incident detection, analysis, and response protocols.</p>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-number">3</div>
-                        <h4>Security Training</h4>
-                        <p>All employees undergo mandatory security awareness training and regular updates on emerging threats.</p>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-number">4</div>
-                        <h4>Vendor Management</h4>
-                        <p>All third-party vendors and suppliers are vetted for security and compliance requirements.</p>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-number">5</div>
-                        <h4>Patch Management</h4>
-                        <p>Regular security patches and updates applied promptly to all systems and applications.</p>
-                    </div>
-                    <div class="practice-card">
-                        <div class="practice-number">6</div>
-                        <h4>Vulnerability Management</h4>
-                        <p>Continuous vulnerability scanning and remediation program for all assets and systems.</p>
-                    </div>
-                </div>
+        <!-- Compliance Matrix -->
+        <div class="compliance-section">
+            <h2>Compliance & Certifications</h2>
+            <div class="table-responsive">
+                <table class="compliance-table">
+                    <thead>
+                        <tr>
+                            <th>Standard</th>
+                            <th>Coverage</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>HIPAA</strong></td>
+                            <td>Healthcare Data Protection</td>
+                            <td><span class="check-mark">✓ Compliant</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>GDPR</strong></td>
+                            <td>EU Personal Data</td>
+                            <td><span class="check-mark">✓ Ready</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>SOC 2 Type II</strong></td>
+                            <td>Security & Availability</td>
+                            <td><span class="check-mark">✓ Certified</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ISO 27001</strong></td>
+                            <td>Information Security</td>
+                            <td><span class="check-mark">✓ Compliant</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>PCI DSS Level 1</strong></td>
+                            <td>Payment Card Security</td>
+                            <td><span class="check-mark">✓ Level 1</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WCAG 2.1 AA</strong></td>
+                            <td>Web Accessibility</td>
+                            <td><span class="check-mark">✓ Compliant</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <!-- Trust Indicators -->
-            <div class="trust-indicators mt-5">
-                <h2 class="mb-4 text-center">Our Trust Indicators</h2>
-                <div class="indicators-grid">
-                    <div class="indicator">
-                        <div class="indicator-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div class="indicator-text">
-                            <strong>D-U-N-S Verified</strong>
-                            <p>Globally recognized business identifier used by Fortune 500 and government agencies</p>
-                        </div>
-                    </div>
-                    <div class="indicator">
-                        <div class="indicator-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="indicator-text">
-                            <strong>SSL Secured (256-bit)</strong>
-                            <p>Industry-standard encryption ensuring secure data transmission</p>
-                        </div>
-                    </div>
-                    <div class="indicator">
-                        <div class="indicator-icon">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <div class="indicator-text">
-                            <strong>Certified LLC</strong>
-                            <p>Wyoming Secretary of State certified LLC in good standing</p>
-                        </div>
-                    </div>
-                    <div class="indicator">
-                        <div class="indicator-icon">
-                            <i class="fas fa-universal-access"></i>
-                        </div>
-                        <div class="indicator-text">
-                            <strong>ADA Compliant</strong>
-                            <p>WCAG 2.1 accessibility standards for inclusive access</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transparency Report -->
-            <div class="transparency-section mt-5 bg-light p-5 rounded">
-                <h2 class="mb-4">Transparency & Accountability</h2>
-                <div class="transparency-content">
-                    <h4>Our Commitment to Openness</h4>
-                    <p>We believe in complete transparency regarding our security practices and compliance efforts. Here's what we share:</p>
+        <!-- Infrastructure Security -->
+        <div class="infrastructure-section">
+            <h2>Infrastructure Security</h2>
+            <div class="infrastructure-grid">
+                <div class="infra-item">
+                    <h3><i class="fas fa-server"></i> Data Centers</h3>
                     <ul>
-                        <li><strong>Security Policies:</strong> Available upon request for customers and partners</li>
-                        <li><strong>Compliance Documentation:</strong> SOC 2, ISO 27001, and other certifications shared with authorized users</li>
-                        <li><strong>Incident Reporting:</strong> Transparent communication in case of any security incidents</li>
-                        <li><strong>Data Processing Agreements:</strong> Comprehensive DPA available for all customers</li>
-                        <li><strong>Privacy Notices:</strong> Clear, understandable privacy policies for all services</li>
-                        <li><strong>Security Advisories:</strong> Regular updates on security practices and improvements</li>
-                    </ul>
-                    <h4>Data Processing Agreement</h4>
-                    <p>Our DPA is GDPR-compliant and covers all aspects of data processing, including:</p>
-                    <ul>
-                        <li>Data subject rights and obligations</li>
-                        <li>Sub-processor agreements</li>
-                        <li>Data transfer mechanisms</li>
-                        <li>Liability and indemnification</li>
+                        <li>Tier 3/Tier 4 certified facilities</li>
+                        <li>99.99% uptime SLA</li>
+                        <li>Redundant power and cooling</li>
+                        <li>24/7 physical security</li>
+                        <li>Geographically distributed backups</li>
                     </ul>
                 </div>
-            </div>
-
-            <!-- Contact for Trust Information -->
-            <div class="cta-section gradient-bg text-white mt-5">
-                <div class="cta-content">
-                    <h2>Have Security Questions?</h2>
-                    <p>Contact our security team for detailed information about our compliance and security practices</p>
-                    <div class="cta-buttons">
-                        <a href="mailto:security@chowdhuryx.com" class="btn btn-light btn-lg">Contact Security Team</a>
-                        <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Request Documentation</a>
-                    </div>
+                <div class="infra-item">
+                    <h3><i class="fas fa-network-wired"></i> Network Security</h3>
+                    <ul>
+                        <li>Enterprise-grade firewalls</li>
+                        <li>DDoS protection and mitigation</li>
+                        <li>Intrusion detection/prevention</li>
+                        <li>VPN and secure tunneling</li>
+                        <li>Network segmentation</li>
+                    </ul>
+                </div>
+                <div class="infra-item">
+                    <h3><i class="fas fa-database"></i> Database Security</h3>
+                    <ul>
+                        <li>Encrypted database storage</li>
+                        <li>Field-level encryption</li>
+                        <li>Database activity monitoring</li>
+                        <li>Automated backup and recovery</li>
+                        <li>Access logging and audit trails</li>
+                    </ul>
+                </div>
+                <div class="infra-item">
+                    <h3><i class="fas fa-users-shield"></i> Access Control</h3>
+                    <ul>
+                        <li>Role-based access control (RBAC)</li>
+                        <li>Multi-factor authentication (MFA)</li>
+                        <li>Single sign-on (SSO) integration</li>
+                        <li>Privileged access management</li>
+                        <li>Session management monitoring</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-</div>
 
-<style>
-.breadcrumb-section {
-    background-color: #f8f9fa;
-    padding: 20px 0;
-    border-bottom: 1px solid #dee2e6;
-}
-
-.breadcrumb {
-    margin: 0;
-    display: flex;
-    list-style: none;
-    padding: 0;
-}
-
-.breadcrumb li {
-    margin-right: 15px;
-}
-
-.breadcrumb a {
-    color: #0066cc;
-    text-decoration: none;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-.breadcrumb li.active {
-    color: #666;
-}
-
-.hero-section {
-    padding: 80px 0;
-    text-align: center;
-    color: white;
-}
-
-.hero-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
-
-.hero-section .lead {
-    font-size: 1.25rem;
-    margin: 0;
-    opacity: 0.95;
-}
-
-.trust-intro {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.8;
-}
-
-.trust-pillars {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin: 50px 0;
-}
-
-.pillar {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 30px;
-    transition: all 0.3s ease;
-}
-
-.pillar:hover {
-    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
-    border-color: #0066cc;
-    transform: translateY(-5px);
-}
-
-.pillar-icon {
-    font-size: 2.5rem;
-    color: #0066cc;
-    margin-bottom: 20px;
-}
-
-.pillar h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.pillar-content h4 {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 600;
-    margin: 20px 0 10px 0;
-}
-
-.pillar-content ul {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 15px;
-}
-
-.pillar-content ul li {
-    padding: 8px 0;
-    padding-left: 25px;
-    position: relative;
-    color: #555;
-}
-
-.pillar-content ul li:before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #0066cc;
-    font-weight: bold;
-}
-
-.compliance-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.compliance-table thead {
-    background: #0066cc;
-    color: white;
-}
-
-.compliance-table th {
-    padding: 15px;
-    text-align: left;
-    font-weight: 600;
-}
-
-.compliance-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.compliance-table tbody tr:hover {
-    background: #f8f9fa;
-}
-
-.badge {
-    padding: 4px 12px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    display: inline-block;
-}
-
-.badge-success {
-    background: #d4edda;
-    color: #155724;
-}
-
-.infrastructure-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.infra-item {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid #0066cc;
-}
-
-.infra-icon {
-    font-size: 2rem;
-    color: #0066cc;
-    margin-bottom: 15px;
-}
-
-.infra-item h4 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.infra-item ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.infra-item ul li {
-    padding: 6px 0;
-    color: #555;
-    font-size: 0.95rem;
-}
-
-.practices-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin: 30px 0;
-}
-
-.practice-card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 25px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.practice-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 102, 204, 0.1);
-    border-color: #0066cc;
-}
-
-.practice-number {
-    width: 40px;
-    height: 40px;
-    background: #0066cc;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin: 0 auto 15px;
-}
-
-.practice-card h4 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.practice-card p {
-    color: #666;
-    margin: 0;
-    font-size: 0.95rem;
-}
-
-.trust-indicators {
-    margin: 50px 0;
-}
-
-.indicators-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.indicator {
-    display: flex;
-    gap: 20px;
-    padding: 20px;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.indicator:hover {
-    box-shadow: 0 5px 15px rgba(0, 102, 204, 0.1);
-}
-
-.indicator-icon {
-    font-size: 2rem;
-    color: #0066cc;
-    flex-shrink: 0;
-}
-
-.indicator-text strong {
-    display: block;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.indicator-text p {
-    color: #666;
-    margin: 0;
-    font-size: 0.9rem;
-}
-
-.transparency-section h4 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.transparency-section p {
-    color: #555;
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.transparency-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.transparency-section ul li {
-    padding: 10px 0;
-    padding-left: 25px;
-    position: relative;
-    color: #555;
-}
-
-.transparency-section ul li:before {
-    content: "→";
-    position: absolute;
-    left: 0;
-    color: #0066cc;
-    font-weight: bold;
-}
-
-.cta-section {
-    padding: 80px 0;
-    text-align: center;
-    background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
-}
-
-.cta-content h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-.cta-content p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    opacity: 0.95;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.btn-light {
-    background: white;
-    color: #0066cc;
-}
-
-.btn-light:hover {
-    background: #f0f4ff;
-    color: #0052a3;
-}
-
-.btn-outline-light {
-    border: 2px solid white;
-    color: white;
-    background: transparent;
-}
-
-.btn-outline-light:hover {
-    background: white;
-    color: #0066cc;
-}
-
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 1.8rem;
-    }
-
-    .trust-pillars {
-        grid-template-columns: 1fr;
-    }
-
-    .compliance-table th,
-    .compliance-table td {
-        padding: 10px;
-        font-size: 0.85rem;
-    }
-
-    .infrastructure-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .practices-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .indicators-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .indicator {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .indicator-icon {
-        margin: 0 auto;
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-    }
-
-    .btn-lg {
-        width: 100%;
-    }
-}
-</style>
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Have Security Questions?</h2>
+            <p>Contact our security team for detailed information about our compliance and security practices</p>
+            <div>
+                <a href="mailto:security@chowdhuryx.com" class="btn btn-primary">Contact Security Team</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light">Request Documentation</a>
+            </div>
+        </section>
+    </div>
+</section>
 {% endblock %}

@@ -3,91 +3,130 @@
 {% block title %}Why Choose ChowdhuryX - Expert IT Solutions{% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
 <style>
+/* Why Choose Us - Custom Styles */
+
 /* Page Header */
 .page-header {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     color: white;
     padding: 5rem 2rem;
     text-align: center;
 }
 
 .page-header h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.5px;
+    color: white;
 }
 
 .page-header p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     opacity: 0.95;
     max-width: 700px;
     margin: 0 auto;
     font-weight: 300;
+    color: white;
 }
 
-/* Reasons Grid */
+/* Reasons Grid - 2 Columns */
 .reasons-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin: 3rem 0;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .reason-card {
     background: white;
-    border-radius: 12px;
-    padding: 2.5rem;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow);
-    border-top: 4px solid var(--brand-primary);
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.reason-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.reason-card:hover::before {
+    transform: scaleX(1);
 }
 
 .reason-card:hover {
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-8px);
+    border-color: rgba(0, 119, 182, 0.15);
 }
 
 .reason-icon {
     font-size: 2.5rem;
-    color: var(--brand-primary);
-    margin-bottom: 1.5rem;
+    color: white;
+    margin-bottom: 1.75rem;
     width: 70px;
     height: 70px;
-    background: var(--color-gray-50);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    transition: transform 0.3s ease;
+}
+
+.reason-card:hover .reason-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .reason-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--brand-primary);
     margin-bottom: 1rem;
     font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .reason-card p {
-    color: var(--color-gray-700);
+    color: var(--color-gray-900);
     line-height: 1.8;
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.98rem;
 }
 
 .reason-card ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    background: var(--color-gray-50);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
 }
 
 .reason-card li {
     padding: 0.5rem 0;
-    padding-left: 1.75rem;
+    padding-left: 2rem;
     position: relative;
-    color: var(--color-gray-700);
-    font-size: 0.95rem;
+    color: var(--color-gray-800);
+    font-size: 0.92rem;
+    font-weight: 500;
 }
 
 .reason-card li:before {
@@ -96,202 +135,15 @@
     left: 0;
     color: var(--color-success);
     font-weight: bold;
-    font-size: 1.2rem;
-}
-
-/* Statistics Section */
-.statistics-section {
-    background: var(--color-gray-50);
-    padding: 3rem 2rem;
-    border-radius: 12px;
-    margin: 4rem 0;
-}
-
-.statistics-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.stat-item {
-    text-align: center;
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--brand-primary);
-    line-height: 1;
-}
-
-.stat-label {
-    font-size: 1rem;
-    color: var(--color-gray-700);
-    margin-top: 0.5rem;
-    font-weight: 500;
-}
-
-/* Comparison Table */
-.comparison-section {
-    margin: 4rem 0;
-}
-
-.comparison-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--brand-primary);
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
-
-.comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-}
-
-.comparison-table thead {
-    background: var(--brand-primary);
-    color: white;
-}
-
-.comparison-table th {
-    padding: 1.5rem;
-    text-align: left;
-    font-weight: 700;
-    border-bottom: none;
-}
-
-.comparison-table td {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    color: var(--color-gray-700);
-}
-
-.comparison-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.comparison-table tbody tr:hover {
-    background: var(--color-gray-50);
-}
-
-.comparison-table .feature-name {
-    font-weight: 600;
-    color: var(--brand-primary);
-}
-
-.check-icon {
-    color: var(--color-success);
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-/* Testimonials */
-.testimonials-section {
-    margin: 4rem 0;
-}
-
-.testimonials-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--brand-primary);
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
-
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.testimonial-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-slow);
-}
-
-.testimonial-card:hover {
-    box-shadow: var(--shadow-lg);
-}
-
-.star-rating {
-    color: #ffc107;
     font-size: 1.1rem;
-    margin-bottom: 1rem;
-}
-
-.testimonial-text {
-    color: var(--color-gray-700);
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-    font-size: 0.95rem;
-}
-
-.testimonial-author {
-    font-weight: 600;
-    color: var(--brand-primary);
-    margin-bottom: 0.25rem;
-}
-
-.testimonial-title {
-    font-size: 0.85rem;
-    color: var(--color-gray-600);
-}
-
-/* Commitments */
-.commitments-section {
-    background: var(--color-gray-50);
-    padding: 3rem 2rem;
-    border-radius: 12px;
-    margin: 4rem 0;
-}
-
-.commitments-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--brand-primary);
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
-
-.commitments-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.commitment-item {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.commitment-icon {
-    font-size: 2rem;
-    color: var(--brand-primary);
-    margin-bottom: 1rem;
-}
-
-.commitment-item h3 {
-    font-size: 1.2rem;
-    color: var(--brand-primary);
-    margin-bottom: 0.75rem;
-    font-weight: 700;
-}
-
-.commitment-item p {
-    color: var(--color-gray-700);
-    font-size: 0.95rem;
-    line-height: 1.6;
+    background: rgba(16, 185, 129, 0.1);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
 }
 
 /* CTA Section */
@@ -300,15 +152,17 @@
     color: white;
     padding: 4rem 2rem;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 4rem 0;
+    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.2);
 }
 
 .cta-section h2 {
     color: white;
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin-bottom: 1rem;
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .cta-section p {
@@ -316,52 +170,52 @@
     opacity: 0.95;
     max-width: 600px;
     margin: 1rem auto 2rem;
+    color: white;
+    line-height: 1.6;
 }
 
 .cta-section .btn {
     background: var(--brand-secondary);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .cta-section .btn:hover {
-    background: var(--brand-secondary-light);
+    background: var(--brand-secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.4);
 }
 
 @media (max-width: 768px) {
     .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .page-header p {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .reasons-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
-    .testimonials-grid {
-        grid-template-columns: 1fr;
+    .reason-card {
+        padding: 2rem;
     }
 
-    .commitments-grid {
-        grid-template-columns: 1fr;
+    .cta-section {
+        padding: 2.5rem 1.5rem;
     }
 
-    .comparison-table {
-        font-size: 0.9rem;
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-        padding: 1rem;
-    }
-
-    .statistics-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .cta-section h2 {
+        font-size: 1.75rem;
     }
 }
 </style>
@@ -372,7 +226,7 @@
 <section class="page-header">
     <div class="container">
         <h1>Why Choose ChowdhuryX?</h1>
-        <p>Partner with a trusted leader in enterprise IT solutions, AI innovation, and business transformation</p>
+        <p>Partner with a trusted leader in enterprise IT solutions and business transformation</p>
     </div>
 </section>
 
@@ -381,333 +235,119 @@
     <div class="container">
         <!-- Core Reasons Section -->
         <div class="reasons-grid">
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <h3>US-Based Operations</h3>
-                        <p>Headquartered in Sheridan, Wyoming with 24/7 operational support. US-managed quality control ensures consistent excellence. Direct communication with your account team without timezone constraints.</p>
-                        <ul>
-                            <li>✓ Sheridan, Wyoming Headquarters</li>
-                            <li>✓ 24/7 Support Coverage</li>
-                            <li>✓ US-Based Quality Control</li>
-                            <li>✓ No Timezone Delays</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 3 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-users-cog"></i>
-                        </div>
-                        <h3>Expert Team</h3>
-                        <p>Deep expertise across AI/ML, software development, BPO, IT consulting, and staffing. Experienced professionals with certifications and years of enterprise experience. Continuous learning culture.</p>
-                        <ul>
-                            <li>✓ Multi-discipline Expertise</li>
-                            <li>✓ Enterprise Experience</li>
-                            <li>✓ Industry Certifications</li>
-                            <li>✓ Continuous Training</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 4 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Proven Track Record</h3>
-                        <p>Successfully delivered 150+ projects across diverse industries. 98% client satisfaction rate. Trusted by startups to Fortune 500 companies. $500M+ in value created for clients.</p>
-                        <ul>
-                            <li>✓ 150+ Successful Projects</li>
-                            <li>✓ 98% Satisfaction Rate</li>
-                            <li>✓ Global Client Base</li>
-                            <li>✓ $500M+ Value Created</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 5 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <h3>Security & Compliance</h3>
-                        <p>Enterprise-grade security protocols. HIPAA, GDPR, SOC 2 compliance ready. Data privacy is our priority. Secure infrastructure with regular audits and penetration testing.</p>
-                        <ul>
-                            <li>✓ HIPAA Compliant Systems</li>
-                            <li>✓ GDPR Ready</li>
-                            <li>✓ SOC 2 Type II</li>
-                            <li>✓ Regular Security Audits</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 6 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <h3>Flexible Partnerships</h3>
-                        <p>Tailored engagement models to fit your needs. Time & Materials, Fixed Price, Retainer, or Dedicated Teams. Scalable solutions that grow with your business. No long-term lock-in required.</p>
-                        <ul>
-                            <li>✓ Multiple Engagement Models</li>
-                            <li>✓ Scalable Solutions</li>
-                            <li>✓ Flexible Terms</li>
-                            <li>✓ Growth-Oriented</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 7 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-rocket"></i>
-                        </div>
-                        <h3>Innovation Focus</h3>
-                        <p>Cutting-edge technology stack. AI/ML integration in all solutions. Cloud-native architecture. Continuous innovation and R&D investments.</p>
-                        <ul>
-                            <li>✓ Latest Technologies</li>
-                            <li>✓ AI/ML Integration</li>
-                            <li>✓ Cloud-Native Design</li>
-                            <li>✓ R&D Investments</li>
-                        </ul>
-                    </div>
-
-                    <!-- Reason 8 -->
-                    <div class="reason-card">
-                        <div class="reason-icon">
-                            <i class="fas fa-dollar-sign"></i>
-                        </div>
-                        <h3>Cost Efficiency</h3>
-                        <p>Transparent pricing with no hidden costs. Elite talent at accessible rates. ROI-focused solutions. Significant cost savings without compromising quality.</p>
-                        <ul>
-                            <li>✓ Transparent Pricing</li>
-                            <li>✓ No Hidden Costs</li>
-                            <li>✓ ROI Focused</li>
-                            <li>✓ Accessible Rates</li>
-                        </ul>
-                    </div>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-globe"></i>
                 </div>
+                <h3>US-Based Operations</h3>
+                <p>Headquartered in Sheridan, Wyoming with 24/7 operational support and direct team access.</p>
+                <ul>
+                    <li>US-managed quality control</li>
+                    <li>24/7 Support Coverage</li>
+                    <li>No Timezone Delays</li>
+                </ul>
             </div>
 
-            <!-- Detailed Comparison Section -->
-            <div class="comparison-section mt-5">
-                <h2 class="text-center mb-5">How We Compare</h2>
-                <div class="table-responsive">
-                    <table class="comparison-table">
-                        <thead>
-                            <tr>
-                                <th>Criteria</th>
-                                <th>ChowdhuryX</th>
-                                <th>Traditional Agencies</th>
-                                <th>Freelancers</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Team Expertise</strong></td>
-                                <td><span class="badge badge-check">✓ Multi-discipline</span></td>
-                                <td><span class="badge badge-check">✓ Specialized</span></td>
-                                <td><span class="badge badge-warning">⚠ Limited</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Availability</strong></td>
-                                <td><span class="badge badge-check">✓ 24/7</span></td>
-                                <td><span class="badge badge-check">✓ Business hours</span></td>
-                                <td><span class="badge badge-warning">⚠ Variable</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Scalability</strong></td>
-                                <td><span class="badge badge-check">✓ Highly Scalable</span></td>
-                                <td><span class="badge badge-check">✓ Scalable</span></td>
-                                <td><span class="badge badge-warning">⚠ Limited</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Quality Assurance</strong></td>
-                                <td><span class="badge badge-check">✓ Rigorous QA</span></td>
-                                <td><span class="badge badge-check">✓ Standard QA</span></td>
-                                <td><span class="badge badge-warning">⚠ Self-managed</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Compliance</strong></td>
-                                <td><span class="badge badge-check">✓ Full Compliance</span></td>
-                                <td><span class="badge badge-check">✓ Certified</span></td>
-                                <td><span class="badge badge-warning">⚠ Variable</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Pricing</strong></td>
-                                <td><span class="badge badge-check">✓ Transparent</span></td>
-                                <td><span class="badge badge-warning">⚠ Premium</span></td>
-                                <td><span class="badge badge-check">✓ Affordable</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Account Management</strong></td>
-                                <td><span class="badge badge-check">✓ Dedicated PM</span></td>
-                                <td><span class="badge badge-check">✓ Assigned PM</span></td>
-                                <td><span class="badge badge-warning">⚠ None</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Track Record</strong></td>
-                                <td><span class="badge badge-check">✓ 150+ Projects</span></td>
-                                <td><span class="badge badge-check">✓ Extensive</span></td>
-                                <td><span class="badge badge-warning">⚠ Variable</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Support</strong></td>
-                                <td><span class="badge badge-check">✓ 24/7 Support</span></td>
-                                <td><span class="badge badge-check">✓ Business hours</span></td>
-                                <td><span class="badge badge-warning">⚠ Email only</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-users-cog"></i>
                 </div>
+                <h3>Expert Team</h3>
+                <p>Deep expertise across AI/ML, software development, BPO, and IT consulting with enterprise experience.</p>
+                <ul>
+                    <li>Multi-discipline Expertise</li>
+                    <li>Industry Certifications</li>
+                    <li>Continuous Training</li>
+                </ul>
             </div>
 
-            <!-- Client Success Stories -->
-            <div class="success-stories mt-5">
-                <h2 class="text-center mb-5">Client Success Stories</h2>
-                <div class="stories-grid">
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="star-rating">
-                                ★★★★★
-                            </div>
-                            <span class="quote-icon">"</span>
-                        </div>
-                        <p class="story-text">ChowdhuryX transformed our outdated IT infrastructure into a modern, cloud-based system. The team was professional, responsive, and delivered on time.</p>
-                        <div class="story-footer">
-                            <div class="author-name">Sarah Johnson</div>
-                            <div class="author-title">CTO, Tech Startup</div>
-                        </div>
-                    </div>
-
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="star-rating">
-                                ★★★★★
-                            </div>
-                            <span class="quote-icon">"</span>
-                        </div>
-                        <p class="story-text">Their AI/ML expertise helped us build a predictive analytics platform that reduced our operational costs by 40%. Highly recommended!</p>
-                        <div class="story-footer">
-                            <div class="author-name">Michael Chen</div>
-                            <div class="author-title">VP Operations, Enterprise Corp</div>
-                        </div>
-                    </div>
-
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="star-rating">
-                                ★★★★★
-                            </div>
-                            <span class="quote-icon">"</span>
-                        </div>
-                        <p class="story-text">The BPO services provided by ChowdhuryX improved our customer support quality significantly. Their team is trained, professional, and truly customer-centric.</p>
-                        <div class="story-footer">
-                            <div class="author-name">Jessica Rodriguez</div>
-                            <div class="author-title">Customer Success Manager, E-commerce</div>
-                        </div>
-                    </div>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-chart-line"></i>
                 </div>
+                <h3>Proven Track Record</h3>
+                <p>150+ successful projects across diverse industries with 98% client satisfaction rate.</p>
+                <ul>
+                    <li>150+ Successful Projects</li>
+                    <li>98% Satisfaction Rate</li>
+                    <li>Global Client Base</li>
+                </ul>
             </div>
 
-            <!-- Commitment Section -->
-            <div class="commitment-section bg-gradient p-5 rounded text-white mt-5">
-        <!-- Commitments Section -->
-        <div class="commitments-section">
-            <h2>Our Commitment to You</h2>
-            <div class="commitments-grid">
-                <div class="commitment-item">
-                    <div class="commitment-icon"><i class="fas fa-check-circle"></i></div>
-                    <h3>Quality First</h3>
-                    <p>We never compromise on quality. Every project undergoes rigorous testing and quality assurance.</p>
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-lock"></i>
                 </div>
-                <div class="commitment-item">
-                    <div class="commitment-icon"><i class="fas fa-comments"></i></div>
-                    <h3>Transparent Communication</h3>
-                    <p>Regular updates, clear timelines, and honest conversations. You're always in the loop.</p>
+                <h3>Security & Compliance</h3>
+                <p>Enterprise-grade security protocols with HIPAA, GDPR, and SOC 2 compliance.</p>
+                <ul>
+                    <li>HIPAA Compliant Systems</li>
+                    <li>GDPR Ready</li>
+                    <li>SOC 2 Type II Certified</li>
+                </ul>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-handshake"></i>
                 </div>
-                <div class="commitment-item">
-                    <div class="commitment-icon"><i class="fas fa-clock"></i></div>
-                    <h3>On-Time Delivery</h3>
-                    <p>We respect your timelines and deliver on schedule, every time.</p>
+                <h3>Flexible Partnerships</h3>
+                <p>Tailored engagement models to fit your needs with scalable solutions that grow with your business.</p>
+                <ul>
+                    <li>Multiple Engagement Models</li>
+                    <li>Scalable Solutions</li>
+                    <li>Flexible Terms</li>
+                </ul>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-rocket"></i>
                 </div>
-                <div class="commitment-item">
-                    <div class="commitment-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>Long-term Partnership</h3>
-                    <p>Your success is our success. We're invested in your long-term growth and success.</p>
+                <h3>Innovation Focus</h3>
+                <p>Cutting-edge technology stack with AI/ML integration and cloud-native architecture.</p>
+                <ul>
+                    <li>Latest Technologies</li>
+                    <li>AI/ML Integration</li>
+                    <li>Cloud-Native Design</li>
+                </ul>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-dollar-sign"></i>
                 </div>
+                <h3>Cost Efficiency</h3>
+                <p>Transparent pricing with elite talent at accessible rates and ROI-focused solutions.</p>
+                <ul>
+                    <li>Transparent Pricing</li>
+                    <li>No Hidden Costs</li>
+                    <li>ROI Focused</li>
+                </ul>
+            </div>
+
+            <div class="reason-card">
+                <div class="reason-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3>Quality Assurance</h3>
+                <p>Rigorous QA processes and quality-first approach to every project we deliver.</p>
+                <ul>
+                    <li>Rigorous QA Process</li>
+                    <li>Quality First Always</li>
+                    <li>On-Time Delivery</li>
+                </ul>
             </div>
         </div>
 
         <!-- CTA Section -->
         <section class="cta-section">
-            <h2>Experience the ChowdhuryX Difference</h2>
-            <p>Ready to partner with a team that truly cares about your success?</p>
+            <h2>Ready to Get Started?</h2>
+            <p>Experience the ChowdhuryX difference and transform your business today</p>
             <a href="{{ url_for('contact') }}" class="btn btn-primary">Start Your Project</a>
         </section>
     </div>
 </section>
 {% endblock %}
-}
-
-.hero-section .lead {
-    font-size: 1.25rem;
-    margin: 0;
-    opacity: 0.95;
-}
-
-.reasons-section h2 {
-    color: #333;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.reasons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin: 50px 0;
-}
-
-.reason-card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 30px;
-    transition: all 0.3s ease;
-}
-
-.reason-card:hover {
-    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
-    border-color: #0066cc;
-    transform: translateY(-5px);
-}
-
-.reason-icon {
-    font-size: 2.5rem;
-    color: #0066cc;
-    margin-bottom: 20px;
-}
-
-.reason-card h3 {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.reason-card p {
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
-
-.reason-card ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.reason-card ul li {
-    padding: 8px 0;
-    color: #555;
-}
 
 

@@ -231,8 +231,11 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="quick-actions mt-5">
-                <h2 class="mb-4">Quick Actions</h2>
+            <div class="quick-actions my-5 py-5 border-top border-bottom">
+                <div class="text-center mb-4">
+                    <h2>Your Cookie Preferences</h2>
+                    <p class="text-muted">Make your choices below and save your preferences</p>
+                </div>
                 <div class="actions-grid">
                     <button class="action-button" id="accept-all-btn">
                         <i class="fas fa-check-circle"></i>
@@ -253,9 +256,14 @@
                 </div>
             </div>
 
+            <!-- Separator -->
+            <div class="my-5 py-4 text-center border-bottom">
+                <h2>Need Help Managing Cookies?</h2>
+                <p class="text-muted">Follow the steps below for your browser</p>
+            </div>
+
             <!-- How to Clear Cookies -->
-            <div class="instructions-section mt-5 bg-light p-5 rounded">
-                <h2 class="mb-4">How to Clear Cookies from Your Browser</h2>
+            <div class="instructions-section mt-5 mb-5">
                 <div class="browser-instructions">
                     <div class="browser-tab">
                         <h4><i class="fab fa-chrome"></i> Google Chrome</h4>
@@ -496,11 +504,20 @@
 
 .quick-actions {
     text-align: center;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px 0;
 }
 
 .quick-actions h2 {
     color: #333;
     font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.quick-actions p {
+    color: #666;
     margin-bottom: 30px;
 }
 
@@ -508,6 +525,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.instructions-section {
+    margin: 60px 0 40px 0;
 }
 
 .action-button {
@@ -545,6 +568,8 @@
 .instructions-section h2 {
     color: #333;
     font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .browser-instructions {

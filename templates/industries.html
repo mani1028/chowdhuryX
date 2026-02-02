@@ -13,12 +13,13 @@
 }
 
 .page-header h1 { 
-    color: white; 
+    color: rgb(0, 0, 0) !important; 
     font-size: 2.5rem; 
     margin-bottom: 0.5rem; 
 }
 
 .page-header p { 
+    color: rgb(0, 0, 0) !important;
     font-size: 1.1rem;
     opacity: 0.95;
 }
@@ -42,6 +43,9 @@
     cursor: pointer;
     text-decoration: none;
     color: inherit;
+    border-top: 4px solid var(--primary-color);
+    position: relative;
+    overflow: hidden;
 }
 
 .industry-card:hover {
@@ -50,6 +54,25 @@
     text-decoration: none;
     color: inherit;
 }
+
+/* Color coding for industries */
+.industry-card:nth-child(1) { border-top-color: #e74c3c; }
+.industry-card:nth-child(1) .industry-icon { color: #e74c3c; }
+
+.industry-card:nth-child(2) { border-top-color: #3498db; }
+.industry-card:nth-child(2) .industry-icon { color: #3498db; }
+
+.industry-card:nth-child(3) { border-top-color: #f39c12; }
+.industry-card:nth-child(3) .industry-icon { color: #f39c12; }
+
+.industry-card:nth-child(4) { border-top-color: #27ae60; }
+.industry-card:nth-child(4) .industry-icon { color: #27ae60; }
+
+.industry-card:nth-child(5) { border-top-color: #9b59b6; }
+.industry-card:nth-child(5) .industry-icon { color: #9b59b6; }
+
+.industry-card:nth-child(6) { border-top-color: #1abc9c; }
+.industry-card:nth-child(6) .industry-icon { color: #1abc9c; }
 
 .industry-card a {
     text-decoration: none;
@@ -72,7 +95,7 @@
 }
 
 .industry-card p {
-    color: var(--gray);
+    color: var(--color-gray-900, #1a1a1a);
     line-height: 1.8;
     flex-grow: 1;
     margin-bottom: 1.5rem;
@@ -101,16 +124,17 @@
 }
 
 .cta-section h2 {
-    color: white;
+    color: rgb(0, 0, 0) !important;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 .cta-section p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgb(0, 0, 0) !important;
     font-size: 1.1rem;
     max-width: 600px;
     margin: 1rem auto 2rem;
+    opacity: 0.95;
 }
 
 .cta-buttons {
@@ -118,6 +142,7 @@
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+    border-color: var(--brand-primary);
 }
 
 .cta-buttons .btn {

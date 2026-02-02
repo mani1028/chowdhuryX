@@ -110,7 +110,7 @@
             <!-- Contact Form -->
             <div class="contact-form-wrapper">
                 <h2>Send us a Message</h2>
-                <form id="contactForm" class="contact-form" method="POST">
+                <form id="contactForm" class="contact-form" method="POST" action="{{ url_for('contact') }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     
                     <div class="form-group">

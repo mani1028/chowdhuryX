@@ -3,112 +3,155 @@
 {% block title %}Engagement Models - ChowdhuryX{% endblock %}
 
 {% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
 <style>
+/* Engagement Models - Custom Styles */
+
 /* Page Header */
 .page-header {
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     color: white;
     padding: 5rem 2rem;
     text-align: center;
 }
 
 .page-header h1 {
-    font-size: 2.75rem;
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.5px;
+    color: white;
 }
 
 .page-header p {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     opacity: 0.95;
     max-width: 700px;
     margin: 0 auto;
     font-weight: 300;
+    color: white;
 }
 
 /* Section Intro */
 .section-intro {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 .section-intro p {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--color-gray-700);
     max-width: 800px;
     margin: 0 auto;
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
-/* Engagement Models Grid */
+/* Engagement Models Grid - 3 Columns */
 .engagement-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .engagement-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 2.5rem;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-slow);
-    border-top: 4px solid var(--brand-primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.engagement-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.engagement-card:hover::before {
+    transform: scaleX(1);
 }
 
 .engagement-card:hover {
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.08);
     transform: translateY(-8px);
+    border-color: rgba(0, 119, 182, 0.15);
 }
 
 .engagement-icon {
     font-size: 2.5rem;
-    color: var(--brand-primary);
-    margin-bottom: 1.5rem;
+    color: white;
+    margin-bottom: 1.75rem;
     width: 70px;
     height: 70px;
-    background: var(--color-gray-50);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    transition: transform 0.3s ease;
+}
+
+.engagement-card:hover .engagement-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .engagement-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: var(--brand-primary);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .engagement-card .description {
-    color: var(--color-gray-600);
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
-    line-height: 1.6;
+    color: var(--color-gray-900);
+    margin-bottom: 1.75rem;
+    font-size: 0.98rem;
+    line-height: 1.7;
 }
 
 .engagement-card h4 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--brand-primary);
     margin-top: 1.5rem;
     margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
 }
 
 .engagement-card ul {
     list-style: none;
     padding: 0;
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
+    background: var(--color-gray-50);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
 }
 
 .engagement-card li {
-    padding: 0.5rem 0;
-    padding-left: 1.75rem;
+    padding: 0.4rem 0;
+    padding-left: 2rem;
     position: relative;
-    color: var(--color-gray-700);
+    color: var(--color-gray-800);
+    font-size: 0.92rem;
+    font-weight: 500;
 }
 
 .engagement-card li:before {
@@ -117,92 +160,14 @@
     left: 0;
     color: var(--color-success);
     font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.engagement-pricing {
-    background: var(--color-gray-50);
-    padding: 1rem;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-}
-
-.engagement-pricing h5 {
-    font-size: 0.9rem;
-    color: var(--color-gray-600);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.engagement-pricing .price {
-    font-size: 1.5rem;
-    color: var(--brand-primary);
-    font-weight: 700;
-}
-
-/* Comparison Table */
-.comparison-section {
-    margin: 4rem 0;
-}
-
-.comparison-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--brand-primary);
-    margin-bottom: 2rem;
-    font-weight: 700;
-}
-
-.comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-}
-
-.comparison-table thead {
-    background: var(--brand-primary);
-    color: white;
-}
-
-.comparison-table th {
-    padding: 1.5rem;
-    text-align: left;
-    font-weight: 700;
-    border-bottom: none;
-}
-
-.comparison-table td {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    color: var(--color-gray-700);
-}
-
-.comparison-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.comparison-table tbody tr:hover {
-    background: var(--color-gray-50);
-}
-
-.comparison-table .feature-name {
-    font-weight: 600;
-    color: var(--brand-primary);
-}
-
-.check-mark {
-    color: var(--color-success);
-    font-weight: bold;
-    font-size: 1.2rem;
-}
-
-.cross-mark {
-    color: var(--color-error);
-    font-weight: bold;
+    background: rgba(16, 185, 129, 0.1);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
 }
 
 /* Selection Guide */
@@ -210,7 +175,7 @@
     background: var(--color-gray-50);
     padding: 3rem 2rem;
     border-radius: 12px;
-    margin: 4rem 0;
+    margin: 3rem 0;
 }
 
 .selection-guide h2 {
@@ -223,7 +188,7 @@
 
 .guide-steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 2rem;
 }
 
@@ -232,24 +197,25 @@
     padding: 2rem;
     border-radius: 8px;
     box-shadow: var(--shadow-sm);
+    text-align: center;
 }
 
 .step-number {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     background: var(--brand-primary);
     color: white;
     border-radius: 50%;
     font-weight: 700;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    margin: 0 auto 1rem;
 }
 
 .guide-step h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--brand-primary);
     margin-bottom: 0.75rem;
     font-weight: 700;
@@ -258,7 +224,7 @@
 .guide-step p {
     color: var(--color-gray-700);
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 /* CTA Section */
@@ -267,15 +233,17 @@
     color: white;
     padding: 4rem 2rem;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 4rem 0;
+    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.2);
 }
 
 .cta-section h2 {
     color: white;
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin-bottom: 1rem;
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .cta-section p {
@@ -283,41 +251,44 @@
     opacity: 0.95;
     max-width: 600px;
     margin: 1rem auto 2rem;
+    color: white;
+    line-height: 1.6;
 }
 
 .cta-section .btn {
     background: var(--brand-secondary);
     color: white;
     border: none;
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     font-size: 1rem;
-    margin: 0 0.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 .cta-section .btn:hover {
-    background: var(--brand-secondary-light);
+    background: var(--brand-secondary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.4);
 }
 
 @media (max-width: 768px) {
     .page-header h1 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
 
     .page-header p {
-        font-size: 1rem;
+        font-size: 0.95rem;
     }
 
     .engagement-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
-    .comparison-table {
-        font-size: 0.9rem;
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-        padding: 1rem;
+    .engagement-card {
+        padding: 2rem;
     }
 
     .guide-steps {
@@ -325,7 +296,18 @@
     }
 
     .cta-section {
-        padding: 2rem;
+        padding: 2.5rem 1.5rem;
+    }
+
+    .cta-section h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+    .engagement-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem;
     }
 }
 </style>
@@ -336,7 +318,7 @@
 <section class="page-header">
     <div class="container">
         <h1>Flexible Engagement Models</h1>
-        <p>Choose the right partnership model that aligns with your business needs and growth objectives</p>
+        <p>Choose the right partnership model that aligns with your business needs</p>
     </div>
 </section>
 
@@ -344,259 +326,150 @@
 <section class="section-white">
     <div class="container">
         <div class="section-intro">
-            <p>At ChowdhuryX, we understand that every business has unique requirements. That's why we offer flexible engagement models designed to scale with your needs, whether you're a startup, growing company, or enterprise organization.</p>
+            <p>At ChowdhuryX, we understand that every business has unique requirements. We offer flexible engagement models designed to scale with your needs, whether you're a startup or enterprise.</p>
         </div>
 
         <!-- Engagement Models Grid -->
         <div class="engagement-grid">
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Pay only for work delivered</li>
-                        <li>Flexible scope adjustments</li>
-                        <li>Quick iteration cycles</li>
-                        <li>Full transparency in billing</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>You pay based on the actual time spent and materials used. Our team works on your project with flexible hours and can pivot direction as needed. Perfect for discovery and experimental phases.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Starting at</span>
-                        <span class="price">$50/hour</span>
-                    </div>
+            <!-- Model 1: Time & Materials -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-clock"></i>
                 </div>
+                <h3>Time & Materials</h3>
+                <p class="description">Pay only for work delivered with flexible scope adjustments.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Discovery and experimental phases</li>
+                    <li>Evolving requirements</li>
+                    <li>Flexible timeline projects</li>
+                </ul>
 
-                <!-- Model 2: Fixed Price -->
-                <div class="engagement-card">
-                    <div class="engagement-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Fixed Price</h3>
-                    <p class="description">Ideal for well-defined projects with clear scope and deliverables.</p>
-                    
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Clearly defined project scope</li>
-                        <li>Website and app development</li>
-                        <li>Specific feature implementations</li>
-                        <li>Migration projects</li>
-                    </ul>
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Predictable budget and timeline</li>
-                        <li>Detailed specification required</li>
-                        <li>Clear acceptance criteria</li>
-                        <li>Reduced financial risk</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>We quote a fixed price for the entire project based on detailed specifications. You know the cost upfront, and we deliver within the agreed timeline and scope. Ideal for well-defined projects.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Based on Scope</span>
-                        <span class="price">$10K - $500K+</span>
-                    </div>
-                </div>
-
-                <!-- Model 3: Retainer -->
-                <div class="engagement-card">
-                    <div class="engagement-icon">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <h3>Retainer</h3>
-                    <p class="description">Long-term partnership for ongoing support, maintenance, and continuous development.</p>
-                    
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Ongoing maintenance and support</li>
-                        <li>Continuous feature development</li>
-                        <li>Dedicated team engagement</li>
-                        <li>Long-term partnerships</li>
-                    </ul>
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Dedicated team available</li>
-                        <li>Priority support and response</li>
-                        <li>Cost predictability</li>
-                        <li>Flexible hour allocation</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>Secure a dedicated team or set number of hours monthly. Perfect for companies that need ongoing development, maintenance, and support. Your team becomes an extension of your organization.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Monthly Starting at</span>
-                        <span class="price">$5,000</span>
-                    </div>
-                </div>
-
-                <!-- Model 4: Dedicated Team -->
-                <div class="engagement-card">
-                    <div class="engagement-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3>Dedicated Team</h3>
-                    <p class="description">Full-time dedicated team members who work exclusively on your project.</p>
-                    
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Product development companies</li>
-                        <li>Scaling operations quickly</li>
-                        <li>Building new teams</li>
-                        <li>Multi-year projects</li>
-                    </ul>
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Exclusive team focus</li>
-                        <li>Team building flexibility</li>
-                        <li>Deep product understanding</li>
-                        <li>Seamless integration</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>We assemble a dedicated team that works exclusively for you. You have direct management control, and the team integrates seamlessly with your organization. Ideal for scaling rapidly.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Per Team Member</span>
-                        <span class="price">$3,000 - $8,000/mo</span>
-                    </div>
-                </div>
-
-                <!-- Model 5: Staff Augmentation -->
-                <div class="engagement-card">
-                    <div class="engagement-icon">
-                        <i class="fas fa-arrow-right"></i>
-                    </div>
-                    <h3>Staff Augmentation</h3>
-                    <p class="description">Extend your team with specialized professionals for specific skills or capacity.</p>
-                    
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Filling skill gaps</li>
-                        <li>Handling peak workloads</li>
-                        <li>Special expertise needs</li>
-                        <li>Temporary capacity increase</li>
-                    </ul>
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Fill specific skill gaps</li>
-                        <li>Quick onboarding</li>
-                        <li>Cost-effective scaling</li>
-                        <li>Your team manages them</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>We provide specialized professionals who report to your management. Ideal for handling workload spikes, acquiring specialized skills, or bridging knowledge gaps without permanent hiring.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Per Resource</span>
-                        <span class="price">$2,500 - $7,000/mo</span>
-                    </div>
-                </div>
-
-                <!-- Model 6: Hybrid -->
-                <div class="engagement-card">
-                    <div class="engagement-icon">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <h3>Hybrid Engagement</h3>
-                    <p class="description">Combine multiple models to create the perfect engagement structure for your needs.</p>
-                    
-                    <h4>Best For:</h4>
-                    <ul>
-                        <li>Complex projects spanning phases</li>
-                        <li>Uncertain requirements initially</li>
-                        <li>Teams needing flexibility</li>
-                        <li>Growing companies</li>
-                    </ul>
-
-                    <h4>Key Benefits:</h4>
-                    <ul>
-                        <li>Maximum flexibility</li>
-                        <li>Customizable to your needs</li>
-                        <li>Scalable approach</li>
-                        <li>Risk balanced engagement</li>
-                    </ul>
-
-                    <h4>How It Works:</h4>
-                    <p>Combine Time & Materials for discovery with Fixed Price for execution, or mix Retainer with Staff Augmentation. We work with you to design the perfect model for your situation.</p>
-
-                    <div class="price-tag">
-                        <span class="label">Customized Pricing</span>
-                        <span class="price">Contact Us</span>
-                    </div>
-                </div>
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Full transparency in billing</li>
+                    <li>Quick iteration cycles</li>
+                    <li>Flexible scope adjustments</li>
+                </ul>
             </div>
 
-            <!-- Comparison Table -->
-            <div class="comparison-section mt-5">
-                <h2 class="text-center mb-4">Engagement Model Comparison</h2>
-                <div class="table-responsive">
-                    <table class="comparison-table">
-                        <thead>
-                            <tr>
-                                <th>Aspect</th>
-                                <th>Time & Materials</th>
-                                <th>Fixed Price</th>
-                                <th>Retainer</th>
-                                <th>Dedicated Team</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Cost Predictability</strong></td>
-                                <td><span class="badge badge-warning">Low</span></td>
-                                <td><span class="badge badge-success">High</span></td>
-                                <td><span class="badge badge-success">High</span></td>
-                                <td><span class="badge badge-success">High</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Flexibility</strong></td>
-                                <td><span class="badge badge-success">High</span></td>
-                                <td><span class="badge badge-warning">Low</span></td>
-                                <td><span class="badge badge-success">High</span></td>
-                                <td><span class="badge badge-success">High</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Team Commitment</strong></td>
-                                <td><span class="badge badge-warning">Variable</span></td>
-                                <td><span class="badge badge-info">Project-based</span></td>
-                                <td><span class="badge badge-info">Part-time</span></td>
-                                <td><span class="badge badge-success">Full-time</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Best Timeline</strong></td>
-                                <td>3-12 months</td>
-                                <td>1-6 months</td>
-                                <td>6 months+</td>
-                                <td>12 months+</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ideal Project Size</strong></td>
-                                <td>$10K - $100K</td>
-                                <td>$20K - $300K</td>
-                                <td>$5K - $30K/mo</td>
-                                <td>$30K+ /month</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Scope Changes</strong></td>
-                                <td>Easy</td>
-                                <td>Requires negotiation</td>
-                                <td>Easy</td>
-                                <td>Very Easy</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Model 2: Fixed Price -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-handshake"></i>
                 </div>
+                <h3>Fixed Price</h3>
+                <p class="description">Predictable budget and timeline for well-defined projects.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Website and app development</li>
+                    <li>Feature implementations</li>
+                    <li>Migration projects</li>
+                </ul>
+
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Predictable budget and timeline</li>
+                    <li>Clear acceptance criteria</li>
+                    <li>Reduced financial risk</li>
+                </ul>
             </div>
 
-            <!-- Selection Guide -->
-            <div class="selection-guide mt-5 p-4 bg-light rounded">
+            <!-- Model 3: Retainer -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3>Retainer</h3>
+                <p class="description">Long-term partnership for ongoing support and continuous development.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Ongoing maintenance and support</li>
+                    <li>Continuous feature development</li>
+                    <li>Long-term partnerships</li>
+                </ul>
+
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Dedicated team available</li>
+                    <li>Priority support and response</li>
+                    <li>Cost predictability</li>
+                </ul>
+            </div>
+
+            <!-- Model 4: Dedicated Team -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Dedicated Team</h3>
+                <p class="description">Full-time team members working exclusively on your project.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Product development</li>
+                    <li>Scaling operations quickly</li>
+                    <li>Multi-year projects</li>
+                </ul>
+
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Exclusive team focus</li>
+                    <li>Deep product understanding</li>
+                    <li>Seamless integration</li>
+                </ul>
+            </div>
+
+            <!-- Model 5: Staff Augmentation -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <h3>Staff Augmentation</h3>
+                <p class="description">Extend your team with specialized professionals for specific skills.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Filling skill gaps</li>
+                    <li>Handling peak workloads</li>
+                    <li>Special expertise needs</li>
+                </ul>
+
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Quick onboarding</li>
+                    <li>Cost-effective scaling</li>
+                    <li>Your team manages them</li>
+                </ul>
+            </div>
+
+            <!-- Model 6: Hybrid -->
+            <div class="engagement-card">
+                <div class="engagement-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Hybrid Engagement</h3>
+                <p class="description">Combine multiple models for your perfect engagement structure.</p>
+                
+                <h4>Best For:</h4>
+                <ul>
+                    <li>Complex multi-phase projects</li>
+                    <li>Uncertain requirements</li>
+                    <li>Growing companies</li>
+                </ul>
+
+                <h4>Key Benefits:</h4>
+                <ul>
+                    <li>Maximum flexibility</li>
+                    <li>Customizable approach</li>
+                    <li>Risk balanced engagement</li>
+                </ul>
+            </div>
+        </div>
+
         <!-- Selection Guide -->
         <div class="selection-guide">
             <h2>How to Choose Your Engagement Model</h2>
@@ -604,22 +477,22 @@
                 <div class="guide-step">
                     <div class="step-number">1</div>
                     <h3>Define Your Scope</h3>
-                    <p>Is your project well-defined with clear requirements, or will it evolve over time?</p>
+                    <p>Is your project well-defined with clear requirements?</p>
                 </div>
                 <div class="guide-step">
                     <div class="step-number">2</div>
                     <h3>Assess Your Budget</h3>
-                    <p>Do you prefer predictable costs or are you willing to pay for flexibility?</p>
+                    <p>Do you prefer predictable costs or flexibility?</p>
                 </div>
                 <div class="guide-step">
                     <div class="step-number">3</div>
                     <h3>Consider Duration</h3>
-                    <p>Is this a one-time project or an ongoing partnership?</p>
+                    <p>Is this a one-time project or ongoing partnership?</p>
                 </div>
                 <div class="guide-step">
                     <div class="step-number">4</div>
                     <h3>Evaluate Your Team</h3>
-                    <p>Do you need hands-on developers or more of an extension to your team?</p>
+                    <p>Do you need hands-on developers or team extension?</p>
                 </div>
             </div>
         </div>
@@ -628,73 +501,9 @@
         <section class="cta-section">
             <h2>Ready to Get Started?</h2>
             <p>Let's discuss which engagement model works best for your organization</p>
-            <div>
-                <a href="{{ url_for('contact') }}" class="btn btn-primary">Schedule Consultation</a>
-            </div>
+            <a href="{{ url_for('contact') }}" class="btn btn-primary">Schedule Consultation</a>
         </section>
     </div>
 </section>
 {% endblock %}
-
-.hero-section .lead {
-    font-size: 1.25rem;
-    margin: 0;
-    opacity: 0.95;
-}
-
-.intro-text {
-    text-align: center;
-    font-size: 1.1rem;
-    margin-bottom: 50px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: #555;
-    line-height: 1.8;
-}
-
-.engagement-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin: 50px 0;
-}
-
-.engagement-card {
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 30px;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.engagement-card:hover {
-    box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15);
-    border-color: #0066cc;
-    transform: translateY(-5px);
-}
-
-.engagement-icon {
-    font-size: 3rem;
-    color: #0066cc;
-    margin-bottom: 20px;
-}
-
-.engagement-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.engagement-card .description {
-    color: #666;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-}
-
-.engagement-card h4 {
-    font-size: 1rem;
-    color: #333;
 
