@@ -46,26 +46,30 @@
     line-height: 1.7;
 }
 
-/* Engagement Models Grid - 3 Columns */
+/* Engagement Models Grid - 2 Columns Premium Design */
 .engagement-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 3rem;
-    max-width: 1300px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-bottom: 4rem;
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .engagement-card {
-    background: white;
-    border-radius: 16px;
+    background: linear-gradient(to bottom right, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
     padding: 2.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid rgba(0, 119, 182, 0.08);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: auto;
 }
 
 .engagement-card::before {
@@ -74,100 +78,199 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    height: 5px;
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-primary) 100%);
+    background-size: 200% 100%;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease;
+}
+
+.engagement-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 119, 182, 0.03) 0%, transparent 70%);
+    border-radius: 50%;
+    transition: all 0.6s ease;
 }
 
 .engagement-card:hover::before {
     transform: scaleX(1);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.engagement-card:hover::after {
+    top: -30%;
+    right: -30%;
+    width: 500px;
+    height: 500px;
 }
 
 .engagement-card:hover {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-8px);
-    border-color: rgba(0, 119, 182, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-12px);
+    border-color: rgba(0, 119, 182, 0.2);
+}
+
+.card-header-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
 }
 
 .engagement-icon {
     font-size: 2.5rem;
     color: white;
-    margin-bottom: 1.75rem;
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
-    border-radius: 12px;
+    margin-bottom: 0;
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, #005a8d 100%);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
-    transition: transform 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.35);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.engagement-icon::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
 }
 
 .engagement-card:hover .engagement-icon {
-    transform: scale(1.1) rotate(5deg);
+    transform: scale(1.08) rotate(-5deg);
+    box-shadow: 0 12px 32px rgba(0, 119, 182, 0.45);
+}
+
+.engagement-card:hover .engagement-icon::before {
+    opacity: 1;
+}
+
+.card-title-wrapper {
+    flex: 1;
+    min-width: 0;
 }
 
 .engagement-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: var(--brand-primary);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     font-weight: 700;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
 }
 
 .engagement-card .description {
-    color: var(--color-gray-900);
-    margin-bottom: 1.75rem;
-    font-size: 0.98rem;
-    line-height: 1.7;
+    color: var(--color-gray-600);
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.card-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-content-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
 .engagement-card h4 {
-    font-size: 1rem;
+    font-size: 0.75rem;
     color: var(--brand-primary);
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    margin: 0;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0.35rem 0;
 }
 
 .engagement-card ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 1rem 0;
-    background: var(--color-gray-50);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .engagement-card li {
-    padding: 0.4rem 0;
-    padding-left: 2rem;
+    padding: 0.4rem 0.85rem;
+    padding-left: 1.85rem;
     position: relative;
-    color: var(--color-gray-800);
-    font-size: 0.92rem;
+    color: var(--color-gray-700);
+    font-size: 0.8rem;
     font-weight: 500;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 119, 182, 0.08);
+    white-space: nowrap;
+}
+
+.engagement-card li:hover {
+    color: var(--brand-primary);
+    border-color: rgba(0, 119, 182, 0.2);
+    background: white;
+    transform: translateY(-1px);
 }
 
 .engagement-card li:before {
     content: "✓";
     position: absolute;
-    left: 0;
-    color: var(--color-success);
+    left: 0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
     font-weight: bold;
-    background: rgba(16, 185, 129, 0.1);
-    width: 20px;
-    height: 20px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+    box-shadow: 0 1px 4px rgba(16, 185, 129, 0.3);
 }
 
 /* Selection Guide */
@@ -284,11 +387,54 @@
 
     .engagement-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2rem;
     }
 
     .engagement-card {
-        padding: 2rem;
+        padding: 1.75rem;
+    }
+
+    .card-header-wrapper {
+        gap: 1.25rem;
+    }
+
+    .engagement-icon {
+        width: 65px;
+        height: 65px;
+        font-size: 2rem;
+    }
+
+    .card-content-row {
+        gap: 0.5rem;
+    }
+
+    .engagement-card h4 {
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    .engagement-card ul {
+        width: 100%;
+    }
+
+    .engagement-icon {
+        width: 65px;
+        height: 65px;
+        font-size: 2rem;
+    }
+
+    .engagement-card h3 {
+        font-size: 1.35rem;
+    }
+
+    .card-content-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .engagement-card ul {
+        width: 100%;
     }
 
     .guide-steps {
@@ -304,10 +450,13 @@
     }
 }
 
-@media (min-width: 769px) and (max-width: 1100px) {
+@media (min-width: 769px) and (max-width: 1200px) {
     .engagement-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.75rem;
+        gap: 2rem;
+    }
+
+    .engagement-card {
+        padding: 2.5rem;
     }
 }
 </style>
@@ -317,156 +466,295 @@
 <!-- Page Header -->
 <section class="page-header">
     <div class="container">
-        <h1>Flexible Engagement Models</h1>
-        <p>Choose the right partnership model that aligns with your business needs</p>
+        <h1>Pricing & Engagement Models</h1>
+        <p>Transparent. Competitive. Quality-Driven.</p>
     </div>
 </section>
 
 <!-- Main Content -->
 <section class="section-white">
-    <div class="container">
+    <div class="container"><br>
+        <!-- Pricing Philosophy -->
+        <div style="background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); padding: 3rem; border-radius: 20px; margin-bottom: 4rem; border-left: 5px solid var(--brand-primary); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);">
+            <h2 style="color: var(--brand-primary); font-size: 2rem; margin-bottom: 1.5rem; font-weight: 700;">High-Quality Global Delivery—At a Smarter Cost</h2>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--color-gray-700); margin-bottom: 1.5rem;">
+                At ChowdhuryX Organization LLC, our pricing is intentionally designed to deliver exceptional value without compromising quality. 
+                By combining U.S.-based leadership and client engagement with a dedicated offshore delivery team in Hyderabad, India, 
+                we offer pricing that is significantly more competitive than traditional U.S. market rates—while maintaining enterprise-grade standards.
+            </p>
+            <div style="background: linear-gradient(135deg, var(--brand-primary) 0%, #005a8d 100%); padding: 2rem; border-radius: 12px; margin: 2rem 0;">
+                <p style="color: white; font-size: 1.2rem; text-align: center; font-weight: 600; margin: 0; line-height: 1.6;">
+                    Our clients do not choose us because we are cheaper.<br>
+                    <strong style="font-size: 1.3rem;">They choose us because we deliver more for what they invest.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Our Pricing Philosophy -->
+        <div style="margin-bottom: 4rem;">
+            <h2 style="color: var(--brand-primary); font-size: 1.75rem; margin-bottom: 2rem; text-align: center; font-weight: 700;">Our Pricing Philosophy</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); border-top: 4px solid var(--brand-secondary);">
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.75rem; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: var(--brand-secondary); margin-right: 0.5rem;"></i>Real Effort</h4>
+                    <p style="color: var(--color-gray-600); font-size: 0.95rem; margin: 0;">Not inflated overhead</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); border-top: 4px solid var(--brand-secondary);">
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.75rem; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: var(--brand-secondary); margin-right: 0.5rem;"></i>Long-Term Partnership</h4>
+                    <p style="color: var(--color-gray-600); font-size: 0.95rem; margin: 0;">Not short-term billing</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); border-top: 4px solid var(--brand-secondary);">
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.75rem; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: var(--brand-secondary); margin-right: 0.5rem;"></i>Quality Delivery</h4>
+                    <p style="color: var(--color-gray-600); font-size: 0.95rem; margin: 0;">Not corner-cutting</p>
+                </div>
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); border-top: 4px solid var(--brand-secondary);">
+                    <h4 style="color: var(--brand-primary); margin-bottom: 0.75rem; font-size: 1.1rem;"><i class="fas fa-check-circle" style="color: var(--brand-secondary); margin-right: 0.5rem;"></i>Transparency</h4>
+                    <p style="color: var(--color-gray-600); font-size: 0.95rem; margin: 0;">Not hidden costs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- What Lower Cost Does NOT Mean -->
+        <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%); padding: 3rem; border-radius: 16px; margin-bottom: 4rem; border: 2px solid #fee;">
+            <h2 style="color: var(--brand-primary); font-size: 1.75rem; margin-bottom: 2rem; font-weight: 700;">What "Competitive Pricing" Does NOT Mean</h2>
+            <p style="font-size: 1.05rem; color: var(--color-gray-700); margin-bottom: 1.5rem;">To be very clear, competitive pricing does not mean:</p>
+            <ul style="list-style: none; padding: 0; display: grid; gap: 1rem;">
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--color-gray-700);"><i class="fas fa-times-circle" style="color: var(--color-danger); margin-top: 0.2rem; flex-shrink: 0;"></i><span>Shared or rotating resources</span></li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--color-gray-700);"><i class="fas fa-times-circle" style="color: var(--color-danger); margin-top: 0.2rem; flex-shrink: 0;"></i><span>Junior-only teams</span></li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--color-gray-700);"><i class="fas fa-times-circle" style="color: var(--color-danger); margin-top: 0.2rem; flex-shrink: 0;"></i><span>Template-based or rushed work</span></li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--color-gray-700);"><i class="fas fa-times-circle" style="color: var(--color-danger); margin-top: 0.2rem; flex-shrink: 0;"></i><span>Poor communication or delays</span></li>
+                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--color-gray-700);"><i class="fas fa-times-circle" style="color: var(--color-danger); margin-top: 0.2rem; flex-shrink: 0;"></i><span>Reduced security or compliance</span></li>
+            </ul>
+            <p style="margin-top: 1.5rem; font-size: 1.05rem; color: var(--brand-primary); font-weight: 600;">
+                Every engagement includes dedicated, accountable professionals supported by structured processes and oversight.
+            </p>
+        </div>
+
         <div class="section-intro">
-            <p>At ChowdhuryX, we understand that every business has unique requirements. We offer flexible engagement models designed to scale with your needs, whether you're a startup or enterprise.</p>
+            <h2 style="color: var(--brand-primary); font-size: 1.75rem; margin-bottom: 1.5rem; text-align: center; font-weight: 700;">Our Engagement Models</h2>
+            <p>We offer flexible pricing models to match different business needs. Choose the right partnership model that aligns with your requirements.</p>
         </div>
 
         <!-- Engagement Models Grid -->
         <div class="engagement-grid">
             <!-- Model 1: Time & Materials -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-clock"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Time & Materials</h3>
+                        <p class="description">Pay only for work delivered with flexible scope adjustments. Ideal for discovery phases and evolving requirements.</p>
+                    </div>
                 </div>
-                <h3>Time & Materials</h3>
-                <p class="description">Pay only for work delivered with flexible scope adjustments.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Discovery and experimental phases</li>
-                    <li>Evolving requirements</li>
-                    <li>Flexible timeline projects</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Full transparency in billing</li>
-                    <li>Quick iteration cycles</li>
-                    <li>Flexible scope adjustments</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Discovery and experimental phases</li>
+                            <li>Evolving requirements</li>
+                            <li>Flexible timeline projects</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Full transparency in billing</li>
+                            <li>Quick iteration cycles</li>
+                            <li>Flexible scope adjustments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
 
             <!-- Model 2: Fixed Price -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-handshake"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Fixed Price</h3>
+                        <p class="description">Predictable budget and timeline for well-defined projects. Milestone-based payments with no surprise costs.</p>
+                    </div>
                 </div>
-                <h3>Fixed Price</h3>
-                <p class="description">Predictable budget and timeline for well-defined projects.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Website and app development</li>
-                    <li>Feature implementations</li>
-                    <li>Migration projects</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Predictable budget and timeline</li>
-                    <li>Clear acceptance criteria</li>
-                    <li>Reduced financial risk</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Website and app development</li>
+                            <li>Feature implementations</li>
+                            <li>Migration projects</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Predictable budget and timeline</li>
+                            <li>Clear acceptance criteria</li>
+                            <li>Reduced financial risk</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
 
             <!-- Model 3: Retainer -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-tasks"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Retainer</h3>
+                        <p class="description">Long-term partnership for ongoing support and continuous development with monthly predictable pricing.</p>
+                    </div>
                 </div>
-                <h3>Retainer</h3>
-                <p class="description">Long-term partnership for ongoing support and continuous development.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Ongoing maintenance and support</li>
-                    <li>Continuous feature development</li>
-                    <li>Long-term partnerships</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Dedicated team available</li>
-                    <li>Priority support and response</li>
-                    <li>Cost predictability</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Ongoing maintenance and support</li>
+                            <li>Continuous feature development</li>
+                            <li>Long-term partnerships</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Dedicated team available</li>
+                            <li>Priority support and response</li>
+                            <li>Cost predictability</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
-
             <!-- Model 4: Dedicated Team -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-users"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Dedicated Team</h3>
+                        <p class="description">Full-time team members working exclusively on your project with direct collaboration and maximum ownership.</p>
+                    </div>
                 </div>
-                <h3>Dedicated Team</h3>
-                <p class="description">Full-time team members working exclusively on your project.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Product development</li>
-                    <li>Scaling operations quickly</li>
-                    <li>Multi-year projects</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Exclusive team focus</li>
-                    <li>Deep product understanding</li>
-                    <li>Seamless integration</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Product development</li>
+                            <li>Scaling operations quickly</li>
+                            <li>Multi-year projects</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Exclusive team focus</li>
+                            <li>Deep product understanding</li>
+                            <li>Seamless integration</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
 
             <!-- Model 5: Staff Augmentation -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-arrow-right"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Staff Augmentation</h3>
+                        <p class="description">Extend your team with specialized professionals for specific skills. Quick onboarding and cost-effective scaling.</p>
+                    </div>
                 </div>
-                <h3>Staff Augmentation</h3>
-                <p class="description">Extend your team with specialized professionals for specific skills.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Filling skill gaps</li>
-                    <li>Handling peak workloads</li>
-                    <li>Special expertise needs</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Quick onboarding</li>
-                    <li>Cost-effective scaling</li>
-                    <li>Your team manages them</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Filling skill gaps</li>
+                            <li>Handling peak workloads</li>
+                            <li>Special expertise needs</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Quick onboarding</li>
+                            <li>Cost-effective scaling</li>
+                            <li>Your team manages them</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
 
             <!-- Model 6: Hybrid -->
             <div class="engagement-card">
-                <div class="engagement-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                <div class="card-header-wrapper">
+                    <div class="engagement-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-title-wrapper">
+                        <h3>Hybrid Engagement</h3>
+                        <p class="description">Combine multiple models for your perfect engagement structure. Maximum flexibility with customizable approach.</p>
+                    </div>
                 </div>
-                <h3>Hybrid Engagement</h3>
-                <p class="description">Combine multiple models for your perfect engagement structure.</p>
                 
-                <h4>Best For:</h4>
-                <ul>
-                    <li>Complex multi-phase projects</li>
-                    <li>Uncertain requirements</li>
-                    <li>Growing companies</li>
-                </ul>
-
-                <h4>Key Benefits:</h4>
-                <ul>
-                    <li>Maximum flexibility</li>
-                    <li>Customizable approach</li>
-                    <li>Risk balanced engagement</li>
-                </ul>
+                <div class="card-content-wrapper">
+                    <div class="card-content-row">
+                        <h4>Best For:</h4>
+                        <ul>
+                            <li>Complex multi-phase projects</li>
+                            <li>Uncertain requirements</li>
+                            <li>Growing companies</li>
+                        </ul>
+                    </div>
+                    <div class="card-content-row">
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>Maximum flexibility</li>
+                            <li>Customizable approach</li>
+                            <li>Risk balanced engagement</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 2px solid var(--color-gray-200); text-align: center;">
+                    <a href="{{ url_for('contact') }}" style="color: var(--brand-primary); font-weight: 600; font-size: 1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-envelope"></i> Contact us for pricing
+                    </a>
+                </div>
             </div>
         </div>
 
