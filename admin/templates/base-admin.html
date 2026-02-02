@@ -26,6 +26,9 @@
             <li><a href="{{ url_for('admin.careers') }}" class="nav-link {% if request.endpoint == 'admin.careers' %}active{% endif %}">
                 <i class="fas fa-briefcase"></i> Applications
             </a></li>
+            <li><a href="{{ url_for('admin.jobs') }}" class="nav-link {% if request.endpoint and 'jobs' in request.endpoint %}active{% endif %}">
+                <i class="fas fa-briefcase"></i> Job Postings
+            </a></li>
             <li><a href="{{ url_for('admin.blog') }}" class="nav-link {% if request.endpoint == 'admin.blog' %}active{% endif %}">
                 <i class="fas fa-pen"></i> Blog Posts
             </a></li>

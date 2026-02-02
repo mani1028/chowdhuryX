@@ -10,7 +10,7 @@ from functools import wraps
 from flask import render_template, request, jsonify, session, redirect, url_for, flash, current_app, send_file
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics
+from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics, Job
 from . import admin_bp
 
 # Optional Flask-Mail import
@@ -667,3 +667,191 @@ def send_admin_notification(subject, message, email_type='contact'):
     )
     
     return True
+
+
+# ==================== JOB MANAGEMENT ====================
+
+@admin_bp.route('/jobs')
+@login_required
+def jobs():
+    """Job Postings Management"""
+    page = request.args.get('page', 1, type=int)
+    status_filter = request.args.get('status')
+    department_filter = request.args.get('department')
+    
+    query = Job.query
+    
+    if status_filter:
+        query = query.filter_by(status=status_filter)
+    if department_filter:
+        query = query.filter_by(department=department_filter)
+    
+    jobs = query.order_by(Job.created_at.desc()).paginate(
+        page=page, per_page=20, error_out=False
+    )
+    
+    # Get distinct departments for filter
+    departments = db.session.query(Job.department).distinct().all()
+    departments = [d[0] for d in departments if d[0]]
+    
+    return render_template(
+        'admin-jobs.html',
+        jobs=jobs,
+        departments=departments,
+        status_filter=status_filter,
+        department_filter=department_filter
+    )
+
+
+@admin_bp.route('/jobs/new', methods=['GET', 'POST'])
+@login_required
+def create_job():
+    """Create New Job Posting"""
+    if request.method == 'POST':
+        try:
+            job = Job(
+                title=request.form.get('title'),
+                location=request.form.get('location'),
+                job_type=request.form.get('job_type'),
+                department=request.form.get('department'),
+                experience_required=request.form.get('experience_required'),
+                description=request.form.get('description'),
+                requirements=request.form.get('requirements'),
+                responsibilities=request.form.get('responsibilities'),
+                salary_range=request.form.get('salary_range'),
+                status=request.form.get('status', 'active'),
+                posted_by=session.get('admin_id')
+            )
+            
+            # Handle optional closing date
+            closes_at = request.form.get('closes_at')
+            if closes_at:
+                job.closes_at = datetime.strptime(closes_at, '%Y-%m-%d')
+            
+            db.session.add(job)
+            db.session.commit()
+            
+            flash('Job posting created successfully!', 'success')
+            return redirect(url_for('admin.jobs'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error creating job: {str(e)}', 'error')
+    
+    return render_template('admin-job-form.html', job=None)
+
+
+@admin_bp.route('/jobs/<int:job_id>')
+@login_required
+def job_detail(job_id):
+    """View Job Details"""
+    job = Job.query.get_or_404(job_id)
+    return render_template('admin-job-detail.html', job=job)
+
+
+@admin_bp.route('/jobs/<int:job_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_job(job_id):
+    """Edit Job Posting"""
+    job = Job.query.get_or_404(job_id)
+    
+    if request.method == 'POST':
+        try:
+            job.title = request.form.get('title')
+            job.location = request.form.get('location')
+            job.job_type = request.form.get('job_type')
+            job.department = request.form.get('department')
+            job.experience_required = request.form.get('experience_required')
+            job.description = request.form.get('description')
+            job.requirements = request.form.get('requirements')
+            job.responsibilities = request.form.get('responsibilities')
+            job.salary_range = request.form.get('salary_range')
+            job.status = request.form.get('status')
+            job.updated_at = datetime.utcnow()
+            
+            # Handle optional closing date
+            closes_at = request.form.get('closes_at')
+            if closes_at:
+                job.closes_at = datetime.strptime(closes_at, '%Y-%m-%d')
+            else:
+                job.closes_at = None
+            
+            db.session.commit()
+            flash('Job updated successfully!', 'success')
+            return redirect(url_for('admin.jobs'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating job: {str(e)}', 'error')
+    
+    return render_template('admin-job-form.html', job=job)
+
+
+@admin_bp.route('/jobs/<int:job_id>/delete', methods=['POST'])
+@login_required
+def delete_job(job_id):
+    """Delete Job Posting"""
+    try:
+        job = Job.query.get_or_404(job_id)
+        db.session.delete(job)
+        db.session.commit()
+        flash('Job deleted successfully!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error deleting job: {str(e)}', 'error')
+    
+    return redirect(url_for('admin.jobs'))
+
+
+@admin_bp.route('/jobs/<int:job_id>/status', methods=['POST'])
+@login_required
+def toggle_job_status(job_id):
+    """Toggle Job Status (Active/Inactive)"""
+    try:
+        job = Job.query.get_or_404(job_id)
+        job.status = 'active' if job.status != 'active' else 'inactive'
+        job.updated_at = datetime.utcnow()
+        db.session.commit()
+        
+        return jsonify({
+            'success': True,
+            'status': job.status,
+            'message': f'Job status changed to {job.status}'
+        })
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 400
+
+
+@admin_bp.route('/jobs/bulk-action', methods=['POST'])
+@login_required
+def bulk_job_action():
+    """Bulk Actions for Jobs"""
+    try:
+        action = request.form.get('action')
+        job_ids = request.form.getlist('job_ids[]')
+        
+        if not job_ids:
+            flash('No jobs selected', 'warning')
+            return redirect(url_for('admin.jobs'))
+        
+        if action == 'activate':
+            Job.query.filter(Job.id.in_(job_ids)).update(
+                {'status': 'active', 'updated_at': datetime.utcnow()},
+                synchronize_session=False
+            )
+            flash(f'{len(job_ids)} jobs activated', 'success')
+        elif action == 'deactivate':
+            Job.query.filter(Job.id.in_(job_ids)).update(
+                {'status': 'inactive', 'updated_at': datetime.utcnow()},
+                synchronize_session=False
+            )
+            flash(f'{len(job_ids)} jobs deactivated', 'success')
+        elif action == 'delete':
+            Job.query.filter(Job.id.in_(job_ids)).delete(synchronize_session=False)
+            flash(f'{len(job_ids)} jobs deleted', 'success')
+        
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Bulk action error: {str(e)}', 'error')
+    
+    return redirect(url_for('admin.jobs'))

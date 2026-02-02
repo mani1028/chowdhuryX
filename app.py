@@ -16,7 +16,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 from config import get_config
-from models import db, Contact, Career, Blog, Testimonial, Service
+from models import db, Contact, Career, Blog, Testimonial, Service, Job
 try:
     from content_data_enhanced import get_service_details, get_all_services_details, get_industry_details, get_all_industries
 except ImportError:
@@ -180,8 +180,46 @@ def create_app(config_name=None):
     
     @app.route('/careers')
     def careers():
-        """Careers Page"""
-        return render_template('careers.html')
+        """Careers Page with pagination and filters"""
+        from models import Job
+        
+        # Get filter parameters
+        job_type = request.args.get('type', '')
+        department = request.args.get('department', '')
+        location = request.args.get('location', '')
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 10, type=int)
+        
+        # Limit per_page to max 50
+        per_page = min(per_page, 50)
+        
+        # Build query
+        query = Job.query.filter_by(status='active')
+        
+        if job_type:
+            query = query.filter_by(job_type=job_type)
+        if department:
+            query = query.filter_by(department=department)
+        if location:
+            query = query.filter(Job.location.ilike(f'%{location}%'))
+        
+        # Paginate
+        jobs_pagination = query.order_by(Job.created_at.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+        
+        # Get unique values for filters
+        all_types = db.session.query(Job.job_type).filter_by(status='active').distinct().all()
+        all_departments = db.session.query(Job.department).filter_by(status='active').distinct().all()
+        all_locations = db.session.query(Job.location).filter_by(status='active').distinct().all()
+        
+        return render_template('careers.html', 
+                             jobs=jobs_pagination.items,
+                             pagination=jobs_pagination,
+                             job_types=[t[0] for t in all_types if t[0]],
+                             departments=[d[0] for d in all_departments if d[0]],
+                             locations=[l[0] for l in all_locations if l[0]],
+                             current_filters={'type': job_type, 'department': department, 'location': location})
     
     @app.route('/contact', methods=['GET', 'POST'])
     def contact():

@@ -138,57 +138,128 @@
 
 .technologies-section {
     margin: 3rem 0;
-    padding: 2rem;
-    background: white;
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 119, 182, 0.1);
 }
 
 .technologies-section h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.75rem;
+    color: var(--brand-primary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.technologies-section h3::before {
+    content: '\f085';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--brand-secondary);
     font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: var(--dark);
 }
 
 .tech-tags {
     display: flex;
-    gap: 0.75rem;
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
 .tech-tag {
-    display: inline-block;
-    background: var(--primary-color);
-    color: rgb(8, 8, 8);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, #005a8d 100%);
+    color: white;
+    padding: 0.65rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.tech-tag:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 119, 182, 0.35);
+    border-color: var(--brand-secondary);
 }
 
 .process-section {
     margin: 3rem 0;
+    padding: 2rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    border-radius: 16px;
 }
 
 .process-section h3 {
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    color: var(--dark);
+    color: var(--brand-primary);
     text-align: center;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.process-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brand-secondary), var(--brand-primary));
+    border-radius: 2px;
 }
 
 .process-steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1.25rem;
+    padding: 0 1.5rem;
+    max-width: 100%;
 }
 
 .process-step {
     text-align: center;
-    padding: 2rem;
-    background: var(--gray-light);
+    padding: 1.5rem 0.75rem;
+    background: white;
     border-radius: 12px;
     position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    min-width: 0;
+}
+
+@media (max-width: 1400px) {
+    .process-steps {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 119, 182, 0.12);
+    border-color: var(--brand-primary);
 }
 
 .process-step-number {
@@ -197,33 +268,44 @@
     justify-content: center;
     width: 50px;
     height: 50px;
-    background: var(--primary-color);
-    color: rgb(16, 16, 16);
+    background: linear-gradient(135deg, var(--brand-primary) 0%, #005a8d 100%);
+    color: white;
     border-radius: 50%;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     margin: 0 auto 1rem;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    transition: all 0.3s ease;
+}
+
+.process-step:hover .process-step-number {
+    transform: scale(1.08);
+    box-shadow: 0 6px 16px rgba(0, 119, 182, 0.35);
 }
 
 .process-step h4 {
-    color: var(--dark);
+    color: var(--brand-primary);
     margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
 }
 
 .process-step p {
-    color: var(--gray);
-    font-size: 0.95rem;
+    color: var(--color-gray-600);
+    font-size: 0.85rem;
+    line-height: 1.5;
 }
 
 .cta-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
-    color: rgb(76, 89, 131);
-    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--brand-primary) 0%, #004d99 100%);
+    color: white;
+    padding: 4.5rem 2rem;
     text-align: center;
-    border-radius: 12px;
+    border-radius: 20px;
     margin: 4rem 0;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 119, 182, 0.25);
 }
 
 .cta-section::before {
@@ -233,7 +315,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -243,56 +336,65 @@
 }
 
 .cta-section h2 {
-    color: rgb(7, 7, 7);
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
     font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cta-section p {
-    color: rgba(0, 0, 0, 0.95);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 1rem auto 2rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.15rem;
+    max-width: 700px;
+    margin: 1rem auto 2.5rem;
+    line-height: 1.6;
 }
 
 .cta-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 
 .cta-buttons .btn {
-    min-width: 200px;
-    padding: 1rem 2rem;
+    min-width: 220px;
+    padding: 1.1rem 2.5rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: all var(--transition-slow);
+    transition: all 0.3s ease;
+    border-radius: 30px;
 }
 
 .btn-primary-cta {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-color-dark) 100%);
-    color: rgb(22, 4, 138);
+    background: linear-gradient(135deg, var(--brand-secondary) 0%, #cc5700 100%);
+    color: white;
     border: none;
+    box-shadow: 0 8px 24px rgba(255, 107, 0, 0.4);
 }
 
 .btn-primary-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(255, 107, 0, 0.5);
+    background: linear-gradient(135deg, #ff8456 0%, var(--brand-secondary) 100%);
 }
 
 .btn-outline {
-    border: 2px solid rgb(21, 5, 122);
+    border: 2px solid white;
     background: transparent;
-    color: rgb(3, 45, 122);
-    transition: all var(--transition-slow);
+    color: white;
+    transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: white;
+    color: var(--brand-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
 }
 
 .feature-list {
@@ -357,6 +459,22 @@
     <section class="service-main">
         <div class="service-description">
             {% if details %}
+            {% if details.philosophy %}
+            <div class="philosophy-section" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--brand-primary); margin-bottom: 2rem;">
+                <h3 style="color: var(--brand-primary); margin-bottom: 1.25rem; font-size: 1.4rem; display: flex; align-items: center; gap: 0.75rem;">
+                    <i class="fas fa-lightbulb" style="color: var(--brand-secondary);"></i> Our Philosophy
+                </h3>
+                <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0.75rem;">
+                    {% for point in details.philosophy %}
+                    <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: var(--color-gray-700);">
+                        <i class="fas fa-chevron-right" style="color: var(--brand-secondary); margin-top: 0.3rem; flex-shrink: 0; font-size: 0.85rem;"></i>
+                        <span>{{ point }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            
             <h2>About This Service</h2>
             <p>{{ details.full_description }}</p>
             
@@ -380,6 +498,45 @@
                 </li>
                 {% endfor %}
             </ul>
+            {% endif %}
+
+            {% if details.who_we_serve %}
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--brand-primary); margin-bottom: 1rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-user-friends"></i> Who We Serve
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    {% for item in details.who_we_serve %}
+                    <span style="background: linear-gradient(135deg, var(--brand-primary) 0%, #005a8d 100%); color: white; padding: 0.5rem 1.25rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; box-shadow: 0 2px 8px rgba(0, 119, 182, 0.2);">{{ item }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if details.use_cases %}
+            <div style="margin-top: 2rem;">
+                <h4 style="color: var(--brand-primary); margin-bottom: 1rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-lightbulb"></i> Use Cases
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    {% for item in details.use_cases %}
+                    <span style="background: linear-gradient(135deg, var(--brand-secondary) 0%, #cc5700 100%); color: white; padding: 0.5rem 1.25rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; box-shadow: 0 2px 8px rgba(255, 107, 0, 0.2);">{{ item }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if details.delivery_model %}
+            <div style="margin-top: 2rem; background: var(--color-gray-50); padding: 1.5rem; border-radius: 12px;">
+                <h4 style="color: var(--brand-primary); margin-bottom: 1rem; font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-project-diagram"></i> Delivery Model
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    {% for step in details.delivery_model %}
+                    <span style="background: white; color: var(--color-gray-700); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500; border: 2px solid var(--brand-primary); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">{{ loop.index }}. {{ step }}</span>
+                    {% endfor %}
+                </div>
+            </div>
             {% endif %}
 
             {% if details.pricing %}

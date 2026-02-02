@@ -1,0 +1,280 @@
+{% extends 'base-admin.html' %}
+
+{% block title %}{{ job.title }} - Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Job Details</h1>
+    <div class="header-actions">
+        <a href="{{ url_for('admin.edit_job', job_id=job.id) }}" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a href="{{ url_for('admin.jobs') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+    </div>
+</div>
+
+<div class="job-detail-container">
+    <!-- Header Section -->
+    <div class="detail-header">
+        <div class="job-title-section">
+            <h2>{{ job.title }}</h2>
+            <div class="job-meta">
+                <span class="meta-item">
+                    <i class="fas fa-building"></i> {{ job.department }}
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-map-marker-alt"></i> {{ job.location }}
+                </span>
+                <span class="meta-item">
+                    <i class="fas fa-clock"></i> {{ job.job_type }}
+                </span>
+                {% if job.experience_required %}
+                <span class="meta-item">
+                    <i class="fas fa-briefcase"></i> {{ job.experience_required }}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="status-section">
+            <span class="status-badge status-{{ job.status }}">{{ job.status }}</span>
+        </div>
+    </div>
+    
+    <!-- Stats Section -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-eye"></i>
+            <div class="stat-info">
+                <span class="stat-value">{{ job.views }}</span>
+                <span class="stat-label">Views</span>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-calendar"></i>
+            <div class="stat-info">
+                <span class="stat-value">{{ job.created_at.strftime('%b %d, %Y') }}</span>
+                <span class="stat-label">Posted</span>
+            </div>
+        </div>
+        
+        {% if job.closes_at %}
+        <div class="stat-card">
+            <i class="fas fa-hourglass-end"></i>
+            <div class="stat-info">
+                <span class="stat-value">{{ job.closes_at.strftime('%b %d, %Y') }}</span>
+                <span class="stat-label">Closes</span>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if job.salary_range %}
+        <div class="stat-card">
+            <i class="fas fa-dollar-sign"></i>
+            <div class="stat-info">
+                <span class="stat-value">{{ job.salary_range }}</span>
+                <span class="stat-label">Salary Range</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Content Sections -->
+    <div class="content-sections">
+        <div class="content-card">
+            <h3><i class="fas fa-align-left"></i> Description</h3>
+            <div class="content-body">{{ job.description }}</div>
+        </div>
+        
+        <div class="content-card">
+            <h3><i class="fas fa-tasks"></i> Key Responsibilities</h3>
+            <div class="content-body">
+                {{ job.responsibilities | replace('\n', '<br>') | safe }}
+            </div>
+        </div>
+        
+        <div class="content-card">
+            <h3><i class="fas fa-check-circle"></i> Requirements</h3>
+            <div class="content-body">
+                {{ job.requirements | replace('\n', '<br>') | safe }}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="detail-actions">
+        <button onclick="toggleStatus()" class="btn btn-primary">
+            <i class="fas fa-toggle-on"></i> Toggle Status
+        </button>
+        <button onclick="deleteJob()" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Delete Job
+        </button>
+    </div>
+</div>
+
+<style>
+.job-detail-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detail-header {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.job-title-section h2 {
+    margin: 0 0 1rem 0;
+    color: #333;
+}
+
+.job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.meta-item i {
+    color: var(--brand-primary, #0077B6);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-card i {
+    font-size: 2rem;
+    color: var(--brand-primary, #0077B6);
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.content-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.content-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.content-card h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.content-card h3 i {
+    color: var(--brand-primary, #0077B6);
+}
+
+.content-body {
+    color: #555;
+    line-height: 1.8;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .detail-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .job-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+</style>
+
+<script>
+function toggleStatus() {
+    if (!confirm('Change job status?')) return;
+    
+    fetch('/admin/jobs/{{ job.id }}/status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    });
+}
+
+function deleteJob() {
+    if (!confirm('Are you sure you want to delete this job posting? This action cannot be undone.')) return;
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/admin/jobs/{{ job.id }}/delete';
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+{% endblock %}
