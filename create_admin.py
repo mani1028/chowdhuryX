@@ -5,11 +5,13 @@ Usage: python create_admin.py
 """
 import os
 from dotenv import load_dotenv
+
+# CRITICAL: Load environment variables BEFORE importing app or config
+# This ensures DATABASE_URL is available when config.py is read
+load_dotenv()
+
 from app import create_app
 from models import db, AdminUser
-
-# Load environment variables from .env
-load_dotenv()
 
 def create_admin():
     """Create/update admin user from .env credentials"""
