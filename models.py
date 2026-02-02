@@ -1,6 +1,6 @@
 """
 Shared Database Models
-Contact, Career, Blog, AdminUser, Comment, Analytics models
+Contact, Career, Job, Blog, AdminUser, Comment, Analytics models
 """
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
@@ -72,6 +72,49 @@ class Career(db.Model):
             'status': self.status,
             'rating': self.rating,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        }
+
+
+class Job(db.Model):
+    """Job Postings"""
+    __tablename__ = 'jobs'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False, index=True)
+    location = db.Column(db.String(100), nullable=False)
+    job_type = db.Column(db.String(50), nullable=False)  # Full-time, Part-time, Contract, Remote
+    department = db.Column(db.String(100), nullable=True, index=True)
+    experience_required = db.Column(db.String(50), nullable=False)  # e.g., "3-5 years", "5+ years"
+    description = db.Column(db.Text, nullable=False)
+    requirements = db.Column(db.Text, nullable=True)
+    responsibilities = db.Column(db.Text, nullable=True)
+    salary_range = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.String(20), default='active')  # active, inactive, closed
+    posted_by = db.Column(db.String(120), nullable=True)
+    views = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    closes_at = db.Column(db.DateTime, nullable=True)
+    
+    def __repr__(self):
+        return f'<Job {self.title} - {self.location}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'location': self.location,
+            'job_type': self.job_type,
+            'department': self.department,
+            'experience_required': self.experience_required,
+            'description': self.description,
+            'requirements': self.requirements,
+            'responsibilities': self.responsibilities,
+            'salary_range': self.salary_range,
+            'status': self.status,
+            'views': self.views,
+            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'updated_at': self.updated_at.strftime('%Y-%m-%d %H:%M:%S') if self.updated_at else None
         }
 
 

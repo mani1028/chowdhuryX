@@ -5,15 +5,44 @@
 {% block css %}
 <style>
 .page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--brand-primary, #0066cc) 0%, #005a8d 100%);
     color: white;
-    padding: 4rem 0;
+    padding: 5rem 0;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.page-header h1 { color: white; font-size: 2.5rem; margin-bottom: 0.5rem; }
-.page-header p { font-size: 1.1rem; }
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.page-header h1 { 
+    color: white !important; 
+    font-size: 2.75rem; 
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.page-header p { 
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.95) !important;
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+}
 
 .contact-container {
     display: grid;
@@ -22,39 +51,124 @@
     margin-bottom: 4rem;
 }
 
-.contact-form {
+.contact-form-wrapper {
     background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-.contact-form h2 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+.contact-form-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary, #0066cc) 0%, var(--brand-secondary, #ff6b35) 100%);
+}
+
+.contact-form-wrapper h2 { 
+    font-size: 2rem; 
+    margin-bottom: 0.5rem;
+    color: var(--dark, #1a1a1a);
+    font-weight: 700;
+}
+
+.contact-form-wrapper > p {
+    color: var(--gray, #666);
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+.contact-form {
+    background: transparent;
+    padding: 0;
+}
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1a1a1a);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group label i {
+    color: var(--brand-primary, #0066cc);
+    font-size: 1rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
     font-family: var(--font-primary);
     font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary, #0066cc);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
 
 .form-group textarea {
     resize: vertical;
-    min-height: 150px;
+    min-height: 130px;
+    line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9ca3af;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--brand-primary, #0066cc) 0%, #005a8d 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 102, 204, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary i {
+    font-size: 1.1rem;
 }
 
 .contact-info {
@@ -63,35 +177,123 @@
     gap: 2rem;
 }
 
-.info-card {
-    background: var(--gray-light);
-    padding: 1.5rem;
+.contact-info h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: var(--dark, #1a1a1a);
+    font-weight: 700;
+}
+
+.info-item {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    padding: 1.75rem;
     border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
 }
 
-.info-card h3 {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
+.info-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--brand-primary, #0066cc);
 }
 
-.info-card p {
-    color: var(--gray);
-    line-height: 1.8;
+.info-header-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-.map-container {
-    border-radius: 12px;
+.info-header-inline i {
+    font-size: 1.5rem;
+    color: var(--brand-primary, #0066cc);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.info-header-inline h4 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--dark, #1a1a1a);
+}
+
+.info-content {
+    padding-left: 57px;
+}
+
+.info-content p {
+    margin: 0.5rem 0;
+    color: var(--gray, #666);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.map-section {
+    margin: 4rem 0;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
-    height: 400px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.map-section iframe {
+    display: block;
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.form-message.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.form-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
 }
 
 @media (max-width: 768px) {
     .contact-container {
         grid-template-columns: 1fr;
     }
-    .page-header h1 { font-size: 2rem; }
+    
+    .page-header {
+        padding: 3.5rem 1.5rem;
+    }
+    
+    .page-header h1 { 
+        font-size: 2rem; 
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+    }
+    
+    .contact-form-wrapper {
+        padding: 2rem 1.5rem;
+    }
+    
+    .contact-form-wrapper h2 {
+        font-size: 1.5rem;
+    }
+    
+    .info-content {
+        padding-left: 0;
+        margin-top: 0.75rem;
+    }
 }
 </style>
 {% endblock %}
@@ -110,35 +312,54 @@
             <!-- Contact Form -->
             <div class="contact-form-wrapper">
                 <h2>Send us a Message</h2>
+                <p>Fill out the form below and we'll get back to you as soon as possible.</p>
                 <form id="contactForm" class="contact-form" method="POST" action="{{ url_for('contact') }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                     
                     <div class="form-group">
-                        <label for="name">Name *</label>
-                        <input type="text" id="name" name="name" required>
+                        <label for="name">
+                            <i class="fas fa-user"></i>
+                            Full Name *
+                        </label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            Email Address *
+                        </label>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
+                        <label for="phone">
+                            <i class="fas fa-phone"></i>
+                            Phone Number
+                        </label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" value="{% if service_name %}Inquiry About {{ service_name }}{% endif %}" required>
+                        <label for="subject">
+                            <i class="fas fa-tag"></i>
+                            Subject *
+                        </label>
+                        <input type="text" id="subject" name="subject" value="{% if service_name %}Inquiry About {{ service_name }}{% endif %}" placeholder="How can we help you?" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">
+                            <i class="fas fa-comment-dots"></i>
+                            Message *
+                        </label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or inquiry..." required></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
                 </form>
                 <div id="formMessage" class="form-message" style="display:none;"></div>
             </div>
@@ -148,49 +369,26 @@
                 <h2>Contact Information</h2>
                 
                 <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
+                    <div class="info-header-inline">
+                        <i class="fas fa-map-marker-alt"></i>
                         <h4>Address</h4>
-                        <p>123 Corporate Avenue<br>New York, NY 10001<br>United States</p>
+                    </div>
+                    <div class="info-content">
+                        <p>Sheridan, Wyoming<br>New York, NY 10001<br>United States</p>
                     </div>
                 </div>
 
                 <div class="info-item">
-                    <i class="fas fa-phone"></i>
-                    <div>
-                        <h4>Phone</h4>
-                        <p>{{ company_phone }}</p>
-                        <p>Toll-free: +1 (800) 123-4567</p>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <h4>Email</h4>
-                        <p>{{ company_email }}</p>
-                        <p>support@chowdhuryX.com</p>
-                    </div>
-                </div>
-
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <div>
+                    <div class="info-header-inline">
+                        <i class="fas fa-clock"></i>
                         <h4>Business Hours</h4>
+                    </div>
+                    <div class="info-content">
                         <p>Monday - Friday: 12:00 PM - 9:00 PM</p>
                         <p>Saturday & Sunday: Closed</p>
                     </div>
                 </div>
 
-                <div class="social-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,207 @@
+{% extends 'base-admin.html' %}
+
+{% block title %}{{ 'Edit Job' if job else 'Create Job' }} - Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>{{ 'Edit Job Posting' if job else 'Create New Job' }}</h1>
+    <a href="{{ url_for('admin.jobs') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Jobs
+    </a>
+</div>
+
+<div class="form-container">
+    <form method="POST" action="{{ url_for('admin.edit_job', job_id=job.id) if job else url_for('admin.create_job') }}" class="admin-form">
+        
+        <!-- Basic Information -->
+        <div class="form-section">
+            <h3>Basic Information</h3>
+            
+            <div class="form-group">
+                <label for="title">Job Title <span class="required">*</span></label>
+                <input type="text" id="title" name="title" value="{{ job.title if job else '' }}" required placeholder="e.g. Senior Software Engineer">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="department">Department <span class="required">*</span></label>
+                    <input type="text" id="department" name="department" value="{{ job.department if job else '' }}" required placeholder="e.g. Engineering">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location <span class="required">*</span></label>
+                    <input type="text" id="location" name="location" value="{{ job.location if job else '' }}" required placeholder="e.g. Remote, New York, etc.">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="job_type">Job Type <span class="required">*</span></label>
+                    <select id="job_type" name="job_type" required>
+                        <option value="">Select Type</option>
+                        <option value="Full-time" {% if job and job.job_type == 'Full-time' %}selected{% endif %}>Full-time</option>
+                        <option value="Part-time" {% if job and job.job_type == 'Part-time' %}selected{% endif %}>Part-time</option>
+                        <option value="Contract" {% if job and job.job_type == 'Contract' %}selected{% endif %}>Contract</option>
+                        <option value="Internship" {% if job and job.job_type == 'Internship' %}selected{% endif %}>Internship</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience_required">Experience Required</label>
+                    <input type="text" id="experience_required" name="experience_required" value="{{ job.experience_required if job else '' }}" placeholder="e.g. 3-5 years">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="salary_range">Salary Range</label>
+                    <input type="text" id="salary_range" name="salary_range" value="{{ job.salary_range if job else '' }}" placeholder="e.g. $80,000 - $120,000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="closes_at">Application Deadline</label>
+                    <input type="date" id="closes_at" name="closes_at" value="{{ job.closes_at.strftime('%Y-%m-%d') if job and job.closes_at else '' }}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="status">Status <span class="required">*</span></label>
+                <select id="status" name="status" required>
+                    <option value="active" {% if job and job.status == 'active' %}selected{% endif %}>Active</option>
+                    <option value="inactive" {% if job and job.status == 'inactive' %}selected{% endif %}>Inactive</option>
+                    <option value="closed" {% if job and job.status == 'closed' %}selected{% endif %}>Closed</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Job Details -->
+        <div class="form-section">
+            <h3>Job Details</h3>
+            
+            <div class="form-group">
+                <label for="description">Job Description <span class="required">*</span></label>
+                <textarea id="description" name="description" rows="6" required placeholder="Provide a comprehensive job description...">{{ job.description if job else '' }}</textarea>
+                <small class="form-text">Describe the role, team, and work environment</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="responsibilities">Key Responsibilities <span class="required">*</span></label>
+                <textarea id="responsibilities" name="responsibilities" rows="8" required placeholder="• Responsibility 1&#10;• Responsibility 2&#10;• Responsibility 3">{{ job.responsibilities if job else '' }}</textarea>
+                <small class="form-text">Use bullet points (•) to list main responsibilities</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="requirements">Requirements & Qualifications <span class="required">*</span></label>
+                <textarea id="requirements" name="requirements" rows="8" required placeholder="• Requirement 1&#10;• Requirement 2&#10;• Requirement 3">{{ job.requirements if job else '' }}</textarea>
+                <small class="form-text">List required skills, experience, and qualifications</small>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> {{ 'Update Job' if job else 'Create Job' }}
+            </button>
+            <a href="{{ url_for('admin.jobs') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<style>
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admin-form .form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.admin-form .form-section:last-of-type {
+    border-bottom: none;
+}
+
+.admin-form .form-section h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.required {
+    color: #e74c3c;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--brand-primary, #0077B6);
+}
+
+.form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+.form-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    padding-top: 2rem;
+}
+
+.form-actions .btn {
+    padding: 0.75rem 2rem;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-container {
+        padding: 1rem;
+    }
+}
+</style>
+{% endblock %}

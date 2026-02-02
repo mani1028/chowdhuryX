@@ -3,170 +3,15 @@
 {% block title %}Industries We Serve - ChowdhuryX{% endblock %}
 
 {% block css %}
-<style>
-.page-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.page-header h1 { 
-    color: rgb(0, 0, 0) !important; 
-    font-size: 2.5rem; 
-    margin-bottom: 0.5rem; 
-}
-
-.page-header p { 
-    color: rgb(0, 0, 0) !important;
-    font-size: 1.1rem;
-    opacity: 0.95;
-}
-
-.industries-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-    margin: 3rem 0;
-}
-
-.industry-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    border-top: 4px solid var(--primary-color);
-    position: relative;
-    overflow: hidden;
-}
-
-.industry-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-8px);
-    text-decoration: none;
-    color: inherit;
-}
-
-/* Color coding for industries */
-.industry-card:nth-child(1) { border-top-color: #e74c3c; }
-.industry-card:nth-child(1) .industry-icon { color: #e74c3c; }
-
-.industry-card:nth-child(2) { border-top-color: #3498db; }
-.industry-card:nth-child(2) .industry-icon { color: #3498db; }
-
-.industry-card:nth-child(3) { border-top-color: #f39c12; }
-.industry-card:nth-child(3) .industry-icon { color: #f39c12; }
-
-.industry-card:nth-child(4) { border-top-color: #27ae60; }
-.industry-card:nth-child(4) .industry-icon { color: #27ae60; }
-
-.industry-card:nth-child(5) { border-top-color: #9b59b6; }
-.industry-card:nth-child(5) .industry-icon { color: #9b59b6; }
-
-.industry-card:nth-child(6) { border-top-color: #1abc9c; }
-.industry-card:nth-child(6) .industry-icon { color: #1abc9c; }
-
-.industry-card a {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.industry-icon {
-    font-size: 3.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-}
-
-.industry-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--dark);
-}
-
-.industry-card p {
-    color: var(--color-gray-900, #1a1a1a);
-    line-height: 1.8;
-    flex-grow: 1;
-    margin-bottom: 1.5rem;
-}
-
-.industry-card-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-top: auto;
-}
-
-.industry-card:hover .industry-card-cta {
-    color: var(--secondary-color);
-}
-
-.cta-section {
-    background: linear-gradient(135deg, var(--dark) 0%, var(--gray-dark) 100%);
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
-    border-radius: 12px;
-    margin: 4rem 0;
-}
-
-.cta-section h2 {
-    color: rgb(0, 0, 0) !important;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.cta-section p {
-    color: rgb(0, 0, 0) !important;
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 1rem auto 2rem;
-    opacity: 0.95;
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    border-color: var(--brand-primary);
-}
-
-.cta-buttons .btn {
-    min-width: 180px;
-}
-
-@media (max-width: 768px) {
-    .page-header h1 {
-        font-size: 2rem;
-    }
-    
-    .page-header p {
-        font-size: 1rem;
-    }
-}
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/industries.css') }}">
 {% endblock %}
 
 {% block content %}
 <!-- Page Header -->
 <section class="page-header">
     <div class="container">
-        <h1>Industries We Serve</h1>
-        <p>Delivering innovative solutions across diverse sectors and markets</p>
+        <h1>Cross-Industry Expertise by ChowdhuryX</h1>
+        <p>One Partner. Every Industry. Any Scale.</p>
     </div>
 </section>
 
@@ -174,68 +19,134 @@
 <section class="industries-section">
     <div class="container">
         <div class="industries-grid">
+            <!-- IT & Software -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='it-software') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Information Technology & Software</h3>
+                    <p>Enterprise IT solutions, cloud migration, and digital transformation for modern organizations.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Healthcare -->
             <div class="industry-card">
                 <a href="{{ url_for('industry_detail', slug='healthcare') }}">
                     <div class="industry-icon">
-                        <i class="fas fa-hospital"></i>
+                        <i class="fas fa-hospital-user"></i>
                     </div>
-                    <h3>Healthcare</h3>
-                    <p>Advanced solutions for modern healthcare providers, patient management, and medical innovations.</p>
+                    <h3>Healthcare & Medical Services</h3>
+                    <p>HIPAA-compliant solutions for modern healthcare systems, patient care, and medical innovation.</p>
                     <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
             
+            <!-- Pharma -->
             <div class="industry-card">
-                <a href="{{ url_for('industry_detail', slug='education') }}">
+                <a href="{{ url_for('industry_detail', slug='pharmaceutical') }}">
                     <div class="industry-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                        <i class="fas fa-flask"></i>
                     </div>
-                    <h3>Education</h3>
-                    <p>Comprehensive educational technology solutions for institutions and learning platforms.</p>
+                    <h3>Pharmaceutical & Life Sciences</h3>
+                    <p>FDA-compliant software, clinical trial management, and regulatory compliance solutions.</p>
                     <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
             
-            <div class="industry-card">
-                <a href="{{ url_for('industry_detail', slug='retail') }}">
-                    <div class="industry-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <h3>Retail & E-commerce</h3>
-                    <p>E-commerce and retail transformation solutions for omnichannel excellence.</p>
-                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                </a>
-            </div>
-            
-            <div class="industry-card">
-                <a href="{{ url_for('industry_detail', slug='manufacturing') }}">
-                    <div class="industry-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h3>Manufacturing</h3>
-                    <p>Industry 4.0 solutions including IoT, automation, and smart factory implementations.</p>
-                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
-                </a>
-            </div>
-            
+            <!-- Finance -->
             <div class="industry-card">
                 <a href="{{ url_for('industry_detail', slug='finance') }}">
                     <div class="industry-icon">
                         <i class="fas fa-university"></i>
                     </div>
-                    <h3>Financial Services</h3>
-                    <p>Fintech solutions, digital banking, and financial services modernization.</p>
+                    <h3>Finance, Banking & Professional Services</h3>
+                    <p>Secure fintech solutions, digital banking, and financial services modernization.</p>
                     <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
             
+            <!-- E-Commerce -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='ecommerce') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>E-Commerce, Retail & Consumer Services</h3>
+                    <p>Omnichannel retail transformation, AI personalization, and scalable customer support.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Manufacturing -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='manufacturing') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3>Manufacturing, Engineering & Industrial</h3>
+                    <p>Industry 4.0 solutions with IoT integration, predictive maintenance, and smart factories.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Logistics -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='logistics') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Logistics, Supply Chain & Transportation</h3>
+                    <p>Supply chain optimization, fleet management, and warehouse automation solutions.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Education -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='education') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education, Training & EdTech</h3>
+                    <p>Modern learning platforms, student information systems, and educational technology.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Startups -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='startups') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Startups & Emerging Businesses</h3>
+                    <p>Rapid MVP development, scalable infrastructure, and flexible engagement for growing businesses.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Enterprise -->
             <div class="industry-card">
                 <a href="{{ url_for('industry_detail', slug='enterprise') }}">
                     <div class="industry-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-building"></i>
                     </div>
-                    <h3>Enterprise</h3>
-                    <p>Large-scale enterprise solutions for complex business operations and transformation.</p>
+                    <h3>Enterprises & Large Organizations</h3>
+                    <p>Enterprise-grade digital transformation and global delivery for Fortune 500 companies.</p>
+                    <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
+                </a>
+            </div>
+            
+            <!-- Government -->
+            <div class="industry-card">
+                <a href="{{ url_for('industry_detail', slug='government') }}">
+                    <div class="industry-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>Government & Regulated Industries</h3>
+                    <p>Secure, accessible, and compliant technology solutions for government agencies.</p>
                     <span class="industry-card-cta">Learn More <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
@@ -249,8 +160,12 @@
         <h2>Let's Transform Your Industry</h2>
         <p>Partner with us to unlock new possibilities for your organization</p>
         <div class="cta-buttons">
-            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">Get in Touch</a>
-            <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">Explore Services</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-comments"></i> Request a Consultation
+            </a>
+            <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">
+                <i class="fas fa-th"></i> Explore Services
+            </a>
         </div>
     </div>
 </section>
