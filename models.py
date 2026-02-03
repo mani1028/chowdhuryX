@@ -132,6 +132,7 @@ class Blog(db.Model):
     featured_image = db.Column(db.String(255), nullable=True)
     status = db.Column(db.String(20), default='draft')  # draft, published, archived
     views = db.Column(db.Integer, default=0)
+    likes = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     published_at = db.Column(db.DateTime, nullable=True)
@@ -235,6 +236,7 @@ class Comment(db.Model):
     author_email = db.Column(db.String(120), nullable=False)
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default='pending')  # pending, approved, spam, rejected
+    likes = db.Column(db.Integer, default=0)
     parent_id = db.Column(db.Integer, db.ForeignKey('comments.id', ondelete='CASCADE'), nullable=True)  # For nested replies
     ip_address = db.Column(db.String(45), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)

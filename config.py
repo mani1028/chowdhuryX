@@ -8,17 +8,21 @@ from datetime import timedelta
 class Config:
     """Base configuration"""
     # Flask Settings
-    SECRET_KEY = os.getenv('SECRET_KEY', 'dev-key-change-in-production')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'change-this-in-production-with-strong-key')
     DEBUG = False
     TESTING = False
     
     # Database
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///chowdhuryX.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///instance/chowdhuryX.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 3600,
+    }
     
     # Session
     PERMANENT_SESSION_LIFETIME = timedelta(days=7)
-    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = True
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
     
@@ -33,24 +37,30 @@ class Config:
     # Email Configuration
     MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
     MAIL_PORT = int(os.getenv('MAIL_PORT', 587))
-    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', True)
+    MAIL_USE_TLS = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'
     MAIL_USERNAME = os.getenv('MAIL_USERNAME', '')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', '')
-    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@chowdhuryX.com')
+    MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', 'noreply@chowdhuryx.com')
     
     # Admin Notification Emails
-    ADMIN_EMAILS = os.getenv('ADMIN_EMAILS', 'admin@chowdhuryX.com').split(',')
+    ADMIN_EMAILS = os.getenv('ADMIN_EMAILS', 'admin@chowdhuryx.com').split(',')
     NOTIFY_ON_CONTACT = os.getenv('NOTIFY_ON_CONTACT', 'true').lower() == 'true'
     NOTIFY_ON_APPLICATION = os.getenv('NOTIFY_ON_APPLICATION', 'true').lower() == 'true'
     
     # Pagination
     ITEMS_PER_PAGE = 10
+    
+    # Security
+    JSON_SORT_KEYS = False
+    PREFERRED_URL_SCHEME = 'https'
+    PROPAGATE_EXCEPTIONS = True
 
 
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
     SESSION_COOKIE_SECURE = False
+    SQLALCHEMY_ECHO = False
 
 
 class ProductionConfig(Config):

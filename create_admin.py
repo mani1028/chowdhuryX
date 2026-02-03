@@ -25,8 +25,8 @@ def create_admin():
         print("✓ Database tables created")
         
         # Get admin credentials from .env
-        admin_username = os.getenv('ADMIN_USERNAME', 'admin')
-        admin_password = os.getenv('ADMIN_PASSWORD', 'admin123')
+        admin_username = os.getenv('ADMIN_USERNAME', 'chowdhuryx')
+        admin_password = os.getenv('ADMIN_PASSWORD', 'chowdhuryx123')
         admin_email = os.getenv('ADMIN_EMAIL', 'admin@chowdhuryx.com')
         
         # Create new admin user

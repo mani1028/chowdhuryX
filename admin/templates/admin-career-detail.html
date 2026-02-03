@@ -1,0 +1,479 @@
+{% extends "base-admin.html" %}
+
+{% block title %}Application Details - {{ career.full_name }} - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div>
+            <h1>Application Details</h1>
+            <p>Review and manage job application from {{ career.full_name }}</p>
+        </div>
+        <a href="{{ url_for('admin.careers') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Applications
+        </a>
+    </div>
+
+    <div class="detail-grid">
+        <!-- Applicant Information Card -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2><i class="fas fa-user"></i> Applicant Information</h2>
+                <span class="status-badge status-{{ career.status }}">{{ career.status }}</span>
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <p><strong>{{ career.full_name }}</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Email Address</label>
+                        <p><a href="mailto:{{ career.email }}">{{ career.email }}</a></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone Number</label>
+                        <p><a href="tel:{{ career.phone }}">{{ career.phone }}</a></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Applied Position</label>
+                        <p><strong>{{ career.position }}</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Years of Experience</label>
+                        <p>{{ career.experience_years }} years</p>
+                    </div>
+                    <div class="info-item">
+                        <label>Application Date</label>
+                        <p>{{ career.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                    </div>
+                </div>
+
+                {% if career.resume_filename %}
+                <div class="resume-section">
+                    <label><i class="fas fa-file-pdf"></i> Resume</label>
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                        <button onclick="viewResume()" class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-eye"></i> View Resume
+                        </button>
+                        <a href="{{ url_for('static', filename='uploads/resumes/' + career.resume_filename) }}" 
+                           download 
+                           class="btn btn-secondary" 
+                           style="flex: 1; text-align: center;">
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                    <div id="resumeViewer" style="display: none; margin-top: 1rem;">
+                        <iframe id="resumeFrame" 
+                                src="{{ url_for('static', filename='uploads/resumes/' + career.resume_filename) }}" 
+                                style="width: 100%; height: 600px; border: 2px solid #e2e8f0; border-radius: 8px;">
+                        </iframe>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if career.cover_letter %}
+                <div class="cover-letter-section">
+                    <label><i class="fas fa-envelope"></i> Cover Letter</label>
+                    <div class="cover-letter-content">
+                        {{ career.cover_letter }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Admin Actions Card -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2><i class="fas fa-cog"></i> Admin Actions</h2>
+            </div>
+            <div class="card-body">
+                <!-- Status Update -->
+                <div class="action-section">
+                    <label>Update Status</label>
+                    <select id="statusSelect" class="form-control" onchange="updateStatus()">
+                        <option value="applied" {% if career.status == 'applied' %}selected{% endif %}>Applied</option>
+                        <option value="shortlisted" {% if career.status == 'shortlisted' %}selected{% endif %}>Shortlisted</option>
+                    </select>
+                </div>
+
+                <!-- Rating -->
+                <div class="action-section">
+                    <label>Rating</label>
+                    <div class="rating-stars" id="ratingStars">
+                        {% for i in range(1, 6) %}
+                        <i class="fa{% if career.rating >= i %}s{% else %}r{% endif %} fa-star star" 
+                           data-rating="{{ i }}" 
+                           onclick="setRating({{ i }})"></i>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id="ratingValue" value="{{ career.rating }}">
+                </div>
+
+                <!-- Admin Notes -->
+                <div class="action-section">
+                    <label>Admin Notes</label>
+                    <textarea id="notesTextarea" 
+                              class="form-control" 
+                              rows="6" 
+                              placeholder="Add notes about this candidate...">{{ career.notes or '' }}</textarea>
+                    <button onclick="saveNotes()" class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-save"></i> Save Notes
+                    </button>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="action-section">
+                    <label>Quick Actions</label>
+                    <div class="action-buttons">
+                        <button onclick="shortlistApplication()" class="btn btn-primary" id="shortlistBtn">
+                            <i class="fas fa-star"></i> <span id="shortlistText">{% if career.status == 'shortlisted' %}Shortlisted{% else %}Shortlist{% endif %}</span>
+                        </button>
+                        <button onclick="deleteApplication()" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.detail-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #1a365d, #2563eb);
+    color: #fff;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.info-item label {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.info-item p {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1rem;
+}
+
+.info-item a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+.resume-section,
+.cover-letter-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.resume-section label,
+.cover-letter-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.cover-letter-content {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #2563eb;
+    line-height: 1.7;
+    color: #475569;
+    white-space: pre-wrap;
+}
+
+.action-section {
+    margin-bottom: 2rem;
+}
+
+.action-section:last-child {
+    margin-bottom: 0;
+}
+
+.action-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.rating-stars {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.75rem;
+}
+
+.rating-stars .star {
+    color: #fbbf24;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.rating-stars .star:hover {
+    transform: scale(1.2);
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-applied {
+    background: rgba(59, 130, 246, 0.15);
+    color: #2563eb;
+}
+
+.status-shortlisted {
+    background: rgba(251, 191, 36, 0.15);
+    color: #f59e0b;
+}
+
+.status-rejected {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.status-hired {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+@media (max-width: 1024px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+const careerId = {{ career.id }};
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+function updateStatus() {
+    const status = document.getElementById('statusSelect').value;
+    
+    fetch(`/admin/career/${careerId}/status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error updating status');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating status');
+    });
+}
+
+function setRating(rating) {
+    document.getElementById('ratingValue').value = rating;
+    
+    // Update star display
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.remove('far');
+            star.classList.add('fas');
+        } else {
+            star.classList.remove('fas');
+            star.classList.add('far');
+        }
+    });
+    
+    // Save rating
+    fetch(`/admin/career/${careerId}/status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ rating: rating })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (!data.success) {
+            alert('Error saving rating');
+        }
+    });
+}
+
+function saveNotes() {
+    const notes = document.getElementById('notesTextarea').value;
+    
+    fetch(`/admin/career/${careerId}/status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ notes: notes })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Notes saved successfully!');
+        } else {
+            alert('Error saving notes');
+        }
+    });
+}
+
+function deleteApplication() {
+    if (!confirm('Are you sure you want to delete this application? This action cannot be undone.')) {
+        return;
+    }
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/admin/career/${careerId}/delete`;
+    
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = 'csrf_token';
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function viewResume() {
+    const viewer = document.getElementById('resumeViewer');
+    if (viewer.style.display === 'none') {
+        viewer.style.display = 'block';
+    } else {
+        viewer.style.display = 'none';
+    }
+}
+
+function shortlistApplication() {
+    const currentStatus = document.getElementById('statusSelect').value;
+    const newStatus = currentStatus === 'shortlisted' ? 'applied' : 'shortlisted';
+    
+    fetch(`/admin/career/${careerId}/status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ status: newStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('statusSelect').value = newStatus;
+            const btn = document.getElementById('shortlistBtn');
+            const text = document.getElementById('shortlistText');
+            if (newStatus === 'shortlisted') {
+                text.textContent = 'Shortlisted';
+                btn.classList.add('btn-success');
+                btn.classList.remove('btn-primary');
+            } else {
+                text.textContent = 'Shortlist';
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-success');
+            }
+            location.reload();
+        } else {
+            alert('Error updating status');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating status');
+    });
+}
+</script>
+{% endblock %}

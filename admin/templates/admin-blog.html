@@ -3,8 +3,8 @@
 {% block title %}Blog Management - Admin{% endblock %}
 
 {% block content %}
-<div class="dashboard-header">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="dashboard-container">
+    <div class="dashboard-header">
         <div>
             <h1>Blog Posts</h1>
             <p>Manage and publish your blog content</p>
@@ -13,10 +13,9 @@
             <i class="fas fa-plus"></i> Create New Post
         </a>
     </div>
-</div>
 
-<!-- Filter Tabs -->
-<div class="filter-tabs">
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
     <a href="{{ url_for('admin.blog', status='all') }}" class="tab {% if current_status == 'all' %}active{% endif %}">
         All Posts
     </a>
@@ -89,160 +88,14 @@
         {% endif %}
     </div>
     {% endif %}
+    </div>
     {% else %}
-    <div class="empty-state">
-        <i class="fas fa-pen"></i>
-        <h3>No Blog Posts Yet</h3>
-        <p>Get started by creating your first blog post</p>
-        <a href="{{ url_for('admin.create_blog') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Create Post
-        </a>
+    <div class="dashboard-section">
+        <div class="no-data">
+            <i class="fas fa-pen"></i>
+            <p>No blog posts found. Get started by creating your first post.</p>
+        </div>
     </div>
     {% endif %}
 </div>
-
-<style>
-.filter-tabs {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #e0e0e0;
-    flex-wrap: wrap;
-}
-
-.tab {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    color: #666;
-    text-decoration: none;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    position: relative;
-    bottom: -2px;
-    font-weight: 600;
-}
-
-.tab:hover {
-    color: #0066cc;
-}
-
-.tab.active {
-    color: #0066cc;
-    border-bottom-color: #0066cc;
-}
-
-.category-badge {
-    display: inline-block;
-    background: #e3f2fd;
-    color: #0066cc;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.tiny-badge {
-    display: inline-block;
-    background: #f5f5f5;
-    color: #999;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    margin-left: 0.5rem;
-}
-
-.views-count {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: #666;
-}
-
-.actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.btn {
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    font-weight: 600;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    font-size: 0.85rem;
-}
-
-.btn-primary {
-    background: #0066cc;
-    color: white;
-}
-
-.btn-primary:hover {
-    background: #0052a3;
-}
-
-.btn-outline {
-    background: transparent;
-    border: 1px solid #0066cc;
-    color: #0066cc;
-}
-
-.btn-outline:hover {
-    background: #0066cc;
-    color: white;
-}
-
-.btn-sm {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 3rem;
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
-}
-
-.empty-state i {
-    font-size: 3rem;
-    color: #999;
-    margin-bottom: 1rem;
-    display: block;
-    opacity: 0.6;
-}
-
-.empty-state h3 {
-    margin: 1rem 0 0.5rem 0;
-    color: #333;
-}
-
-.empty-state p {
-    color: #999;
-    margin-bottom: 1.5rem;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e0e0e0;
-}
-
-.page-info {
-    color: #666;
-    font-weight: 600;
-}
-</style>
 {% endblock %}
