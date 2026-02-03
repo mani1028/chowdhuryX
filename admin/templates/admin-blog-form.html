@@ -50,6 +50,25 @@
                     <small>Recommended: 1200x630px, Max 5MB</small>
                 </div>
 
+                <!-- Video Option 1: Upload Video File -->
+                <div class="form-group">
+                    <label for="video_file"><i class="fas fa-video"></i> Video Upload</label>
+                    {% if blog and blog.video_file %}
+                    <div class="current-video">
+                        <p>Current: {{ blog.video_file }}</p>
+                    </div>
+                    {% endif %}
+                    <input type="file" id="video_file" name="video_file" accept="video/mp4,video/webm,video/ogg" class="form-input">
+                    <small>Supported: MP4, WebM, OGG. Max 100MB</small>
+                </div>
+
+                <!-- Video Option 2: Video URL Link -->
+                <div class="form-group">
+                    <label for="video_url"><i class="fas fa-link"></i> Video URL (YouTube/Vimeo)</label>
+                    <input type="url" id="video_url" name="video_url" value="{{ blog.video_url if blog else '' }}" class="form-input" placeholder="e.g. https://www.youtube.com/embed/...">
+                    <small>Paste YouTube or Vimeo embed URL</small>
+                </div>
+
                 <!-- Category -->
                 <div class="form-group">
                     <label for="category"><i class="fas fa-folder"></i> Category *</label>

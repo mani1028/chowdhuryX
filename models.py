@@ -82,7 +82,7 @@ class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(150), nullable=False, index=True)
     location = db.Column(db.String(100), nullable=False)
-    job_type = db.Column(db.String(50), nullable=False)  # Full-time, Part-time, Contract, Remote
+    job_type = db.Column(db.String(50), nullable=False)  # Full-time, Part-time, Contract, Internship, Commission-based, 1099
     department = db.Column(db.String(100), nullable=True, index=True)
     experience_required = db.Column(db.String(50), nullable=False)  # e.g., "3-5 years", "5+ years"
     description = db.Column(db.Text, nullable=False)
@@ -130,6 +130,8 @@ class Blog(db.Model):
     content = db.Column(db.Text, nullable=False)
     excerpt = db.Column(db.String(500), nullable=True)
     featured_image = db.Column(db.String(255), nullable=True)
+    video_file = db.Column(db.String(255), nullable=True)  # Uploaded video file
+    video_url = db.Column(db.String(500), nullable=True)  # External video URL (YouTube, Vimeo, etc.)
     status = db.Column(db.String(20), default='draft')  # draft, published, archived
     views = db.Column(db.Integer, default=0)
     likes = db.Column(db.Integer, default=0)
@@ -149,6 +151,8 @@ class Blog(db.Model):
             'category': self.category,
             'excerpt': self.excerpt,
             'featured_image': self.featured_image,
+            'video_file': self.video_file,
+            'video_url': self.video_url,
             'status': self.status,
             'views': self.views,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S'),

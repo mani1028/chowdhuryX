@@ -21,6 +21,24 @@
         </div>
         {% endif %}
 
+        <!-- Video Upload -->
+        {% if blog.video_file %}
+        <div class="video-container" style="margin: 20px 0;">
+            <video width="100%" height="auto" controls style="border-radius: 8px;">
+                <source src="{{ url_for('static', filename='uploads/videos/' + blog.video_file) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        {% endif %}
+
+        <!-- Video URL Embed -->
+        {% if blog.video_url %}
+        <div class="video-embed" style="margin: 20px 0; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                src="{{ blog.video_url }}" allowfullscreen="" allow="autoplay"></iframe>
+        </div>
+        {% endif %}
+
         <!-- Post Meta -->
         <div class="post-meta">
             <span class="badge badge-{{ blog.status }}">{{ blog.status }}</span>

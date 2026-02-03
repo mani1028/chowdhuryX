@@ -367,16 +367,23 @@ def blog():
 @admin_bp.route('/blog/new', methods=['GET', 'POST'])
 @login_required
 def create_blog():
-    """Create new blog post with image upload"""
+    """Create new blog post with image and video upload"""
+    blog = None
+    edit_id = request.args.get('edit_id', type=int)
+    
+    if edit_id:
+        blog = Blog.query.get_or_404(edit_id)
+    
     if request.method == 'POST':
         title = request.form.get('title')
         content = request.form.get('content')
         excerpt = request.form.get('excerpt', '')
         category = request.form.get('category', 'news')
         author = request.form.get('author', session.get('admin_username', 'Admin'))
+        video_url = request.form.get('video_url', '')
         
         # Handle featured image upload
-        featured_image = None
+        featured_image = blog.featured_image if blog else None
         if 'featured_image' in request.files:
             file = request.files['featured_image']
             if file and allowed_file(file.filename, 'image'):
@@ -385,29 +392,60 @@ def create_blog():
                 file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
                 featured_image = filename
         
+        # Handle video file upload
+        video_file = blog.video_file if blog else None
+        if 'video_file' in request.files:
+            file = request.files['video_file']
+            if file and allowed_file(file.filename, 'video'):
+                filename = secure_filename(file.filename)
+                filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+                # Create videos directory if it doesn't exist
+                videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
+                os.makedirs(videos_dir, exist_ok=True)
+                file.save(os.path.join(videos_dir, filename))
+                video_file = filename
+        
         # Generate slug
         slug = title.lower().replace(' ', '-').replace('--', '-')
         
         try:
-            blog = Blog(
-                title=title,
-                slug=slug,
-                content=content,
-                excerpt=excerpt,
-                category=category,
-                author=author,
-                featured_image=featured_image,
-                status='draft'
-            )
-            db.session.add(blog)
-            db.session.commit()
-            flash('Blog post created successfully', 'success')
+            if blog:
+                # Update existing blog
+                blog.title = title
+                blog.slug = slug
+                blog.content = content
+                blog.excerpt = excerpt
+                blog.category = category
+                blog.author = author
+                blog.featured_image = featured_image
+                blog.video_file = video_file
+                blog.video_url = video_url
+                blog.updated_at = datetime.utcnow()
+                db.session.commit()
+                flash('Blog post updated successfully', 'success')
+            else:
+                # Create new blog
+                blog = Blog(
+                    title=title,
+                    slug=slug,
+                    content=content,
+                    excerpt=excerpt,
+                    category=category,
+                    author=author,
+                    featured_image=featured_image,
+                    video_file=video_file,
+                    video_url=video_url,
+                    status='draft'
+                )
+                db.session.add(blog)
+                db.session.commit()
+                flash('Blog post created successfully', 'success')
             return redirect(url_for('admin.view_blog', blog_id=blog.id))
         except Exception as e:
-            flash(f'Error creating blog: {str(e)}', 'error')
-            return render_template('admin-blog-form.html', error=str(e))
+            flash(f'Error: {str(e)}', 'error')
+            return render_template('admin-blog-form.html', blog=blog, error=str(e))
     
-    return render_template('admin-blog-form.html')
+    return render_template('admin-blog-form.html', blog=blog)
 
 
 @admin_bp.route('/blog/<int:blog_id>')
@@ -588,6 +626,9 @@ def allowed_file(filename, file_type='file'):
     
     if file_type == 'image':
         return ext in current_app.config['ALLOWED_IMAGE_EXTENSIONS']
+    elif file_type == 'video':
+        # Video formats: mp4, webm, ogg, avi, mov, mkv
+        return ext in ['mp4', 'webm', 'ogg', 'avi', 'mov', 'mkv', 'flv', 'wmv']
     else:
         return ext in current_app.config['ALLOWED_EXTENSIONS']
 
