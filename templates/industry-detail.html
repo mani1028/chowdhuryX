@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}{{ industry.name }} Solutions - ChowdhuryX{% endblock %}
+{% block title %}{{ industry.name }} Solutions | Industry-Specific Services{% endblock %}
 
 {% block description %}ChowdhuryX delivers specialized technology solutions for the {{ industry.name }} industry. Learn about our expertise and how we can help your organization.{% endblock %}
+
+{% block keywords %}{{ industry.name }}, industry solutions, specialized services, technology services{% endblock %}
+
+{% block og_title %}{{ industry.name }} Solutions | Industry-Specific Services{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/detail-page.css') }}">
