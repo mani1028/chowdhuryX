@@ -121,13 +121,12 @@ def dashboard():
         'draft_posts': Blog.query.filter_by(status='draft').count(),
         'total_testimonials': Testimonial.query.count(),
         'pending_testimonials': Testimonial.query.filter_by(status='pending').count(),
-        'pending_comments': Comment.query.filter_by(status='pending').count(),
         'total_comments': Comment.query.count(),
     }
     
     recent_contacts = Contact.query.order_by(Contact.created_at.desc()).limit(5).all()
     recent_applications = Career.query.order_by(Career.created_at.desc()).limit(5).all()
-    pending_comments = Comment.query.filter_by(status='pending').limit(5).all()
+    recent_comments = Comment.query.order_by(Comment.created_at.desc()).limit(5).all()
     
     # Top Services (most viewed from analytics)
     top_services = db.session.execute(
@@ -152,7 +151,7 @@ def dashboard():
         stats=stats,
         recent_contacts=recent_contacts,
         recent_applications=recent_applications,
-        pending_comments=pending_comments,
+        recent_comments=recent_comments,
         top_services=top_services,
         popular_positions=popular_positions
     )
@@ -486,59 +485,27 @@ def unpublish_blog(blog_id):
 @admin_bp.route('/comments')
 @login_required
 def comments():
-    """View all comments pending moderation"""
+    """View all comments with delete option"""
     page = request.args.get('page', 1, type=int)
-    status = request.args.get('status', 'pending')
+    blog_id = request.args.get('blog_id', type=int)
     
     query = Comment.query.order_by(Comment.created_at.desc())
     
-    if status != 'all':
-        query = query.filter_by(status=status)
+    if blog_id:
+        query = query.filter_by(blog_id=blog_id)
     
-    comments = query.paginate(page=page, per_page=15)
+    comments = query.paginate(page=page, per_page=20)
     
     return render_template(
         'admin-comments.html',
-        comments=comments,
-        current_status=status
+        comments=comments
     )
-
-
-@admin_bp.route('/comment/<int:comment_id>/approve', methods=['POST'])
-@login_required
-def approve_comment(comment_id):
-    """Approve comment"""
-    comment = Comment.query.get_or_404(comment_id)
-    comment.status = 'approved'
-    comment.approved_at = datetime.utcnow()
-    db.session.commit()
-    
-    # Send email notification
-    if current_app.config.get('EMAIL_ON_NEW_COMMENT'):
-        send_email(
-            subject=f'Comment Approved on "{comment.blog.title}"',
-            recipients=[comment.author_email],
-            text_body=f'Your comment has been approved and is now visible on the blog.'
-        )
-    
-    return jsonify({'success': True, 'status': 'approved'})
-
-
-@admin_bp.route('/comment/<int:comment_id>/reject', methods=['POST'])
-@login_required
-def reject_comment(comment_id):
-    """Reject comment"""
-    comment = Comment.query.get_or_404(comment_id)
-    comment.status = 'rejected'
-    db.session.commit()
-    
-    return jsonify({'success': True, 'status': 'rejected'})
 
 
 @admin_bp.route('/comment/<int:comment_id>/spam', methods=['POST'])
 @login_required
 def mark_spam(comment_id):
-    """Mark comment as spam"""
+    """Mark comment as spam (hides from public view)"""
     comment = Comment.query.get_or_404(comment_id)
     comment.status = 'spam'
     db.session.commit()
@@ -549,7 +516,7 @@ def mark_spam(comment_id):
 @admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
-    """Delete comment"""
+    """Delete comment permanently"""
     comment = Comment.query.get_or_404(comment_id)
     db.session.delete(comment)
     db.session.commit()

@@ -3,15 +3,31 @@
 {% block title %}Contacts - Admin{% endblock %}
 
 {% block content %}
-<div class="content-header">
-    <h1>Contact Submissions</h1>
-    <div class="filter-buttons">
-        <a href="{{ url_for('admin.contacts', status='all') }}" class="btn {% if current_status == 'all' %}active{% endif %}">All</a>
-        <a href="{{ url_for('admin.contacts', status='new') }}" class="btn {% if current_status == 'new' %}active{% endif %}">New</a>
-        <a href="{{ url_for('admin.contacts', status='read') }}" class="btn {% if current_status == 'read' %}active{% endif %}">Read</a>
-        <a href="{{ url_for('admin.contacts', status='resolved') }}" class="btn {% if current_status == 'resolved' %}active{% endif %}">Resolved</a>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <h1>Contact Submissions</h1>
+            <p>Manage and respond to customer inquiries</p>
+        </div>
     </div>
-</div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <a href="{{ url_for('admin.contacts', status='all') }}" class="tab {% if current_status == 'all' %}active{% endif %}">
+            <i class="fas fa-inbox"></i> All Messages
+        </a>
+        <a href="{{ url_for('admin.contacts', status='new') }}" class="tab {% if current_status == 'new' %}active{% endif %}">
+            <i class="fas fa-envelope"></i> New
+        </a>
+        <a href="{{ url_for('admin.contacts', status='read') }}" class="tab {% if current_status == 'read' %}active{% endif %}">
+            <i class="fas fa-envelope-open"></i> Read
+        </a>
+        <a href="{{ url_for('admin.contacts', status='resolved') }}" class="tab {% if current_status == 'resolved' %}active{% endif %}">
+            <i class="fas fa-check-circle"></i> Resolved
+        </a>
+    </div>
+
+    <div class="dashboard-section">
 
 {% if contacts.items %}
 <div class="table-responsive">
@@ -65,9 +81,14 @@
     {% endif %}
 </div>
 {% endif %}
+</div>
 {% else %}
-<div class="empty-state">
-    <p>No contacts found</p>
+<div class="dashboard-section">
+    <div class="no-data">
+        <i class="fas fa-envelope"></i>
+        <p>No contacts found</p>
+    </div>
 </div>
 {% endif %}
+</div>
 {% endblock %}

@@ -1,33 +1,91 @@
-{% extends "base-admin.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ChowdhuryX Organization LLC - Admin Login">
+    <title>Admin Login - ChowdhuryX</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('admin.static', filename='images/favicon.png') }}">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/admin.css') }}">
+</head>
+<body>
+    <main id="main-content" class="admin-login-page">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <div class="login-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h1>ChowdhuryX Admin</h1>
+                    <p>Secure Admin Access</p>
+                </div>
 
-{% block title %}Admin Login - ChowdhuryX{% endblock %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible">
+                                <i class="fas fa-{% if category == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+                                <span>{{ message }}</span>
+                                <button type="button" class="alert-close" onclick="this.parentElement.remove();">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-{% block content %}
-<div class="login-container">
-    <div class="login-box">
-        <h1>ChowdhuryX Admin</h1>
-        <p class="subtitle">Secure Admin Access</p>
+                {% if error %}
+                <div class="alert alert-danger alert-dismissible">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>{{ error }}</span>
+                    <button type="button" class="alert-close" onclick="this.parentElement.remove();">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                {% endif %}
 
-        {% if error %}
-        <div class="alert alert-error">{{ error }}</div>
-        {% endif %}
+                <form method="POST" class="login-form">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            placeholder="Enter your username"
+                            required 
+                            autofocus
+                        >
+                    </div>
 
-        <form method="POST" class="login-form">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required autofocus>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+
+              <!-- <p class="login-footer">Default credentials: chowdhuryx / chowdhuryx123</p> -->
             </div>
+        </div>
+    </main>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-
-        <p class="login-footer">Default credentials: admin / admin123</p>
-    </div>
-</div>
-{% endblock %}
+    <!-- JavaScript -->
+    <script src="{{ url_for('admin.static', filename='js/admin.js') }}"></script>
+</body>
+</html>

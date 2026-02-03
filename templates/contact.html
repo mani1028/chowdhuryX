@@ -422,10 +422,11 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            showSuccessToast('Success', data.message || 'Thank you for contacting us!');
+            // Show popup/alert
+            alert('✓ Thank you for contacting us!\n\nOur team will contact you shortly.');
             document.getElementById('contactForm').reset();
         } else {
-            showErrorToast('Error', data.message || 'An error occurred. Please try again.');
+            alert('✗ Error: ' + (data.message || 'An error occurred. Please try again.'));
         }
     })
     .catch(error => {

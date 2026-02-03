@@ -3,148 +3,90 @@
 {% block title %}Comments - Admin{% endblock %}
 
 {% block content %}
-<div class="dashboard-header">
-    <h1>Comments Moderation</h1>
-    <p>Review and manage user comments on blog posts</p>
-</div>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <h1>Comments</h1>
+            <p>Monitor and manage blog comments</p>
+        </div>
+    </div>
 
-<!-- Filter Tabs -->
-<div class="filter-tabs">
-    <a href="{{ url_for('admin.comments', status='pending') }}" class="tab {% if current_status == 'pending' %}active{% endif %}">
-        Pending <span class="badge">{{ comments.total }}</span>
-    </a>
-    <a href="{{ url_for('admin.comments', status='approved') }}" class="tab {% if current_status == 'approved' %}active{% endif %}">
-        Approved
-    </a>
-    <a href="{{ url_for('admin.comments', status='rejected') }}" class="tab {% if current_status == 'rejected' %}active{% endif %}">
-        Rejected
-    </a>
-    <a href="{{ url_for('admin.comments', status='spam') }}" class="tab {% if current_status == 'spam' %}active{% endif %}">
-        Spam
-    </a>
-    <a href="{{ url_for('admin.comments', status='all') }}" class="tab {% if current_status == 'all' %}active{% endif %}">
-        All Comments
-    </a>
-</div>
-
-<!-- Comments Table -->
-<div class="dashboard-section">
-    <div class="table-responsive">
-        {% if comments.items %}
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Author</th>
-                    <th>Comment</th>
-                    <th>Blog Post</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for comment in comments.items %}
-                <tr>
-                    <td>
-                        <strong>{{ comment.author_name }}</strong><br>
-                        <small>{{ comment.author_email }}</small>
-                    </td>
-                    <td>
-                        <div class="comment-preview">
-                            {{ comment.content[:100] }}{% if comment.content|length > 100 %}...{% endif %}
-                        </div>
-                    </td>
-                    <td>
-                        <a href="{{ url_for('admin.view_blog', blog_id=comment.blog_id) }}" class="link">
-                            {{ comment.blog.title[:30] }}...
-                        </a>
-                    </td>
-                    <td>
-                        <span class="badge badge-{{ comment.status }}">{{ comment.status }}</span>
-                    </td>
-                    <td>{{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
-                    <td class="actions">
-                        {% if comment.status != 'approved' %}
-                        <button class="btn btn-sm btn-success" onclick="approveComment({{ comment.id }})">
-                            <i class="fas fa-check"></i> Approve
-                        </button>
-                        {% endif %}
-                        {% if comment.status != 'rejected' %}
-                        <button class="btn btn-sm btn-danger" onclick="rejectComment({{ comment.id }})">
-                            <i class="fas fa-times"></i> Reject
-                        </button>
-                        {% endif %}
-                        {% if comment.status != 'spam' %}
-                        <button class="btn btn-sm btn-warning" onclick="markSpam({{ comment.id }})">
-                            <i class="fas fa-flag"></i> Spam
-                        </button>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <!-- Pagination -->
-        {% if comments.pages > 1 %}
-        <div class="pagination">
-            {% if comments.has_prev %}
-            <a href="{{ url_for('admin.comments', page=comments.prev_num, status=current_status) }}" class="btn btn-sm">← Previous</a>
+    <div class="dashboard-section">
+        <div class="table-responsive">
+            {% if comments.items %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Author</th>
+                        <th>Comment</th>
+                        <th>Blog Post</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for comment in comments.items %}
+                    <tr>
+                        <td>
+                            <strong>{{ comment.author_name }}</strong><br>
+                            <small>{{ comment.author_email }}</small>
+                        </td>
+                        <td>
+                            <div class="comment-preview">
+                                {{ comment.content }}
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ url_for('blog_post', slug=comment.blog.slug) }}" target="_blank">
+                                {{ comment.blog.title[:40] }}{% if comment.blog.title|length > 40 %}...{% endif %}
+                            </a>
+                        </td>
+                        <td>{{ comment.created_at.strftime('%b %d, %Y') }}</td>
+                        <td class="actions">
+                            <button class="btn-icon btn-warning" onclick="markSpam({{ comment.id }})" title="Mark as Spam">
+                                <i class="fas fa-flag"></i>
+                            </button>
+                            <button class="btn-icon btn-danger" onclick="deleteComment({{ comment.id }})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            {% if comments.pages > 1 %}
+            <div class="pagination">
+                {% if comments.has_prev %}
+                <a href="{{ url_for('admin.comments', page=comments.prev_num) }}" class="btn btn-outline">← Previous</a>
+                {% endif %}
+                
+                <span class="page-info">Page {{ comments.page }} of {{ comments.pages }}</span>
+                
+                {% if comments.has_next %}
+                <a href="{{ url_for('admin.comments', page=comments.next_num) }}" class="btn btn-outline">Next →</a>
+                {% endif %}
+            </div>
             {% endif %}
-            
-            <span class="page-info">Page {{ comments.page }} of {{ comments.pages }}</span>
-            
-            {% if comments.has_next %}
-            <a href="{{ url_for('admin.comments', page=comments.next_num, status=current_status) }}" class="btn btn-sm">Next →</a>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>No Comments Yet</h3>
+                <p>Comments will appear here when users post them.</p>
+            </div>
             {% endif %}
         </div>
-        {% endif %}
-        {% else %}
-        <div class="empty-state">
-            <i class="fas fa-comments"></i>
-            <p>No comments found</p>
-        </div>
-        {% endif %}
     </div>
 </div>
 
 <script>
-function approveComment(commentId) {
-    if (confirm('Approve this comment?')) {
-        fetch(`/admin/comment/${commentId}/approve`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            }
-        });
-    }
-}
-
-function rejectComment(commentId) {
-    if (confirm('Reject this comment?')) {
-        fetch(`/admin/comment/${commentId}/reject`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                location.reload();
-            }
-        });
-    }
-}
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
 function markSpam(commentId) {
-    if (confirm('Mark this comment as spam?')) {
+    if (confirm('Mark this comment as spam and hide it?')) {
         fetch(`/admin/comment/${commentId}/spam`, {
             method: 'POST',
             headers: {
