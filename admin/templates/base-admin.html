@@ -3,67 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Admin - ChowdhuryX{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="{% block description %}ChowdhuryX Organization LLC - Admin Dashboard{% endblock %}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}Admin Dashboard - ChowdhuryX{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('admin.static', filename='images/favicon.png') }}">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Admin CSS with Enterprise Design System -->
     <link rel="stylesheet" href="{{ url_for('admin.static', filename='css/admin.css') }}">
+    
+    <!-- Page-specific CSS -->
     {% block css %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body>
+    <!-- Skip to main content (Accessibility) -->
+    <a href="#main-content" class="sr-only focus-visible">Skip to main content</a>
+
     <!-- Admin Navigation (Hide on login page) -->
     {% if session.get('admin_logged_in') %}
-    <nav class="admin-navbar">
-        <div class="navbar-brand">
-            <i class="fas fa-shield-alt"></i>
-            <h2>ChowdhuryX Admin</h2>
-        </div>
-        <ul class="nav-items">
-            <li><a href="{{ url_for('admin.dashboard') }}" class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
-                <i class="fas fa-th-large"></i> Dashboard
-            </a></li>
-            <li><a href="{{ url_for('admin.contacts') }}" class="nav-link {% if request.endpoint == 'admin.contacts' %}active{% endif %}">
-                <i class="fas fa-envelope"></i> Contacts
-            </a></li>
-            <li><a href="{{ url_for('admin.careers') }}" class="nav-link {% if request.endpoint == 'admin.careers' %}active{% endif %}">
-                <i class="fas fa-briefcase"></i> Applications
-            </a></li>
-            <li><a href="{{ url_for('admin.jobs') }}" class="nav-link {% if request.endpoint and 'jobs' in request.endpoint %}active{% endif %}">
-                <i class="fas fa-briefcase"></i> Job Postings
-            </a></li>
-            <li><a href="{{ url_for('admin.blog') }}" class="nav-link {% if request.endpoint == 'admin.blog' %}active{% endif %}">
-                <i class="fas fa-pen"></i> Blog Posts
-            </a></li>
-            <li><a href="{{ url_for('admin.comments') }}" class="nav-link {% if request.endpoint == 'admin.comments' %}active{% endif %}">
-                <i class="fas fa-comments"></i> Comments
-            </a></li>
-            <li><a href="{{ url_for('admin.analytics') }}" class="nav-link {% if request.endpoint == 'admin.analytics' %}active{% endif %}">
-                <i class="fas fa-chart-line"></i> Analytics
-            </a></li>
-        </ul>
-        <div class="nav-footer">
-            <div class="admin-user-info">
-                <i class="fas fa-user-circle"></i>
-                <span>{{ session.get('admin_username', 'Admin') }}</span>
+    <header class="admin-header" role="banner">
+        <nav class="admin-navbar">
+            <div class="navbar-container">
+                <!-- Logo -->
+                <div class="navbar-brand">
+                    <a href="{{ url_for('admin.dashboard') }}" class="brand-link">
+                        <i class="fas fa-shield-alt brand-icon"></i>
+                        <span class="brand-text">ChowdhuryX Admin</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button type="button" class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+                    <span class="toggle-icon"></span>
+                    <span class="toggle-icon"></span>
+                    <span class="toggle-icon"></span>
+                </button>
+
+                <!-- Navigation Menu -->
+                <ul class="nav-items" id="navMenu">
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.dashboard') }}" class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+                            <i class="fas fa-th-large"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.contacts') }}" class="nav-link {% if request.endpoint == 'admin.contacts' %}active{% endif %}">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.careers') }}" class="nav-link {% if request.endpoint == 'admin.careers' %}active{% endif %}">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Applications</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.jobs') }}" class="nav-link {% if request.endpoint and 'jobs' in request.endpoint %}active{% endif %}">
+                            <i class="fas fa-list"></i>
+                            <span>Job Postings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.blog') }}" class="nav-link {% if request.endpoint == 'admin.blog' %}active{% endif %}">
+                            <i class="fas fa-pen"></i>
+                            <span>Blog Posts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.comments') }}" class="nav-link {% if request.endpoint == 'admin.comments' %}active{% endif %}">
+                            <i class="fas fa-comments"></i>
+                            <span>Comments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url_for('admin.analytics') }}" class="nav-link {% if request.endpoint == 'admin.analytics' %}active{% endif %}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- User Menu -->
+                <div class="navbar-end">
+                    <div class="user-menu">
+                        <div class="user-info">
+                            <i class="fas fa-user-circle user-avatar"></i>
+                            <span class="user-name">{{ session.get('admin_username', 'Admin') }}</span>
+                        </div>
+                        <a href="{{ url_for('admin.logout') }}" class="logout-btn" title="Logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <a href="{{ url_for('admin.logout') }}" class="nav-link logout" title="Logout">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </div>
-    </nav>
+        </nav>
+    </header>
     {% endif %}
 
     <!-- Main Content -->
-    <div class="admin-container {% if not session.get('admin_logged_in') %}no-navbar{% endif %}">
+    <main id="main-content" class="admin-main {% if not session.get('admin_logged_in') %}admin-login-page{% endif %}">
+        <!-- Flash Messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                    <div class="alert alert-{{ category }} alert-dismissible">
+                        <i class="fas fa-{% if category == 'success' %}check-circle{% elif category == 'error' or category == 'danger' %}exclamation-circle{% elif category == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+                        <span>{{ message }}</span>
+                        <button type="button" class="alert-close" onclick="this.parentElement.remove();">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
 
         {% block content %}{% endblock %}
-    </div>
+    </main>
 
+    <!-- Admin Footer -->
+    {% if session.get('admin_logged_in') %}
+    <footer class="admin-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
+        </div>
+    </footer>
+    {% endif %}
+
+    <!-- Main JavaScript -->
     <script src="{{ url_for('admin.static', filename='js/admin.js') }}"></script>
     {% block js %}{% endblock %}
 </body>

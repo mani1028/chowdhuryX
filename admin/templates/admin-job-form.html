@@ -3,15 +3,20 @@
 {% block title %}{{ 'Edit Job' if job else 'Create Job' }} - Admin{% endblock %}
 
 {% block content %}
-<div class="admin-header">
-    <h1>{{ 'Edit Job Posting' if job else 'Create New Job' }}</h1>
-    <a href="{{ url_for('admin.jobs') }}" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back to Jobs
-    </a>
-</div>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <h1>{{ 'Edit Job Posting' if job else 'Create New Job' }}</h1>
+            <p>{{ 'Update job details and requirements' if job else 'Create a new job posting for your team' }}</p>
+        </div>
+        <a href="{{ url_for('admin.jobs') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Jobs
+        </a>
+    </div>
 
-<div class="form-container">
+<div class="dashboard-section">
     <form method="POST" action="{{ url_for('admin.edit_job', job_id=job.id) if job else url_for('admin.create_job') }}" class="admin-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         
         <!-- Basic Information -->
         <div class="form-section">

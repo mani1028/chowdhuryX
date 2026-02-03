@@ -290,16 +290,53 @@ def create_app(config_name=None):
                 author_name=author_name,
                 author_email=author_email,
                 content=content,
-                status='pending',  # Requires admin approval
+                status='approved',  # Auto-approved, admin can delete if needed
                 ip_address=request.remote_addr
             )
             db.session.add(comment)
             db.session.commit()
             
-            return jsonify({'success': True, 'message': 'Comment submitted for approval'})
+            return jsonify({'success': True, 'message': 'Comment posted successfully!'})
         except Exception as e:
             logger.error(f"Blog comment error: {str(e)}")
             return jsonify({'success': False, 'message': 'Error submitting comment'}), 400
+    
+    @app.route('/blog/<int:blog_id>/like', methods=['POST'])
+    def like_blog(blog_id):
+        """Like a blog post"""
+        try:
+            blog = Blog.query.get_or_404(blog_id)
+            
+            # Increment likes
+            if blog.likes is None:
+                blog.likes = 0
+            blog.likes += 1
+            
+            db.session.commit()
+            
+            return jsonify({'success': True, 'likes': blog.likes})
+        except Exception as e:
+            logger.error(f"Blog like error: {str(e)}")
+            return jsonify({'success': False, 'message': 'Error liking post'}), 400
+    
+    @app.route('/comment/<int:comment_id>/like', methods=['POST'])
+    def like_comment(comment_id):
+        """Like a comment"""
+        try:
+            from models import Comment
+            comment = Comment.query.get_or_404(comment_id)
+            
+            # Increment likes
+            if comment.likes is None:
+                comment.likes = 0
+            comment.likes += 1
+            
+            db.session.commit()
+            
+            return jsonify({'success': True, 'likes': comment.likes})
+        except Exception as e:
+            logger.error(f"Comment like error: {str(e)}")
+            return jsonify({'success': False, 'message': 'Error liking comment'}), 400
     
     @app.route('/faq')
     def faq():

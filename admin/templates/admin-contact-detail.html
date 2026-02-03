@@ -1,0 +1,367 @@
+{% extends "base-admin.html" %}
+
+{% block title %}Contact Details - {{ contact.name }} - Admin{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div>
+            <h1>Contact Details</h1>
+            <p>Review contact submission from {{ contact.name }}</p>
+        </div>
+        <a href="{{ url_for('admin.contacts') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Contacts
+        </a>
+    </div>
+
+    <div class="detail-grid">
+        <!-- Contact Information Card -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2><i class="fas fa-envelope"></i> Contact Information</h2>
+                <span class="status-badge status-{{ contact.status }}">{{ contact.status }}</span>
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Full Name</label>
+                        <p><strong>{{ contact.name }}</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Email Address</label>
+                        <p><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Phone Number</label>
+                        <p>
+                            {% if contact.phone %}
+                            <a href="tel:{{ contact.phone }}">{{ contact.phone }}</a>
+                            {% else %}
+                            <span class="text-muted">Not provided</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <label>Subject</label>
+                        <p><strong>{{ contact.subject }}</strong></p>
+                    </div>
+                    <div class="info-item">
+                        <label>Submitted On</label>
+                        <p>{{ contact.created_at.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                    </div>
+                    <div class="info-item">
+                        <label>IP Address</label>
+                        <p>{{ contact.ip_address or 'N/A' }}</p>
+                    </div>
+                </div>
+
+                <div class="message-section">
+                    <label><i class="fas fa-comment-alt"></i> Message</label>
+                    <div class="message-content">
+                        {{ contact.message }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Actions Card -->
+        <div class="detail-card">
+            <div class="card-header">
+                <h2><i class="fas fa-cog"></i> Admin Actions</h2>
+            </div>
+            <div class="card-body">
+                <!-- Status Update -->
+                <div class="action-section">
+                    <label>Update Status</label>
+                    <select id="statusSelect" class="form-control" onchange="updateStatus()">
+                        <option value="new" {% if contact.status == 'new' %}selected{% endif %}>New</option>
+                        <option value="read" {% if contact.status == 'read' %}selected{% endif %}>Read</option>
+                        <option value="resolved" {% if contact.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                    </select>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="action-section">
+                    <label>Quick Actions</label>
+                    <div class="action-buttons">
+                        <a href="mailto:{{ contact.email }}?subject=Re: {{ contact.subject }}" class="btn btn-primary">
+                            <i class="fas fa-reply"></i> Reply via Email
+                        </a>
+                        {% if contact.phone %}
+                        <a href="tel:{{ contact.phone }}" class="btn btn-success">
+                            <i class="fas fa-phone"></i> Call {{ contact.phone }}
+                        </a>
+                        {% endif %}
+                        <button onclick="deleteContact()" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Delete Contact
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contact Summary -->
+                <div class="action-section">
+                    <label>Summary</label>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Received {{ contact.created_at.strftime('%B %d, %Y') }}</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-user"></i>
+                            <span>From {{ contact.name }}</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-tag"></i>
+                            <span>{{ contact.subject }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.detail-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #1a365d, #2563eb);
+    color: #fff;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.info-item label {
+    display: block;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.info-item p {
+    margin: 0;
+    color: #0f172a;
+    font-size: 1rem;
+}
+
+.info-item a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+.text-muted {
+    color: #94a3b8;
+}
+
+.message-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.message-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #0f172a;
+}
+
+.message-content {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid #2563eb;
+    line-height: 1.7;
+    color: #475569;
+    white-space: pre-wrap;
+}
+
+.action-section {
+    margin-bottom: 2rem;
+}
+
+.action-section:last-child {
+    margin-bottom: 0;
+}
+
+.action-section label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.summary-stats {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #475569;
+}
+
+.stat-item i {
+    color: #2563eb;
+    font-size: 1.1rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-new {
+    background: rgba(59, 130, 246, 0.15);
+    color: #2563eb;
+}
+
+.status-read {
+    background: rgba(251, 191, 36, 0.15);
+    color: #f59e0b;
+}
+
+.status-resolved {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+@media (max-width: 1024px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+const contactId = {{ contact.id }};
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+function updateStatus() {
+    const status = document.getElementById('statusSelect').value;
+    
+    fetch(`/admin/contact/${contactId}/status`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error updating status');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating status');
+    });
+}
+
+function deleteContact() {
+    if (!confirm('Are you sure you want to delete this contact? This action cannot be undone.')) {
+        return;
+    }
+    
+    fetch(`/admin/contact/${contactId}/delete`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = '/admin/contacts';
+        } else {
+            alert('Error deleting contact');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting contact');
+    });
+}
+</script>
+{% endblock %}

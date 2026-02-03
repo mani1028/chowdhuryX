@@ -3,16 +3,28 @@
 {% block title %}Career Applications - Admin{% endblock %}
 
 {% block content %}
-<div class="content-header">
-    <h1>Career Applications</h1>
-    <div class="filter-buttons">
-        <a href="{{ url_for('admin.careers', status='all') }}" class="btn {% if current_status == 'all' %}active{% endif %}">All</a>
-        <a href="{{ url_for('admin.careers', status='applied') }}" class="btn {% if current_status == 'applied' %}active{% endif %}">Applied</a>
-        <a href="{{ url_for('admin.careers', status='shortlisted') }}" class="btn {% if current_status == 'shortlisted' %}active{% endif %}">Shortlisted</a>
-        <a href="{{ url_for('admin.careers', status='hired') }}" class="btn {% if current_status == 'hired' %}active{% endif %}">Hired</a>
-        <a href="{{ url_for('admin.careers', status='rejected') }}" class="btn {% if current_status == 'rejected' %}active{% endif %}">Rejected</a>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <h1>Career Applications</h1>
+            <p>Manage job applications and candidate profiles</p>
+        </div>
     </div>
-</div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+        <a href="{{ url_for('admin.careers', status='all') }}" class="tab {% if current_status == 'all' %}active{% endif %}">
+            <i class="fas fa-list"></i> All Applications
+        </a>
+        <a href="{{ url_for('admin.careers', status='applied') }}" class="tab {% if current_status == 'applied' %}active{% endif %}">
+            <i class="fas fa-file-alt"></i> Applied
+        </a>
+        <a href="{{ url_for('admin.careers', status='shortlisted') }}" class="tab {% if current_status == 'shortlisted' %}active{% endif %}">
+            <i class="fas fa-star"></i> Shortlisted
+        </a>
+    </div>
+
+    <div class="dashboard-section">
 
 {% if careers.items %}
 <div class="table-responsive">
@@ -78,9 +90,14 @@
     {% endif %}
 </div>
 {% endif %}
+</div>
 {% else %}
-<div class="empty-state">
-    <p>No applications found</p>
+<div class="dashboard-section">
+    <div class="no-data">
+        <i class="fas fa-inbox"></i>
+        <p>No applications found</p>
+    </div>
 </div>
 {% endif %}
+</div>
 {% endblock %}
