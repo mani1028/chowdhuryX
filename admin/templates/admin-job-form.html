@@ -48,6 +48,8 @@
                         <option value="Part-time" {% if job and job.job_type == 'Part-time' %}selected{% endif %}>Part-time</option>
                         <option value="Contract" {% if job and job.job_type == 'Contract' %}selected{% endif %}>Contract</option>
                         <option value="Internship" {% if job and job.job_type == 'Internship' %}selected{% endif %}>Internship</option>
+                        <option value="Commission-based" {% if job and job.job_type == 'Commission-based' %}selected{% endif %}>Commission-based</option>
+                        <option value="1099" {% if job and job.job_type == '1099' %}selected{% endif %}>1099</option>
                     </select>
                 </div>
                 
@@ -60,7 +62,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="salary_range">Salary Range</label>
-                    <input type="text" id="salary_range" name="salary_range" value="{{ job.salary_range if job else '' }}" placeholder="e.g. $80,000 - $120,000">
+                    <input type="text" id="salary_range" name="salary_range" value="{{ job.salary_range if job else '' }}" placeholder="e.g. $80,000 - $120,000 or 80k - 120k or Competitive">
                 </div>
                 
                 <div class="form-group">

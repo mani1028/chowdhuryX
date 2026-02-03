@@ -1,0 +1,1186 @@
+{
+  "info": {
+    "name": "ChowdhuryX API",
+    "description": "Complete API testing collection for ChowdhuryX corporate website",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12345678"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 302) {",
+                  "    pm.test('Login successful', function() {",
+                  "        pm.expect(pm.response.code).to.be.oneOf([200, 302]);",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "your_password_here",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/login",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "login"]
+            }
+          }
+        },
+        {
+          "name": "Admin Logout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/logout",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Public Endpoints",
+      "item": [
+        {
+          "name": "Homepage",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          }
+        },
+        {
+          "name": "Services Page",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/services",
+              "host": ["{{base_url}}"],
+              "path": ["services"]
+            }
+          }
+        },
+        {
+          "name": "Service Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/services/web-development",
+              "host": ["{{base_url}}"],
+              "path": ["services", "web-development"]
+            }
+          }
+        },
+        {
+          "name": "Submit Contact Form",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Contact submission accepted', function() {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 302]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "name",
+                  "value": "John Doe",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "john@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "+1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "subject",
+                  "value": "Inquiry about services",
+                  "type": "text"
+                },
+                {
+                  "key": "message",
+                  "value": "I would like to know more about your web development services.",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/contact",
+              "host": ["{{base_url}}"],
+              "path": ["contact"]
+            }
+          }
+        },
+        {
+          "name": "Careers Page",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/careers",
+              "host": ["{{base_url}}"],
+              "path": ["careers"]
+            }
+          }
+        },
+        {
+          "name": "Submit Career Application",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "full_name",
+                  "value": "Jane Doe",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "jane@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "+1234567890",
+                  "type": "text"
+                },
+                {
+                  "key": "position",
+                  "value": "Senior Developer",
+                  "type": "text"
+                },
+                {
+                  "key": "experience_years",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "cover_letter",
+                  "value": "I am interested in this position.",
+                  "type": "text"
+                },
+                {
+                  "key": "resume",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/careers",
+              "host": ["{{base_url}}"],
+              "path": ["careers"]
+            }
+          }
+        },
+        {
+          "name": "Blog Page",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/blog",
+              "host": ["{{base_url}}"],
+              "path": ["blog"]
+            }
+          }
+        },
+        {
+          "name": "Blog Post Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/blog/sample-blog-post",
+              "host": ["{{base_url}}"],
+              "path": ["blog", "sample-blog-post"]
+            }
+          }
+        },
+        {
+          "name": "Add Blog Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "author",
+                  "value": "Test User",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "test@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "This is a great blog post! Very informative.",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/blog/1/comment",
+              "host": ["{{base_url}}"],
+              "path": ["blog", "1", "comment"]
+            }
+          }
+        },
+        {
+          "name": "Like Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/blog/1/like",
+              "host": ["{{base_url}}"],
+              "path": ["blog", "1", "like"]
+            }
+          }
+        },
+        {
+          "name": "Like Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/comment/1/like",
+              "host": ["{{base_url}}"],
+              "path": ["comment", "1", "like"]
+            }
+          }
+        },
+        {
+          "name": "Industries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/industries",
+              "host": ["{{base_url}}"],
+              "path": ["industries"]
+            }
+          }
+        },
+        {
+          "name": "Industry Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/industries/healthcare",
+              "host": ["{{base_url}}"],
+              "path": ["industries", "healthcare"]
+            }
+          }
+        },
+        {
+          "name": "Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/portfolio",
+              "host": ["{{base_url}}"],
+              "path": ["portfolio"]
+            }
+          }
+        },
+        {
+          "name": "FAQ",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/faq",
+              "host": ["{{base_url}}"],
+              "path": ["faq"]
+            }
+          }
+        },
+        {
+          "name": "Testimonials",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/testimonials",
+              "host": ["{{base_url}}"],
+              "path": ["testimonials"]
+            }
+          }
+        },
+        {
+          "name": "Privacy Policy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/privacy-policy",
+              "host": ["{{base_url}}"],
+              "path": ["privacy-policy"]
+            }
+          }
+        },
+        {
+          "name": "Terms of Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/terms",
+              "host": ["{{base_url}}"],
+              "path": ["terms"]
+            }
+          }
+        },
+        {
+          "name": "Cookie Policy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/cookies",
+              "host": ["{{base_url}}"],
+              "path": ["cookies"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Dashboard",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/dashboard",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "dashboard"]
+            }
+          }
+        },
+        {
+          "name": "Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/analytics",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "analytics"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contacts Management",
+      "item": [
+        {
+          "name": "List Contacts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/contacts?page=1&status=all",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contacts"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "List New Contacts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/contacts?status=new",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contacts"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "new"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Contacts CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/contacts?export=true",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contacts"],
+              "query": [
+                {
+                  "key": "export",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Contact",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/contact/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contact", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Contact Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"read\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/contact/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contact", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Delete Contact",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/contact/1/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "contact", "1", "delete"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Careers Management",
+      "item": [
+        {
+          "name": "List Career Applications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/careers?page=1&status=all",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "careers"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Careers CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/careers?export=true",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "careers"],
+              "query": [
+                {
+                  "key": "export",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "View Career Application",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/career/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "career", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Career Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"shortlisted\",\n  \"rating\": 5,\n  \"notes\": \"Excellent candidate\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/career/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "career", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Delete Career Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/career/1/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "career", "1", "delete"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Blog Management",
+      "item": [
+        {
+          "name": "List Blog Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/blog?page=1&status=all",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "My New Blog Post",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "<p>This is the blog content in HTML format</p>",
+                  "type": "text"
+                },
+                {
+                  "key": "excerpt",
+                  "value": "Brief description of the blog post",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "news",
+                  "type": "text"
+                },
+                {
+                  "key": "author",
+                  "value": "Admin",
+                  "type": "text"
+                },
+                {
+                  "key": "featured_image",
+                  "type": "file",
+                  "src": []
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/blog/new",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "new"]
+            }
+          }
+        },
+        {
+          "name": "View Blog Post",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/blog/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Blog Title\",\n  \"content\": \"<p>Updated content</p>\",\n  \"excerpt\": \"Updated excerpt\",\n  \"category\": \"news\",\n  \"status\": \"draft\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/blog/1/update",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "1", "update"]
+            }
+          }
+        },
+        {
+          "name": "Publish Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/blog/1/publish",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "1", "publish"]
+            }
+          }
+        },
+        {
+          "name": "Unpublish Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/blog/1/unpublish",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "1", "unpublish"]
+            }
+          }
+        },
+        {
+          "name": "Delete Blog Post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/blog/1/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "blog", "1", "delete"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Comments Management",
+      "item": [
+        {
+          "name": "List Comments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/comments?page=1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "comments"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark Comment as Spam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/comment/1/spam",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "comment", "1", "spam"]
+            }
+          }
+        },
+        {
+          "name": "Delete Comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/comment/1/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "comment", "1", "delete"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Jobs Management",
+      "item": [
+        {
+          "name": "List Jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/jobs?page=1&status=all",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "status",
+                  "value": "all"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "Senior Developer",
+                  "type": "text"
+                },
+                {
+                  "key": "location",
+                  "value": "New York, NY",
+                  "type": "text"
+                },
+                {
+                  "key": "job_type",
+                  "value": "Full-time",
+                  "type": "text"
+                },
+                {
+                  "key": "department",
+                  "value": "Engineering",
+                  "type": "text"
+                },
+                {
+                  "key": "experience_required",
+                  "value": "5+ years",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "We are looking for an experienced developer...",
+                  "type": "text"
+                },
+                {
+                  "key": "requirements",
+                  "value": "5+ years of experience, knowledge of Python, Node.js",
+                  "type": "text"
+                },
+                {
+                  "key": "responsibilities",
+                  "value": "Develop features, review code, mentor team members",
+                  "type": "text"
+                },
+                {
+                  "key": "salary_range",
+                  "value": "$100,000 - $150,000",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "type": "text"
+                },
+                {
+                  "key": "closes_at",
+                  "value": "2026-03-31",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/new",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "new"]
+            }
+          }
+        },
+        {
+          "name": "View Job",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/1",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "1"]
+            }
+          }
+        },
+        {
+          "name": "Edit Job",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "title",
+                  "value": "Senior Developer (Updated)",
+                  "type": "text"
+                },
+                {
+                  "key": "location",
+                  "value": "New York, NY",
+                  "type": "text"
+                },
+                {
+                  "key": "job_type",
+                  "value": "Full-time",
+                  "type": "text"
+                },
+                {
+                  "key": "department",
+                  "value": "Engineering",
+                  "type": "text"
+                },
+                {
+                  "key": "experience_required",
+                  "value": "5+ years",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description...",
+                  "type": "text"
+                },
+                {
+                  "key": "requirements",
+                  "value": "5+ years of experience",
+                  "type": "text"
+                },
+                {
+                  "key": "responsibilities",
+                  "value": "Develop features",
+                  "type": "text"
+                },
+                {
+                  "key": "salary_range",
+                  "value": "$120,000 - $150,000",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "active",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/1/edit",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "1", "edit"]
+            }
+          }
+        },
+        {
+          "name": "Delete Job",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/1/delete",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "1", "delete"]
+            }
+          }
+        },
+        {
+          "name": "Toggle Job Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/1/status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "1", "status"]
+            }
+          }
+        },
+        {
+          "name": "Bulk Job Actions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "action",
+                  "value": "activate",
+                  "type": "text"
+                },
+                {
+                  "key": "job_ids[]",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "job_ids[]",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "job_ids[]",
+                  "value": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/admin/jobs/bulk-action",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "jobs", "bulk-action"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    }
+  ]
+}
