@@ -383,6 +383,12 @@ def create_blog():
         video_url = request.form.get('video_url', '').strip()
         image_url = request.form.get('image_url', '').strip()
         
+        # Check for removal checkboxes
+        remove_featured_image = request.form.get('remove_featured_image') == '1'
+        remove_image_url = request.form.get('remove_image_url') == '1'
+        remove_video_file = request.form.get('remove_video_file') == '1'
+        remove_video_url = request.form.get('remove_video_url') == '1'
+        
         # Validate URLs - only accept if they start with http:// or https://
         if image_url and not (image_url.startswith('http://') or image_url.startswith('https://')):
             image_url = ''
@@ -392,8 +398,10 @@ def create_blog():
             video_url = ''
             flash('Invalid video URL. Please provide a full URL starting with http:// or https://', 'warning')
         
-        # Handle featured image upload
+        # Handle featured image upload/removal
         featured_image = blog.featured_image if blog else None
+        if remove_featured_image:
+            featured_image = None
         if 'featured_image' in request.files:
             file = request.files['featured_image']
             if file and file.filename != '':
@@ -406,18 +414,29 @@ def create_blog():
                 else:
                     flash('Featured image must be an image file (PNG, JPG, JPEG, GIF, WebP)', 'error')
         
-        # Handle video file upload
+        # Handle image URL removal
+        if remove_image_url:
+            image_url = None
+        
+        # Handle video file upload/removal
         video_file = blog.video_file if blog else None
+        if remove_video_file:
+            video_file = None
         if 'video_file' in request.files:
             file = request.files['video_file']
-            if file and allowed_file(file.filename, 'video'):
-                filename = secure_filename(file.filename)
-                filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
-                # Create videos directory if it doesn't exist
-                videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
-                os.makedirs(videos_dir, exist_ok=True)
-                file.save(os.path.join(videos_dir, filename))
-                video_file = filename
+            if file and file.filename != '':
+                if allowed_file(file.filename, 'video'):
+                    filename = secure_filename(file.filename)
+                    filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+                    # Create videos directory if it doesn't exist
+                    videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
+                    os.makedirs(videos_dir, exist_ok=True)
+                    file.save(os.path.join(videos_dir, filename))
+                    video_file = filename
+        
+        # Handle video URL removal
+        if remove_video_url:
+            video_url = None
         
         # Generate slug
         slug = title.lower().replace(' ', '-').replace('--', '-')
