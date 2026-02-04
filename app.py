@@ -555,7 +555,8 @@ def create_app(config_name=None):
                     career.resume_filename = filename
                 elif file and file.filename:
                     # Invalid file extension
-                    return jsonify({'success': False, 'message': f'Invalid file format. Allowed: {', '.join(app.config["ALLOWED_EXTENSIONS"])}'}), 400
+                    allowed_exts = ", ".join(app.config["ALLOWED_EXTENSIONS"])
+                    return jsonify({'success': False, 'message': f'Invalid file format. Allowed: {allowed_exts}'}), 400
             
             db.session.add(career)
             db.session.commit()
