@@ -3,6 +3,7 @@ ChowdhuryX - Corporate Website
 Main Flask Application Entry Point
 """
 import os
+import hashlib
 from dotenv import load_dotenv
 
 # Load env vars immediately
@@ -17,7 +18,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 from config import get_config
-from models import db, Contact, Career, Blog, Testimonial, Service, Job
+from models import db, Contact, Career, Blog, Testimonial, Service, Job, BlogLike
 try:
     from content_data_enhanced import get_service_details, get_all_services_details, get_industry_details, get_all_industries
 except ImportError:
@@ -59,6 +60,56 @@ def create_app(config_name=None):
             return ext in app.config['ALLOWED_IMAGE_EXTENSIONS']
         else:
             return ext in app.config['ALLOWED_EXTENSIONS']
+    
+    def get_file_hash(file_obj):
+        """Calculate SHA-256 hash of a file"""
+        hasher = hashlib.sha256()
+        file_obj.seek(0)
+        while chunk := file_obj.read(8192):
+            hasher.update(chunk)
+        file_obj.seek(0)
+        return hasher.hexdigest()
+    
+    def find_existing_file(file_obj, upload_dir):
+        """Check if file with same content already exists in upload directory"""
+        if not os.path.exists(upload_dir):
+            return None
+        
+        file_hash = get_file_hash(file_obj)
+        
+        # Check all files in upload directory
+        for filename in os.listdir(upload_dir):
+            filepath = os.path.join(upload_dir, filename)
+            if os.path.isfile(filepath):
+                try:
+                    with open(filepath, 'rb') as existing_file:
+                        existing_hash = hashlib.sha256(existing_file.read()).hexdigest()
+                        if existing_hash == file_hash:
+                            return filename
+                except Exception:
+                    continue
+        return None
+    
+    def save_uploaded_file(file_obj, upload_dir, file_prefix=''):
+        """Save file to upload directory, reusing existing file if duplicate"""
+        # Check if file already exists
+        existing_filename = find_existing_file(file_obj, upload_dir)
+        if existing_filename:
+            logger.info(f"Reusing existing file: {existing_filename}")
+            return existing_filename
+        
+        # Save new file with timestamp
+        filename = secure_filename(file_obj.filename)
+        if file_prefix:
+            filename = f"{file_prefix}_{filename}"
+        else:
+            filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+        
+        os.makedirs(upload_dir, exist_ok=True)
+        filepath = os.path.join(upload_dir, filename)
+        file_obj.save(filepath)
+        logger.info(f"Saved new file: {filename}")
+        return filename
     
     # Helper function to track service views for analytics
     def track_service_view(slug):
@@ -358,21 +409,62 @@ def create_app(config_name=None):
     
     @app.route('/blog/<int:blog_id>/like', methods=['POST'])
     def like_blog(blog_id):
-        """Like a blog post"""
+        """Like a blog post - Device-based to prevent spam"""
         try:
             blog = Blog.query.get_or_404(blog_id)
             
-            # Increment likes
+            # Get device ID from request
+            data = request.get_json()
+            device_id = data.get('device_id') if data else None
+            
+            if not device_id or len(device_id) < 10:
+                return jsonify({'success': False, 'message': 'Invalid device identifier'}), 400
+            
+            # Check if this device already liked this blog
+            existing_like = BlogLike.query.filter_by(blog_id=blog_id, device_id=device_id).first()
+            
+            if existing_like:
+                return jsonify({'success': False, 'message': 'You already liked this post', 'already_liked': True}), 400
+            
+            # Create new like
+            new_like = BlogLike(
+                blog_id=blog_id,
+                device_id=device_id,
+                ip_address=request.remote_addr
+            )
+            
+            # Increment blog likes counter
             if blog.likes is None:
                 blog.likes = 0
             blog.likes += 1
             
+            db.session.add(new_like)
             db.session.commit()
             
-            return jsonify({'success': True, 'likes': blog.likes})
+            return jsonify({'success': True, 'likes': blog.likes, 'liked': True})
         except Exception as e:
             logger.error(f"Blog like error: {str(e)}")
+            db.session.rollback()
             return jsonify({'success': False, 'message': 'Error liking post'}), 400
+    
+    @app.route('/blog/<int:blog_id>/like/check', methods=['POST'])
+    def check_blog_like(blog_id):
+        """Check if device has already liked this blog post"""
+        try:
+            # Get device ID from request
+            data = request.get_json()
+            device_id = data.get('device_id') if data else None
+            
+            if not device_id:
+                return jsonify({'liked': False})
+            
+            # Check if this device liked this blog
+            existing_like = BlogLike.query.filter_by(blog_id=blog_id, device_id=device_id).first()
+            
+            return jsonify({'liked': existing_like is not None})
+        except Exception as e:
+            logger.error(f"Check blog like error: {str(e)}")
+            return jsonify({'liked': False})
     
     @app.route('/comment/<int:comment_id>/like', methods=['POST'])
     def like_comment(comment_id):
@@ -458,15 +550,12 @@ def create_app(config_name=None):
             if 'resume' in request.files:
                 file = request.files['resume']
                 if file and file.filename and allowed_file(file.filename, 'resume'):
-                    # Sanitize filename using secure_filename
-                    original_filename = secure_filename(file.filename)
-                    filename = f"{datetime.now().timestamp()}_{original_filename}"
-                    os.makedirs(app.config['RESUME_FOLDER'], exist_ok=True)
-                    file.save(os.path.join(app.config['RESUME_FOLDER'], filename))
+                    # Use deduplication logic to save file
+                    filename = save_uploaded_file(file, app.config['RESUME_FOLDER'])
                     career.resume_filename = filename
                 elif file and file.filename:
                     # Invalid file extension
-                    return jsonify({'success': False, 'message': f'Invalid file format. Allowed: {", ".join(app.config["ALLOWED_EXTENSIONS"])}'}), 400
+                    return jsonify({'success': False, 'message': f'Invalid file format. Allowed: {', '.join(app.config["ALLOWED_EXTENSIONS"])}'}), 400
             
             db.session.add(career)
             db.session.commit()

@@ -66,11 +66,11 @@
 .highlight-text {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    color: var(--brand-primary);
+    color: #ffffff;
     text-align: center;
     padding: var(--space-8);
-    background: var(--color-gray-50);
-    border-left: 4px solid var(--brand-secondary);
+    background: #183049
+    border-left: 4px solid #ff0101;
     border-radius: var(--radius-lg);
     margin: var(--space-8) 0;
 }

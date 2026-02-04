@@ -148,21 +148,47 @@
 </section>
 
 <script>
+// Generate or retrieve unique device ID
+function getDeviceId() {
+    let deviceId = localStorage.getItem('chowdhuryx_device_id');
+    if (!deviceId) {
+        // Generate a unique device ID (UUID v4)
+        deviceId = 'device_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9) + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('chowdhuryx_device_id', deviceId);
+    }
+    return deviceId;
+}
+
 // Initialize likes on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Load blog post like state
     const blogId = {{ blog.id }};
-    const blogLiked = localStorage.getItem('blog_like_' + blogId);
-    if (blogLiked === 'true') {
-        const btn = document.getElementById('like-btn-' + blogId);
-        if (btn) {
-            const icon = btn.querySelector('i');
-            icon.classList.remove('far');
-            icon.classList.add('fas');
-        }
-    }
+    const deviceId = getDeviceId();
     
-    // Load comment like states
+    // Check with server if this device has already liked this blog
+    fetch('/blog/' + blogId + '/like/check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ device_id: deviceId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.liked) {
+            const btn = document.getElementById('like-btn-' + blogId);
+            if (btn) {
+                const icon = btn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                btn.setAttribute('data-liked', 'true');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error checking like status:', error);
+    });
+    
+    // Load comment like states (keeping existing localStorage logic for comments)
     document.querySelectorAll('[id^="comment-like-"]').forEach(span => {
         const commentId = span.id.replace('comment-like-', '');
         const commentLiked = localStorage.getItem('comment_like_' + commentId);
@@ -179,43 +205,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function likePost(blogId, btn) {
     const icon = btn.querySelector('i');
-    const isLiked = icon.classList.contains('fas');
     const count = btn.querySelector('span');
     const currentCount = parseInt(count.textContent) || 0;
+    const deviceId = getDeviceId();
     
-    // Check if already liked on this device
-    const liked = localStorage.getItem('blog_like_' + blogId);
+    // Check if already liked
+    const alreadyLiked = btn.getAttribute('data-liked') === 'true';
     
-    if (liked === 'true') {
-        // Already liked, prevent multiple likes
+    if (alreadyLiked) {
+        // Show message that user already liked
+        showToast('You have already liked this post!', 'info');
         return;
     }
     
-    // Update UI immediately
+    // Update UI optimistically
     icon.classList.remove('far');
     icon.classList.add('fas');
     count.textContent = currentCount + 1;
+    btn.setAttribute('data-liked', 'true');
     
-    // Save to localStorage
-    localStorage.setItem('blog_like_' + blogId, 'true');
-    
-    // Send to backend
+    // Send to backend with device ID
     fetch('/blog/' + blogId + '/like', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ action: 'like' })
+        body: JSON.stringify({ device_id: deviceId })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             count.textContent = data.likes;
+            showToast('Thanks for liking this post!', 'success');
+        } else {
+            // Revert UI if failed
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            count.textContent = currentCount;
+            btn.setAttribute('data-liked', 'false');
+            
+            if (data.already_liked) {
+                showToast('You have already liked this post!', 'info');
+            } else {
+                showToast(data.message || 'Failed to like post', 'error');
+            }
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        // Revert UI on error
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        count.textContent = currentCount;
+        btn.setAttribute('data-liked', 'false');
+        showToast('Error liking post. Please try again.', 'error');
     });
+}
+
+// Simple toast notification function
+function showToast(message, type = 'info') {
+    // Check if toast.js exists and has showToast function
+    if (typeof window.showToast === 'function') {
+        window.showToast(message, type);
+    } else {
+        // Fallback to alert if toast function not available
+        console.log(`[${type.toUpperCase()}] ${message}`);
+    }
 }
 
 function likeComment(commentId, btn) {

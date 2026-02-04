@@ -5,12 +5,13 @@ Handles: Authentication, Dashboard, Contacts, Careers, Blog, Comments, Analytics
 import os
 import csv
 import io
+import hashlib
 from datetime import datetime
 from functools import wraps
 from flask import render_template, request, jsonify, session, redirect, url_for, flash, current_app, send_file
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics, Job
+from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics, Job, BlogLike
 from . import admin_bp
 
 # Optional Flask-Mail import
@@ -406,10 +407,8 @@ def create_blog():
             file = request.files['featured_image']
             if file and file.filename != '':
                 if allowed_file(file.filename, 'image'):
-                    filename = secure_filename(file.filename)
-                    filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
-                    os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)
-                    file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                    # Use deduplication logic to save file
+                    filename = save_uploaded_file(file, current_app.config['UPLOAD_FOLDER'])
                     featured_image = filename
                 else:
                     flash('Featured image must be an image file (PNG, JPG, JPEG, GIF, WebP)', 'error')
@@ -426,12 +425,9 @@ def create_blog():
             file = request.files['video_file']
             if file and file.filename != '':
                 if allowed_file(file.filename, 'video'):
-                    filename = secure_filename(file.filename)
-                    filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
-                    # Create videos directory if it doesn't exist
+                    # Use deduplication logic to save file
                     videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
-                    os.makedirs(videos_dir, exist_ok=True)
-                    file.save(os.path.join(videos_dir, filename))
+                    filename = save_uploaded_file(file, videos_dir)
                     video_file = filename
         
         # Handle video URL removal
@@ -666,6 +662,60 @@ def allowed_file(filename, file_type='file'):
         return ext in ['mp4', 'webm', 'ogg', 'avi', 'mov', 'mkv', 'flv', 'wmv']
     else:
         return ext in current_app.config['ALLOWED_EXTENSIONS']
+
+
+def get_file_hash(file_obj):
+    """Calculate SHA-256 hash of a file"""
+    hasher = hashlib.sha256()
+    file_obj.seek(0)
+    while chunk := file_obj.read(8192):
+        hasher.update(chunk)
+    file_obj.seek(0)
+    return hasher.hexdigest()
+
+
+def find_existing_file(file_obj, upload_dir):
+    """Check if file with same content already exists in upload directory"""
+    if not os.path.exists(upload_dir):
+        return None
+    
+    file_hash = get_file_hash(file_obj)
+    
+    # Check all files in upload directory
+    for filename in os.listdir(upload_dir):
+        filepath = os.path.join(upload_dir, filename)
+        if os.path.isfile(filepath):
+            try:
+                with open(filepath, 'rb') as existing_file:
+                    existing_hash = hashlib.sha256(existing_file.read()).hexdigest()
+                    if existing_hash == file_hash:
+                        return filename
+            except Exception:
+                continue
+    return None
+
+
+def save_uploaded_file(file_obj, upload_dir, file_prefix=''):
+    """Save file to upload directory, reusing existing file if duplicate"""
+    # Check if file already exists
+    existing_filename = find_existing_file(file_obj, upload_dir)
+    if existing_filename:
+        current_app.logger.info(f"Reusing existing file: {existing_filename}")
+        flash(f'Using existing file (duplicate detected): {file_obj.filename}', 'info')
+        return existing_filename
+    
+    # Save new file with timestamp
+    filename = secure_filename(file_obj.filename)
+    if file_prefix:
+        filename = f"{file_prefix}_{filename}"
+    else:
+        filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+    
+    os.makedirs(upload_dir, exist_ok=True)
+    filepath = os.path.join(upload_dir, filename)
+    file_obj.save(filepath)
+    current_app.logger.info(f"Saved new file: {filename}")
+    return filename
 
 
 def track_service_contact(service_name):

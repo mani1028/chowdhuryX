@@ -231,6 +231,28 @@ class AdminUser(db.Model):
         }
 
 
+class BlogLike(db.Model):
+    """Blog Post Likes - Device-based tracking to prevent spam"""
+    __tablename__ = 'blog_likes'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id', ondelete='CASCADE'), nullable=False, index=True)
+    device_id = db.Column(db.String(255), nullable=False, index=True)  # Unique device identifier from frontend
+    ip_address = db.Column(db.String(45), nullable=True)  # Additional verification
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    
+    # Ensure one like per device per blog
+    __table_args__ = (
+        db.UniqueConstraint('blog_id', 'device_id', name='unique_blog_device_like'),
+    )
+    
+    # Relationships
+    blog = db.relationship('Blog', backref=db.backref('blog_likes', lazy='dynamic', cascade='all, delete-orphan'))
+    
+    def __repr__(self):
+        return f'<BlogLike blog_id={self.blog_id} device={self.device_id[:8]}...>'
+
+
 class Comment(db.Model):
     """Blog Post Comments"""
     __tablename__ = 'comments'
