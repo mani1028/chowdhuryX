@@ -12,6 +12,7 @@ import logging
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
@@ -31,6 +32,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize CSRF Protection
 csrf = CSRFProtect()
+migrate = Migrate()
 
 def create_app(config_name=None):
     """Application Factory"""
@@ -43,6 +45,7 @@ def create_app(config_name=None):
     # Initialize extensions
     db.init_app(app)
     csrf.init_app(app)
+    migrate.init_app(app, db)
     
     # Helper function for file validation
     def allowed_file(filename, file_type='file'):
