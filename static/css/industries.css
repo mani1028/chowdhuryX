@@ -251,6 +251,17 @@
     transition: all 0.3s ease;
 }
 
+.cta-buttons .btn-outline {
+    border-color: white;
+    color: white;
+}
+
+.cta-buttons .btn-outline:hover {
+    background-color: white;
+    color: var(--dark, #1a1a1a);
+    border-color: white;
+}
+
 /* ==================== Responsive Design ==================== */
 @media (max-width: 1200px) {
     .industries-grid {
