@@ -130,6 +130,7 @@ class Blog(db.Model):
     content = db.Column(db.Text, nullable=False)
     excerpt = db.Column(db.String(500), nullable=True)
     featured_image = db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(500), nullable=True)  # External image URL
     video_file = db.Column(db.String(255), nullable=True)  # Uploaded video file
     video_url = db.Column(db.String(500), nullable=True)  # External video URL (YouTube, Vimeo, etc.)
     status = db.Column(db.String(20), default='draft')  # draft, published, archived

@@ -31,11 +31,8 @@ function initializeMobileMenu() {
     const navMenu = document.getElementById('navMenu');
     
     if (!mobileToggle || !navMenu) {
-        console.log('Mobile menu elements not found');
         return;
     }
-    
-    console.log('Mobile menu initialized');
     
     mobileToggle.addEventListener('click', function(e) {
         e.preventDefault();
@@ -48,8 +45,6 @@ function initializeMobileMenu() {
         
         // Update aria attributes
         mobileToggle.setAttribute('aria-expanded', !isActive);
-        
-        console.log('Mobile menu toggled:', !isActive);
     });
     
     // Close menu when a link is clicked

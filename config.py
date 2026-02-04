@@ -4,6 +4,27 @@ Handles environment-based configuration for development and production
 """
 import os
 from datetime import timedelta
+import tempfile
+
+def _get_db_uri():
+    """Get database URI - PostgreSQL for production, SQLite for development"""
+    db_uri = os.getenv('DATABASE_URL')
+    if db_uri:
+        return db_uri
+    
+    # Development: SQLite
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    db_dir = os.path.join(basedir, 'instance')
+    try:
+        os.makedirs(db_dir, exist_ok=True)
+        db_file = os.path.join(db_dir, 'chowdhuryX.db')
+        db_file_forward = db_file.replace('\\', '/')
+        return f'sqlite:///{db_file_forward}'
+    except Exception:
+        db_file = os.path.join(tempfile.gettempdir(), 'chowdhuryX', 'chowdhuryX.db')
+        os.makedirs(os.path.dirname(db_file), exist_ok=True)
+        db_file_forward = db_file.replace('\\', '/')
+        return f'sqlite:///{db_file_forward}'
 
 class Config:
     """Base configuration"""
@@ -13,7 +34,7 @@ class Config:
     TESTING = False
     
     # Database
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:///instance/chowdhuryX.db')
+    SQLALCHEMY_DATABASE_URI = _get_db_uri()
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ENGINE_OPTIONS = {
         'pool_pre_ping': True,
@@ -53,7 +74,7 @@ class Config:
     # Security
     JSON_SORT_KEYS = False
     PREFERRED_URL_SCHEME = 'https'
-    PROPAGATE_EXCEPTIONS = True
+    PROPAGATE_EXCEPTIONS = False
 
 
 class DevelopmentConfig(Config):

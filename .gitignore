@@ -68,3 +68,7 @@ instance/
 *.backup
 *.bak
 *~
+
+#data base
+instance/chowdhuryX.db
+instance/*.db
