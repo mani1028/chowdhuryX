@@ -260,6 +260,19 @@ def create_app(config_name=None):
                              locations=[l[0] for l in all_locations if l[0]],
                              current_filters={'type': job_type, 'department': department, 'location': location})
     
+    @app.route('/careers/job/<int:job_id>')
+    def job_detail(job_id):
+        """Job Detail Page"""
+        from models import Job
+        
+        job = Job.query.get_or_404(job_id)
+        
+        # Increment view count
+        job.views = (job.views or 0) + 1
+        db.session.commit()
+        
+        return render_template('job-detail.html', job=job)
+    
     @app.route('/contact', methods=['GET', 'POST'])
     def contact():
         """Contact Us Page - with optional service pre-population"""
