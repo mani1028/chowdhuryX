@@ -36,7 +36,7 @@ function sharePost(title, id) {
             title: title,
             text: `Check out this insight from ChowdhuryX: ${title}`,
             url: url,
-        }).catch((error) => console.log('Error sharing', error));
+        }).catch((error) => {});
     } else {
         navigator.clipboard.writeText(url).then(() => {
             alert('Link copied to clipboard!');

@@ -23,7 +23,10 @@ except ImportError:
     from content_data import get_service_details, get_all_services_details, get_industry_details, get_all_industries
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.WARNING,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 # Initialize CSRF Protection
@@ -68,15 +71,51 @@ def create_app(config_name=None):
             db.session.add(analytics)
             db.session.commit()
         except Exception as e:
-            logger.debug(f"Analytics tracking error: {e}")
+            logger.warning(f"Analytics tracking error: {e}")
     
     # Register blueprints
     from admin import admin_bp
     app.register_blueprint(admin_bp, url_prefix='/admin')
     
-    # Create database tables
-    with app.app_context():
-        db.create_all()
+    # Ensure required directories exist
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+    os.makedirs(app.config['BLOG_IMAGE_FOLDER'], exist_ok=True)
+    os.makedirs(app.config['RESUME_FOLDER'], exist_ok=True)
+    
+    # Ensure database directory exists
+    db_uri = app.config['SQLALCHEMY_DATABASE_URI']
+    if db_uri.startswith('sqlite:///'):
+        # Handle both Unix-style and Windows paths
+        db_path = db_uri.replace('sqlite:///', '')
+        # Normalize path separators
+        db_path = db_path.replace('/', os.sep)
+        db_dir = os.path.dirname(db_path)
+        if db_dir:
+            try:
+                os.makedirs(db_dir, exist_ok=True)
+            except Exception as e:
+                logger.warning(f"Could not create database directory: {e}")
+    
+    # Create database tables (may fail on first run, will be created on demand)
+    try:
+        with app.app_context():
+            db.create_all()
+    except Exception as e:
+        logger.warning(f"Database initialization warning (will retry on app startup): {e}")
+    
+    # Track if database has been initialized
+    app.db_initialized = False
+    
+    @app.before_request
+    def init_db():
+        """Initialize database on first request if needed"""
+        if not app.db_initialized:
+            try:
+                db.create_all()
+                app.db_initialized = True
+                logger.info("Database initialized successfully on first request")
+            except Exception as e:
+                logger.error(f"Failed to initialize database: {e}")
     
     # ==================== PUBLIC ROUTES ====================
     
@@ -503,7 +542,6 @@ def create_app(config_name=None):
         
         db.session.commit()
         logger.info(f"Initialized {len(services_data)} services")
-        print(f"✓ Successfully initialized {len(services_data)} services")
     
     # ==================== TEMPLATE FILTERS ====================
     
@@ -519,4 +557,4 @@ def create_app(config_name=None):
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)

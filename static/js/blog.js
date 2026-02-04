@@ -3,6 +3,5 @@
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Add any blog-specific functionality here
-    console.log('Blog page loaded');
+    // Blog page initialized
 });

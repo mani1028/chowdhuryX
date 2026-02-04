@@ -98,5 +98,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-console.log('ChowdhuryX website loaded successfully!');

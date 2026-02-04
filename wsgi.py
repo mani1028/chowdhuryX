@@ -1,13 +1,11 @@
-# Entry point for WSGI servers (e.g., Gunicorn)
+# Entry point for WSGI servers (Gunicorn, uWSGI, etc.)
 import os
 from dotenv import load_dotenv
 
-# Load env vars before importing app
+# Load environment variables
 load_dotenv()
 
 from app import create_app
 
+# Create application
 app = create_app()
-
-if __name__ == '__main__':
-    app.run()
