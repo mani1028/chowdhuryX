@@ -61,12 +61,7 @@
             {% endif %}
 
             <div class="post-body">
-                {% set paragraphs = blog.content.split('\n\n') %}
-                {% for para in paragraphs %}
-                    {% if para.strip() %}
-                    <p>{{ para.replace('\n', '<br>') | safe }}</p>
-                    {% endif %}
-                {% endfor %}
+                {{ blog.content | safe }}
             </div>
 
             <footer class="post-footer">
