@@ -1,4 +1,4 @@
-c{% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}{{ blog.title }} - ChowdhuryX Blog{% endblock %}
 
@@ -20,6 +20,13 @@ c{% extends "base.html" %}
                 </div>
             </header>
 
+            {% if blog.excerpt %}
+            <div class="post-excerpt">
+                <span class="excerpt-label">Excerpt:</span>
+                <p>{{ blog.excerpt }}</p>
+            </div>
+            {% endif %}
+
             <div class="featured-image-wrap">
                 {% if blog.featured_image %}
                 <img src="{{ url_for('static', filename='uploads/' + blog.featured_image) }}" alt="{{ blog.title }}" class="featured-image">
@@ -27,6 +34,13 @@ c{% extends "base.html" %}
                 <img src="https://via.placeholder.com/1200x600" alt="{{ blog.title }}" class="featured-image">
                 {% endif %}
             </div>
+
+            <!-- Inline Image URL -->
+            {% if blog.image_url %}
+            <div class="inline-image-wrap">
+                <img src="{{ blog.image_url }}" alt="{{ blog.title }}" class="inline-image">
+            </div>
+            {% endif %}
 
             <!-- Video Upload -->
             {% if blog.video_file %}
@@ -47,7 +61,12 @@ c{% extends "base.html" %}
             {% endif %}
 
             <div class="post-body">
-                {{ blog.content | safe }}
+                {% set paragraphs = blog.content.split('\n\n') %}
+                {% for para in paragraphs %}
+                    {% if para.strip() %}
+                    <p>{{ para.replace('\n', '<br>') | safe }}</p>
+                    {% endif %}
+                {% endfor %}
             </div>
 
             <footer class="post-footer">

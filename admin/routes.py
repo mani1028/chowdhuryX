@@ -20,7 +20,7 @@ try:
     HAS_MAIL = True
 except ImportError:
     HAS_MAIL = False
-    print("⚠️  Flask-Mail not installed. Email notifications will be disabled.")
+    mail = None
 
 def login_required(f):
     """Decorator to require admin login"""
@@ -380,17 +380,31 @@ def create_blog():
         excerpt = request.form.get('excerpt', '')
         category = request.form.get('category', 'news')
         author = request.form.get('author', session.get('admin_username', 'Admin'))
-        video_url = request.form.get('video_url', '')
+        video_url = request.form.get('video_url', '').strip()
+        image_url = request.form.get('image_url', '').strip()
+        
+        # Validate URLs - only accept if they start with http:// or https://
+        if image_url and not (image_url.startswith('http://') or image_url.startswith('https://')):
+            image_url = ''
+            flash('Invalid image URL. Please provide a full URL starting with http:// or https://', 'warning')
+        
+        if video_url and not (video_url.startswith('http://') or video_url.startswith('https://')):
+            video_url = ''
+            flash('Invalid video URL. Please provide a full URL starting with http:// or https://', 'warning')
         
         # Handle featured image upload
         featured_image = blog.featured_image if blog else None
         if 'featured_image' in request.files:
             file = request.files['featured_image']
-            if file and allowed_file(file.filename, 'image'):
-                filename = secure_filename(file.filename)
-                filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
-                file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-                featured_image = filename
+            if file and file.filename != '':
+                if allowed_file(file.filename, 'image'):
+                    filename = secure_filename(file.filename)
+                    filename = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{filename}"
+                    os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)
+                    file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+                    featured_image = filename
+                else:
+                    flash('Featured image must be an image file (PNG, JPG, JPEG, GIF, WebP)', 'error')
         
         # Handle video file upload
         video_file = blog.video_file if blog else None
@@ -418,6 +432,7 @@ def create_blog():
                 blog.category = category
                 blog.author = author
                 blog.featured_image = featured_image
+                blog.image_url = image_url
                 blog.video_file = video_file
                 blog.video_url = video_url
                 blog.updated_at = datetime.utcnow()
@@ -433,6 +448,7 @@ def create_blog():
                     category=category,
                     author=author,
                     featured_image=featured_image,
+                    image_url=image_url,
                     video_file=video_file,
                     video_url=video_url,
                     status='draft'

@@ -50,6 +50,13 @@
                     <small>Recommended: 1200x630px, Max 5MB</small>
                 </div>
 
+                <!-- Image URL -->
+                <div class="form-group">
+                    <label for="image_url"><i class="fas fa-link"></i> Image URL (Inline)</label>
+                    <input type="url" id="image_url" name="image_url" value="{{ blog.image_url if blog else '' }}" class="form-input" placeholder="https://example.com/image.jpg">
+                    <small>Paste full image URL starting with http:// or https://</small>
+                </div>
+
                 <!-- Video Option 1: Upload Video File -->
                 <div class="form-group">
                     <label for="video_file"><i class="fas fa-video"></i> Video Upload</label>
@@ -65,8 +72,8 @@
                 <!-- Video Option 2: Video URL Link -->
                 <div class="form-group">
                     <label for="video_url"><i class="fas fa-link"></i> Video URL (YouTube/Vimeo)</label>
-                    <input type="url" id="video_url" name="video_url" value="{{ blog.video_url if blog else '' }}" class="form-input" placeholder="e.g. https://www.youtube.com/embed/...">
-                    <small>Paste YouTube or Vimeo embed URL</small>
+                    <input type="url" id="video_url" name="video_url" value="{{ blog.video_url if blog else '' }}" class="form-input" placeholder="https://www.youtube.com/embed/...">
+                    <small>Paste full video URL starting with http:// or https://</small>
                 </div>
 
                 <!-- Category -->
