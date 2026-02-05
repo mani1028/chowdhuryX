@@ -11,7 +11,7 @@ from functools import wraps
 from flask import render_template, request, jsonify, session, redirect, url_for, flash, current_app, send_file
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics, Job, BlogLike
+from models import db, Contact, Career, Blog, Testimonial, AdminUser, Comment, Analytics, Job, BlogLike, CommentLike
 from . import admin_bp
 
 # Optional Flask-Mail import

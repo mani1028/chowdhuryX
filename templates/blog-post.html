@@ -112,7 +112,7 @@
                                 <span class="comment-date">{{ comment.created_at.strftime('%B %d, %Y at %I:%M %p') }}</span>
                             </div>
                             <p class="comment-content">{{ comment.content }}</p>
-                            <button onclick="likeComment({{ comment.id }}, this)" class="like-comment-btn">
+                            <button onclick="likeComment({{ comment.id }}, this)" class="like-comment-btn" data-comment-id="{{ comment.id }}">
                                 <i class="far fa-heart"></i> <span id="comment-like-{{ comment.id }}">{{ comment.likes or 0 }}</span>
                             </button>
                         </div>
@@ -188,17 +188,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error checking like status:', error);
     });
     
-    // Load comment like states (keeping existing localStorage logic for comments)
-    document.querySelectorAll('[id^="comment-like-"]').forEach(span => {
-        const commentId = span.id.replace('comment-like-', '');
-        const commentLiked = localStorage.getItem('comment_like_' + commentId);
-        if (commentLiked === 'true') {
-            const btn = span.closest('button');
-            if (btn) {
-                const icon = btn.querySelector('i');
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-            }
+    // Check comment like states from server (not localStorage)
+    document.querySelectorAll('.like-comment-btn').forEach(btn => {
+        const commentId = btn.getAttribute('data-comment-id');
+        if (commentId) {
+            fetch('/comment/' + commentId + '/like/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ device_id: deviceId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.liked) {
+                    const icon = btn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        btn.setAttribute('data-liked', 'true');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error checking comment like:', error);
+            });
         }
     });
 });
@@ -275,42 +289,59 @@ function showToast(message, type = 'info') {
 
 function likeComment(commentId, btn) {
     const icon = btn.querySelector('i');
-    const isLiked = icon.classList.contains('fas');
     const count = btn.querySelector('span');
     const currentCount = parseInt(count.textContent) || 0;
+    const deviceId = getDeviceId();
     
-    // Check if already liked on this device
-    const liked = localStorage.getItem('comment_like_' + commentId);
+    // Check if already liked
+    const alreadyLiked = btn.getAttribute('data-liked') === 'true';
     
-    if (liked === 'true') {
-        // Already liked, prevent multiple likes
+    if (alreadyLiked) {
+        showToast('You have already liked this comment!', 'info');
         return;
     }
     
-    // Update UI immediately
+    // Update UI optimistically
     icon.classList.remove('far');
     icon.classList.add('fas');
     count.textContent = currentCount + 1;
+    btn.setAttribute('data-liked', 'true');
     
-    // Save to localStorage
-    localStorage.setItem('comment_like_' + commentId, 'true');
-    
-    // Send to backend
+    // Send to backend with device ID
     fetch('/comment/' + commentId + '/like', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ action: 'like' })
+        body: JSON.stringify({ device_id: deviceId })
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             count.textContent = data.likes;
+            showToast('Thanks for liking this comment!', 'success');
+        } else {
+            // Revert UI if failed
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+            count.textContent = currentCount;
+            btn.setAttribute('data-liked', 'false');
+            
+            if (data.already_liked) {
+                showToast('You have already liked this comment!', 'info');
+            } else {
+                showToast(data.message || 'Failed to like comment', 'error');
+            }
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        // Revert UI on error
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        count.textContent = currentCount;
+        btn.setAttribute('data-liked', 'false');
+        showToast('Error liking comment. Please try again.', 'error');
     });
 }
 
