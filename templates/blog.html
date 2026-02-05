@@ -49,6 +49,7 @@
                         <span class="meta-item"><i class="fas fa-user"></i> {{ blog.author }}</span>
                         <span class="meta-item"><i class="fas fa-calendar"></i> {{ blog.published_at | datetime_format }}</span>
                         <span class="meta-item"><i class="fas fa-eye"></i> {{ blog.views }} views</span>
+                        <span class="meta-item"><i class="fas fa-heart"></i> {{ blog.likes or 0 }} likes</span>
                     </div>
                     <a href="{{ url_for('blog_post', slug=blog.slug) }}" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
                 </div>

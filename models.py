@@ -287,6 +287,28 @@ class Comment(db.Model):
         }
 
 
+class CommentLike(db.Model):
+    """Comment Likes - Device-based tracking to prevent spam"""
+    __tablename__ = 'comment_likes'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id', ondelete='CASCADE'), nullable=False, index=True)
+    device_id = db.Column(db.String(255), nullable=False, index=True)  # Unique device identifier from frontend
+    ip_address = db.Column(db.String(45), nullable=True)  # Additional verification
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, index=True)
+    
+    # Ensure one like per device per comment
+    __table_args__ = (
+        db.UniqueConstraint('comment_id', 'device_id', name='unique_comment_device_like'),
+    )
+    
+    # Relationships
+    comment = db.relationship('Comment', backref=db.backref('comment_likes', lazy='dynamic', cascade='all, delete-orphan'))
+    
+    def __repr__(self):
+        return f'<CommentLike comment_id={self.comment_id} device={self.device_id[:8]}...>'
+
+
 class Analytics(db.Model):
     """Analytics Tracking"""
     __tablename__ = 'analytics'

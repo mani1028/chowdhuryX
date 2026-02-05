@@ -1,591 +1,903 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChowdhuryX Products & Solutions | Digital Tools</title>
-    <meta name="description" content="Explore ChowdhuryX proprietary products and digital solutions designed for enterprise and startup needs.">
-    <meta name="keywords" content="software products, SaaS solutions, digital products, enterprise software, ChowdhuryX tools">
-    <meta property="og:title" content="ChowdhuryX Products & Solutions | Digital Tools">
-    <meta property="og:description" content="Explore ChowdhuryX proprietary products and digital solutions designed for enterprise and startup needs.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+{% extends "base.html" %}
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#ecfdf5', 100: '#d1fae5', 400: '#34d399',
-                            500: '#10b981', 600: '#059669', 700: '#047857', 900: '#064e3b',
-                        },
-                        dark: { 950: '#020617', 900: '#0f172a', 800: '#1e293b' }
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'glow': 'glow 3s ease-in-out infinite alternate',
-                        'blob': 'blob 10s infinite',
-                        'fade-in': 'fadeIn 0.5s ease-out forwards',
-                    },
-                    keyframes: {
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
-                        glow: { '0%': { boxShadow: '0 0 20px -5px rgba(16, 185, 129, 0.3)' }, '100%': { boxShadow: '0 0 30px 5px rgba(16, 185, 129, 0.6)' } },
-                        blob: { '0%': { transform: 'translate(0px, 0px) scale(1)' }, '33%': { transform: 'translate(30px, -50px) scale(1.1)' }, '66%': { transform: 'translate(-20px, 20px) scale(0.9)' }, '100%': { transform: 'translate(0px, 0px) scale(1)' } },
-                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
-                    }
-                }
-            }
-        }
-    </script>
+{% block title %}Our Products | ChowdhuryX Organization{% endblock %}
 
-    <style>
-        body { background-color: #020617; color: #e2e8f0; overflow-x: hidden; }
-        .glass-nav { background: #ffffff !important; box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1); }
-        .glass-card { background: rgba(30, 41, 59, 0.3); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
-        .glass-card:hover { border-color: rgba(16, 185, 129, 0.4); transform: translateY(-5px); box-shadow: 0 20px 40px -20px rgba(16, 185, 129, 0.3); }
-        .feature-list li { display: flex; align-items: start; gap: 0.5rem; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.9rem; }
-        .feature-list li i { color: #10b981; margin-top: 3px; width: 16px; height: 16px; }
-        /* Modal Styles */
-        .modal-enter { opacity: 0; transform: scale(0.95); }
-        .modal-enter-active { opacity: 1; transform: scale(1); transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
-        .modal-exit { opacity: 1; transform: scale(1); }
-        .modal-exit-active { opacity: 0; transform: scale(0.95); transition: opacity 0.2s ease-in, transform 0.2s ease-in; }
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(30, 41, 59, 0.5); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #020617; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
-        
-        /* Tab Logic */
-        .hidden-tab { display: none !important; }
-        .animate-tab { animation: fadeIn 0.4s ease-out forwards; }
-    </style>
-</head>
-<body class="selection:bg-brand-500 selection:text-white">
+{% block description %}Explore ChowdhuryX proprietary products and digital solutions - DraftMaster AI Writing Suite, Alina X Chatbot, and more enterprise-ready tools.{% endblock %}
 
-    <!-- Ambient Background -->
-    <div class="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-600/10 rounded-full blur-[120px] animate-blob"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-teal-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+{% block keywords %}ChowdhuryX products, DraftMaster, AI writing tool, Alina X chatbot, enterprise software products, SaaS solutions{% endblock %}
+
+{% block og_title %}Our Products | ChowdhuryX Organization{% endblock %}
+
+{% block css %}
+<style>
+/* Products Page Styling */
+.page-header {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+    color: var(--color-white);
+    padding: var(--space-24) var(--space-8);
+    text-align: center;
+    margin-bottom: var(--space-16);
+}
+
+.page-header h1 {
+    color: var(--color-white) !important;
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.5px;
+}
+
+.page-header p {
+    color: var(--color-white) !important;
+    font-size: var(--font-size-lg);
+    opacity: 0.95;
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: var(--line-height-relaxed);
+}
+
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: var(--space-12);
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-4);
+}
+
+/* Adjust grid for Coming Soon tab */
+#tab-coming-soon .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    max-width: 1200px;
+}
+
+.product-card {
+    background: var(--color-white);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover::before {
+    transform: scaleX(1);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.product-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+    color: white;
+}
+
+.product-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.badge-live {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--brand-primary);
+}
+
+.badge-beta {
+    background: rgba(251, 191, 36, 0.1);
+    color: #f59e0b;
+}
+
+.badge-coming {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+.product-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-gray-900);
+}
+
+.product-description {
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.product-features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.product-features li {
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-700);
+    font-size: 0.9rem;
+}
+
+.product-features li i {
+    color: var(--brand-primary);
+    margin-top: 3px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.btn-demo {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    background: var(--brand-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-demo:hover {
+    background: var(--brand-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-details {
+    padding: 0.875rem 1.5rem;
+    background: transparent;
+    color: var(--brand-primary);
+    border: 2px solid var(--brand-primary);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-details:hover {
+    background: var(--brand-primary);
+    color: white;
+}
+
+/* Modal Styles */
+.product-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.product-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    cursor: default;
+}
+
+.modal-header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-gray-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-gray-100);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: var(--color-gray-200);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+/* Tab System */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+}
+
+.tab-buttons {
+    background: var(--color-white);
+    border-radius: 50px;
+    padding: 0.5rem;
+    display: inline-flex;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--color-gray-200);
+}
+
+.tab-btn {
+    padding: 0.75rem 2rem;
+    border: none;
+    background: transparent;
+    color: var(--color-gray-600);
+    font-weight: 600;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.tab-btn.active {
+    background: var(--brand-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.tab-btn:hover:not(.active) {
+    background: var(--color-gray-100);
+    color: var(--brand-primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .product-modal {
+        padding: 1rem;
+    }
+    
+    .tab-btn {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>Our Products</h1>
+        <p>Innovative software solutions designed to transform your business operations</p>
     </div>
+</section>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex justify-center">
-        <div class="glass-nav rounded-b-[2.5rem] px-8 py-3 w-full max-w-7xl flex justify-between items-center transition-all duration-300">
+<!-- Tab Toggle -->
+<div class="tab-container">
+    <div class="tab-buttons">
+        <button class="tab-btn active" onclick="switchProductTab('live')">
+            <i class="fas fa-check-circle"></i> Live Products
+        </button>
+        <button class="tab-btn" onclick="switchProductTab('coming-soon')">
+            <i class="fas fa-rocket"></i> Coming Soon
+        </button>
+    </div>
+</div>
+
+<!-- Products Section -->
+<section class="section">
+    <div class="container">
+        
+        <!-- Live Products Tab -->
+        <div id="tab-live" class="tab-content active">
+        <div class="products-grid">
             
-            <!-- Logo links back to ROOT (/) -->
-            <a href="/" class="flex items-center group relative z-50 h-12 overflow-hidden rounded-lg bg-white/0 p-1">
-                <img src="/static/images/chowduryx-removebg-preview.png" alt="ChowdhuryX Logo" width="180" height="48" class="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                <div class="hidden flex-col items-start px-2" style="display:none;">
-                    <span class="text-lg font-display font-bold text-slate-800 leading-none">Chowdhury<span class="text-brand-600">X</span></span>
-                    <span class="text--[8px] uppercase tracking-widest text-slate-500 font-bold">Organization</span>
+            <!-- Product 1: DraftMaster -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-pen-fancy"></i>
                 </div>
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-1">
-                <a href="/" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group">Home</a>
-                <a href="/#about" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group">About</a>
-                
-                <!-- Active State for Products -->
-                <a href="/products" class="px-4 py-2 text-sm font-medium text-brand-600 bg-brand-50/50 rounded-lg transition-colors relative group">
-                    Products
-                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-brand-500 transition-all"></span>
-                </a>
-                
-                <a href="/#services" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors flex items-center gap-1 cursor-pointer">
-                    Services
-                </a>
-
-                <!-- Changed FAQs to BLOG as requested -->
-                <a href="/blog" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors relative group">Blog</a>
-                
-                <a href="/#contact" class="ml-4 px-6 py-2.5 bg-brand-600 text-white text-sm font-bold rounded-full hover:bg-brand-700 transition-all transform hover:scale-105 hover:shadow-lg flex items-center gap-2 shadow-brand-500/30">
-                    Get Started <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
+                <span class="product-badge badge-live">Live Product</span>
+                <h3 class="product-title">DraftMaster</h3>
+                <p class="product-description">
+                    AI-powered writing assistant that helps professionals create high-quality content 90% faster. 
+                    Military-grade encryption keeps your drafts secure and private.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Context-aware AI generation</li>
+                    <li><i class="fas fa-check"></i> 10+ professional tone options</li>
+                    <li><i class="fas fa-check"></i> Fernet encryption at rest</li>
+                    <li><i class="fas fa-check"></i> Export to PDF & Word</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=DraftMaster Demo Request" class="btn-demo">
+                        <i class="fas fa-play-circle"></i> Request Demo
+                    </a>
+                    <a href="#" onclick="openProductModal('draftmaster'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
             </div>
 
-            <button onclick="document.getElementById('mobile-menu').classList.remove('hidden')" class="md:hidden text-slate-700 hover:text-brand-600 p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="fixed inset-0 bg-dark-950/95 backdrop-blur-xl z-40 hidden flex-col pt-32 px-6 space-y-4">
-             <a href="/" class="text-2xl font-display font-bold text-white text-left block">Home</a>
-             <a href="/#about" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">About</a>
-             <a href="/products" class="text-2xl font-display font-bold text-brand-500 hover:text-white text-left block">Products</a>
-             <a href="/#services" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Services</a>
-             <a href="/blog" class="text-2xl font-display font-bold text-gray-400 hover:text-white text-left block">Blog</a>
-             <a href="/#contact" class="mt-8 w-full py-4 bg-brand-500 rounded-xl text-white font-bold text-xl block text-center">Let's Talk</a>
-             <button onclick="document.getElementById('mobile-menu').classList.add('hidden')" class="absolute top-6 right-6 text-white p-2"><i data-lucide="x" class="w-8 h-8"></i></button>
-        </div>
-    </nav>
+            <!-- Product 2: Alina X Chatbot -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <span class="product-badge badge-live">Live Product</span>
+                <h3 class="product-title">Alina X Chatbot</h3>
+                <p class="product-description">
+                    Intent-based AI chatbot for customer support and engagement. Seamlessly integrates with your website 
+                    with live handoff to human agents when needed.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Natural language understanding</li>
+                    <li><i class="fas fa-check"></i> Intent classification engine</li>
+                    <li><i class="fas fa-check"></i> Live agent handoff</li>
+                    <li><i class="fas fa-check"></i> Multi-language support</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=Alina X Chatbot Demo Request" class="btn-demo">
+                        <i class="fas fa-play-circle"></i> Request Demo
+                    </a>
+                    <a href="#" onclick="openProductModal('alina'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
 
-    <main class="min-h-screen pt-32 pb-20">
+            <!-- Product 3: ChowdhuryX Match -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <span class="product-badge badge-live">White Label</span>
+                <h3 class="product-title">ChowdhuryX Match</h3>
+                <p class="product-description">
+                    Full-featured white-label dating platform with real-time chat, video calls, and geolocation matching. 
+                    Launch your own dating service in weeks.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Swipe & match algorithm</li>
+                    <li><i class="fas fa-check"></i> Real-time messaging</li>
+                    <li><i class="fas fa-check"></i> Video call integration</li>
+                    <li><i class="fas fa-check"></i> Premium subscription system</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=Dating Platform Demo Request" class="btn-demo">
+                        <i class="fas fa-play-circle"></i> Request Demo
+                    </a>
+                    <a href="#" onclick="openProductModal('dating'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product 4: PixGen AI Studio -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                </div>
+                <span class="product-badge badge-live">AI Powered</span>
+                <h3 class="product-title">PixGen AI Studio</h3>
+                <p class="product-description">
+                    State-of-the-art AI image generation platform. Create stunning visuals from text prompts with 
+                    built-in credit system and public gallery.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Text-to-image generation</li>
+                    <li><i class="fas fa-check"></i> Multiple art styles</li>
+                    <li><i class="fas fa-check"></i> 4K upscaling</li>
+                    <li><i class="fas fa-check"></i> Stripe payment integration</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=PixGen AI Demo Request" class="btn-demo">
+                        <i class="fas fa-play-circle"></i> Request Demo
+                    </a>
+                    <a href="#" onclick="openProductModal('pixgen'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        </div>
         
-        <!-- Header -->
-        <div class="text-center mb-16 px-6">
-            <h2 class="text-brand-500 font-bold tracking-widest uppercase text-sm mb-3">Innovation Lab</h2>
-            <h1 class="text-4xl md:text-6xl font-display font-bold text-white mb-6">Software Marketplace</h1>
-            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                Ready-to-deploy source code, white-label solutions, and custom AI tools. 
-                <br>Buy the code, customize it, and launch your own startup.
+        <!-- Coming Soon Tab -->
+        <div id="tab-coming-soon" class="tab-content">
+        <div class="products-grid">
+
+            <!-- Product 5: Chat Support Manager -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <span class="product-badge badge-beta">In Beta</span>
+                <h3 class="product-title">Chat Support Manager</h3>
+                <p class="product-description">
+                    Unified dashboard for BPO teams to manage live chat, tickets, and agent performance. 
+                    Perfect for customer service operations.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Multi-channel support</li>
+                    <li><i class="fas fa-check"></i> Agent performance tracking</li>
+                    <li><i class="fas fa-check"></i> Ticket management system</li>
+                    <li><i class="fas fa-check"></i> Real-time analytics</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=Chat Support Manager Demo" class="btn-demo">
+                        <i class="fas fa-play-circle"></i> Request Demo
+                    </a>
+                    <a href="#" onclick="openProductModal('support'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product 6: AI Video Creator -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <span class="product-badge badge-coming">Coming Soon</span>
+                <h3 class="product-title">AI Video Creator</h3>
+                <p class="product-description">
+                    Convert scripts to professional videos with AI avatars and automated editing. 
+                    Perfect for content creators and marketing teams.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Script-to-video generation</li>
+                    <li><i class="fas fa-check"></i> AI avatar presenters</li>
+                    <li><i class="fas fa-check"></i> Automated video editing</li>
+                    <li><i class="fas fa-check"></i> Multi-language voiceover</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=AI Video Creator Early Access" class="btn-demo">
+                        <i class="fas fa-bell"></i> Get Notified
+                    </a>
+                    <a href="#" onclick="openProductModal('video'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product 7: Workflow Automation Platform -->
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <span class="product-badge badge-coming">In Development</span>
+                <h3 class="product-title">WorkFlow Pro</h3>
+                <p class="product-description">
+                    Enterprise workflow automation platform with drag-and-drop builder. 
+                    Streamline business processes without coding.
+                </p>
+                <ul class="product-features">
+                    <li><i class="fas fa-check"></i> Visual workflow builder</li>
+                    <li><i class="fas fa-check"></i> 100+ integrations</li>
+                    <li><i class="fas fa-check"></i> Custom approval flows</li>
+                    <li><i class="fas fa-check"></i> Real-time notifications</li>
+                </ul>
+                <div class="product-actions">
+                    <a href="mailto:sales@chowdhuryx.com?subject=WorkFlow Pro Early Access" class="btn-demo">
+                        <i class="fas fa-bell"></i> Get Notified
+                    </a>
+                    <a href="#" onclick="openProductModal('workflow'); return false;" class="btn-details">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- Modals -->
+
+<!-- DraftMaster Modal -->
+<div id="modal-draftmaster" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">DraftMaster - AI Writing Suite</h2>
+            <button class="modal-close" onclick="closeProductModal('draftmaster')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="/static/uploads/draftmaster.jpeg" alt="DraftMaster Dashboard" class="modal-image" onerror="this.style.display='none'">
+            <h3>Enterprise AI Writing Platform</h3>
+            <p>DraftMaster is a secure, intelligent writing assistant designed specifically for professionals and enterprises. Our platform cuts writing time by 90% while maintaining your unique brand voice and ensuring complete data privacy.</p>
+            
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Key Features</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-shield-alt"></i> <strong>Military-Grade Security:</strong> Fernet encryption at rest ensures your content stays private</li>
+                <li><i class="fas fa-brain"></i> <strong>Context-Aware AI:</strong> Understands tone, audience, and your writing style</li>
+                <li><i class="fas fa-palette"></i> <strong>10+ Professional Tones:</strong> From Executive to Empathetic, choose the right voice</li>
+                <li><i class="fas fa-file-export"></i> <strong>Export Options:</strong> Native PDF and Word document export</li>
+                <li><i class="fas fa-magic"></i> <strong>One-Click Polish:</strong> Instant grammar and style improvements</li>
+            </ul>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=DraftMaster Enterprise Trial" class="btn-demo" style="display: inline-block; margin-right: 1rem;">
+                    <i class="fas fa-rocket"></i> Start Free Trial
+                </a>
+                <a href="mailto:sales@chowdhuryx.com?subject=Book DraftMaster Demo" class="btn-details" style="display: inline-block;">
+                    <i class="fas fa-calendar"></i> Book Demo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alina X Chatbot Modal -->
+<div id="modal-alina" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">Alina X - AI Chatbot Platform</h2>
+            <button class="modal-close" onclick="closeProductModal('alina')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>Intent-Based Customer Support</h3>
+            <p>Alina X is an advanced AI chatbot designed for customer support and engagement. Built with natural language understanding and intent classification, it handles customer queries intelligently and hands off to human agents when needed.</p>
+            
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Core Capabilities</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-brain"></i> <strong>Intent Recognition:</strong> Automatically classifies user intent for accurate responses</li>
+                <li><i class="fas fa-users"></i> <strong>Live Agent Handoff:</strong> Seamless transfer to human agents when needed</li>
+                <li><i class="fas fa-globe"></i> <strong>Multi-Language:</strong> Support customers in their native language</li>
+                <li><i class="fas fa-code"></i> <strong>Easy Integration:</strong> Embed with just a few lines of code</li>
+                <li><i class="fas fa-chart-line"></i> <strong>Analytics Dashboard:</strong> Track conversations and performance metrics</li>
+            </ul>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=Alina X Chatbot Demo" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-play-circle"></i> Request Live Demo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dating Platform Modal -->
+<div id="modal-dating" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">ChowdhuryX Match - White Label Dating Platform</h2>
+            <button class="modal-close" onclick="closeProductModal('dating')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>Launch Your Own Dating Service</h3>
+            <p>A complete white-label dating platform with all the features users expect - swipe matching, real-time chat, video calls, and premium subscriptions. Launch your own branded dating service in weeks, not months.</p>
+            
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Platform Features</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-heart"></i> <strong>Swipe & Match:</strong> Tinder-style matching algorithm</li>
+                <li><i class="fas fa-comment-dots"></i> <strong>Real-Time Chat:</strong> WebSocket-based instant messaging</li>
+                <li><i class="fas fa-video"></i> <strong>Video Calls:</strong> Built-in video chat integration</li>
+                <li><i class="fas fa-map-marker-alt"></i> <strong>Geolocation:</strong> Match users based on proximity</li>
+                <li><i class="fas fa-crown"></i> <strong>Premium Tiers:</strong> Subscription monetization ready</li>
+                <li><i class="fas fa-shield-check"></i> <strong>Verification:</strong> Fake profile prevention system</li>
+            </ul>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=Dating Platform Purchase" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-shopping-cart"></i> Buy Source Code
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PixGen AI Modal -->
+<div id="modal-pixgen" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">PixGen AI Studio</h2>
+            <button class="modal-close" onclick="closeProductModal('pixgen')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>AI-Powered Image Generation</h3>
+            <p>PixGen AI Studio is a professional-grade AI image generation platform. Create stunning visuals from text prompts with support for multiple artistic styles, 4K upscaling, and a complete monetization system.</p>
+            
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Features</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-magic"></i> <strong>Text-to-Image:</strong> Generate images from detailed prompts</li>
+                <li><i class="fas fa-brush"></i> <strong>Multiple Styles:</strong> Realistic, Anime, Oil Painting, Cyberpunk</li>
+                <li><i class="fas fa-expand-arrows-alt"></i> <strong>4K Upscaling:</strong> Enhance images to 4K resolution</li>
+                <li><i class="fas fa-credit-card"></i> <strong>Credit System:</strong> Built-in Stripe payment integration</li>
+                <li><i class="fas fa-images"></i> <strong>Public Gallery:</strong> Community showcase feature</li>
+            </ul>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=PixGen AI Demo" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-play-circle"></i> Try Demo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Support Manager Modal -->
+<div id="modal-support" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">Chat Support Manager</h2>
+            <button class="modal-close" onclick="closeProductModal('support')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>BPO Team Management Platform</h3>
+            <p>Unified dashboard designed for BPO and customer service teams. Manage live chat, ticketing, and agent performance all in one place. Perfect for call centers and support operations.</p>
+            
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Platform Capabilities</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-comments"></i> <strong>Multi-Channel:</strong> Email, chat, and ticket support</li>
+                <li><i class="fas fa-users-cog"></i> <strong>Agent Management:</strong> Performance tracking and analytics</li>
+                <li><i class="fas fa-tasks"></i> <strong>Ticket System:</strong> Complete ticket lifecycle management</li>
+                <li><i class="fas fa-chart-bar"></i> <strong>Real-Time Analytics:</strong> Live dashboards and reporting</li>
+            </ul>
+            
+            <p style="margin-top: 2rem; padding: 1rem; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 4px;">
+                <strong>Beta Access:</strong> This product is currently in beta testing. Contact us for early access pricing.
             </p>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-6">
             
-            <!-- Tab Buttons -->
-            <div class="flex justify-center mb-12">
-                <div class="bg-white/5 p-1.5 rounded-full border border-white/10 flex relative backdrop-blur-sm">
-                    <button onclick="switchTab('live')" id="btn-live" class="px-8 py-3 rounded-full text-sm font-bold transition-all duration-300 bg-brand-600 text-white shadow-lg shadow-brand-500/20">
-                        Live Products
-                    </button>
-                    <button onclick="switchTab('upcoming')" id="btn-upcoming" class="px-8 py-3 rounded-full text-sm font-bold text-gray-400 hover:text-white transition-all duration-300">
-                        Upcoming Projects
-                    </button>
-                </div>
-            </div>
-
-            <!-- Tab 1: Live Products Grid (3 Columns) -->
-            <div id="tab-live" class="animate-tab grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <!-- 1. DraftMaster Enterprise -->
-                <div class="glass-card p-8 rounded-3xl border border-blue-500/20 flex flex-col h-full cursor-pointer hover:bg-white/5 group relative overflow-hidden" onclick="openModal('prod-draftmaster')">
-                     <div class="absolute top-0 right-0 p-3">
-                         <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-400 uppercase tracking-wider border border-blue-500/30">AI Write</span>
-                     </div>
-                    <div class="w-14 h-14 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="pen-tool" class="w-7 h-7"></i>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-3">DraftMaster </h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Secure, intelligent, and designed for professionals. Cuts writing time by 90% while maintaining your unique brand voice.</p>
-                    <button class="flex items-center gap-2 text-blue-400 font-bold text-sm group-hover:gap-3 transition-all">
-                        View Full Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <!-- 2. Dating App Card -->
-                <div class="glass-card p-8 rounded-3xl border border-pink-500/20 flex flex-col h-full cursor-pointer hover:bg-white/5 group" onclick="openModal('prod-dating')">
-                    <div class="w-14 h-14 rounded-2xl bg-pink-500/20 flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="heart" class="w-7 h-7"></i>
-                    </div>
-                    <div class="mb-4">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-pink-500/20 text-pink-400 uppercase tracking-wider">Bestseller</span>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-3">ChowdhuryX Match</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">A fully functional, white-label dating web application with real-time chat and video.</p>
-                    <button class="flex items-center gap-2 text-pink-400 font-bold text-sm group-hover:gap-3 transition-all">
-                        View Full Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <!-- 3. Image Gen Card -->
-                <div class="glass-card p-8 rounded-3xl border border-purple-500/20 flex flex-col h-full cursor-pointer hover:bg-white/5 group" onclick="openModal('prod-pixgen')">
-                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="wand-2" class="w-7 h-7"></i>
-                    </div>
-                     <div class="mb-4">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/20 text-purple-400 uppercase tracking-wider">AI Studio</span>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-3">PixGen AI Studio</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">State-of-the-art AI Image Generation platform with credit system and gallery.</p>
-                    <button class="flex items-center gap-2 text-purple-400 font-bold text-sm group-hover:gap-3 transition-all">
-                        View Full Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Tab 2: Upcoming Projects Grid (Centered Flex for cleaner look) -->
-            <div id="tab-upcoming" class="hidden-tab animate-tab flex flex-wrap justify-center gap-8">
-
-                <!-- 4. Chat Support Card -->
-                <div class="glass-card p-8 rounded-3xl border border-amber-500/20 flex flex-col h-full w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] cursor-pointer hover:bg-white/5 group" onclick="openModal('prod-chat')">
-                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center text-amber-400 mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="message-square" class="w-7 h-7"></i>
-                    </div>
-                    <div class="mb-4">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 uppercase tracking-wider">In Beta</span>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-3">Chat Support Manager</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Unified dashboard for BPO teams. Manage live chat, tickets, and agent performance.</p>
-                    <button class="flex items-center gap-2 text-amber-400 font-bold text-sm group-hover:gap-3 transition-all">
-                        View Roadmap <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <!-- 5. Video Tools Card -->
-                <div class="glass-card p-8 rounded-3xl border border-cyan-500/20 flex flex-col h-full w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] cursor-pointer hover:bg-white/5 group" onclick="openModal('prod-video')">
-                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="video" class="w-7 h-7"></i>
-                    </div>
-                    <div class="mb-4">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-400 uppercase tracking-wider">Development</span>
-                    </div>
-                    <h3 class="text-2xl font-display font-bold text-white mb-3">AI Video Creator</h3>
-                    <p class="text-gray-400 text-sm mb-6 flex-grow">Script-to-video generation with AI avatars and automated editing workflows.</p>
-                    <button class="flex items-center gap-2 text-cyan-400 font-bold text-sm group-hover:gap-3 transition-all">
-                        View Roadmap <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-    <!-- ================= MODALS ================= -->
-
-    <!-- 1. DraftMaster Enterprise DETAILED MODAL (Replaces SmartWrite) -->
-    <div id="modal-prod-draftmaster" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-        <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-draftmaster')"></div>
-        <div class="relative w-full max-w-6xl mx-auto mt-10 md:mt-16 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[85vh]">
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-blue-600/10">
-                <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-blue-400"><i data-lucide="pen-tool"></i> DraftMaster </h3>
-                <button onclick="closeModal('prod-draftmaster')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
-            
-            <!-- Modal Body -->
-            <div class="p-8 overflow-y-auto custom-scrollbar">
-                
-                <!-- Hero -->
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">DraftMaster: The Enterprise AI Writing Suite</h2>
-                    <p class="text-xl text-gray-400 max-w-3xl mx-auto">Secure, intelligent, and designed for professionals. DraftMaster cuts writing time by 90% while maintaining your unique brand voice.</p>
-                </div>
-
-                <div class="flex flex-col lg:flex-row gap-10">
-                    <!-- Left Column: Features -->
-                    <div class="lg:w-3/5 space-y-8">
-                        
-                        <!-- Feature Block 1 -->
-                        <div class="bg-white/5 rounded-xl p-6 border border-white/5">
-                            <h4 class="text-blue-400 font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="shield-check"></i> Military-Grade Security</h4>
-                            <ul class="space-y-3">
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Fernet Encryption:</strong> All drafts are encrypted at rest using AES-based Fernet symmetric encryption.</div>
-                                </li>
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Zero-Training Policy:</strong> Your data is never used to train our AI models. Private remains private.</div>
-                                </li>
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Local-First Architecture:</strong> Options for local deployment or secure cloud hosting.</div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Feature Block 2 -->
-                         <div class="bg-white/5 rounded-xl p-6 border border-white/5">
-                            <h4 class="text-blue-400 font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="brain-circuit"></i> Context-Aware Generation</h4>
-                            <ul class="space-y-3">
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Tone Matching:</strong> Choose from 10+ professional tones (e.g., "Executive C-Suite", "Empathetic HR").</div>
-                                </li>
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Audience Targeting:</strong> Adapts vocabulary based on whether you are writing for an Intern, Client, or Board Member.</div>
-                                </li>
-                                <li class="flex gap-3 items-start text-sm text-gray-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-0.5 shrink-0"></i>
-                                    <div><strong class="text-white">Smart Continuation:</strong> "Writer's Block Killer" analyzes previous paragraphs to continue seamlessly.</div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Feature Block 3 -->
-                        <div class="bg-white/5 rounded-xl p-6 border border-white/5">
-                            <h4 class="text-blue-400 font-bold text-lg mb-4 flex items-center gap-2"><i data-lucide="zap"></i> Workflow Accelerators</h4>
-                            <ul class="grid md:grid-cols-2 gap-3 text-sm text-gray-300">
-                                <li class="flex gap-2 items-center"><i data-lucide="arrow-right" class="w-3 h-3 text-blue-500"></i> One-Click Polish</li>
-                                <li class="flex gap-2 items-center"><i data-lucide="arrow-right" class="w-3 h-3 text-blue-500"></i> Native PDF & Word Export</li>
-                                <li class="flex gap-2 items-center"><i data-lucide="arrow-right" class="w-3 h-3 text-blue-500"></i> Template Library (RFPs, Legal)</li>
-                                <li class="flex gap-2 items-center"><i data-lucide="arrow-right" class="w-3 h-3 text-blue-500"></i> Grammar Perfection</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Technical Specs & CTA -->
-                    <div class="lg:w-2/5 flex flex-col">
-                        
-                         <!-- Screenshot Placeholder -->
-                         <div class="relative rounded-xl overflow-hidden aspect-video border border-white/10 group mb-6">
-                            <img src="/static/uploads/draftmaster.jpeg" alt="DraftMaster Dashboard" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700">
-                             <div class="absolute inset-0"></div>
-                            <div class="absolute bottom-3 left-3">
-                                <p class="text-black font-bold text-sm">Dashboard View</p>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons (Updated as requested: Big & Side-by-Side) -->
-                        <div class="flex flex-col xl:flex-row gap-4 mt-auto">
-                            <button onclick="window.location.href='mailto:sales@chowdhuryx.com?subject=DraftMaster Enterprise Trial'" class="flex-1 py-5 text-lg bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition flex justify-center items-center gap-2 transform hover:scale-[1.02]">
-                                Start Free Enterprise Trial <i data-lucide="chevron-right"></i>
-                            </button>
-                            <button onclick="window.location.href='mailto:sales@chowdhuryx.com?subject=Book DraftMaster Demo'" class="flex-1 py-5 text-lg glass-card hover:bg-white/10 text-white font-bold rounded-xl transition border border-white/20 transform hover:scale-[1.02]">
-                                Book a Demo
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=Chat Support Manager Beta Access" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-rocket"></i> Join Beta
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- 2. DATING APP DETAILED MODAL -->
-    <div id="modal-prod-dating" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-        <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-dating')"></div>
-        <div class="relative w-full max-w-5xl mx-auto mt-10 md:mt-16 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[85vh]">
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-pink-600/10">
-                <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-pink-400"><i data-lucide="heart"></i> ChowdhuryX Match</h3>
-                <button onclick="closeModal('prod-dating')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
+<!-- AI Video Creator Modal -->
+<div id="modal-video" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">AI Video Creator</h2>
+            <button class="modal-close" onclick="closeProductModal('video')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>Automated Video Production</h3>
+            <p>Transform scripts into professional videos with AI avatars and automated editing. Perfect for content creators, marketers, and businesses looking to scale video production.</p>
             
-            <!-- Modal Body -->
-            <div class="p-8 overflow-y-auto custom-scrollbar">
-                <div class="flex flex-col lg:flex-row gap-8">
-                    <!-- Text Content -->
-                    <div class="lg:w-1/2 space-y-6">
-                        <p class="text-gray-300 text-lg leading-relaxed">
-                            A fully functional, white-label dating web application. Launch your own Tinder or Bumble clone with our robust source code. Includes real-time chat, geolocation matching, and subscription monetization.
-                        </p>
-                        
-                        <div class="bg-pink-900/20 p-4 rounded-xl border border-pink-500/20">
-                            <h4 class="font-bold text-pink-400 text-sm mb-2">Technical Specs:</h4>
-                            <ul class="feature-list grid grid-cols-1 gap-2">
-                                <li><i data-lucide="check"></i> <strong>Frontend:</strong> React.js / Tailwind CSS</li>
-                                <li><i data-lucide="check"></i> <strong>Backend:</strong> Node.js / Firebase</li>
-                                <li><i data-lucide="check"></i> <strong>Real-time:</strong> WebSockets for Chat & Video</li>
-                            </ul>
-                        </div>
-
-                        <div class="space-y-2">
-                            <h4 class="font-bold text-white">Key Features:</h4>
-                            <div class="grid grid-cols-2 gap-4">
-                                <ul class="feature-list">
-                                    <li><i data-lucide="check"></i> Swipe & Match Logic</li>
-                                    <li><i data-lucide="check"></i> Video Call Integration</li>
-                                    <li><i data-lucide="check"></i> Geolocation Matching</li>
-                                </ul>
-                                <ul class="feature-list">
-                                    <li><i data-lucide="check"></i> Premium Subscriptions</li>
-                                    <li><i data-lucide="check"></i> Fake User Prevention</li>
-                                    <li><i data-lucide="check"></i> Admin Dashboard</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-4 pt-4 border-t border-white/10">
-                             <button onclick="alert('Demo server is currently resetting. Please contact sales for a live walkthrough.')" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-lg transition shadow-lg shadow-pink-500/30 flex items-center gap-2">
-                                <i data-lucide="monitor-play"></i> View Live Demo
-                            </button>
-                            <a href="mailto:sales@chowdhuryx.com?subject=Dating App Customization" class="px-6 py-3 border border-pink-500/50 hover:bg-pink-500/10 text-white font-semibold rounded-lg transition flex items-center gap-2">
-                                Reach for Customization
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Screenshot Area -->
-                    <div class="lg:w-1/2">
-                         <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group h-64 md:h-full min-h-[300px]">
-                            <img src="https://images.unsplash.com/photo-1516110833967-0b5716ca1387?auto=format&fit=crop&w=800&q=80" alt="Dating App Interface" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
-                            <div class="absolute bottom-6 left-6">
-                                <p class="text-white font-bold text-xl">Modern UI/UX</p>
-                                <p class="text-pink-300 text-sm">Mobile First Responsive Design</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Planned Features</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-file-alt"></i> <strong>Script-to-Video:</strong> Automated video generation from text</li>
+                <li><i class="fas fa-user-circle"></i> <strong>AI Avatars:</strong> Realistic virtual presenters</li>
+                <li><i class="fas fa-edit"></i> <strong>Auto-Editing:</strong> Intelligent scene transitions and effects</li>
+                <li><i class="fas fa-language"></i> <strong>Multi-Language:</strong> Voiceover in 40+ languages</li>
+            </ul>
+            
+            <p style="margin-top: 2rem; padding: 1rem; background: #dbeafe; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                <strong>Coming Soon:</strong> This product is currently in development. Register your interest to be notified when it launches.
+            </p>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=AI Video Creator Notification List" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-bell"></i> Get Notified
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- 2. PIXGEN IMAGE AI DETAILED MODAL -->
-    <div id="modal-prod-pixgen" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-        <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-pixgen')"></div>
-        <div class="relative w-full max-w-5xl mx-auto mt-10 md:mt-16 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col max-h-[85vh]">
-            <!-- Modal Header -->
-            <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-purple-600/10">
-                <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-purple-400"><i data-lucide="wand-2"></i> PixGen AI Studio</h3>
-                <button onclick="closeModal('prod-pixgen')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
+<!-- WorkFlow Pro Modal -->
+<div id="modal-workflow" class="product-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="product-title" style="margin: 0;">WorkFlow Pro - Automation Platform</h2>
+            <button class="modal-close" onclick="closeProductModal('workflow')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>Enterprise Workflow Automation</h3>
+            <p>A powerful no-code workflow automation platform designed for enterprises. Build complex business processes with our intuitive drag-and-drop interface, integrate with 100+ popular tools, and streamline operations across departments.</p>
             
-            <!-- Modal Body -->
-            <div class="p-8 overflow-y-auto custom-scrollbar">
-                <div class="flex flex-col lg:flex-row gap-8">
-                    <!-- Text Content -->
-                    <div class="lg:w-1/2 space-y-6">
-                        <p class="text-gray-300 text-lg leading-relaxed">
-                             A state-of-the-art AI Image Generation web platform. Users can generate high-fidelity art from text prompts. Built with scalability in mind, connecting to Stable Diffusion or Midjourney APIs.
-                        </p>
-                        
-                        <div class="space-y-4">
-                            <div class="flex gap-4 p-3 bg-white/5 rounded-xl border border-white/5">
-                                <i data-lucide="zap" class="text-purple-400 shrink-0"></i>
-                                <div>
-                                    <h5 class="text-white font-bold text-sm">Credit System Included</h5>
-                                    <p class="text-xs text-gray-400">Monetize with Stripe/PayPal integration. Users buy credits packages to generate images.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-4 p-3 bg-white/5 rounded-xl border border-white/5">
-                                <i data-lucide="images" class="text-purple-400 shrink-0"></i>
-                                <div>
-                                    <h5 class="text-white font-bold text-sm">Public Gallery & Upscaling</h5>
-                                    <p class="text-xs text-gray-400">Community showcase, 4k upscaling, and style presets (Anime, Realistic, Oil Painting, Cyberpunk).</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-4 pt-4 border-t border-white/10">
-                             <button onclick="alert('Redirecting to PixGen Demo Environment...')" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition shadow-lg shadow-purple-500/30 flex items-center gap-2">
-                                <i data-lucide="play-circle"></i> Try Generator Demo
-                            </button>
-                            <a href="mailto:sales@chowdhuryx.com?subject=Buy Image Gen Code" class="px-6 py-3 border border-purple-500/50 hover:bg-purple-500/10 text-white font-semibold rounded-lg transition flex items-center gap-2">
-                                Buy Source Code
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Screenshot Grid -->
-                    <div class="lg:w-1/2">
-                        <div class="grid grid-cols-2 gap-3 h-full">
-                            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=400&q=80" class="rounded-xl opacity-90 hover:opacity-100 transition duration-500 border border-white/10 w-full h-32 object-cover">
-                            <img src="https://images.unsplash.com/photo-1633412802994-5c058f151b66?auto=format&fit=crop&w=400&q=80" class="rounded-xl opacity-90 hover:opacity-100 transition duration-500 border border-white/10 w-full h-32 object-cover">
-                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80" class="rounded-xl opacity-90 hover:opacity-100 transition duration-500 border border-white/10 w-full h-32 object-cover">
-                            <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=400&q=80" class="rounded-xl opacity-90 hover:opacity-100 transition duration-500 border border-white/10 w-full h-32 object-cover">
-                            <!-- Overlay Text -->
-                             <div class="col-span-2 text-center pt-2">
-                                <span class="text-xs text-purple-400 uppercase tracking-widest font-bold">Generated Output Examples</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">Platform Features</h4>
+            <ul class="product-features">
+                <li><i class="fas fa-mouse-pointer"></i> <strong>Visual Builder:</strong> Drag-and-drop workflow designer</li>
+                <li><i class="fas fa-plug"></i> <strong>100+ Integrations:</strong> Connect with Salesforce, Slack, Gmail, and more</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Approval Workflows:</strong> Custom multi-level approval chains</li>
+                <li><i class="fas fa-bell"></i> <strong>Real-Time Alerts:</strong> Instant notifications via email, SMS, or Slack</li>
+                <li><i class="fas fa-chart-line"></i> <strong>Analytics:</strong> Track workflow performance and bottlenecks</li>
+            </ul>
+            
+            <p style="margin-top: 2rem; padding: 1rem; background: #dbeafe; border-left: 4px solid #3b82f6; border-radius: 4px;">
+                <strong>In Development:</strong> Expected launch Q3 2026. Join our early access program for exclusive pricing.
+            </p>
+            
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--color-gray-200);">
+                <a href="mailto:sales@chowdhuryx.com?subject=WorkFlow Pro Early Access" class="btn-demo" style="display: inline-block;">
+                    <i class="fas fa-rocket"></i> Join Early Access
+                </a>
             </div>
         </div>
     </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Product Modal Functions
+function openProductModal(productId) {
+    const modal = document.getElementById('modal-' + productId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeProductModal(productId) {
+    const modal = document.getElementById('modal-' + productId);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close all modals
+function closeAllModals() {
+    const modals = document.querySelectorAll('.product-modal.active');
+    modals.forEach(modal => {
+        modal.classList.remove('active');
+    });
+    document.body.style.overflow = '';
+}
+
+// Tab Switching Function
+function switchProductTab(tabName) {
+    // Remove active class from all tabs and buttons
+    const allTabs = document.querySelectorAll('.tab-content');
+    const allButtons = document.querySelectorAll('.tab-btn');
     
-    <!-- 4. Chat Support Modal (Preserved) -->
-    <div id="modal-prod-chat" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-        <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-chat')"></div>
-        <div class="relative w-full max-w-2xl mx-auto mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col">
-            <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-amber-600/10">
-                <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-amber-400"><i data-lucide="message-square"></i> Chat Support Manager</h3>
-                <button onclick="closeModal('prod-chat')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
-            <div class="p-8">
-                <p class="text-gray-300 text-lg mb-6">Designed for BPO and Customer Service teams, this software unifies live chat, ticketing, and agent performance monitoring into one dashboard.</p>
-                <button onclick="window.location.href='mailto:sales@chowdhuryx.com'" class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg transition">Request Demo</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. Video Tools Modal (Preserved) -->
-    <div id="modal-prod-video" role="dialog" aria-modal="true" class="fixed inset-0 z-[100] hidden" aria-hidden="true">
-        <div class="absolute inset-0 bg-dark-950/80 backdrop-blur-sm transition-opacity" onclick="closeModal('prod-video')"></div>
-        <div class="relative w-full max-w-2xl mx-auto mt-20 glass-card bg-dark-900 rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 modal-content m-4 flex flex-col">
-            <div class="p-6 border-b border-white/10 flex justify-between items-center text-white shrink-0 bg-cyan-600/10">
-                <h3 class="text-2xl font-display font-bold flex items-center gap-3 text-cyan-400"><i data-lucide="video"></i> AI Video Creation</h3>
-                <button onclick="closeModal('prod-video')" aria-label="Close" class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition"><i data-lucide="x" class="w-4 h-4"></i></button>
-            </div>
-            <div class="p-8">
-                <p class="text-gray-300 text-lg mb-6">Streamline content creation with our AI Video Suite. Convert blog posts to videos, create AI avatars for presentations, and automate video editing workflows.</p>
-                <button onclick="window.location.href='mailto:sales@chowdhuryx.com'" class="w-full py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-bold rounded-lg transition">Contact Sales</button>
-            </div>
-        </div>
-    </div>
-
-
-    <footer class="border-t border-white/5 bg-dark-950 py-8 text-center">
-        <p class="text-slate-500 text-sm mb-2">Interested in buying source code?</p>
-        <a href="mailto:sales@chowdhuryx.com" class="text-brand-500 font-bold hover:underline">sales@chowdhuryx.com</a>
-        <p class="text-slate-600 text-[12px] mt-6">© 2025 ChowdhuryX Organization LLC. All rights reserved.</p>
-    </footer>
-
-    <script>
-        function openModal(id) {
-            const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
-            const modal = document.getElementById(modalId);
-            if(modal) {
-                modal.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                   const content = modal.querySelector('.modal-content');
-                   content.classList.remove('scale-95', 'opacity-0');
-                   content.classList.add('scale-100', 'opacity-100');
-                   modal.querySelector('div:first-child').classList.remove('opacity-0');
-                });
-                document.body.style.overflow = 'hidden';
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-            }
+    allTabs.forEach(tab => tab.classList.remove('active'));
+    allButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Add active class to selected tab
+    const selectedTab = document.getElementById('tab-' + tabName);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+    
+    // Add active class to the correct button
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+        const btnText = btn.textContent.toLowerCase();
+        if ((tabName === 'live' && btnText.includes('live')) || 
+            (tabName === 'coming-soon' && btnText.includes('coming'))) {
+            btn.classList.add('active');
         }
+    });
+}
 
-        function closeModal(id) {
-            const modalId = id.startsWith('modal-') ? id : 'modal-' + id;
-            const modal = document.getElementById(modalId);
-            if(modal) {
-                 const content = modal.querySelector('.modal-content');
-                 content.classList.remove('scale-100', 'opacity-100');
-                 content.classList.add('scale-95', 'opacity-0');
-                 modal.querySelector('div:first-child').classList.add('opacity-0');
-                 setTimeout(() => {
-                     modal.classList.add('hidden');
-                     document.body.style.overflow = '';
-                 }, 300);
-            }
-        }
+// Close modal when clicking outside
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('product-modal')) {
+        closeAllModals();
+    }
+});
 
-        function switchTab(tabId) {
-            const liveBtn = document.getElementById('btn-live');
-            const upcomingBtn = document.getElementById('btn-upcoming');
-            const liveTab = document.getElementById('tab-live');
-            const upcomingTab = document.getElementById('tab-upcoming');
-
-            if (tabId === 'live') {
-                liveBtn.classList.add('bg-brand-600', 'text-white', 'shadow-lg');
-                liveBtn.classList.remove('text-gray-400', 'hover:text-white');
-                upcomingBtn.classList.remove('bg-brand-600', 'text-white', 'shadow-lg');
-                upcomingBtn.classList.add('text-gray-400', 'hover:text-white');
-
-                liveTab.classList.remove('hidden-tab');
-                liveTab.classList.add('animate-tab');
-                upcomingTab.classList.remove('animate-tab');
-                upcomingTab.classList.add('hidden-tab');
-            } else {
-                upcomingBtn.classList.add('bg-brand-600', 'text-white', 'shadow-lg');
-                upcomingBtn.classList.remove('text-gray-400', 'hover:text-white');
-                liveBtn.classList.remove('bg-brand-600', 'text-white', 'shadow-lg');
-                liveBtn.classList.add('text-gray-400', 'hover:text-white');
-
-                upcomingTab.classList.remove('hidden-tab');
-                upcomingTab.classList.add('animate-tab');
-                liveTab.classList.remove('animate-tab');
-                liveTab.classList.add('hidden-tab');
-            }
-        }
-        
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-        else window.onload = function() { if (typeof lucide !== 'undefined') lucide.createIcons(); }
-    </script>
-</body>
-</html>
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeAllModals();
+    }
+});
+</script>
+{% endblock %}
