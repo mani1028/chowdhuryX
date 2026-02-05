@@ -18,7 +18,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 from config import get_config
-from models import db, Contact, Career, Blog, Testimonial, Service, Job, BlogLike
+from models import db, Contact, Career, Blog, Testimonial, Service, Job, BlogLike, CommentLike
 try:
     from content_data_enhanced import get_service_details, get_all_services_details, get_industry_details, get_all_industries
 except ImportError:
@@ -271,6 +271,11 @@ def create_app(config_name=None):
         """Portfolio/Case Studies Page"""
         return render_template('portfolio.html')
     
+    @app.route('/products')
+    def products():
+        """Products Page"""
+        return render_template('products.html')
+    
     @app.route('/careers')
     def careers():
         """Careers Page with pagination and filters"""
@@ -468,22 +473,63 @@ def create_app(config_name=None):
     
     @app.route('/comment/<int:comment_id>/like', methods=['POST'])
     def like_comment(comment_id):
-        """Like a comment"""
+        """Like a comment - Device-based to prevent spam"""
         try:
             from models import Comment
             comment = Comment.query.get_or_404(comment_id)
             
-            # Increment likes
+            # Get device ID from request
+            data = request.get_json()
+            device_id = data.get('device_id') if data else None
+            
+            if not device_id or len(device_id) < 10:
+                return jsonify({'success': False, 'message': 'Invalid device identifier'}), 400
+            
+            # Check if this device already liked this comment
+            existing_like = CommentLike.query.filter_by(comment_id=comment_id, device_id=device_id).first()
+            
+            if existing_like:
+                return jsonify({'success': False, 'message': 'You already liked this comment', 'already_liked': True}), 400
+            
+            # Create new like
+            new_like = CommentLike(
+                comment_id=comment_id,
+                device_id=device_id,
+                ip_address=request.remote_addr
+            )
+            
+            # Increment comment likes counter
             if comment.likes is None:
                 comment.likes = 0
             comment.likes += 1
             
+            db.session.add(new_like)
             db.session.commit()
             
-            return jsonify({'success': True, 'likes': comment.likes})
+            return jsonify({'success': True, 'likes': comment.likes, 'liked': True})
         except Exception as e:
             logger.error(f"Comment like error: {str(e)}")
+            db.session.rollback()
             return jsonify({'success': False, 'message': 'Error liking comment'}), 400
+    
+    @app.route('/comment/<int:comment_id>/like/check', methods=['POST'])
+    def check_comment_like(comment_id):
+        """Check if device has already liked this comment"""
+        try:
+            # Get device ID from request
+            data = request.get_json()
+            device_id = data.get('device_id') if data else None
+            
+            if not device_id:
+                return jsonify({'liked': False})
+            
+            # Check if this device liked this comment
+            existing_like = CommentLike.query.filter_by(comment_id=comment_id, device_id=device_id).first()
+            
+            return jsonify({'liked': existing_like is not None})
+        except Exception as e:
+            logger.error(f"Check comment like error: {str(e)}")
+            return jsonify({'liked': False})
     
     @app.route('/faq')
     def faq():
