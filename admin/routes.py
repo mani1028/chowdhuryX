@@ -371,6 +371,8 @@ def create_blog():
     """Create new blog post with image and video upload"""
     blog = None
     edit_id = request.args.get('edit_id', type=int)
+
+    limits = get_blog_limits()
     
     if edit_id:
         blog = Blog.query.get_or_404(edit_id)
@@ -384,6 +386,19 @@ def create_blog():
         video_url = request.form.get('video_url', '').strip()
         image_url = request.form.get('image_url', '').strip()
         
+        has_error = False
+
+        # Validate text lengths
+        if title and len(title) > limits['title_max_chars']:
+            flash(f'Title exceeds {limits["title_max_chars"]} characters.', 'error')
+            has_error = True
+        if excerpt and len(excerpt) > limits['excerpt_max_chars']:
+            flash(f'Excerpt exceeds {limits["excerpt_max_chars"]} characters.', 'error')
+            has_error = True
+        if content and len(content) > limits['content_max_chars']:
+            flash(f'Content exceeds {limits["content_max_chars"]} characters.', 'error')
+            has_error = True
+
         # Check for removal checkboxes
         remove_featured_image = request.form.get('remove_featured_image') == '1'
         remove_image_url = request.form.get('remove_image_url') == '1'
@@ -407,11 +422,17 @@ def create_blog():
             file = request.files['featured_image']
             if file and file.filename != '':
                 if allowed_file(file.filename, 'image'):
-                    # Use deduplication logic to save file
-                    filename = save_uploaded_file(file, current_app.config['UPLOAD_FOLDER'])
-                    featured_image = filename
+                    file_size = get_file_size_bytes(file)
+                    if file_size and file_size > limits['image_max_bytes']:
+                        flash(f'Featured image exceeds {limits["image_max_mb"]}MB limit.', 'error')
+                        has_error = True
+                    else:
+                        # Use deduplication logic to save file
+                        filename = save_uploaded_file(file, current_app.config['UPLOAD_FOLDER'])
+                        featured_image = filename
                 else:
                     flash('Featured image must be an image file (PNG, JPG, JPEG, GIF, WebP)', 'error')
+                    has_error = True
         
         # Handle image URL removal
         if remove_image_url:
@@ -425,10 +446,21 @@ def create_blog():
             file = request.files['video_file']
             if file and file.filename != '':
                 if allowed_file(file.filename, 'video'):
-                    # Use deduplication logic to save file
-                    videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
-                    filename = save_uploaded_file(file, videos_dir)
-                    video_file = filename
+                    file_size = get_file_size_bytes(file)
+                    if file_size and file_size > limits['video_max_bytes']:
+                        flash(f'Video file exceeds {limits["video_max_mb"]}MB limit.', 'error')
+                        has_error = True
+                    else:
+                        # Use deduplication logic to save file
+                        videos_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], 'videos')
+                        filename = save_uploaded_file(file, videos_dir)
+                        video_file = filename
+                else:
+                    flash('Video must be a supported format (MP4, WebM, OGG, AVI, MOV, MKV, FLV, WMV)', 'error')
+                    has_error = True
+
+        if has_error:
+            return render_template('admin-blog-form.html', blog=blog, limits=limits)
         
         # Handle video URL removal
         if remove_video_url:
@@ -474,9 +506,9 @@ def create_blog():
             return redirect(url_for('admin.view_blog', blog_id=blog.id))
         except Exception as e:
             flash(f'Error: {str(e)}', 'error')
-            return render_template('admin-blog-form.html', blog=blog, error=str(e))
-    
-    return render_template('admin-blog-form.html', blog=blog)
+            return render_template('admin-blog-form.html', blog=blog, limits=limits, error=str(e))
+
+    return render_template('admin-blog-form.html', blog=blog, limits=limits)
 
 
 @admin_bp.route('/blog/<int:blog_id>')
@@ -716,6 +748,36 @@ def save_uploaded_file(file_obj, upload_dir, file_prefix=''):
     file_obj.save(filepath)
     current_app.logger.info(f"Saved new file: {filename}")
     return filename
+
+
+def get_file_size_bytes(file_obj):
+    """Return file size in bytes when possible"""
+    try:
+        file_obj.stream.seek(0, os.SEEK_END)
+        size = file_obj.stream.tell()
+        file_obj.stream.seek(0)
+        return size
+    except Exception:
+        return None
+
+
+def _bytes_to_mb_ceil(size_bytes):
+    return max(1, (size_bytes + (1024 * 1024) - 1) // (1024 * 1024))
+
+
+def get_blog_limits():
+    """Get blog limits with display-friendly values"""
+    image_max_bytes = current_app.config.get('BLOG_IMAGE_MAX_BYTES', 5 * 1024 * 1024)
+    video_max_bytes = current_app.config.get('BLOG_VIDEO_MAX_BYTES', 100 * 1024 * 1024)
+    return {
+        'image_max_bytes': image_max_bytes,
+        'video_max_bytes': video_max_bytes,
+        'content_max_chars': current_app.config.get('BLOG_CONTENT_MAX_CHARS', 100000),
+        'excerpt_max_chars': current_app.config.get('BLOG_EXCERPT_MAX_CHARS', 500),
+        'title_max_chars': current_app.config.get('BLOG_TITLE_MAX_CHARS', 255),
+        'image_max_mb': _bytes_to_mb_ceil(image_max_bytes),
+        'video_max_mb': _bytes_to_mb_ceil(video_max_bytes),
+    }
 
 
 def track_service_contact(service_name):

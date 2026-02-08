@@ -63,13 +63,15 @@
                 <!-- Title -->
                 <div class="form-group">
                     <label for="title"><i class="fas fa-heading"></i> Title *</label>
-                    <input type="text" id="title" name="title" value="{{ blog.title if blog else '' }}" required autofocus class="form-input" placeholder="Enter blog post title">
+                    <input type="text" id="title" name="title" value="{{ blog.title if blog else '' }}" required autofocus class="form-input" placeholder="Enter blog post title" maxlength="{{ limits.title_max_chars }}">
+                    <small>Max {{ limits.title_max_chars }} characters</small>
                 </div>
 
                 <!-- Excerpt -->
                 <div class="form-group">
                     <label for="excerpt"><i class="fas fa-quote-left"></i> Excerpt</label>
-                    <textarea id="excerpt" name="excerpt" rows="3" class="form-input" placeholder="Brief summary of your post...">{{ blog.excerpt if blog else '' }}</textarea>
+                    <textarea id="excerpt" name="excerpt" rows="3" class="form-input" placeholder="Brief summary of your post..." maxlength="{{ limits.excerpt_max_chars }}">{{ blog.excerpt if blog else '' }}</textarea>
+                    <small>Max {{ limits.excerpt_max_chars }} characters</small>
                 </div>
 
                 <!-- Content -->
@@ -77,6 +79,7 @@
                     <label for="editor"><i class="fas fa-pen"></i> Content * (Paste from ChatGPT - Bold, Bullets, Headings supported)</label>
                     <textarea id="content" name="content" style="display:none;">{{ blog.content if blog else '' }}</textarea>
                     <div id="editor" class="quill-editor"></div>
+                    <small>Max {{ limits.content_max_chars }} characters</small>
                 </div>
             </div>
 
@@ -98,7 +101,7 @@
                     <p style="margin: 8px 0; font-size: 12px; color: #666;"><strong>Upload new image:</strong></p>
                     {% endif %}
                     <input type="file" id="featured_image" name="featured_image" accept="image/*" class="form-input">
-                    <small>Recommended: 1200x630px, Max 5MB</small>
+                    <small>Recommended: 1200x630px, Max {{ limits.image_max_mb }}MB</small>
                 </div>
 
                 <!-- Image URL -->
@@ -134,7 +137,7 @@
                     <p style="margin: 8px 0; font-size: 12px; color: #666;"><strong>Upload new video:</strong></p>
                     {% endif %}
                     <input type="file" id="video_file" name="video_file" accept="video/mp4,video/webm,video/ogg" class="form-input">
-                    <small>Supported: MP4, WebM, OGG. Max 100MB</small>
+                    <small>Supported: MP4, WebM, OGG. Max {{ limits.video_max_mb }}MB</small>
                 </div>
 
                 <!-- Video Option 2: Video URL Link -->
@@ -492,11 +495,18 @@ document.addEventListener('DOMContentLoaded', function() {
     var form = document.querySelector('.blog-form');
     form.addEventListener('submit', function(e) {
         var content = quill.root.innerHTML;
+        var contentMaxChars = {{ limits.content_max_chars | int }};
         
         // Validate content is not empty
         if (!content || content === '<p><br></p>' || content === '') {
             e.preventDefault();
             alert('Please write some content for your blog post');
+            return false;
+        }
+
+        if (content.length > contentMaxChars) {
+            e.preventDefault();
+            alert('Content exceeds the maximum allowed length. Please shorten the post.');
             return false;
         }
         
