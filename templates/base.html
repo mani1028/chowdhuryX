@@ -302,9 +302,13 @@
         }
     });
     </script>
+
+    <!-- Developer Info Easter Egg -->
+    <script src="{{ url_for('static', filename='js/dev-info.js') }}"></script>
+    
     {% block scripts %}{% endblock %}
-</body>
-</html>    <!-- Page-specific JavaScript -->
+
+    <!-- Page-specific JavaScript -->
     {% block js %}{% endblock %}
 </body>
 </html>
