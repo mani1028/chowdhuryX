@@ -48,12 +48,20 @@ class Config:
     SESSION_COOKIE_SAMESITE = 'Lax'
     
     # Upload Settings
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    # Keep this >= largest allowed upload to avoid request-level rejections.
+    MAX_CONTENT_LENGTH = 120 * 1024 * 1024  # 120MB max request size
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads')
     BLOG_IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/blog')
     RESUME_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/resumes')
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'pdf', 'doc', 'docx'}
     ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+
+    # Blog Limits
+    BLOG_IMAGE_MAX_BYTES = 5 * 1024 * 1024  # 5MB
+    BLOG_VIDEO_MAX_BYTES = 100 * 1024 * 1024  # 100MB
+    BLOG_CONTENT_MAX_CHARS = 100000
+    BLOG_EXCERPT_MAX_CHARS = 500
+    BLOG_TITLE_MAX_CHARS = 255
     
     # Email Configuration
     MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
