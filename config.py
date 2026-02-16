@@ -48,8 +48,7 @@ class Config:
     SESSION_COOKIE_SAMESITE = 'Lax'
     
     # Upload Settings
-    # Keep this >= largest allowed upload to avoid request-level rejections.
-    MAX_CONTENT_LENGTH = 120 * 1024 * 1024  # 120MB max request size
+    MAX_CONTENT_LENGTH = 120 * 1024 * 1024 
     UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads')
     BLOG_IMAGE_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/blog')
     RESUME_FOLDER = os.path.join(os.path.dirname(__file__), 'static/uploads/resumes')
@@ -57,8 +56,8 @@ class Config:
     ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
     # Blog Limits
-    BLOG_IMAGE_MAX_BYTES = 5 * 1024 * 1024  # 5MB
-    BLOG_VIDEO_MAX_BYTES = 100 * 1024 * 1024  # 100MB
+    BLOG_IMAGE_MAX_BYTES = 5 * 1024 * 1024
+    BLOG_VIDEO_MAX_BYTES = 100 * 1024 * 1024
     BLOG_CONTENT_MAX_CHARS = 100000
     BLOG_EXCERPT_MAX_CHARS = 500
     BLOG_TITLE_MAX_CHARS = 255
@@ -99,9 +98,14 @@ class ProductionConfig(Config):
 
 
 class TestingConfig(Config):
-    """Testing configuration"""
+    """Testing configuration - Uses a separate SQLite file"""
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    DEBUG = True
+    WTF_CSRF_ENABLED = False
+    # Use a separate file named test_chowdhuryX.db
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir, 'instance', 'test_chowdhuryX.db')}"
+    SESSION_COOKIE_SECURE = False
 
 
 # Select config based on environment
