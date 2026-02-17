@@ -32,7 +32,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Add scroll effect to header
 const header = document.querySelector('.header');
-let lastScroll = 0;
+if (header) {
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.15)';
+        } else {
+            header.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.12)';
+        }
+        
+        lastScroll = currentScroll;
+    });
+}
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
