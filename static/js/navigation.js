@@ -31,16 +31,38 @@
         overlay.addEventListener('click', closeMenu);
         
         // Handle dropdown toggles on mobile
-        const dropdownItems = document.querySelectorAll('.nav-item-dropdown');
-        dropdownItems.forEach(item => {
-            const link = item.querySelector('.nav-link');
-            if (link && window.innerWidth <= 1024) {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    item.classList.toggle('active');
-                });
-            }
+        function setupDropdownToggles() {
+            const dropdownItems = document.querySelectorAll('.nav-item-dropdown');
+            dropdownItems.forEach(item => {
+                const link = item.querySelector('.nav-link');
+                if (link) {
+                    link.onclick = null;
+                    if (window.innerWidth <= 1024) {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            item.classList.toggle('active');
+                        });
+                    }
+                }
+            });
+        }
+        setupDropdownToggles();
+        window.addEventListener('resize', setupDropdownToggles);
+
+
+        // Close menu when clicking a nav link (mobile)
+        navbarMenu.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 1024) {
+                    closeMenu();
+                }
+            });
         });
+
+        // Also close menu when clicking overlay (for accessibility)
+        if (overlay) {
+            overlay.addEventListener('click', closeMenu);
+        }
     }
     
     function openMenu() {
