@@ -636,7 +636,8 @@ def create_app(config_name=None):
             'company_name': 'ChowdhuryX',
             'company_email': 'info@chowdhuryX.com',
             'company_phone': '+1 (555) 123-4567',
-            'csrf_token': generate_csrf
+            'csrf_token': generate_csrf,
+            'min': min
         }
     
     # ==================== CLI COMMANDS ====================
